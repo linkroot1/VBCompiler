@@ -169,7 +169,7 @@ Xor {printf("\nReserved keyword Xor: \n");}
 #End {printf("\nReserved keyword #End: \n");}
 #If {printf("\nReserved keyword #If: \n");}
 
-\"                              { BEGIN(STRING_LITERAL); }
+\" { BEGIN(STRING_LITERAL);}
 <STRING_LITERAL>[^"]+   { printf("\nString literal: %s\n", yytext); }
 <STRING_LITERAL>""             {  printf("\nString literal: \"\n");}
 <STRING_LITERAL><<EOF>>            {  BEGIN(INITIAL);}
@@ -203,15 +203,16 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <COMMENT>\n {BEGIN(INITIAL);}
 <COMMENT><<EOF>> {BEGIN(INITIAL);}
 
-[:alpha:][[:alnum:]_]* { printf("Identifier: %s\n", yytext);}
-
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %d\n", atoi(yytext));}
 [-+]\?(\?\:[0-9]+(\?\:\.[0-9]*)\?|\.[0-9]+)(\?\:[eE][-+]\?[0-9]+)\? {printf("\nSingle/double const: %s\n", atof(yytext));}
-(\#[:space:]*(0*[0-9]|1[0-2])(-|\/)(0*[0-9]|[1-2][0-9]|3[0-1])(-|\/)([0-9]{4}|[0-9]{3})[:space:]+((((0*[0-9])|(1[0-2]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9])\:(0*[0-9]|[1-5][0-9])))[:space:]*(AM|PM))?\#) {printf("\nDate const: %s\n", yytext);}
+/*(\#[:space:]*(0*[0-9]|1[0-2])(-|\)(0*[0-9]|[1-2][0-9]|3[0-1])(-|\/)([0-9]{4}|[0-9]{3})[:space:]+((((0*[0-9])|(1[0-2]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9])\:(0*[0-9]|[1-5][0-9])))[:space:]*(AM|PM))?\#) {printf("\nDate const: %s\n", yytext);}*/
+\#[:space:]*\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z? {printf("\nDate const: %s\n", yytext);
 \"[^"]*\" {printf("\nString const: %s\n", yytext);} //(Переделать)Перевести в состояние строки, обработать все специальные символы внутри строки (как <STRING> ""  {printf("\"");}
 True {printf("\nBoolean const true: %s\n", yytext);}
 False {printf("\nBoolean const false: %s\n", yytext);}
 \n  {printf("\nEnd of line:");}
+
+[:alpha:][[:alnum:]_]* { printf("Identifier: %s\n", yytext);}
 %%
 
 void main(int argc, char** argv){
