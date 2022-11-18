@@ -228,14 +228,12 @@ False {printf("\nBoolean const false: %d\n", 0);}
 ([a-zA-Z_])([a-zA-Z_0-9])* { printf("\nIdentifier: %s\n", yytext);}
 %%
 
-void int2_to_int10(char * str)
+int val(char c)
 {
-//тут должна быть функция
-}
-
-void int16_to_int10(char * str)
-{
-//тут должна быть функция
+    if (c >= '0' && c <= '9')
+        return (int)c - '0';
+    else
+        return (int)c - 'A' + 10;
 }
 
 int toDeci(char *str, int base)
