@@ -214,8 +214,8 @@ Xor {printf("\nReserved keyword Xor: \n");}
 
 //([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %d\n", atoi(yytext);} //удалить _ , преобразовать через atoi
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext);} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext);} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int16_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int2_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
@@ -227,6 +227,16 @@ False {printf("\nBoolean const false: %d\n", 0);}
 ([a-zA-Z_])([a-zA-Z_0-9])* { printf("\nIdentifier: %s\n", yytext);}
 %%
 
+void int2_to_int10(char * str)
+{
+//тут должна быть функция
+}
+
+void int16_to_int10(char * str)
+{
+//тут должна быть функция
+}
+
 void delUnderscore(char * str)
 {
     int i, j;
@@ -235,7 +245,7 @@ void delUnderscore(char * str)
 
     for (i = 0, j = 0; i < len - 1; i++)
     {
-        if (str[i] == ' ')
+        if (str[i] == '_')
         {
             if (str[i + 1] == '_')
             {
