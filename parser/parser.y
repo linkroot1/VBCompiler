@@ -36,19 +36,16 @@ void yyerror(char const *s) {
 
 
 //-------------------------If/Else stmt
+//Сделать обработку переводов строки
 IfStmt: If expr Then stmt
-      | If expr Then stmt ElseIf expr Then stmt Else stmt End If
       | If expr Then stmt Else stmt End If
-      | If expr Then IfStmt
-      | If expr Then IfStmt ElseIf expr Then IfStmt Else Ifstmt End If
-      | If expr Then stmt ElseIf expr Then IfStmt Else Ifstmt End If
-      | If expr Then stmt ElseIf expr Then stmt Else Ifstmt End If
-      | If expr Then IfStmt ElseIf expr Then stmt Else stmt End If
-      | If expr Then stmt ElseIf expr Then IfStmt Else stmt End If
-      | If expr Then IfStmt ElseIf expr Then stmt Else Ifstmt End If
-      | If expr Then IfStmt Else IfStmt End If
-      | If expr Then IfStmt Else stmt End If
-      | If expr Then stmt Else IfStmt End If
+      | If expr Then stmt             Else stmt End If
+      | If expr Then stmt ElseIf_list Else stmt End If
+
+
+
+//--------------------------Switch stmt
+
 
 
 %%
