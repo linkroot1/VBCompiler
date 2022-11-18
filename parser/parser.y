@@ -26,6 +26,26 @@ void yyerror(char const *s) {
 
 %%
 
+/* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+//-------------------------While/for stmt
+
+
+
+
+//-------------------------If/Else stmt
+//Сделать обработку переводов строки
+IfStmt: If expr Then stmt
+      | If expr Then stmt Else stmt End If
+      | If expr Then stmt             Else stmt End If
+      | If expr Then stmt ElseIf_list Else stmt End If
+
+
+
+//--------------------------Switch stmt
+
 
 
 %%

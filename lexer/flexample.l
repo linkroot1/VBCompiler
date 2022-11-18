@@ -12,7 +12,7 @@
 
 %%
 
-
+//ToDo: преобразовать int в Сишный int, выводить ошибку в случае если не закрыть строку
 
 AddHandler {printf("\nReserved keyword AddHandler: \n");}
 Alias {printf("\nReserved keyword Alias: \n");}
@@ -213,11 +213,14 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <DATETIME>[^#\n]+  {printf("\Datetime: %s\n", yytext); }
 <DATETIME># {BEGIN(INITIAL);}
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
+//([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %d\n", atoi(yytext);} //удалить _ , преобразовать через atoi
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int16_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int2_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
-True {printf("\nBoolean const true: %s\n", yytext);}
-False {printf("\nBoolean const false: %s\n", yytext);}
+True {printf("\nBoolean const true: %d\n", 1);}
+False {printf("\nBoolean const false: %d\n", 0);}
 \n+  {printf("\nEnd of line:");}
 
 
@@ -225,44 +228,14 @@ False {printf("\nBoolean const false: %s\n", yytext);}
 ([a-zA-Z_])([a-zA-Z_0-9])* { printf("\nIdentifier: %s\n", yytext);}
 %%
 
-void delHB(char * str)
+void int2_to_int10(char * str)
 {
-    int i, j;
-    int len = strlen(str);
-    char temp[len];
-    
-    for (i = 0, j = 0; i < len; i++)
-    	if (str[i] == '&')
-            i++;
-        else
-        	temp[j++] = str[i];
+//тут должна быть функция
+}
 
-    /*for (i = 0, j = 0; i < len - 1; i++)
-    {
-        if (str[i] == ' ')
-        {
-            if (str[i + 1] == '_')
-            {
-                i++;
-                continue;
-            }
-            else
-            {
-                temp[j] = str[++i];
-                j++;
-            }
-        }
-        else
-        {
-            temp[j] = str[i];
-            j++;
-        }
-    }*/
-    
-    for (i = 0; i < j; i++)
-        str[i] = temp[i];
-        
-    str[i] = '\0';
+void int16_to_int10(char * str)
+{
+//тут должна быть функция
 }
 
 void delUnderscore(char * str)
@@ -273,7 +246,7 @@ void delUnderscore(char * str)
 
     for (i = 0, j = 0; i < len - 1; i++)
     {
-        if (str[i] == ' ')
+		if (str[i] == '_')
         {
             if (str[i + 1] == '_')
             {
