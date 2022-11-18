@@ -215,8 +215,8 @@ Xor {printf("\nReserved keyword Xor: \n");}
 
 //([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %d\n", atoi(yytext);} //удалить _ , преобразовать через atoi
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int16_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext); int2_to_int10(yytext); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delHB(yytext); toDeci(yytext, 2); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delHB(yytext); toDeci(yytext, 16); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
@@ -236,6 +236,50 @@ void int2_to_int10(char * str)
 void int16_to_int10(char * str)
 {
 //тут должна быть функция
+}
+
+int toDeci(char *str, int base)
+{
+    int len = strlen(str);
+    int power = 1; // Initialize power of base
+    int num = 0;  // Initialize result
+    int i;
+ 
+    // Decimal equivalent is str[len-1]*1 +
+    // str[len-2]*base + str[len-3]*(base^2) + ...
+    for (i = len - 1; i >= 0; i--)
+    {
+        // A digit in input number must be
+        // less than number's base
+        if (val(str[i]) >= base)
+        {
+           printf("Invalid Number");
+           return -1;
+        }
+ 
+        num += val(str[i]) * power;
+        power = power * base;
+    }
+ 
+    return num;
+}
+
+void delHB(char * str)
+{
+    int i, j;
+    int len = strlen(str);
+    char temp[len];
+    
+    for (i = 0, j = 0; i < len; i++)
+    	if (str[i] == '&')
+            i++;
+        else
+        	temp[j++] = str[i];
+
+    for (i = 0; i < j; i++)
+        str[i] = temp[i];
+        
+    str[i] = '\0';
 }
 
 void delUnderscore(char * str)
