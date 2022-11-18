@@ -178,7 +178,7 @@ Xor {printf("\nReserved keyword Xor: \n");}
 \" { BEGIN(STRING_LITERAL);}
 <STRING_LITERAL>[^"]+		{ printf("\nString literal: %s\n", yytext); }
 <STRING_LITERAL>""			{  printf("\nString literal: \"\n");}
-<STRING_LITERAL><<EOF>>		{  error("\nError: unterminated string literal\n"); yyterminate();}
+<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}
 <STRING_LITERAL>\"			{  BEGIN(INITIAL);}
 
 \= {printf("\nAssignment operator: \n");}
@@ -215,8 +215,8 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <DATETIME>[^#\n]+  {printf("\nDatetime: %s\n", yytext); }
 <DATETIME># {BEGIN(INITIAL);}
 
-//([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext);}
+
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext));}
 ([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  toDeci(yytext, 16); printf("\nInteger const: %d\n", atoi(yytext));}
 ([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B");  toDeci(yytext, 2); printf("\nInteger const: %d\n", atoi(yytext));}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
@@ -264,55 +264,6 @@ int toDeci(char *str, int base)
     return num;
 }
 
-void delHB(char * str)
-{
-    int i, j;
-    int len = strlen(str);
-    char temp[len];
-    
-    for (i = 0, j = 0; i < len; i++)
-    	if (str[i] == '&')
-            i++;
-        else
-        	temp[j++] = str[i];
-
-    for (i = 0; i < j; i++)
-        str[i] = temp[i];
-        
-    str[i] = '\0';
-}
-
-void delUnderscore(char * str)
-{
-    int i, j;
-    int len = strlen(str);
-    char temp[len];
-
-    for (i = 0, j = 0; i < len - 1; i++)
-    {
-		if (str[i] == '_')
-        {
-            if (str[i + 1] == '_')
-            {
-                i++;
-                continue;
-            }
-            else
-            {
-                temp[j] = str[++i];
-                j++;
-            }
-        }
-        else
-        {
-            temp[j] = str[i];
-            j++;
-        }
-    }
-    for (i = 0; i < j; i++)
-        str[i] = temp[i];
-    str[i] = '\0';
-}
 
 void remove_substr(char* str, const char* substr)
 {
