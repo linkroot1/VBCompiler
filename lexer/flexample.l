@@ -1,18 +1,20 @@
 %option noyywrap
-%option -i
+%option caseless
 %option never-interactive
 %{
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 %}
 %x STRING_LITERAL
 %x COMMENT
 %x DATETIME
-//Добавить деррективу регистронезависимости
+
 
 %%
 
-//ToDo: преобразовать int в Сишный int, выводить ошибку в случае если не закрыть строку
+
 
 AddHandler {printf("\nReserved keyword AddHandler: \n");}
 Alias {printf("\nReserved keyword Alias: \n");}
@@ -210,13 +212,13 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <COMMENT><<EOF>> {BEGIN(INITIAL);}
 
 # {BEGIN(DATETIME);}
-<DATETIME>[^#\n]+  {printf("\Datetime: %s\n", yytext); }
+<DATETIME>[^#\n]+  {printf("\nDatetime: %s\n", yytext); }
 <DATETIME># {BEGIN(INITIAL);}
 
 //([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %d\n", atoi(yytext);} //удалить _ , преобразовать через atoi
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delHB(yytext); toDeci(yytext, 2); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delHB(yytext); toDeci(yytext, 16); printf("\nInteger const: %d\n", atoi(yytext));} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext);}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  toDeci(yytext, 16); printf("\nInteger const: %d\n", atoi(yytext));}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B");  toDeci(yytext, 2); printf("\nInteger const: %d\n", atoi(yytext));}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
@@ -239,16 +241,16 @@ int val(char c)
 int toDeci(char *str, int base)
 {
     int len = strlen(str);
-    int power = 1; // Initialize power of base
-    int num = 0;  // Initialize result
+    int power = 1;
+    int num = 0;
     int i;
  
-    // Decimal equivalent is str[len-1]*1 +
-    // str[len-2]*base + str[len-3]*(base^2) + ...
+
+
     for (i = len - 1; i >= 0; i--)
     {
-        // A digit in input number must be
-        // less than number's base
+
+
         if (val(str[i]) >= base)
         {
            printf("Invalid Number");
@@ -310,6 +312,38 @@ void delUnderscore(char * str)
     for (i = 0; i < j; i++)
         str[i] = temp[i];
     str[i] = '\0';
+}
+
+void remove_substr(char* str, const char* substr)
+{
+    char* begin = str;
+    char* end = str;
+    char* cur;
+    const char* sub;
+
+    while (*end)
+    {
+        for (sub = substr, cur = end; *sub && *cur && *sub == *cur; ++cur, ++sub);
+
+        if (*sub == 0)
+        {
+            end = cur;
+        }
+
+        if (begin != end)
+        {
+            *begin = *end;
+        }
+
+        if (*sub != 0)
+        {
+            begin++;
+            end++;
+        }
+    }
+    *begin = 0;
+
+
 }
 
 void main(int argc, char** argv){
