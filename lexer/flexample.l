@@ -1,5 +1,5 @@
 %option noyywrap
-%optin -i
+%option -i
 %option never-interactive
 %{
 #include <stdio.h>
@@ -8,7 +8,6 @@
 %x STRING_LITERAL
 %x COMMENT
 %x DATETIME
-//Добавить деррективу регистронезависимости
 
 %%
 
@@ -214,9 +213,9 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <DATETIME># {BEGIN(INITIAL);}
 
 //([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %s\n", yytext);} //удалить _ , преобразовать через atoi
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %d\n", atoi(yytext);} //удалить _ , преобразовать через atoi
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext);} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {delUnderscore(yytext);} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
