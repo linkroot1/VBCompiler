@@ -10,7 +10,7 @@
 
 %%
 
-
+//ToDo: преобразовать int в Сишный int, выводить ошибку в случае если не закрыть строку
 
 AddHandler {printf("\nReserved keyword AddHandler: \n");}
 Alias {printf("\nReserved keyword Alias: \n");}
@@ -214,9 +214,9 @@ Xor {printf("\nReserved keyword Xor: \n");}
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
-True {printf("\nBoolean const true: %s\n", yytext);}
-False {printf("\nBoolean const false: %s\n", yytext);}
-\n  {printf("\nEnd of line:");}
+True {printf("\nBoolean const true: %d\n", 1);}
+False {printf("\nBoolean const false: %d\n", 0);}
+\n+  {printf("\nEnd of line:");}
 
 
 
