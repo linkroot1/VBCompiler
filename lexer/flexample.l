@@ -1,4 +1,5 @@
 %option noyywrap
+%optin -i
 %option never-interactive
 %{
 #include <stdio.h>
@@ -7,6 +8,7 @@
 %x STRING_LITERAL
 %x COMMENT
 %x DATETIME
+//Добавить деррективу регистронезависимости
 
 %%
 
@@ -174,7 +176,7 @@ Xor {printf("\nReserved keyword Xor: \n");}
 \" { BEGIN(STRING_LITERAL);}
 <STRING_LITERAL>[^"]+   { printf("\nString literal: %s\n", yytext); }
 <STRING_LITERAL>""             {  printf("\nString literal: \"\n");}
-<STRING_LITERAL><<EOF>>            {  BEGIN(INITIAL);}
+<STRING_LITERAL><<EOF>>            {  error("\nError: unterminated string literal\n"); yyterminate();}
 <STRING_LITERAL>\"             {  BEGIN(INITIAL);}
 
 \= {printf("\nAssignment operator: \n");}
@@ -211,7 +213,10 @@ Xor {printf("\nReserved keyword Xor: \n");}
 <DATETIME>[^#\n]+  {printf("\Datetime: %s\n", yytext); }
 <DATETIME># {BEGIN(INITIAL);}
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
+//([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %s\n", yytext);}
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {delUnderscore(yytext); printf("\nInteger const: %s\n", yytext);} //удалить _ , преобразовать через atoi
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {} //удалить _ , преобразовать к строке которую может воспринять atoi, преобразовать через atoi
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
@@ -222,6 +227,38 @@ False {printf("\nBoolean const false: %d\n", 0);}
 
 ([a-zA-Z_])([a-zA-Z_0-9])* { printf("\nIdentifier: %s\n", yytext);}
 %%
+
+void delUnderscore(char * str)
+{
+    int i, j;
+    int len = strlen(str);
+    char temp[len];
+
+    for (i = 0, j = 0; i < len - 1; i++)
+    {
+        if (str[i] == ' ')
+        {
+            if (str[i + 1] == '_')
+            {
+                i++;
+                continue;
+            }
+            else
+            {
+                temp[j] = str[++i];
+                j++;
+            }
+        }
+        else
+        {
+            temp[j] = str[i];
+            j++;
+        }
+    }
+    for (i = 0; i < j; i++)
+        str[i] = temp[i];
+    str[i] = '\0';
+}
 
 void main(int argc, char** argv){
     yyin = fopen(argv[1], "r");
