@@ -223,8 +223,8 @@ Xor {printf("\nReserved keyword Xor: \n");}
 
 
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = toDeci(yytext, 16); printf("\nInteger16 const: %d\n", result);}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = toDeci(yytext, 2); printf("\nInteger2 const: %d\n", result);}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); printf("\nInteger16 const: %d\n", result);}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); printf("\nInteger2 const: %d\n", result);}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
@@ -244,27 +244,36 @@ int val(char c)
         return (int)c - 'A' + 10;
 }
 
-int toDeci(char *str, int base)
+int BintoDeci(char *str)
+{
+	int multiplier = 0;
+	int i;
+	int sum = 0;
+	for(i = length - 1; i>=0; i--)
+		sum += (binaryChar[i]*(1 << multiplier++));
+    return num;
+}
+
+int HextoDeci(char *str)
 {
     int len = strlen(str);
     int power = 1;
     int num = 0;
     int i;
- 
 
 
     for (i = len - 1; i >= 0; i--)
     {
 
 
-        if (val(str[i]) >= base)
+        if (val(str[i]) >= 16)
         {
            printf("Invalid Number");
            return -1;
         }
  
         num += val(str[i]) * power;
-        power = power * base;
+        power = power * 16;
     }
  
     return num;
