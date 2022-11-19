@@ -8,7 +8,8 @@
 
 int val(char c);
 void remove_substr(char* str, const char* substr);
-int toDeci(char *str, int base);
+int HextoDeci(char *str);
+int BintoDeci(char *str);
 
 int result = 111;
 
