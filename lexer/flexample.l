@@ -247,13 +247,15 @@ int val(char c)
 
 int BintoDeci(char *str)
 {
-	int multiplier = 0;
-	int i;
-	int sum = 0;
-	int len = strlen(str);
-	for(i = len - 1; i>=0; i--)
-		sum += (str[i]*(1 << multiplier++));
-    return sum;
+	short i;
+    int res = 0;
+
+    for (i = 0; i < sizeof(long) * 8 && str[i]; ++i)
+    {
+        res <<= 1;
+        res |= (str[i] - '0');
+    }
+    return res;
 }
 
 int HextoDeci(char *str)
