@@ -249,9 +249,10 @@ int BintoDeci(char *str)
 	int multiplier = 0;
 	int i;
 	int sum = 0;
-	for(i = length - 1; i>=0; i--)
-		sum += (binaryChar[i]*(1 << multiplier++));
-    return num;
+	int len = strlen(str);
+	for(i = len - 1; i>=0; i--)
+		sum += (str[i]*(1 << multiplier++));
+    return sum;
 }
 
 int HextoDeci(char *str)
