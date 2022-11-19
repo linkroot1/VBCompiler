@@ -10,6 +10,8 @@ int val(char c);
 void remove_substr(char* str, const char* substr);
 int toDeci(char *str, int base);
 
+int result = 111;
+
 %}
 %x STRING_LITERAL
 %x COMMENT
@@ -221,8 +223,8 @@ Xor {printf("\nReserved keyword Xor: \n");}
 
 
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  toDeci(yytext, 16); printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B");  toDeci(yytext, 2); printf("\nInteger const: %d\n", atoi(yytext));}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = toDeci(yytext, 16); printf("\nInteger16 const: %d\n", result);}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = toDeci(yytext, 2); printf("\nInteger2 const: %d\n", result);}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
