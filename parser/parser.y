@@ -20,6 +20,10 @@ void yyerror(char const *s) {
 }
 %}
 
+%token
+
+%type
+
 %union {
 
 }
@@ -27,12 +31,33 @@ void yyerror(char const *s) {
 %%
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
+stmt:
+
+//-------------------------Declaration stmt
+DeclStmt: access Sub name stmt End Sub
+        | Const name As type = val
+        | Dim name
+        | Dim name As type
+        | Dim name = val
+        | Dim name As type = val
+
+
+//-----------------------------------------Executable Statements
+ExecStmt: AssignStmt
+        | WhileStmt
+        | IfStmt
+        | SelectStmt
+        | ExecStmt ExecStmt
+
+
+//-------------------------Assignment stmt
+AssignStmt: var = val
+          | var = math //(<--??)
 
 
 
 //-------------------------While/for stmt
-
-
+WhileStmt: While expr stmt End While
 
 
 //-------------------------If/Else stmt
@@ -43,9 +68,15 @@ IfStmt: If expr Then stmt
       | If expr Then stmt ElseIf_list Else stmt End If
 
 
+//--------------------------Select stmt
+SelectStmt: Select Case var CaseStmt End Select
 
-//--------------------------Switch stmt
 
+CaseStmt: Case expr stmt
+        | Case Is expr stmt
+        | Case expr To expr stmt
+        | Case Else stmt
+        | CaseStmt CaseStmt
 
 
 %%
