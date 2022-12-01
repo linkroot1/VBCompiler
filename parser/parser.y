@@ -20,7 +20,12 @@ void yyerror(char const *s) {
 }
 %}
 
-%token
+%token INT
+%token INT2
+%token INT16
+%token STRING
+%token BOOLEAN
+%token Identifier
 
 %type
 
@@ -31,7 +36,13 @@ void yyerror(char const *s) {
 %%
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
-stmt:
+stmt: DeclStmt
+    | ExecStmt
+    | AssignStmt
+    | WhileStmt
+    | IfStmt
+    | SelectStmt
+    | CaseStmt
 
 //-------------------------Declaration stmt
 DeclStmt: access Sub name stmt End Sub
@@ -68,6 +79,10 @@ IfStmt: If expr Then stmt
       | If expr Then stmt ElseIf_list Else stmt End If
 
 
+ElseIf_list: ElseIf expr Then stmt
+           | ElseIf_list
+
+
 //--------------------------Select stmt
 SelectStmt: Select Case var CaseStmt End Select
 
@@ -78,6 +93,47 @@ CaseStmt: Case expr stmt
         | Case Else stmt
         | CaseStmt CaseStmt
 
+
+//---------------------------Expression
+expr: Operand
+          |expr '+' expr
+          | expr '-' expr
+          | expr '*' expr
+          | expr '/' expr
+          | expr '=' expr
+          | expr '<' expr
+          | expr '>' expr
+          | expr '^' expr
+          | expr '\' expr
+          | expr '<>' expr
+          | expr '>=' expr
+          | expr '<=' expr
+          | expr '&' expr
+          | expr '^=' expr
+          | expr '*=' expr
+          | expr '/=' expr
+          | expr '\=' expr
+          | expr '+=' expr
+          | expr '-=' expr
+          | expr '<<=' expr
+          | expr '>>=' expr
+          | expr '&=' expr
+
+
+Operand: BasicLiteral
+       | FunctionLiteral
+
+
+BasicLiteral: INT
+            | INT2
+            | INT16
+            | STRING
+            | BOOLEAN
+
+FunctionLiteral: Identifier '(' ArgumentList ')'
+
+ArgumentList: Identifier
+            | Identifier, ArgumentList
 
 %%
 
