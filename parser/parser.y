@@ -33,24 +33,22 @@ void yyerror(char const *s) {
 
 }
 
+
+
 %%
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
 stmt: DeclStmt
     | ExecStmt
-    | AssignStmt
-    | WhileStmt
-    | IfStmt
-    | SelectStmt
     | CaseStmt
 
 //-------------------------Declaration stmt
 DeclStmt: access Sub name stmt End Sub
-        | Const name As type = val
+        | Const name As type '=' val
         | Dim name
         | Dim name As type
-        | Dim name = val
-        | Dim name As type = val
+        | Dim name '=' val
+        | Dim name As type '=' val
 
 
 //-----------------------------------------Executable Statements
@@ -62,8 +60,8 @@ ExecStmt: AssignStmt
 
 
 //-------------------------Assignment stmt
-AssignStmt: var = val
-          | var = math //(<--??)
+AssignStmt: var '=' val
+          | var '=' math //(<--??)
 
 
 
@@ -80,7 +78,7 @@ IfStmt: If expr Then stmt
 
 
 ElseIf_list: ElseIf expr Then stmt
-           | ElseIf_list
+           | ElseIf_list ElseIf expr Then stmt
 
 
 //--------------------------Select stmt
@@ -109,15 +107,6 @@ expr: Operand
           | expr '>=' expr
           | expr '<=' expr
           | expr '&' expr
-          | expr '^=' expr
-          | expr '*=' expr
-          | expr '/=' expr
-          | expr '\=' expr
-          | expr '+=' expr
-          | expr '-=' expr
-          | expr '<<=' expr
-          | expr '>>=' expr
-          | expr '&=' expr
 
 
 Operand: BasicLiteral
@@ -125,15 +114,10 @@ Operand: BasicLiteral
 
 
 BasicLiteral: INT
-            | INT2
-            | INT16
             | STRING
             | BOOLEAN
 
-FunctionLiteral: Identifier '(' ArgumentList ')'
-
-ArgumentList: Identifier
-            | Identifier, ArgumentList
+FunctionLiteral: Identifier '(' expr ')'
 
 %%
 
