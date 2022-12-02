@@ -27,6 +27,21 @@ void yyerror(char const *s) {
 %token BOOLEAN
 %token Identifier
 
+%token Sub
+%token End
+%token Const
+%token As
+%token Dim
+%token While
+%token If
+%token Then
+%token Else
+%token ElseIf
+%token Select
+%token Case
+%token Is
+%token To
+
 %type
 
 %union {
@@ -117,7 +132,7 @@ BasicLiteral: INT
             | STRING
             | BOOLEAN
 
-FunctionLiteral: Identifier '(' EXPR ')'
+FunctionLiteral: IDENTIFIER '(' EXPR ')'
 
 %%
 
