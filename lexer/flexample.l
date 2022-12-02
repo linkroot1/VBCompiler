@@ -226,7 +226,7 @@ Xor {printf("\nReserved keyword Xor: \n");}
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext));}
 ([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); printf("\nInteger16 const: %d\n", result);}
 ([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); printf("\nInteger2 const: %d\n", result);}
-[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %f\n",  atof(yytext));}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 True {printf("\nBoolean const true: %d\n", 1);}
 False {printf("\nBoolean const false: %d\n", 0);}
