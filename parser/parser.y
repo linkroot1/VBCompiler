@@ -41,6 +41,7 @@ void yyerror(char const *s) {
 %token Case
 %token Is
 %token To
+%token NL
 
 %type
 
