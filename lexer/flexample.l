@@ -1,13 +1,26 @@
 %option noyywrap
+%option caseless
 %option never-interactive
 %{
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int val(char c);
+void remove_substr(char* str, const char* substr);
+int HextoDeci(char *str);
+int BintoDeci(char *str);
+
+int result = 111;
 
 %}
 %x STRING_LITERAL
 %x COMMENT
+%x DATETIME
+
 
 %%
+
 
 
 AddHandler {printf("\nReserved keyword AddHandler: \n");}
@@ -170,10 +183,10 @@ Xor {printf("\nReserved keyword Xor: \n");}
 #If {printf("\nReserved keyword #If: \n");}
 
 \" { BEGIN(STRING_LITERAL);}
-<STRING_LITERAL>[^"]+   { printf("\nString literal: %s\n", yytext); }
-<STRING_LITERAL>""             {  printf("\nString literal: \"\n");}
-<STRING_LITERAL><<EOF>>            {  BEGIN(INITIAL);}
-<STRING_LITERAL>\"             {  BEGIN(INITIAL);}
+<STRING_LITERAL>[^"]+		{ printf("\nString literal: %s\n", yytext); }
+<STRING_LITERAL>""			{  printf("\nString literal: \"\n");}
+<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}
+<STRING_LITERAL>\"			{  BEGIN(INITIAL);}
 
 \= {printf("\nAssignment operator: \n");}
 \+ {printf("\nAddition operator: \n");}
@@ -197,23 +210,111 @@ Xor {printf("\nReserved keyword Xor: \n");}
 \<\<= {printf("\nAssignment after left shift operator: \n");}
 \&\= {printf("\nAssignment after concatenation of two values operator: \n");}
 
- 
+
+
+
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+  {printf("\nComment: %s\n", yytext);}
 <COMMENT>\n {BEGIN(INITIAL);}
 <COMMENT><<EOF>> {BEGIN(INITIAL);}
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?)|([+-]?(&H|&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {printf("\nInteger const: %d\n", atoi(yytext));}
-[-+]\?(\?\:[0-9]+(\?\:\.[0-9]*)\?|\.[0-9]+)(\?\:[eE][-+]\?[0-9]+)\? {printf("\nSingle/double const: %s\n", atof(yytext));}
-/*(\#[:space:]*(0*[0-9]|1[0-2])(-|\)(0*[0-9]|[1-2][0-9]|3[0-1])(-|\/)([0-9]{4}|[0-9]{3})[:space:]+((((0*[0-9])|(1[0-2]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9]))|((0*[0-9]|1[0-2])\:(0*[0-9]|[1-5][0-9])\:(0*[0-9]|[1-5][0-9])))[:space:]*(AM|PM))?\#) {printf("\nDate const: %s\n", yytext);}*/
-\#[:space:]*\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?Z? {printf("\nDate const: %s\n", yytext);
-\"[^"]*\" {printf("\nString const: %s\n", yytext);} //(Переделать)Перевести в состояние строки, обработать все специальные символы внутри строки (как <STRING> ""  {printf("\"");}
-True {printf("\nBoolean const true: %s\n", yytext);}
-False {printf("\nBoolean const false: %s\n", yytext);}
-\n  {printf("\nEnd of line:");}
+# {BEGIN(DATETIME);}
+<DATETIME>[^#\n]+  {printf("\nDatetime: %s\n", yytext); }
+<DATETIME># {BEGIN(INITIAL);}
 
-[:alpha:][[:alnum:]_]* { printf("Identifier: %s\n", yytext);}
+
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); printf("\nInteger const: %d\n", atoi(yytext));}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); printf("\nInteger16 const: %d\n", result);}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); printf("\nInteger2 const: %d\n", result);}
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {printf("\nSingle/double const: %s\n",  yytext);}
+\"[^"]*\" {printf("\nString const: %s\n", yytext);}
+True {printf("\nBoolean const true: %d\n", 1);}
+False {printf("\nBoolean const false: %d\n", 0);}
+\n+  {printf("\nEnd of line:");}
+
+
+
+([a-zA-Z_])([a-zA-Z_0-9])* { printf("\nIdentifier: %s\n", yytext);}
 %%
+
+int val(char c)
+{
+    if (c >= '0' && c <= '9')
+        return (int)c - '0';
+    else
+        return (int)c - 'A' + 10;
+}
+
+int BintoDeci(char *str)
+{
+	short i;
+    int res = 0;
+
+    for (i = 0; i < sizeof(long) * 8 && str[i]; ++i)
+    {
+        res <<= 1;
+        res |= (str[i] - '0');
+    }
+    return res;
+}
+
+int HextoDeci(char *str)
+{
+    int len = strlen(str);
+    int power = 1;
+    int num = 0;
+    int i;
+
+
+    for (i = len - 1; i >= 0; i--)
+    {
+
+
+        if (val(str[i]) >= 16)
+        {
+           printf("Invalid Number");
+           return -1;
+        }
+ 
+        num += val(str[i]) * power;
+        power = power * 16;
+    }
+ 
+    return num;
+}
+
+
+void remove_substr(char* str, const char* substr)
+{
+    char* begin = str;
+    char* end = str;
+    char* cur;
+    const char* sub;
+
+    while (*end)
+    {
+        for (sub = substr, cur = end; *sub && *cur && *sub == *cur; ++cur, ++sub);
+
+        if (*sub == 0)
+        {
+            end = cur;
+        }
+
+        if (begin != end)
+        {
+            *begin = *end;
+        }
+
+        if (*sub != 0)
+        {
+            begin++;
+            end++;
+        }
+    }
+    *begin = 0;
+
+
+}
 
 void main(int argc, char** argv){
     yyin = fopen(argv[1], "r");
