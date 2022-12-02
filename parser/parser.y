@@ -38,75 +38,75 @@ void yyerror(char const *s) {
 %%
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
-stmt: DeclStmt
-    | ExecStmt
-    | CaseStmt
+STMT: DeclSTMT
+    | ExecSTMT
+    | CaseSTMT
 
-//-------------------------Declaration stmt
-DeclStmt: access Sub name stmt End Sub
-        | Const name As type '=' val
-        | Dim name
-        | Dim name As type
-        | Dim name '=' val
-        | Dim name As type '=' val
+//-------------------------Declaration STMT
+DeclStmt: access Sub NAME STMT End Sub
+        | Const NAME As type '=' VAL
+        | Dim NAME
+        | Dim NAME As type
+        | Dim NAME '=' VAL
+        | Dim NAME As type '=' VAL
 
 
 //-----------------------------------------Executable Statements
-ExecStmt: AssignStmt
-        | WhileStmt
-        | IfStmt
-        | SelectStmt
-        | ExecStmt ExecStmt
+ExecStmt: AssignSTMT
+        | WhileSTMT
+        | IfSTMT
+        | SelectSTMT
+        | ExecSTMT ExecSTMT
 
 
-//-------------------------Assignment stmt
-AssignStmt: var '=' val
-          | var '=' math //(<--??)
+//-------------------------Assignment STMT
+AssignStmt: VAR '=' VAL
+          | VAR '=' math //(<--??)
 
 
 
-//-------------------------While/for stmt
-WhileStmt: While expr stmt End While
+//-------------------------While/for STMT
+WhileStmt: While EXPR STMT End While
 
 
-//-------------------------If/Else stmt
+//-------------------------If/Else STMT
 //Сделать обработку переводов строки
-IfStmt: If expr Then stmt
-      | If expr Then stmt Else stmt End If
-      | If expr Then stmt             Else stmt End If
-      | If expr Then stmt ElseIf_list Else stmt End If
+IfStmt: If EXPR Then STMT
+      | If EXPR Then STMT Else STMT End If
+      | If EXPR Then STMT             Else STMT End If
+      | If EXPR Then STMT ElseIf_list Else STMT End If
 
 
-ElseIf_list: ElseIf expr Then stmt
-           | ElseIf_list ElseIf expr Then stmt
+ElseIf_list: ElseIf EXPR Then STMT
+           | ElseIf_list ElseIf EXPR Then STMT
 
 
-//--------------------------Select stmt
-SelectStmt: Select Case var CaseStmt End Select
+//--------------------------Select STMT
+SelectStmt: Select Case VAR CaseSTMT End Select
 
 
-CaseStmt: Case expr stmt
-        | Case Is expr stmt
-        | Case expr To expr stmt
-        | Case Else stmt
-        | CaseStmt CaseStmt
+CaseStmt: Case EXPR STMT
+        | Case Is EXPR STMT
+        | Case EXPR To EXPR STMT
+        | Case Else STMT
+        | CaseSTMT CaseSTMT
 
 
-//---------------------------Expression
-expr: Operand
-          |expr '+' expr
-          | expr '-' expr
-          | expr '*' expr
-          | expr '/' expr
-          | expr '=' expr
-          | expr '<' expr
-          | expr '>' expr
-          | expr '^' expr
-          | expr '\' expr
-          | expr '<>' expr
-          | expr '>=' expr
-          | expr '<=' expr
-          | expr '&' expr
+//---------------------------EXPRession
+EXPR: Operand
+          |EXPR '+' EXPR
+          | EXPR '-' EXPR
+          | EXPR '*' EXPR
+          | EXPR '/' EXPR
+          | EXPR '=' EXPR
+          | EXPR '<' EXPR
+          | EXPR '>' EXPR
+          | EXPR '^' EXPR
+          | EXPR '\' EXPR
+          | EXPR '<>' EXPR
+          | EXPR '>=' EXPR
+          | EXPR '<=' EXPR
+          | EXPR '&' EXPR
 
 
 Operand: BasicLiteral
@@ -117,7 +117,7 @@ BasicLiteral: INT
             | STRING
             | BOOLEAN
 
-FunctionLiteral: Identifier '(' expr ')'
+FunctionLiteral: Identifier '(' EXPR ')'
 
 %%
 
