@@ -59,12 +59,12 @@ STMT: DeclStmt
     | CaseStmt
 
 //-------------------------Declaration STMT
-DeclStmt: access Sub NAME STMT End Sub
-        | Const NAME As type '=' VAL
-        | Dim NAME
-        | Dim NAME As type
-        | Dim NAME '=' VAL
-        | Dim NAME As type '=' VAL
+DeclStmt: access Sub NAME STMT End Sub NL
+        | Const NAME As type '=' VAL NL
+        | Dim NAME NL
+        | Dim NAME As type NL
+        | Dim NAME '=' VAL NL
+        | Dim NAME As type '=' VAL NL
 
 
 //-----------------------------------------Executable Statements
@@ -76,35 +76,35 @@ ExecStmt: AssignStmt
 
 
 //-------------------------Assignment STMT
-AssignStmt: VAR '=' VAL
+AssignStmt: VAR '=' VAL NL
           | VAR '=' math //(<--??)
 
 
 
 //-------------------------While/for STMT
-WhileStmt: While EXPR STMT End While
+WhileStmt: While EXPR NL STMT End While NL
 
 
 //-------------------------If/Else STMT
 //Сделать обработку переводов строки
-IfStmt: If EXPR Then STMT
-      | If EXPR Then STMT Else STMT End If
-      | If EXPR Then STMT             Else STMT End If
-      | If EXPR Then STMT ElseIf_list Else STMT End If
+IfStmt: If EXPR Then NL STMT
+      | If EXPR Then NL STMT Else NL STMT End If NL
+      | If EXPR Then NL STMT             Else NL STMT End If NL
+      | If EXPR Then NL STMT ElseIf_list Else NL STMT End If NL
 
 
-ElseIf_list: ElseIf EXPR Then STMT
+ElseIf_list: ElseIf EXPR Then NL STMT
            | ElseIf_list ElseIf EXPR Then STMT
 
 
 //--------------------------Select STMT
-SelectStmt: Select Case VAR CaseStmt End Select
+SelectStmt: Select Case VAR NL CaseStmt End Select NL
 
 
-CaseStmt: Case EXPR STMT
-        | Case Is EXPR STMT
-        | Case EXPR To EXPR STMT
-        | Case Else STMT
+CaseStmt: Case EXPR STMT NL
+        | Case Is EXPR STMT NL
+        | Case EXPR To EXPR STMT NL
+        | Case Else STMT NL
         | CaseStmt CaseStmt
 
 
