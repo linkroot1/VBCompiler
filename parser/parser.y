@@ -21,11 +21,11 @@ void yyerror(char const *s) {
 %}
 
 %token INT
-%token INT2
-%token INT16
+%token DOUBLE
 %token STRING
 %token BOOLEAN
 %token Identifier
+%token ENDL
 
 %type
 
@@ -33,14 +33,21 @@ void yyerror(char const *s) {
 
 }
 
-
+%start Root
 
 %%
+
+//------------------firtst stmt-----------------------------
+
+
+
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
 STMT: DeclSTMT
     | ExecSTMT
     | CaseSTMT
+    ;
+
 
 //-------------------------Declaration STMT
 DeclStmt: access Sub NAME STMT End Sub
@@ -49,7 +56,7 @@ DeclStmt: access Sub NAME STMT End Sub
         | Dim NAME As type
         | Dim NAME '=' VAL
         | Dim NAME As type '=' VAL
-
+        ;
 
 //-----------------------------------------Executable Statements
 ExecStmt: AssignSTMT
@@ -57,17 +64,17 @@ ExecStmt: AssignSTMT
         | IfSTMT
         | SelectSTMT
         | ExecSTMT ExecSTMT
-
+        ;
 
 //-------------------------Assignment STMT
 AssignStmt: VAR '=' VAL
           | VAR '=' math //(<--??)
-
+          ;
 
 
 //-------------------------While/for STMT
 WhileStmt: While EXPR STMT End While
-
+         ;
 
 //-------------------------If/Else STMT
 //Сделать обработку переводов строки
@@ -75,22 +82,22 @@ IfStmt: If EXPR Then STMT
       | If EXPR Then STMT Else STMT End If
       | If EXPR Then STMT             Else STMT End If
       | If EXPR Then STMT ElseIf_list Else STMT End If
-
+      ;
 
 ElseIf_list: ElseIf EXPR Then STMT
            | ElseIf_list ElseIf EXPR Then STMT
-
+           ;
 
 //--------------------------Select STMT
 SelectStmt: Select Case VAR CaseSTMT End Select
-
+          ;
 
 CaseStmt: Case EXPR STMT
         | Case Is EXPR STMT
         | Case EXPR To EXPR STMT
         | Case Else STMT
         | CaseSTMT CaseSTMT
-
+        ;
 
 //---------------------------EXPRession
 EXPR: Operand
@@ -107,18 +114,28 @@ EXPR: Operand
           | EXPR '>=' EXPR
           | EXPR '<=' EXPR
           | EXPR '&' EXPR
-
+          ;
 
 Operand: BasicLiteral
        | FunctionLiteral
-
+       ;
 
 BasicLiteral: INT
             | STRING
             | BOOLEAN
+            | DOUBLE
+            ;
 
-FunctionLiteral: Identifier '(' EXPR ')'
+FunctionLiteral: Identifier Arguments
+               ;
 
+Arguments: '(' ExprList ')'
+         | '(' ')'
+         ;
+
+ExprList: EXPR
+        | ExprList ',' EXPR
+        ;
 %%
 
 int main(int argc, char** argv) {
