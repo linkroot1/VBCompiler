@@ -37,9 +37,22 @@ void yyerror(char const *s) {
 
 %%
 
-//------------------firtst stmt-----------------------------
+//------------------programm Start-----------------------------
+Root: program_items_list
+    ;
+
+program_item : STMT
+             | IMPORTS Identifier
+             ;
+
+program_items_list:
+                  |program_items_list_not_empty
+                  ;
 
 
+program_items_list_not_empty: program_item
+                            | program_items_list_not_empty program_item
+                            ;
 
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
