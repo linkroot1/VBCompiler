@@ -15,18 +15,63 @@ int yyparse();
 int yylex();
 %}
 
-%token INT
-%token DOUBLE
-%token STRING
-%token BOOLEAN
-%token IDENTIFIER
+%union {
+	bool bool_val;
+	int int_val;
+	//bin and hex
+	double double_val;
+	char* datetime_val;//time_t
+	char* str_val;
+	char* id_name;
+}
+
+%token<int_val> INT
+%token<double_val> DOUBLE
+%token<str_val> STRING
+%token<bool_val> BOOLEAN
+%token<id_name> IDENTIFIER
+
 %token ENDL
 
+%token ACCESS //no ACCESS in lex
+%token SUB
+%token END
+%token CONST
+%token DIM
+%token AS
+%token WHILE
+%token IF
+%token THEN
+%token ELSE
+%token ELSEIF
+%token SELECT
+%token CASE
+
+%token UNARY_PLUS
+%token UNATY_MINUS
+%token EXPONENT
+%token MULT
+%token ORD_DIV
+%token INT_DIV
+%token LESS
+%token MORE
+%token LESS_OR_EQUAL
+%token MORE_OR_EQUAL
+%token EQUAL
+%token NOT_EQUAL
+%token CONCAT
+%token ASSIGN_EQUALS
+%token ASSIGN_CONSTRUCT
+%token ASSIGN_MULT
+%token ASSIGN_ORD_DIV
+%token ASSIGN_INT_DIV
+%token ASSIGN_ADD
+%token ASSIGN_SUB
+%token ASSIGN_LSHIFT
+%token ASSIGN_RSHIFT
+%token ASSIGN_CONCAT
+
 %type
-
-%union {
-
-}
 
 %start root
 
