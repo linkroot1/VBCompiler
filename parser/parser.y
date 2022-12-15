@@ -95,9 +95,16 @@ program_item : stmt
 
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
-stmt: decl_stmt
-    | exec_stmt
-	| stmt stmt
+
+stmt_ends: END_OF_LINE
+    | END_OF_LINE stmt_ends
+    ;
+
+
+
+stmt: decl_stmt stmt_ends
+    | exec_stmt stmt_ends
+	| stmt stmt stmt_ends
     ;
 
 
@@ -126,14 +133,14 @@ assign_stmt: IDENTIFIER '=' expr
 
 
 //-------------------------WHILE/for stmt
-while_stmt: WHILE expr stmt END WHILE
+while_stmt: WHILE expr stmt_ends stmt END WHILE
          ;
 
 //-------------------------IF/ELSE stmt
 //Сделать обработку переводов строки
 if_stmt: IF expr THEN stmt
-      | IF expr THEN stmt ELSE stmt END IF
-      | IF expr THEN stmt elseif_list ELSE stmt END IF
+      | IF expr THEN stmt_end stmt ELSE stmt END IF
+      | IF expr THEN stmt_end stmt elseif_list ELSE stmt END IF
       ;
 
 elseif_list: ELSEIF expr THEN stmt
