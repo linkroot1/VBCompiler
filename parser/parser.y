@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "TreeNodes/Root.h"
+#include "TreeNodes/root.h"
 
 extern int yylineno;
 extern FILE* yyin;
@@ -13,18 +13,13 @@ extern RootNode * rootNode;
 
 int yyparse();
 int yylex();
-
-void yyerror(char const *s) {
-    fprintf(stderr, "Error: %s on line %d\n", s, yylineno);
-    exit(1);
-}
 %}
 
 %token INT
 %token DOUBLE
 %token STRING
 %token BOOLEAN
-%token Identifier
+%token IDENTIFIER
 %token ENDL
 
 %type
@@ -33,123 +28,128 @@ void yyerror(char const *s) {
 
 }
 
-%start Root
+%start root
 
 %%
 
 //------------------programm Start-----------------------------
-Root: program_items_list
+root: program_items_list
     ;
-
-program_item : STMT
-             | IMPORTS Identifier
-             ;
 
 program_items_list:
                   |program_items_list_not_empty
                   ;
 
-
 program_items_list_not_empty: program_item
                             | program_items_list_not_empty program_item
                             ;
 
+program_item : stmt
+             | IMPORTS IDENTIFIER
+             ;
+
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
-STMT: DeclSTMT
-    | ExecSTMT
-    | CaseSTMT
+stmt: decl_stmt
+    | exec_stmt
+	| stmt stmt
     ;
 
 
-//-------------------------Declaration STMT
-DeclStmt: access Sub NAME STMT End Sub
-        | Const NAME As type '=' VAL
-        | Dim NAME
-        | Dim NAME As type
-        | Dim NAME '=' VAL
-        | Dim NAME As type '=' VAL
+//-------------------------Declaration stmt
+decl_stmt: ACCESS SUB name stmt END SUB
+        | CONST name AS type '=' val
+        | DIM name
+        | DIM name AS type
+        | DIM name '=' val
+        | DIM name AS type '=' val
         ;
 
 //-----------------------------------------Executable Statements
-ExecStmt: AssignSTMT
-        | WhileSTMT
-        | IfSTMT
-        | SelectSTMT
-        | ExecSTMT ExecSTMT
+exec_stmt: assign_stmt
+        | while_stmt
+        | if_stmt
+        | select_stmt
+		| case_stmt
+        | exec_stmt exec_stmt
         ;
 
-//-------------------------Assignment STMT
-AssignStmt: VAR '=' VAL
-          | VAR '=' math //(<--??)
+//-------------------------Assignment stmt
+assign_stmt: IDENTIFIER '=' expr
+          | IDENTIFIER '=' IDENTIFIER //...
           ;
 
 
-//-------------------------While/for STMT
-WhileStmt: While EXPR STMT End While
+//-------------------------WHILE/for stmt
+while_stmt: WHILE expr stmt END WHILE
          ;
 
-//-------------------------If/Else STMT
+//-------------------------IF/ELSE stmt
 //Сделать обработку переводов строки
-IfStmt: If EXPR Then STMT
-      | If EXPR Then STMT Else STMT End If
-      | If EXPR Then STMT             Else STMT End If
-      | If EXPR Then STMT ElseIf_list Else STMT End If
+if_stmt: IF expr THEN stmt
+      | IF expr THEN stmt ELSE stmt END IF
+      | IF expr THEN stmt elseif_list ELSE stmt END IF
       ;
 
-ElseIf_list: ElseIf EXPR Then STMT
-           | ElseIf_list ElseIf EXPR Then STMT
+elseif_list: ELSEIF expr THEN stmt
+           | elseif_list ELSEIF expr THEN stmt
            ;
 
-//--------------------------Select STMT
-SelectStmt: Select Case VAR CaseSTMT End Select
+//--------------------------SELECT stmt
+select_stmt: SELECT CASE expr case_stmt END SELECT
           ;
 
-CaseStmt: Case EXPR STMT
-        | Case Is EXPR STMT
-        | Case EXPR To EXPR STMT
-        | Case Else STMT
-        | CaseSTMT CaseSTMT
+case_stmt: CASE expr stmt
+        | CASE IS expr stmt
+        | CASE expr TO expr stmt
+        | CASE ELSE stmt
+        | case_stmt case_stmt
         ;
 
 //---------------------------EXPRession
-EXPR: Operand
-          |EXPR '+' EXPR
-          | EXPR '-' EXPR
-          | EXPR '*' EXPR
-          | EXPR '/' EXPR
-          | EXPR '=' EXPR
-          | EXPR '<' EXPR
-          | EXPR '>' EXPR
-          | EXPR '^' EXPR
-          | EXPR '\' EXPR
-          | EXPR '<>' EXPR
-          | EXPR '>=' EXPR
-          | EXPR '<=' EXPR
-          | EXPR '&' EXPR
-          ;
+expr: operand
+    | expr '+' expr		{$$ = $1 + $3;}
+    | expr '-' expr		{$$ = $1 - $3;}
+    | '-' expr			{$$ = -$1;}
+    | expr '*' expr		{$$ = $1 * $3;}
+    | expr '/' expr		{$$ = $1 / $3;}
+    | expr '=' expr		{$$ = $1 == $3;} //?
+    | expr '<' expr		{$$ = $1 < $3;}
+    | expr '>' expr		{$$ = $1 > $3;}
+    | expr '^' expr		{$$ = $1 ^ $3;}
+    | expr '\\' expr	//?
+    | expr '<>' expr	{$$ = $1 <> $3;}
+    | expr '>=' expr	{$$ = $1 >= $3;}
+    | expr '<=' expr	{$$ = $1 <= $3;}
+    | expr '&' expr		{$$ = $1 && $3;}
+    ;
 
-Operand: BasicLiteral
-       | FunctionLiteral
+operand: basic_literal
+       | function_literal
        ;
 
-BasicLiteral: INT
+basic_literal: INT
             | STRING
             | BOOLEAN
             | DOUBLE
             ;
 
-FunctionLiteral: Identifier Arguments
+function_literal: IDENTIFIER arguments
                ;
 
-Arguments: '(' ExprList ')'
+arguments: '(' expr_list ')' //<-- ??
          | '(' ')'
          ;
 
-ExprList: EXPR
-        | ExprList ',' EXPR
+expr_list: expr
+        | expr_list ',' expr
         ;
 %%
+
+void yyerror(char const *s) {
+    fprintf(stderr, "Error: %s on line %d\n", s, yylineno);
+    exit(1);
+}
 
 int main(int argc, char** argv) {
     if (argc > 1) {
