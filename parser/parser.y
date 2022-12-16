@@ -22,7 +22,7 @@ int yylex();
 	double double_val;
 	char* datetime_val;//time_t
 	char* str_val;
-	char* id_name;
+	char* id_var_name;
 }
 
 %token<int_val> INT
@@ -47,8 +47,12 @@ int yylex();
 %token SELECT
 %token CASE
 
-%token UNARY_PLUS
-%token UNATY_MINUS
+
+%token ORD_DIVISION
+%token INT_DIVISION
+
+%right UNARY_MINUS
+%right UNARY_PLUS
 %token EXPONENT
 %token MULT
 %token ORD_DIV
@@ -57,7 +61,6 @@ int yylex();
 %token MORE
 %token LESS_OR_EQUAL
 %token MORE_OR_EQUAL
-%token EQUAL
 %token NOT_EQUAL
 %token CONCAT
 %token ASSIGN_EQUALS
@@ -70,8 +73,36 @@ int yylex();
 %token ASSIGN_LSHIFT
 %token ASSIGN_RSHIFT
 %token ASSIGN_CONCAT
+%token IMPORTS
+%token END_OF_LINE
+%token IS
+%token TO
 
-%type
+%left '+' '-'
+%left '*' '/'
+
+
+%type program_items_list
+%type program_items_list_not_empty
+%type program_item
+%type stmt_ends
+%type stmt
+%type decl_stmt
+%type var_name
+%type exec_stmt
+%type assign_stmt
+%type while_stmt
+%type if_stmt
+%type elseif_list
+%type select_stmt
+%type case_stmt
+%type expr
+%type operand
+%type basic_literal
+%type function_literal
+%type arguments
+%type expr_list
+
 
 %start root
 
@@ -89,7 +120,7 @@ program_items_list_not_empty: program_item
                             | program_items_list_not_empty program_item
                             ;
 
-program_item : stmt
+program_item: stmt
              | IMPORTS IDENTIFIER
              ;
 
@@ -97,25 +128,31 @@ program_item : stmt
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
 
 stmt_ends: END_OF_LINE
-    | END_OF_LINE stmt_ends
+    | stmt_ends END_OF_LINE
     ;
 
 
 
 stmt: decl_stmt stmt_ends
     | exec_stmt stmt_ends
-	| stmt stmt stmt_ends
     ;
 
 
 //-------------------------Declaration stmt
-decl_stmt: ACCESS SUB name stmt END SUB
-        | CONST name AS type '=' val
-        | DIM name
-        | DIM name AS type
-        | DIM name '=' val
-        | DIM name AS type '=' val
+decl_stmt: ACCESS SUB var_name stmt END SUB
+        | CONST var_name AS basic_literal '=' expr
+        | DIM var_name
+        | DIM var_name AS basic_literal
+        | DIM var_name '=' expr
+        | DIM var_name AS basic_literal '=' expr
         ;
+
+
+var_name: IDENTIFIER
+        | IDENTIFIER'('expr')'
+
+
+
 
 //-----------------------------------------Executable Statements
 exec_stmt: assign_stmt
@@ -123,7 +160,6 @@ exec_stmt: assign_stmt
         | if_stmt
         | select_stmt
 		| case_stmt
-        | exec_stmt exec_stmt
         ;
 
 //-------------------------Assignment stmt
@@ -139,8 +175,8 @@ while_stmt: WHILE expr stmt_ends stmt END WHILE
 //-------------------------IF/ELSE stmt
 //—делать обработку переводов строки
 if_stmt: IF expr THEN stmt
-      | IF expr THEN stmt_end stmt ELSE stmt END IF
-      | IF expr THEN stmt_end stmt elseif_list ELSE stmt END IF
+      | IF expr THEN stmt_ends stmt ELSE stmt END IF
+      | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
       ;
 
 elseif_list: ELSEIF expr THEN stmt
@@ -155,25 +191,25 @@ case_stmt: CASE expr stmt
         | CASE IS expr stmt
         | CASE expr TO expr stmt
         | CASE ELSE stmt
-        | case_stmt case_stmt
         ;
 
-//---------------------------EXPRession
+//---------------------------EXPRession (Доделать приоритет операций)
 expr: operand
-    | expr '+' expr		{$$ = $1 + $3;}
-    | expr '-' expr		{$$ = $1 - $3;}
-    | '-' expr			{$$ = -$1;}
-    | expr '*' expr		{$$ = $1 * $3;}
-    | expr '/' expr		{$$ = $1 / $3;}
-    | expr '=' expr		{$$ = $1 == $3;} //?
-    | expr '<' expr		{$$ = $1 < $3;}
-    | expr '>' expr		{$$ = $1 > $3;}
-    | expr '^' expr		{$$ = $1 ^ $3;}
-    | expr '\\' expr	//?
-    | expr '<>' expr	{$$ = $1 <> $3;}
-    | expr '>=' expr	{$$ = $1 >= $3;}
-    | expr '<=' expr	{$$ = $1 <= $3;}
-    | expr '&' expr		{$$ = $1 && $3;}
+    | expr '+' expr
+    | expr '-' expr
+    | '-' expr	%prec UNARY_MINUS
+    | '+' expr	%prec UNARY_PLUS
+    | expr '*' expr
+    | expr '/' expr
+    | expr ASSIGN_EQUALS expr
+    | expr LESS expr
+    | expr MORE expr
+    | expr EXPONENT expr
+    | expr INT_DIVISION expr
+    | expr NOT_EQUAL expr
+    | expr LESS_OR_EQUAL expr
+    | expr MORE_OR_EQUAL expr
+    | expr CONCAT expr
     ;
 
 operand: basic_literal

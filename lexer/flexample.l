@@ -188,8 +188,8 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 <STRING_LITERAL>\"			{  BEGIN(INITIAL);}
 
 \= {return yytokentype::ASSIGN_EQUALS;} 			//{printf("\nAssignment operator: \n");}
-\+ {return yytokentype::UNARY_PLUS;} 			//{printf("\nAddition operator: \n");}
-\- {return yytokentype::UNATY_MINUS;} 			//{printf("\nSubtraction operator: \n");}
+\+ {return yytokentype::ARITHMETIC_PLUS;} 			//{printf("\nAddition operator: \n");}
+\- {return yytokentype::ARITHMETIC_MINUS;} 			//{printf("\nSubtraction operator: \n");}
 \^ {return yytokentype::EXPONENT;} 			//{printf("\nExponentiation operator: \n");}
 \* {return yytokentype::MULT;}
 \/ {return yytokentype::ORD_DIVISION;} 			//{printf("\nOrdinary division operator: \n");}
@@ -198,7 +198,6 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 \> {return yytokentype::MORE;} 			//{printf("\nMore operator: \n");}
 \>\= {return yytokentype::LESS_OR_EQUAL;} 			//{printf("\nMore or equal operator: \n");}
 \<\= {return yytokentype::MORE_OR_EQUAL;} 			//{printf("\nLess or equal operator: \n");}
-\=\= {return yytokentype::EQUAL;} 			//{printf("\nEqual operator: \n");}
 \<\> {return yytokentype::NOT_EQUAL;} 			//{printf("\nNot equal operator: \n");}
 \& {return yytokentype::CONCAT;} 			//{printf("\nConcathenation operator: \n");}
 \^\= {return yytokentype::ASSIGN_CONSTRUCT;} 			//{printf("\nAssignment after construction operator: \n");}
