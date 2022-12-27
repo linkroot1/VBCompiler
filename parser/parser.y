@@ -48,15 +48,14 @@ int yylex();
 %token CASE
 
 
-%token ORD_DIVISION
-%token INT_DIVISION
-
 %right UNARY_MINUS
 %right UNARY_PLUS
+%token ARITHMETIC_PLUS
+%token ARITHMETIC_MINUS
 %token EXPONENT
-%token MULT
-%token ORD_DIV
-%token INT_DIV
+%token MULTIPLICATION
+%token ORD_DIVISION
+%token INT_DIVISION
 %token LESS
 %token MORE
 %token LESS_OR_EQUAL
@@ -78,8 +77,8 @@ int yylex();
 %token IS
 %token TO
 
-%left '+' '-'
-%left '*' '/'
+%left ARITHMETIC_PLUS MULTIPLICATION
+%left ARITHMETIC_MINUS ORD_DIVISION
 
 
 %type program_items_list
