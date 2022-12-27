@@ -46,23 +46,29 @@ int yylex();
 %token ELSEIF
 %token SELECT
 %token CASE
+%token IS
+%token TO
+%token IMPORTS
+
+
+%token END_OF_LINE
 
 
 %right UNARY_MINUS
 %right UNARY_PLUS
-%token ARITHMETIC_PLUS
-%token ARITHMETIC_MINUS
-%token EXPONENT
-%token MULTIPLICATION
-%token ORD_DIVISION
-%token INT_DIVISION
-%token LESS
-%token MORE
+%token '+'
+%token '-'
+%token '*'
+%token '/'
+%token '\\'
+%token '^'
+%token '<'
+%token '>'
 %token LESS_OR_EQUAL
 %token MORE_OR_EQUAL
 %token NOT_EQUAL
-%token CONCAT
-%token ASSIGN_EQUALS
+%token '&'
+%token '='
 %token ASSIGN_CONSTRUCT
 %token ASSIGN_MULT
 %token ASSIGN_ORD_DIV
@@ -72,13 +78,10 @@ int yylex();
 %token ASSIGN_LSHIFT
 %token ASSIGN_RSHIFT
 %token ASSIGN_CONCAT
-%token IMPORTS
-%token END_OF_LINE
-%token IS
-%token TO
 
-%left ARITHMETIC_PLUS MULTIPLICATION
-%left ARITHMETIC_MINUS ORD_DIVISION
+%left '^'
+%left '*' '/' '\\'
+%left '+' '-'
 
 
 %type program_items_list
@@ -200,15 +203,15 @@ expr: operand
     | '+' expr	%prec UNARY_PLUS
     | expr '*' expr
     | expr '/' expr
-    | expr ASSIGN_EQUALS expr
-    | expr LESS expr
-    | expr MORE expr
-    | expr EXPONENT expr
-    | expr INT_DIVISION expr
+    | expr '\\' expr
+    | expr '=' expr
+    | expr '<' expr
+    | expr '>' expr
+    | expr '6' expr
     | expr NOT_EQUAL expr
     | expr LESS_OR_EQUAL expr
     | expr MORE_OR_EQUAL expr
-    | expr CONCAT expr
+    | expr '&' expr
     ;
 
 operand: basic_literal
