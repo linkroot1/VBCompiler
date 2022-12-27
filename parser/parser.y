@@ -207,7 +207,7 @@ expr: operand
     | expr '=' expr
     | expr '<' expr
     | expr '>' expr
-    | expr '6' expr
+    | expr '^' expr
     | expr NOT_EQUAL expr
     | expr LESS_OR_EQUAL expr
     | expr MORE_OR_EQUAL expr
