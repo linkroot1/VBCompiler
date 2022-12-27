@@ -60,7 +60,7 @@ int yylex();
 %token '-'
 %token '*'
 %token '/'
-%token '\\'
+%token INT_DIV
 %token '^'
 %token '<'
 %token '>'
@@ -80,7 +80,7 @@ int yylex();
 %token ASSIGN_CONCAT
 
 %left '^'
-%left '*' '/' '\\'
+%left '*' '/' INT_DIV
 %left '+' '-'
 
 
@@ -203,7 +203,7 @@ expr: operand
     | '+' expr	%prec UNARY_PLUS
     | expr '*' expr
     | expr '/' expr
-    | expr '\\' expr
+    | expr INT_DIV expr
     | expr '=' expr
     | expr '<' expr
     | expr '>' expr
