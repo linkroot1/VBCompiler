@@ -54,13 +54,13 @@ Grammar
 
    12 decl_stmt: ACCESS SUB var_name stmt END SUB
    13          | CONST var_name AS basic_literal '=' expr
-   14          | DIM var_name
+   14          | DIM var_name AS basic_literal '=' expr
    15          | DIM var_name AS basic_literal
    16          | DIM var_name '=' expr
-   17          | DIM var_name AS basic_literal '=' expr
+   17          | DIM var_name
 
-   18 var_name: IDENTIFIER
-   19         | IDENTIFIER '(' expr ')'
+   18 var_name: IDENTIFIER '(' expr ')'
+   19         | IDENTIFIER
 
    20 exec_stmt: assign_stmt
    21          | while_stmt
@@ -88,10 +88,10 @@ Grammar
    37          | CASE ELSE stmt
 
    38 expr: operand
-   39     | expr '+' expr
-   40     | expr '-' expr
-   41     | '-' expr
-   42     | '+' expr
+   39     | '-' expr
+   40     | '+' expr
+   41     | expr '+' expr
+   42     | expr '-' expr
    43     | expr '*' expr
    44     | expr '/' expr
    45     | expr INT_DIV expr
@@ -125,15 +125,15 @@ Terminals, with rules where they appear
 
     $end (0) 0
     '&' (38) 53
-    '(' (40) 19 61 62
-    ')' (41) 19 61 62
+    '(' (40) 18 61 62
+    ')' (41) 18 61 62
     '*' (42) 43
-    '+' (43) 39 42
+    '+' (43) 40 41
     ',' (44) 64
-    '-' (45) 40 41
+    '-' (45) 39 42
     '/' (47) 44
     '<' (60) 47
-    '=' (61) 13 16 17 25 26 46
+    '=' (61) 13 14 16 25 26 46
     '>' (62) 48
     '^' (94) 49
     error (256)
@@ -148,7 +148,7 @@ Terminals, with rules where they appear
     END (266) 12 27 29 30 33
     CONST (267) 13
     DIM (268) 14 15 16 17
-    AS (269) 13 15 17
+    AS (269) 13 14 15
     WHILE (270) 27
     IF (271) 28 29 30
     THEN (272) 28 29 30 31 32
@@ -228,13 +228,13 @@ Nonterminals, with rules where they appear
         on right: 24 33
     expr (69)
         on left: 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
-        on right: 13 16 17 19 25 27 28 29 30 31 32 33 34 35 36 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 63 64
+        on right: 13 14 16 18 25 27 28 29 30 31 32 33 34 35 36 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 63 64
     operand (70)
         on left: 54 55
         on right: 38
     basic_literal (71)
         on left: 56 57 58 59
-        on right: 13 15 17 54
+        on right: 13 14 15 54
     function_literal (72)
         on left: 60
         on right: 55
@@ -302,10 +302,10 @@ State 3
 
 State 4
 
-   14 decl_stmt: DIM . var_name
+   14 decl_stmt: DIM . var_name AS basic_literal '=' expr
    15          | DIM . var_name AS basic_literal
    16          | DIM . var_name '=' expr
-   17          | DIM . var_name AS basic_literal '=' expr
+   17          | DIM . var_name
 
     IDENTIFIER  shift, and go to state 24
 
@@ -526,12 +526,12 @@ State 23
 
 State 24
 
-   18 var_name: IDENTIFIER .
-   19         | IDENTIFIER . '(' expr ')'
+   18 var_name: IDENTIFIER . '(' expr ')'
+   19         | IDENTIFIER .
 
     '('  shift, and go to state 52
 
-    $default  reduce using rule 18 (var_name)
+    $default  reduce using rule 19 (var_name)
 
 
 State 25
@@ -543,15 +543,15 @@ State 25
 
 State 26
 
-   14 decl_stmt: DIM var_name .
+   14 decl_stmt: DIM var_name . AS basic_literal '=' expr
    15          | DIM var_name . AS basic_literal
    16          | DIM var_name . '=' expr
-   17          | DIM var_name . AS basic_literal '=' expr
+   17          | DIM var_name .
 
     AS   shift, and go to state 54
     '='  shift, and go to state 55
 
-    $default  reduce using rule 14 (decl_stmt)
+    $default  reduce using rule 17 (decl_stmt)
 
 
 State 27
@@ -593,7 +593,7 @@ State 31
 
 State 32
 
-   42 expr: '+' . expr
+   40 expr: '+' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -611,7 +611,7 @@ State 32
 
 State 33
 
-   41 expr: '-' . expr
+   39 expr: '-' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -630,8 +630,8 @@ State 33
 State 34
 
    27 while_stmt: WHILE expr . stmt_ends stmt END WHILE
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -688,8 +688,8 @@ State 38
    28 if_stmt: IF expr . THEN stmt
    29        | IF expr . THEN stmt_ends stmt ELSE stmt END IF
    30        | IF expr . THEN stmt_ends stmt elseif_list ELSE stmt END IF
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -781,8 +781,8 @@ State 42
 
    34 case_stmt: CASE expr . stmt
    36          | CASE expr . TO expr stmt
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -893,8 +893,8 @@ State 49
 State 50
 
    25 assign_stmt: IDENTIFIER '=' expr .
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -949,7 +949,7 @@ State 51
 
 State 52
 
-   19 var_name: IDENTIFIER '(' . expr ')'
+   18 var_name: IDENTIFIER '(' . expr ')'
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -979,8 +979,8 @@ State 53
 
 State 54
 
-   15 decl_stmt: DIM var_name AS . basic_literal
-   17          | DIM var_name AS . basic_literal '=' expr
+   14 decl_stmt: DIM var_name AS . basic_literal '=' expr
+   15          | DIM var_name AS . basic_literal
 
     INT      shift, and go to state 27
     DOUBLE   shift, and go to state 28
@@ -1038,9 +1038,9 @@ State 57
 
 State 58
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
-   42     | '+' expr .
+   40 expr: '+' expr .
+   41     | expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1067,21 +1067,21 @@ State 58
     '&'            shift, and go to state 71
     '='            shift, and go to state 72
 
-    '<'            [reduce using rule 42 (expr)]
-    '>'            [reduce using rule 42 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 42 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 42 (expr)]
-    NOT_EQUAL      [reduce using rule 42 (expr)]
-    '&'            [reduce using rule 42 (expr)]
-    '='            [reduce using rule 42 (expr)]
-    $default       reduce using rule 42 (expr)
+    '<'            [reduce using rule 40 (expr)]
+    '>'            [reduce using rule 40 (expr)]
+    LESS_OR_EQUAL  [reduce using rule 40 (expr)]
+    MORE_OR_EQUAL  [reduce using rule 40 (expr)]
+    NOT_EQUAL      [reduce using rule 40 (expr)]
+    '&'            [reduce using rule 40 (expr)]
+    '='            [reduce using rule 40 (expr)]
+    $default       reduce using rule 40 (expr)
 
 
 State 59
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
-   41     | '-' expr .
+   39 expr: '-' expr .
+   41     | expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1108,19 +1108,19 @@ State 59
     '&'            shift, and go to state 71
     '='            shift, and go to state 72
 
-    '<'            [reduce using rule 41 (expr)]
-    '>'            [reduce using rule 41 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 41 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 41 (expr)]
-    NOT_EQUAL      [reduce using rule 41 (expr)]
-    '&'            [reduce using rule 41 (expr)]
-    '='            [reduce using rule 41 (expr)]
-    $default       reduce using rule 41 (expr)
+    '<'            [reduce using rule 39 (expr)]
+    '>'            [reduce using rule 39 (expr)]
+    LESS_OR_EQUAL  [reduce using rule 39 (expr)]
+    MORE_OR_EQUAL  [reduce using rule 39 (expr)]
+    NOT_EQUAL      [reduce using rule 39 (expr)]
+    '&'            [reduce using rule 39 (expr)]
+    '='            [reduce using rule 39 (expr)]
+    $default       reduce using rule 39 (expr)
 
 
 State 60
 
-   39 expr: expr '+' . expr
+   41 expr: expr '+' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1138,7 +1138,7 @@ State 60
 
 State 61
 
-   40 expr: expr '-' . expr
+   42 expr: expr '-' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1407,8 +1407,8 @@ State 74
 State 75
 
    33 select_stmt: SELECT CASE expr . case_stmt END SELECT
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1449,8 +1449,8 @@ State 76
 State 77
 
    35 case_stmt: CASE IS expr . stmt
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1536,9 +1536,9 @@ State 81
 
 State 82
 
-   19 var_name: IDENTIFIER '(' expr . ')'
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   18 var_name: IDENTIFIER '(' expr . ')'
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1576,8 +1576,8 @@ State 83
 
 State 84
 
-   15 decl_stmt: DIM var_name AS basic_literal .
-   17          | DIM var_name AS basic_literal . '=' expr
+   14 decl_stmt: DIM var_name AS basic_literal . '=' expr
+   15          | DIM var_name AS basic_literal .
 
     '='  shift, and go to state 111
 
@@ -1587,8 +1587,8 @@ State 84
 State 85
 
    16 decl_stmt: DIM var_name '=' expr .
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1627,8 +1627,8 @@ State 86
 
 State 87
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1670,9 +1670,9 @@ State 88
 
 State 89
 
-   39 expr: expr . '+' expr
-   39     | expr '+' expr .
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   41     | expr '+' expr .
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1693,21 +1693,21 @@ State 89
     '&'            shift, and go to state 71
     '='            shift, and go to state 72
 
-    '<'            [reduce using rule 39 (expr)]
-    '>'            [reduce using rule 39 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 39 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 39 (expr)]
-    NOT_EQUAL      [reduce using rule 39 (expr)]
-    '&'            [reduce using rule 39 (expr)]
-    '='            [reduce using rule 39 (expr)]
-    $default       reduce using rule 39 (expr)
+    '<'            [reduce using rule 41 (expr)]
+    '>'            [reduce using rule 41 (expr)]
+    LESS_OR_EQUAL  [reduce using rule 41 (expr)]
+    MORE_OR_EQUAL  [reduce using rule 41 (expr)]
+    NOT_EQUAL      [reduce using rule 41 (expr)]
+    '&'            [reduce using rule 41 (expr)]
+    '='            [reduce using rule 41 (expr)]
+    $default       reduce using rule 41 (expr)
 
 
 State 90
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
-   40     | expr '-' expr .
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
+   42     | expr '-' expr .
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1728,20 +1728,20 @@ State 90
     '&'            shift, and go to state 71
     '='            shift, and go to state 72
 
-    '<'            [reduce using rule 40 (expr)]
-    '>'            [reduce using rule 40 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 40 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 40 (expr)]
-    NOT_EQUAL      [reduce using rule 40 (expr)]
-    '&'            [reduce using rule 40 (expr)]
-    '='            [reduce using rule 40 (expr)]
-    $default       reduce using rule 40 (expr)
+    '<'            [reduce using rule 42 (expr)]
+    '>'            [reduce using rule 42 (expr)]
+    LESS_OR_EQUAL  [reduce using rule 42 (expr)]
+    MORE_OR_EQUAL  [reduce using rule 42 (expr)]
+    NOT_EQUAL      [reduce using rule 42 (expr)]
+    '&'            [reduce using rule 42 (expr)]
+    '='            [reduce using rule 42 (expr)]
+    $default       reduce using rule 42 (expr)
 
 
 State 91
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    43     | expr '*' expr .
    44     | expr . '/' expr
@@ -1777,8 +1777,8 @@ State 91
 
 State 92
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    44     | expr '/' expr .
@@ -1814,8 +1814,8 @@ State 92
 
 State 93
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1851,8 +1851,8 @@ State 93
 
 State 94
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1891,8 +1891,8 @@ State 94
 
 State 95
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1938,8 +1938,8 @@ State 95
 
 State 96
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -1985,8 +1985,8 @@ State 96
 
 State 97
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2032,8 +2032,8 @@ State 97
 
 State 98
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2079,8 +2079,8 @@ State 98
 
 State 99
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2126,8 +2126,8 @@ State 99
 
 State 100
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2173,8 +2173,8 @@ State 100
 
 State 101
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2275,8 +2275,8 @@ State 106
 State 107
 
    36 case_stmt: CASE expr TO expr . stmt
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2330,9 +2330,9 @@ State 108
 
 State 109
 
-   19 var_name: IDENTIFIER '(' expr ')' .
+   18 var_name: IDENTIFIER '(' expr ')' .
 
-    $default  reduce using rule 19 (var_name)
+    $default  reduce using rule 18 (var_name)
 
 
 State 110
@@ -2355,7 +2355,7 @@ State 110
 
 State 111
 
-   17 decl_stmt: DIM var_name AS basic_literal '=' . expr
+   14 decl_stmt: DIM var_name AS basic_literal '=' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -2438,8 +2438,8 @@ State 118
 State 119
 
    13 decl_stmt: CONST var_name AS basic_literal '=' expr .
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2471,9 +2471,9 @@ State 119
 
 State 120
 
-   17 decl_stmt: DIM var_name AS basic_literal '=' expr .
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   14 decl_stmt: DIM var_name AS basic_literal '=' expr .
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2500,13 +2500,13 @@ State 120
     '&'            shift, and go to state 71
     '='            shift, and go to state 72
 
-    $default  reduce using rule 17 (decl_stmt)
+    $default  reduce using rule 14 (decl_stmt)
 
 
 State 121
 
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2611,8 +2611,8 @@ State 127
 State 128
 
    31 elseif_list: ELSEIF expr . THEN stmt
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr
@@ -2722,8 +2722,8 @@ State 133
 State 134
 
    32 elseif_list: elseif_list ELSEIF expr . THEN stmt
-   39 expr: expr . '+' expr
-   40     | expr . '-' expr
+   41 expr: expr . '+' expr
+   42     | expr . '-' expr
    43     | expr . '*' expr
    44     | expr . '/' expr
    45     | expr . INT_DIV expr

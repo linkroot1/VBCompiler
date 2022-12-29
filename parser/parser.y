@@ -143,15 +143,15 @@ stmt: decl_stmt stmt_ends
 //-------------------------Declaration stmt
 decl_stmt: ACCESS SUB var_name stmt END SUB
         | CONST var_name AS basic_literal '=' expr
-        | DIM var_name
+        | DIM var_name AS basic_literal '=' expr
         | DIM var_name AS basic_literal
         | DIM var_name '=' expr
-        | DIM var_name AS basic_literal '=' expr
+        | DIM var_name
         ;
 
 
-var_name: IDENTIFIER
-        | IDENTIFIER'('expr')'
+var_name: IDENTIFIER'('expr')'
+        | IDENTIFIER
 
 
 
@@ -197,10 +197,10 @@ case_stmt: CASE expr stmt
 
 //---------------------------EXPRession (Доделать приоритет операций)
 expr: operand
-    | expr '+' expr
-    | expr '-' expr
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
+    | expr '+' expr
+    | expr '-' expr
     | expr '*' expr
     | expr '/' expr
     | expr INT_DIV expr
