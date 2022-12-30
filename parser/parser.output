@@ -14,21 +14,7 @@ Terminals unused in grammar
 
 State 47 conflicts: 1 shift/reduce
 State 48 conflicts: 1 shift/reduce
-State 58 conflicts: 7 shift/reduce
-State 59 conflicts: 7 shift/reduce
-State 89 conflicts: 7 shift/reduce
-State 90 conflicts: 7 shift/reduce
-State 91 conflicts: 7 shift/reduce
-State 92 conflicts: 7 shift/reduce
-State 93 conflicts: 7 shift/reduce
-State 94 conflicts: 7 shift/reduce
-State 95 conflicts: 13 shift/reduce
-State 96 conflicts: 13 shift/reduce
-State 97 conflicts: 13 shift/reduce
-State 98 conflicts: 13 shift/reduce
-State 99 conflicts: 13 shift/reduce
-State 100 conflicts: 13 shift/reduce
-State 101 conflicts: 13 shift/reduce
+State 49 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -44,7 +30,7 @@ Grammar
     5                             | program_items_list_not_empty program_item
 
     6 program_item: stmt
-    7             | IMPORTS IDENTIFIER
+    7             | IMPORTS IDENTIFIER stmt_ends
 
     8 stmt_ends: END_OF_LINE
     9          | stmt_ends END_OF_LINE
@@ -86,62 +72,63 @@ Grammar
    35          | CASE IS expr stmt
    36          | CASE expr TO expr stmt
    37          | CASE ELSE stmt
+   38          | case_stmt case_stmt
 
-   38 expr: operand
-   39     | '-' expr
-   40     | '+' expr
-   41     | expr '+' expr
-   42     | expr '-' expr
-   43     | expr '*' expr
-   44     | expr '/' expr
-   45     | expr INT_DIV expr
-   46     | expr '=' expr
-   47     | expr '<' expr
-   48     | expr '>' expr
-   49     | expr '^' expr
-   50     | expr NOT_EQUAL expr
-   51     | expr LESS_OR_EQUAL expr
-   52     | expr MORE_OR_EQUAL expr
-   53     | expr '&' expr
+   39 expr: operand
+   40     | '-' expr
+   41     | '+' expr
+   42     | expr '+' expr
+   43     | expr '-' expr
+   44     | expr '*' expr
+   45     | expr '/' expr
+   46     | expr INT_DIV expr
+   47     | expr '=' expr
+   48     | expr '<' expr
+   49     | expr '>' expr
+   50     | expr '^' expr
+   51     | expr NOT_EQUAL expr
+   52     | expr LESS_OR_EQUAL expr
+   53     | expr MORE_OR_EQUAL expr
+   54     | expr '&' expr
 
-   54 operand: basic_literal
-   55        | function_literal
+   55 operand: basic_literal
+   56        | function_literal
 
-   56 basic_literal: INT
-   57              | STRING
-   58              | BOOLEAN
-   59              | DOUBLE
+   57 basic_literal: INT
+   58              | STRING
+   59              | BOOLEAN
+   60              | DOUBLE
 
-   60 function_literal: IDENTIFIER arguments
+   61 function_literal: IDENTIFIER arguments
 
-   61 arguments: '(' expr_list ')'
-   62          | '(' ')'
+   62 arguments: '(' expr_list ')'
+   63          | '(' ')'
 
-   63 expr_list: expr
-   64          | expr_list ',' expr
+   64 expr_list: expr
+   65          | expr_list ',' expr
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '&' (38) 53
-    '(' (40) 18 61 62
-    ')' (41) 18 61 62
-    '*' (42) 43
-    '+' (43) 40 41
-    ',' (44) 64
-    '-' (45) 39 42
-    '/' (47) 44
-    '<' (60) 47
-    '=' (61) 13 14 16 25 26 46
-    '>' (62) 48
-    '^' (94) 49
+    '&' (38) 54
+    '(' (40) 18 62 63
+    ')' (41) 18 62 63
+    '*' (42) 44
+    '+' (43) 41 42
+    ',' (44) 65
+    '-' (45) 40 43
+    '/' (47) 45
+    '<' (60) 48
+    '=' (61) 13 14 16 25 26 47
+    '>' (62) 49
+    '^' (94) 50
     error (256)
-    INT <int_val> (258) 56
-    DOUBLE <double_val> (259) 59
-    STRING <str_val> (260) 57
-    BOOLEAN <bool_val> (261) 58
-    IDENTIFIER <id_name> (262) 7 18 19 25 26 60
+    INT <int_val> (258) 57
+    DOUBLE <double_val> (259) 60
+    STRING <str_val> (260) 58
+    BOOLEAN <bool_val> (261) 59
+    IDENTIFIER <id_name> (262) 7 18 19 25 26 61
     ENDL (263)
     ACCESS (264) 12
     SUB (265) 12
@@ -162,19 +149,19 @@ Terminals, with rules where they appear
     END_OF_LINE (280) 8 9
     UNARY_MINUS (281)
     UNARY_PLUS (282)
-    INT_DIV (283) 45
-    LESS_OR_EQUAL (284) 51
-    MORE_OR_EQUAL (285) 52
-    NOT_EQUAL (286) 50
-    ASSIGN_CONSTRUCT (287)
-    ASSIGN_MULT (288)
-    ASSIGN_ORD_DIV (289)
-    ASSIGN_INT_DIV (290)
-    ASSIGN_ADD (291)
-    ASSIGN_SUB (292)
-    ASSIGN_LSHIFT (293)
-    ASSIGN_RSHIFT (294)
-    ASSIGN_CONCAT (295)
+    ASSIGN_CONSTRUCT (283)
+    ASSIGN_MULT (284)
+    ASSIGN_ORD_DIV (285)
+    ASSIGN_INT_DIV (286)
+    ASSIGN_ADD (287)
+    ASSIGN_SUB (288)
+    ASSIGN_LSHIFT (289)
+    ASSIGN_RSHIFT (290)
+    ASSIGN_CONCAT (291)
+    INT_DIV (292) 46
+    NOT_EQUAL (293) 51
+    LESS_OR_EQUAL (294) 52
+    MORE_OR_EQUAL (295) 53
 
 
 Nonterminals, with rules where they appear
@@ -195,7 +182,7 @@ Nonterminals, with rules where they appear
         on right: 4 5
     stmt_ends (58)
         on left: 8 9
-        on right: 9 10 11 27 29 30
+        on right: 7 9 10 11 27 29 30
     stmt (59)
         on left: 10 11
         on right: 6 12 27 28 29 30 31 32 34 35 36 37
@@ -224,26 +211,26 @@ Nonterminals, with rules where they appear
         on left: 33
         on right: 23
     case_stmt (68)
-        on left: 34 35 36 37
-        on right: 24 33
+        on left: 34 35 36 37 38
+        on right: 24 33 38
     expr (69)
-        on left: 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53
-        on right: 13 14 16 18 25 27 28 29 30 31 32 33 34 35 36 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 63 64
+        on left: 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+        on right: 13 14 16 18 25 27 28 29 30 31 32 33 34 35 36 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 64 65
     operand (70)
-        on left: 54 55
-        on right: 38
+        on left: 55 56
+        on right: 39
     basic_literal (71)
-        on left: 56 57 58 59
-        on right: 13 14 15 54
+        on left: 57 58 59 60
+        on right: 13 14 15 55
     function_literal (72)
-        on left: 60
-        on right: 55
+        on left: 61
+        on right: 56
     arguments (73)
-        on left: 61 62
-        on right: 60
+        on left: 62 63
+        on right: 61
     expr_list (74)
-        on left: 63 64
-        on right: 61 64
+        on left: 64 65
+        on right: 62 65
 
 
 State 0
@@ -382,7 +369,7 @@ State 8
 
 State 9
 
-    7 program_item: IMPORTS . IDENTIFIER
+    7 program_item: IMPORTS . IDENTIFIER stmt_ends
 
     IDENTIFIER  shift, and go to state 43
 
@@ -492,8 +479,13 @@ State 20
 State 21
 
    24 exec_stmt: case_stmt .
+   38 case_stmt: case_stmt . case_stmt
+
+    CASE  shift, and go to state 8
 
     $default  reduce using rule 24 (exec_stmt)
+
+    case_stmt  go to state 49
 
 
 State 22
@@ -505,11 +497,11 @@ State 22
     DOUBLE      shift, and go to state 28
     STRING      shift, and go to state 29
     BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 49
+    IDENTIFIER  shift, and go to state 50
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 50
+    expr              go to state 51
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
@@ -521,7 +513,7 @@ State 23
 
     IDENTIFIER  shift, and go to state 24
 
-    var_name  go to state 51
+    var_name  go to state 52
 
 
 State 24
@@ -529,7 +521,7 @@ State 24
    18 var_name: IDENTIFIER . '(' expr ')'
    19         | IDENTIFIER .
 
-    '('  shift, and go to state 52
+    '('  shift, and go to state 53
 
     $default  reduce using rule 19 (var_name)
 
@@ -538,7 +530,7 @@ State 25
 
    13 decl_stmt: CONST var_name . AS basic_literal '=' expr
 
-    AS  shift, and go to state 53
+    AS  shift, and go to state 54
 
 
 State 26
@@ -548,70 +540,52 @@ State 26
    16          | DIM var_name . '=' expr
    17          | DIM var_name .
 
-    AS   shift, and go to state 54
-    '='  shift, and go to state 55
+    AS   shift, and go to state 55
+    '='  shift, and go to state 56
 
     $default  reduce using rule 17 (decl_stmt)
 
 
 State 27
 
-   56 basic_literal: INT .
-
-    $default  reduce using rule 56 (basic_literal)
-
-
-State 28
-
-   59 basic_literal: DOUBLE .
-
-    $default  reduce using rule 59 (basic_literal)
-
-
-State 29
-
-   57 basic_literal: STRING .
+   57 basic_literal: INT .
 
     $default  reduce using rule 57 (basic_literal)
 
 
-State 30
+State 28
 
-   58 basic_literal: BOOLEAN .
+   60 basic_literal: DOUBLE .
+
+    $default  reduce using rule 60 (basic_literal)
+
+
+State 29
+
+   58 basic_literal: STRING .
 
     $default  reduce using rule 58 (basic_literal)
 
 
+State 30
+
+   59 basic_literal: BOOLEAN .
+
+    $default  reduce using rule 59 (basic_literal)
+
+
 State 31
 
-   60 function_literal: IDENTIFIER . arguments
+   61 function_literal: IDENTIFIER . arguments
 
-    '('  shift, and go to state 56
+    '('  shift, and go to state 57
 
-    arguments  go to state 57
+    arguments  go to state 58
 
 
 State 32
 
-   40 expr: '+' . expr
-
-    INT         shift, and go to state 27
-    DOUBLE      shift, and go to state 28
-    STRING      shift, and go to state 29
-    BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 31
-    '+'         shift, and go to state 32
-    '-'         shift, and go to state 33
-
-    expr              go to state 58
-    operand           go to state 35
-    basic_literal     go to state 36
-    function_literal  go to state 37
-
-
-State 33
-
-   39 expr: '-' . expr
+   41 expr: '+' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -627,60 +601,78 @@ State 33
     function_literal  go to state 37
 
 
+State 33
+
+   40 expr: '-' . expr
+
+    INT         shift, and go to state 27
+    DOUBLE      shift, and go to state 28
+    STRING      shift, and go to state 29
+    BOOLEAN     shift, and go to state 30
+    IDENTIFIER  shift, and go to state 31
+    '+'         shift, and go to state 32
+    '-'         shift, and go to state 33
+
+    expr              go to state 60
+    operand           go to state 35
+    basic_literal     go to state 36
+    function_literal  go to state 37
+
+
 State 34
 
    27 while_stmt: WHILE expr . stmt_ends stmt END WHILE
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
     END_OF_LINE    shift, and go to state 46
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    stmt_ends  go to state 73
+    stmt_ends  go to state 74
 
 
 State 35
 
-   38 expr: operand .
+   39 expr: operand .
 
-    $default  reduce using rule 38 (expr)
+    $default  reduce using rule 39 (expr)
 
 
 State 36
 
-   54 operand: basic_literal .
+   55 operand: basic_literal .
 
-    $default  reduce using rule 54 (operand)
+    $default  reduce using rule 55 (operand)
 
 
 State 37
 
-   55 operand: function_literal .
+   56 operand: function_literal .
 
-    $default  reduce using rule 55 (operand)
+    $default  reduce using rule 56 (operand)
 
 
 State 38
@@ -688,34 +680,34 @@ State 38
    28 if_stmt: IF expr . THEN stmt
    29        | IF expr . THEN stmt_ends stmt ELSE stmt END IF
    30        | IF expr . THEN stmt_ends stmt elseif_list ELSE stmt END IF
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    THEN           shift, and go to state 74
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    THEN           shift, and go to state 75
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
 
 State 39
@@ -730,7 +722,7 @@ State 39
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 75
+    expr              go to state 76
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
@@ -749,7 +741,7 @@ State 40
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 76
+    stmt         go to state 77
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -771,7 +763,7 @@ State 41
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 77
+    expr              go to state 78
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
@@ -781,19 +773,19 @@ State 42
 
    34 case_stmt: CASE expr . stmt
    36          | CASE expr . TO expr stmt
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
     IDENTIFIER     shift, and go to state 1
     ACCESS         shift, and go to state 2
@@ -803,22 +795,22 @@ State 42
     IF             shift, and go to state 6
     SELECT         shift, and go to state 7
     CASE           shift, and go to state 8
-    TO             shift, and go to state 78
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    TO             shift, and go to state 79
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    stmt         go to state 79
+    stmt         go to state 80
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -830,9 +822,11 @@ State 42
 
 State 43
 
-    7 program_item: IMPORTS IDENTIFIER .
+    7 program_item: IMPORTS IDENTIFIER . stmt_ends
 
-    $default  reduce using rule 7 (program_item)
+    END_OF_LINE  shift, and go to state 46
+
+    stmt_ends  go to state 81
 
 
 State 44
@@ -861,7 +855,7 @@ State 47
     9 stmt_ends: stmt_ends . END_OF_LINE
    10 stmt: decl_stmt stmt_ends .
 
-    END_OF_LINE  shift, and go to state 80
+    END_OF_LINE  shift, and go to state 82
 
     END_OF_LINE  [reduce using rule 10 (stmt)]
     $default     reduce using rule 10 (stmt)
@@ -872,7 +866,7 @@ State 48
     9 stmt_ends: stmt_ends . END_OF_LINE
    11 stmt: exec_stmt stmt_ends .
 
-    END_OF_LINE  shift, and go to state 80
+    END_OF_LINE  shift, and go to state 82
 
     END_OF_LINE  [reduce using rule 11 (stmt)]
     $default     reduce using rule 11 (stmt)
@@ -880,51 +874,64 @@ State 48
 
 State 49
 
-   26 assign_stmt: IDENTIFIER '=' IDENTIFIER .
-   60 function_literal: IDENTIFIER . arguments
+   38 case_stmt: case_stmt . case_stmt
+   38          | case_stmt case_stmt .
 
-    '('  shift, and go to state 56
+    CASE  shift, and go to state 8
 
-    $default  reduce using rule 26 (assign_stmt)
+    CASE      [reduce using rule 38 (case_stmt)]
+    $default  reduce using rule 38 (case_stmt)
 
-    arguments  go to state 57
+    case_stmt  go to state 49
 
 
 State 50
 
-   25 assign_stmt: IDENTIFIER '=' expr .
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   26 assign_stmt: IDENTIFIER '=' IDENTIFIER .
+   61 function_literal: IDENTIFIER . arguments
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '('  shift, and go to state 57
+
+    $default  reduce using rule 26 (assign_stmt)
+
+    arguments  go to state 58
+
+
+State 51
+
+   25 assign_stmt: IDENTIFIER '=' expr .
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
     $default  reduce using rule 25 (assign_stmt)
 
 
-State 51
+State 52
 
    12 decl_stmt: ACCESS SUB var_name . stmt END SUB
 
@@ -937,7 +944,7 @@ State 51
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 81
+    stmt         go to state 83
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -947,7 +954,7 @@ State 51
     case_stmt    go to state 21
 
 
-State 52
+State 53
 
    18 var_name: IDENTIFIER '(' . expr ')'
 
@@ -959,13 +966,13 @@ State 52
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 82
+    expr              go to state 84
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
 
 
-State 53
+State 54
 
    13 decl_stmt: CONST var_name AS . basic_literal '=' expr
 
@@ -974,10 +981,10 @@ State 53
     STRING   shift, and go to state 29
     BOOLEAN  shift, and go to state 30
 
-    basic_literal  go to state 83
+    basic_literal  go to state 85
 
 
-State 54
+State 55
 
    14 decl_stmt: DIM var_name AS . basic_literal '=' expr
    15          | DIM var_name AS . basic_literal
@@ -987,10 +994,10 @@ State 54
     STRING   shift, and go to state 29
     BOOLEAN  shift, and go to state 30
 
-    basic_literal  go to state 84
+    basic_literal  go to state 86
 
 
-State 55
+State 56
 
    16 decl_stmt: DIM var_name '=' . expr
 
@@ -1002,125 +1009,16 @@ State 55
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 85
-    operand           go to state 35
-    basic_literal     go to state 36
-    function_literal  go to state 37
-
-
-State 56
-
-   61 arguments: '(' . expr_list ')'
-   62          | '(' . ')'
-
-    INT         shift, and go to state 27
-    DOUBLE      shift, and go to state 28
-    STRING      shift, and go to state 29
-    BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 31
-    '+'         shift, and go to state 32
-    '-'         shift, and go to state 33
-    ')'         shift, and go to state 86
-
     expr              go to state 87
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
-    expr_list         go to state 88
 
 
 State 57
 
-   60 function_literal: IDENTIFIER arguments .
-
-    $default  reduce using rule 60 (function_literal)
-
-
-State 58
-
-   40 expr: '+' expr .
-   41     | expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
-    '<'            [reduce using rule 40 (expr)]
-    '>'            [reduce using rule 40 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 40 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 40 (expr)]
-    NOT_EQUAL      [reduce using rule 40 (expr)]
-    '&'            [reduce using rule 40 (expr)]
-    '='            [reduce using rule 40 (expr)]
-    $default       reduce using rule 40 (expr)
-
-
-State 59
-
-   39 expr: '-' expr .
-   41     | expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
-    '<'            [reduce using rule 39 (expr)]
-    '>'            [reduce using rule 39 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 39 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 39 (expr)]
-    NOT_EQUAL      [reduce using rule 39 (expr)]
-    '&'            [reduce using rule 39 (expr)]
-    '='            [reduce using rule 39 (expr)]
-    $default       reduce using rule 39 (expr)
-
-
-State 60
-
-   41 expr: expr '+' . expr
+   62 arguments: '(' . expr_list ')'
+   63          | '(' . ')'
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1129,34 +1027,93 @@ State 60
     IDENTIFIER  shift, and go to state 31
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
+    ')'         shift, and go to state 88
 
     expr              go to state 89
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
+    expr_list         go to state 90
+
+
+State 58
+
+   61 function_literal: IDENTIFIER arguments .
+
+    $default  reduce using rule 61 (function_literal)
+
+
+State 59
+
+   41 expr: '+' expr .
+   42     | expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+
+    $default  reduce using rule 41 (expr)
+
+
+State 60
+
+   40 expr: '-' expr .
+   42     | expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+
+    $default  reduce using rule 40 (expr)
 
 
 State 61
 
-   42 expr: expr '-' . expr
-
-    INT         shift, and go to state 27
-    DOUBLE      shift, and go to state 28
-    STRING      shift, and go to state 29
-    BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 31
-    '+'         shift, and go to state 32
-    '-'         shift, and go to state 33
-
-    expr              go to state 90
-    operand           go to state 35
-    basic_literal     go to state 36
-    function_literal  go to state 37
-
-
-State 62
-
-   43 expr: expr '*' . expr
+   50 expr: expr '^' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1172,9 +1129,9 @@ State 62
     function_literal  go to state 37
 
 
-State 63
+State 62
 
-   44 expr: expr '/' . expr
+   44 expr: expr '*' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1190,9 +1147,9 @@ State 63
     function_literal  go to state 37
 
 
-State 64
+State 63
 
-   45 expr: expr INT_DIV . expr
+   45 expr: expr '/' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1208,9 +1165,9 @@ State 64
     function_literal  go to state 37
 
 
-State 65
+State 64
 
-   49 expr: expr '^' . expr
+   46 expr: expr INT_DIV . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1226,9 +1183,9 @@ State 65
     function_literal  go to state 37
 
 
-State 66
+State 65
 
-   47 expr: expr '<' . expr
+   42 expr: expr '+' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1244,9 +1201,9 @@ State 66
     function_literal  go to state 37
 
 
-State 67
+State 66
 
-   48 expr: expr '>' . expr
+   43 expr: expr '-' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1262,9 +1219,9 @@ State 67
     function_literal  go to state 37
 
 
-State 68
+State 67
 
-   51 expr: expr LESS_OR_EQUAL . expr
+   47 expr: expr '=' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1280,9 +1237,9 @@ State 68
     function_literal  go to state 37
 
 
-State 69
+State 68
 
-   52 expr: expr MORE_OR_EQUAL . expr
+   51 expr: expr NOT_EQUAL . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1298,9 +1255,9 @@ State 69
     function_literal  go to state 37
 
 
-State 70
+State 69
 
-   50 expr: expr NOT_EQUAL . expr
+   52 expr: expr LESS_OR_EQUAL . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1316,9 +1273,9 @@ State 70
     function_literal  go to state 37
 
 
-State 71
+State 70
 
-   53 expr: expr '&' . expr
+   53 expr: expr MORE_OR_EQUAL . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1334,9 +1291,9 @@ State 71
     function_literal  go to state 37
 
 
-State 72
+State 71
 
-   46 expr: expr '=' . expr
+   49 expr: expr '>' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -1352,7 +1309,43 @@ State 72
     function_literal  go to state 37
 
 
+State 72
+
+   48 expr: expr '<' . expr
+
+    INT         shift, and go to state 27
+    DOUBLE      shift, and go to state 28
+    STRING      shift, and go to state 29
+    BOOLEAN     shift, and go to state 30
+    IDENTIFIER  shift, and go to state 31
+    '+'         shift, and go to state 32
+    '-'         shift, and go to state 33
+
+    expr              go to state 102
+    operand           go to state 35
+    basic_literal     go to state 36
+    function_literal  go to state 37
+
+
 State 73
+
+   54 expr: expr '&' . expr
+
+    INT         shift, and go to state 27
+    DOUBLE      shift, and go to state 28
+    STRING      shift, and go to state 29
+    BOOLEAN     shift, and go to state 30
+    IDENTIFIER  shift, and go to state 31
+    '+'         shift, and go to state 32
+    '-'         shift, and go to state 33
+
+    expr              go to state 103
+    operand           go to state 35
+    basic_literal     go to state 36
+    function_literal  go to state 37
+
+
+State 74
 
     9 stmt_ends: stmt_ends . END_OF_LINE
    27 while_stmt: WHILE expr stmt_ends . stmt END WHILE
@@ -1365,9 +1358,9 @@ State 73
     IF           shift, and go to state 6
     SELECT       shift, and go to state 7
     CASE         shift, and go to state 8
-    END_OF_LINE  shift, and go to state 80
+    END_OF_LINE  shift, and go to state 82
 
-    stmt         go to state 102
+    stmt         go to state 104
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -1377,7 +1370,7 @@ State 73
     case_stmt    go to state 21
 
 
-State 74
+State 75
 
    28 if_stmt: IF expr THEN . stmt
    29        | IF expr THEN . stmt_ends stmt ELSE stmt END IF
@@ -1393,98 +1386,7 @@ State 74
     CASE         shift, and go to state 8
     END_OF_LINE  shift, and go to state 46
 
-    stmt_ends    go to state 103
-    stmt         go to state 104
-    decl_stmt    go to state 15
-    exec_stmt    go to state 16
-    assign_stmt  go to state 17
-    while_stmt   go to state 18
-    if_stmt      go to state 19
-    select_stmt  go to state 20
-    case_stmt    go to state 21
-
-
-State 75
-
-   33 select_stmt: SELECT CASE expr . case_stmt END SELECT
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    CASE           shift, and go to state 8
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
-    case_stmt  go to state 105
-
-
-State 76
-
-   37 case_stmt: CASE ELSE stmt .
-
-    $default  reduce using rule 37 (case_stmt)
-
-
-State 77
-
-   35 case_stmt: CASE IS expr . stmt
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    IDENTIFIER     shift, and go to state 1
-    ACCESS         shift, and go to state 2
-    CONST          shift, and go to state 3
-    DIM            shift, and go to state 4
-    WHILE          shift, and go to state 5
-    IF             shift, and go to state 6
-    SELECT         shift, and go to state 7
-    CASE           shift, and go to state 8
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
+    stmt_ends    go to state 105
     stmt         go to state 106
     decl_stmt    go to state 15
     exec_stmt    go to state 16
@@ -1495,7 +1397,98 @@ State 77
     case_stmt    go to state 21
 
 
+State 76
+
+   33 select_stmt: SELECT CASE expr . case_stmt END SELECT
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    CASE           shift, and go to state 8
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+
+    case_stmt  go to state 107
+
+
+State 77
+
+   37 case_stmt: CASE ELSE stmt .
+
+    $default  reduce using rule 37 (case_stmt)
+
+
 State 78
+
+   35 case_stmt: CASE IS expr . stmt
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    IDENTIFIER     shift, and go to state 1
+    ACCESS         shift, and go to state 2
+    CONST          shift, and go to state 3
+    DIM            shift, and go to state 4
+    WHILE          shift, and go to state 5
+    IF             shift, and go to state 6
+    SELECT         shift, and go to state 7
+    CASE           shift, and go to state 8
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+
+    stmt         go to state 108
+    decl_stmt    go to state 15
+    exec_stmt    go to state 16
+    assign_stmt  go to state 17
+    while_stmt   go to state 18
+    if_stmt      go to state 19
+    select_stmt  go to state 20
+    case_stmt    go to state 21
+
+
+State 79
 
    36 case_stmt: CASE expr TO . expr stmt
 
@@ -1507,725 +1500,518 @@ State 78
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 107
+    expr              go to state 109
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
 
 
-State 79
+State 80
 
    34 case_stmt: CASE expr stmt .
 
     $default  reduce using rule 34 (case_stmt)
 
 
-State 80
+State 81
+
+    7 program_item: IMPORTS IDENTIFIER stmt_ends .
+    9 stmt_ends: stmt_ends . END_OF_LINE
+
+    END_OF_LINE  shift, and go to state 82
+
+    $default  reduce using rule 7 (program_item)
+
+
+State 82
 
     9 stmt_ends: stmt_ends END_OF_LINE .
 
     $default  reduce using rule 9 (stmt_ends)
 
 
-State 81
+State 83
 
    12 decl_stmt: ACCESS SUB var_name stmt . END SUB
 
-    END  shift, and go to state 108
-
-
-State 82
-
-   18 var_name: IDENTIFIER '(' expr . ')'
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-    ')'            shift, and go to state 109
-
-
-State 83
-
-   13 decl_stmt: CONST var_name AS basic_literal . '=' expr
-
-    '='  shift, and go to state 110
+    END  shift, and go to state 110
 
 
 State 84
 
-   14 decl_stmt: DIM var_name AS basic_literal . '=' expr
-   15          | DIM var_name AS basic_literal .
+   18 var_name: IDENTIFIER '(' expr . ')'
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '='  shift, and go to state 111
-
-    $default  reduce using rule 15 (decl_stmt)
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+    ')'            shift, and go to state 111
 
 
 State 85
 
-   16 decl_stmt: DIM var_name '=' expr .
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   13 decl_stmt: CONST var_name AS basic_literal . '=' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
-    $default  reduce using rule 16 (decl_stmt)
+    '='  shift, and go to state 112
 
 
 State 86
 
-   62 arguments: '(' ')' .
+   14 decl_stmt: DIM var_name AS basic_literal . '=' expr
+   15          | DIM var_name AS basic_literal .
 
-    $default  reduce using rule 62 (arguments)
+    '='  shift, and go to state 113
+
+    $default  reduce using rule 15 (decl_stmt)
 
 
 State 87
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-   63 expr_list: expr .
+   16 decl_stmt: DIM var_name '=' expr .
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    $default  reduce using rule 63 (expr_list)
+    $default  reduce using rule 16 (decl_stmt)
 
 
 State 88
 
-   61 arguments: '(' expr_list . ')'
-   64 expr_list: expr_list . ',' expr
+   63 arguments: '(' ')' .
 
-    ')'  shift, and go to state 112
-    ','  shift, and go to state 113
+    $default  reduce using rule 63 (arguments)
 
 
 State 89
 
-   41 expr: expr . '+' expr
-   41     | expr '+' expr .
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+   64 expr_list: expr .
 
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '<'            [reduce using rule 41 (expr)]
-    '>'            [reduce using rule 41 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 41 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 41 (expr)]
-    NOT_EQUAL      [reduce using rule 41 (expr)]
-    '&'            [reduce using rule 41 (expr)]
-    '='            [reduce using rule 41 (expr)]
-    $default       reduce using rule 41 (expr)
+    $default  reduce using rule 64 (expr_list)
 
 
 State 90
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   42     | expr '-' expr .
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   62 arguments: '(' expr_list . ')'
+   65 expr_list: expr_list . ',' expr
 
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
-
-    '<'            [reduce using rule 42 (expr)]
-    '>'            [reduce using rule 42 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 42 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 42 (expr)]
-    NOT_EQUAL      [reduce using rule 42 (expr)]
-    '&'            [reduce using rule 42 (expr)]
-    '='            [reduce using rule 42 (expr)]
-    $default       reduce using rule 42 (expr)
+    ')'  shift, and go to state 114
+    ','  shift, and go to state 115
 
 
 State 91
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   43     | expr '*' expr .
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   50     | expr '^' expr .
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '<'            [reduce using rule 43 (expr)]
-    '>'            [reduce using rule 43 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 43 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 43 (expr)]
-    NOT_EQUAL      [reduce using rule 43 (expr)]
-    '&'            [reduce using rule 43 (expr)]
-    '='            [reduce using rule 43 (expr)]
-    $default       reduce using rule 43 (expr)
+    $default  reduce using rule 50 (expr)
 
 
 State 92
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   44     | expr '/' expr .
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   44     | expr '*' expr .
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '<'            [reduce using rule 44 (expr)]
-    '>'            [reduce using rule 44 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 44 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 44 (expr)]
-    NOT_EQUAL      [reduce using rule 44 (expr)]
-    '&'            [reduce using rule 44 (expr)]
-    '='            [reduce using rule 44 (expr)]
-    $default       reduce using rule 44 (expr)
+    $default  reduce using rule 44 (expr)
 
 
 State 93
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   45     | expr INT_DIV expr .
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   45     | expr '/' expr .
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '<'            [reduce using rule 45 (expr)]
-    '>'            [reduce using rule 45 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 45 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 45 (expr)]
-    NOT_EQUAL      [reduce using rule 45 (expr)]
-    '&'            [reduce using rule 45 (expr)]
-    '='            [reduce using rule 45 (expr)]
-    $default       reduce using rule 45 (expr)
+    $default  reduce using rule 45 (expr)
 
 
 State 94
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   49     | expr '^' expr .
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   46     | expr INT_DIV expr .
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '<'            [reduce using rule 49 (expr)]
-    '>'            [reduce using rule 49 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 49 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 49 (expr)]
-    NOT_EQUAL      [reduce using rule 49 (expr)]
-    '&'            [reduce using rule 49 (expr)]
-    '='            [reduce using rule 49 (expr)]
-    $default       reduce using rule 49 (expr)
+    $default  reduce using rule 46 (expr)
 
 
 State 95
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   47     | expr '<' expr .
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   42     | expr '+' expr .
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '+'            [reduce using rule 47 (expr)]
-    '-'            [reduce using rule 47 (expr)]
-    '*'            [reduce using rule 47 (expr)]
-    '/'            [reduce using rule 47 (expr)]
-    INT_DIV        [reduce using rule 47 (expr)]
-    '^'            [reduce using rule 47 (expr)]
-    '<'            [reduce using rule 47 (expr)]
-    '>'            [reduce using rule 47 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 47 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 47 (expr)]
-    NOT_EQUAL      [reduce using rule 47 (expr)]
-    '&'            [reduce using rule 47 (expr)]
-    '='            [reduce using rule 47 (expr)]
-    $default       reduce using rule 47 (expr)
+    $default  reduce using rule 42 (expr)
 
 
 State 96
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   48     | expr '>' expr .
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   43     | expr '-' expr .
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    '+'            [reduce using rule 48 (expr)]
-    '-'            [reduce using rule 48 (expr)]
-    '*'            [reduce using rule 48 (expr)]
-    '/'            [reduce using rule 48 (expr)]
-    INT_DIV        [reduce using rule 48 (expr)]
-    '^'            [reduce using rule 48 (expr)]
-    '<'            [reduce using rule 48 (expr)]
-    '>'            [reduce using rule 48 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 48 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 48 (expr)]
-    NOT_EQUAL      [reduce using rule 48 (expr)]
-    '&'            [reduce using rule 48 (expr)]
-    '='            [reduce using rule 48 (expr)]
-    $default       reduce using rule 48 (expr)
+    $default  reduce using rule 43 (expr)
 
 
 State 97
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   51     | expr LESS_OR_EQUAL expr .
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   47     | expr '=' expr .
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '&'  shift, and go to state 73
 
-    '+'            [reduce using rule 51 (expr)]
-    '-'            [reduce using rule 51 (expr)]
-    '*'            [reduce using rule 51 (expr)]
-    '/'            [reduce using rule 51 (expr)]
-    INT_DIV        [reduce using rule 51 (expr)]
-    '^'            [reduce using rule 51 (expr)]
-    '<'            [reduce using rule 51 (expr)]
-    '>'            [reduce using rule 51 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 51 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 51 (expr)]
-    NOT_EQUAL      [reduce using rule 51 (expr)]
-    '&'            [reduce using rule 51 (expr)]
-    '='            [reduce using rule 51 (expr)]
-    $default       reduce using rule 51 (expr)
+    $default  reduce using rule 47 (expr)
 
 
 State 98
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   52     | expr MORE_OR_EQUAL expr .
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   51     | expr NOT_EQUAL expr .
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '&'  shift, and go to state 73
 
-    '+'            [reduce using rule 52 (expr)]
-    '-'            [reduce using rule 52 (expr)]
-    '*'            [reduce using rule 52 (expr)]
-    '/'            [reduce using rule 52 (expr)]
-    INT_DIV        [reduce using rule 52 (expr)]
-    '^'            [reduce using rule 52 (expr)]
-    '<'            [reduce using rule 52 (expr)]
-    '>'            [reduce using rule 52 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 52 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 52 (expr)]
-    NOT_EQUAL      [reduce using rule 52 (expr)]
-    '&'            [reduce using rule 52 (expr)]
-    '='            [reduce using rule 52 (expr)]
-    $default       reduce using rule 52 (expr)
+    $default  reduce using rule 51 (expr)
 
 
 State 99
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   50     | expr NOT_EQUAL expr .
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   52     | expr LESS_OR_EQUAL expr .
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '&'  shift, and go to state 73
 
-    '+'            [reduce using rule 50 (expr)]
-    '-'            [reduce using rule 50 (expr)]
-    '*'            [reduce using rule 50 (expr)]
-    '/'            [reduce using rule 50 (expr)]
-    INT_DIV        [reduce using rule 50 (expr)]
-    '^'            [reduce using rule 50 (expr)]
-    '<'            [reduce using rule 50 (expr)]
-    '>'            [reduce using rule 50 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 50 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 50 (expr)]
-    NOT_EQUAL      [reduce using rule 50 (expr)]
-    '&'            [reduce using rule 50 (expr)]
-    '='            [reduce using rule 50 (expr)]
-    $default       reduce using rule 50 (expr)
+    $default  reduce using rule 52 (expr)
 
 
 State 100
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-   53     | expr '&' expr .
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   53     | expr MORE_OR_EQUAL expr .
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '&'  shift, and go to state 73
 
-    '+'            [reduce using rule 53 (expr)]
-    '-'            [reduce using rule 53 (expr)]
-    '*'            [reduce using rule 53 (expr)]
-    '/'            [reduce using rule 53 (expr)]
-    INT_DIV        [reduce using rule 53 (expr)]
-    '^'            [reduce using rule 53 (expr)]
-    '<'            [reduce using rule 53 (expr)]
-    '>'            [reduce using rule 53 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 53 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 53 (expr)]
-    NOT_EQUAL      [reduce using rule 53 (expr)]
-    '&'            [reduce using rule 53 (expr)]
-    '='            [reduce using rule 53 (expr)]
-    $default       reduce using rule 53 (expr)
+    $default  reduce using rule 53 (expr)
 
 
 State 101
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   46     | expr '=' expr .
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   49     | expr '>' expr .
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '&'  shift, and go to state 73
 
-    '+'            [reduce using rule 46 (expr)]
-    '-'            [reduce using rule 46 (expr)]
-    '*'            [reduce using rule 46 (expr)]
-    '/'            [reduce using rule 46 (expr)]
-    INT_DIV        [reduce using rule 46 (expr)]
-    '^'            [reduce using rule 46 (expr)]
-    '<'            [reduce using rule 46 (expr)]
-    '>'            [reduce using rule 46 (expr)]
-    LESS_OR_EQUAL  [reduce using rule 46 (expr)]
-    MORE_OR_EQUAL  [reduce using rule 46 (expr)]
-    NOT_EQUAL      [reduce using rule 46 (expr)]
-    '&'            [reduce using rule 46 (expr)]
-    '='            [reduce using rule 46 (expr)]
-    $default       reduce using rule 46 (expr)
+    $default  reduce using rule 49 (expr)
 
 
 State 102
 
-   27 while_stmt: WHILE expr stmt_ends stmt . END WHILE
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   48     | expr '<' expr .
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    END  shift, and go to state 114
+    '&'  shift, and go to state 73
+
+    $default  reduce using rule 48 (expr)
 
 
 State 103
+
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+   54     | expr '&' expr .
+
+    $default  reduce using rule 54 (expr)
+
+
+State 104
+
+   27 while_stmt: WHILE expr stmt_ends stmt . END WHILE
+
+    END  shift, and go to state 116
+
+
+State 105
 
     9 stmt_ends: stmt_ends . END_OF_LINE
    29 if_stmt: IF expr THEN stmt_ends . stmt ELSE stmt END IF
@@ -2239,77 +2025,7 @@ State 103
     IF           shift, and go to state 6
     SELECT       shift, and go to state 7
     CASE         shift, and go to state 8
-    END_OF_LINE  shift, and go to state 80
-
-    stmt         go to state 115
-    decl_stmt    go to state 15
-    exec_stmt    go to state 16
-    assign_stmt  go to state 17
-    while_stmt   go to state 18
-    if_stmt      go to state 19
-    select_stmt  go to state 20
-    case_stmt    go to state 21
-
-
-State 104
-
-   28 if_stmt: IF expr THEN stmt .
-
-    $default  reduce using rule 28 (if_stmt)
-
-
-State 105
-
-   33 select_stmt: SELECT CASE expr case_stmt . END SELECT
-
-    END  shift, and go to state 116
-
-
-State 106
-
-   35 case_stmt: CASE IS expr stmt .
-
-    $default  reduce using rule 35 (case_stmt)
-
-
-State 107
-
-   36 case_stmt: CASE expr TO expr . stmt
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-
-    IDENTIFIER     shift, and go to state 1
-    ACCESS         shift, and go to state 2
-    CONST          shift, and go to state 3
-    DIM            shift, and go to state 4
-    WHILE          shift, and go to state 5
-    IF             shift, and go to state 6
-    SELECT         shift, and go to state 7
-    CASE           shift, and go to state 8
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
-    '*'            shift, and go to state 62
-    '/'            shift, and go to state 63
-    INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    END_OF_LINE  shift, and go to state 82
 
     stmt         go to state 117
     decl_stmt    go to state 15
@@ -2321,66 +2037,97 @@ State 107
     case_stmt    go to state 21
 
 
+State 106
+
+   28 if_stmt: IF expr THEN stmt .
+
+    $default  reduce using rule 28 (if_stmt)
+
+
+State 107
+
+   33 select_stmt: SELECT CASE expr case_stmt . END SELECT
+   38 case_stmt: case_stmt . case_stmt
+
+    END   shift, and go to state 118
+    CASE  shift, and go to state 8
+
+    case_stmt  go to state 49
+
+
 State 108
 
-   12 decl_stmt: ACCESS SUB var_name stmt END . SUB
+   35 case_stmt: CASE IS expr stmt .
 
-    SUB  shift, and go to state 118
+    $default  reduce using rule 35 (case_stmt)
 
 
 State 109
+
+   36 case_stmt: CASE expr TO expr . stmt
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+
+    IDENTIFIER     shift, and go to state 1
+    ACCESS         shift, and go to state 2
+    CONST          shift, and go to state 3
+    DIM            shift, and go to state 4
+    WHILE          shift, and go to state 5
+    IF             shift, and go to state 6
+    SELECT         shift, and go to state 7
+    CASE           shift, and go to state 8
+    '^'            shift, and go to state 61
+    '*'            shift, and go to state 62
+    '/'            shift, and go to state 63
+    INT_DIV        shift, and go to state 64
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
+
+    stmt         go to state 119
+    decl_stmt    go to state 15
+    exec_stmt    go to state 16
+    assign_stmt  go to state 17
+    while_stmt   go to state 18
+    if_stmt      go to state 19
+    select_stmt  go to state 20
+    case_stmt    go to state 21
+
+
+State 110
+
+   12 decl_stmt: ACCESS SUB var_name stmt END . SUB
+
+    SUB  shift, and go to state 120
+
+
+State 111
 
    18 var_name: IDENTIFIER '(' expr ')' .
 
     $default  reduce using rule 18 (var_name)
 
 
-State 110
-
-   13 decl_stmt: CONST var_name AS basic_literal '=' . expr
-
-    INT         shift, and go to state 27
-    DOUBLE      shift, and go to state 28
-    STRING      shift, and go to state 29
-    BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 31
-    '+'         shift, and go to state 32
-    '-'         shift, and go to state 33
-
-    expr              go to state 119
-    operand           go to state 35
-    basic_literal     go to state 36
-    function_literal  go to state 37
-
-
-State 111
-
-   14 decl_stmt: DIM var_name AS basic_literal '=' . expr
-
-    INT         shift, and go to state 27
-    DOUBLE      shift, and go to state 28
-    STRING      shift, and go to state 29
-    BOOLEAN     shift, and go to state 30
-    IDENTIFIER  shift, and go to state 31
-    '+'         shift, and go to state 32
-    '-'         shift, and go to state 33
-
-    expr              go to state 120
-    operand           go to state 35
-    basic_literal     go to state 36
-    function_literal  go to state 37
-
-
 State 112
 
-   61 arguments: '(' expr_list ')' .
-
-    $default  reduce using rule 61 (arguments)
-
-
-State 113
-
-   64 expr_list: expr_list ',' . expr
+   13 decl_stmt: CONST var_name AS basic_literal '=' . expr
 
     INT         shift, and go to state 27
     DOUBLE      shift, and go to state 28
@@ -2396,155 +2143,198 @@ State 113
     function_literal  go to state 37
 
 
+State 113
+
+   14 decl_stmt: DIM var_name AS basic_literal '=' . expr
+
+    INT         shift, and go to state 27
+    DOUBLE      shift, and go to state 28
+    STRING      shift, and go to state 29
+    BOOLEAN     shift, and go to state 30
+    IDENTIFIER  shift, and go to state 31
+    '+'         shift, and go to state 32
+    '-'         shift, and go to state 33
+
+    expr              go to state 122
+    operand           go to state 35
+    basic_literal     go to state 36
+    function_literal  go to state 37
+
+
 State 114
 
-   27 while_stmt: WHILE expr stmt_ends stmt END . WHILE
+   62 arguments: '(' expr_list ')' .
 
-    WHILE  shift, and go to state 122
+    $default  reduce using rule 62 (arguments)
 
 
 State 115
 
-   29 if_stmt: IF expr THEN stmt_ends stmt . ELSE stmt END IF
-   30        | IF expr THEN stmt_ends stmt . elseif_list ELSE stmt END IF
+   65 expr_list: expr_list ',' . expr
 
-    ELSE    shift, and go to state 123
-    ELSEIF  shift, and go to state 124
+    INT         shift, and go to state 27
+    DOUBLE      shift, and go to state 28
+    STRING      shift, and go to state 29
+    BOOLEAN     shift, and go to state 30
+    IDENTIFIER  shift, and go to state 31
+    '+'         shift, and go to state 32
+    '-'         shift, and go to state 33
 
-    elseif_list  go to state 125
+    expr              go to state 123
+    operand           go to state 35
+    basic_literal     go to state 36
+    function_literal  go to state 37
 
 
 State 116
 
-   33 select_stmt: SELECT CASE expr case_stmt END . SELECT
+   27 while_stmt: WHILE expr stmt_ends stmt END . WHILE
 
-    SELECT  shift, and go to state 126
+    WHILE  shift, and go to state 124
 
 
 State 117
+
+   29 if_stmt: IF expr THEN stmt_ends stmt . ELSE stmt END IF
+   30        | IF expr THEN stmt_ends stmt . elseif_list ELSE stmt END IF
+
+    ELSE    shift, and go to state 125
+    ELSEIF  shift, and go to state 126
+
+    elseif_list  go to state 127
+
+
+State 118
+
+   33 select_stmt: SELECT CASE expr case_stmt END . SELECT
+
+    SELECT  shift, and go to state 128
+
+
+State 119
 
    36 case_stmt: CASE expr TO expr stmt .
 
     $default  reduce using rule 36 (case_stmt)
 
 
-State 118
+State 120
 
    12 decl_stmt: ACCESS SUB var_name stmt END SUB .
 
     $default  reduce using rule 12 (decl_stmt)
 
 
-State 119
+State 121
 
    13 decl_stmt: CONST var_name AS basic_literal '=' expr .
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
     $default  reduce using rule 13 (decl_stmt)
 
 
-State 120
+State 122
 
    14 decl_stmt: DIM var_name AS basic_literal '=' expr .
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
     $default  reduce using rule 14 (decl_stmt)
 
 
-State 121
+State 123
 
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
-   64 expr_list: expr_list ',' expr .
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
+   65 expr_list: expr_list ',' expr .
 
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
-    $default  reduce using rule 64 (expr_list)
+    $default  reduce using rule 65 (expr_list)
 
 
-State 122
+State 124
 
    27 while_stmt: WHILE expr stmt_ends stmt END WHILE .
 
     $default  reduce using rule 27 (while_stmt)
 
 
-State 123
+State 125
 
    29 if_stmt: IF expr THEN stmt_ends stmt ELSE . stmt END IF
 
@@ -2557,7 +2347,7 @@ State 123
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 127
+    stmt         go to state 129
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -2567,7 +2357,7 @@ State 123
     case_stmt    go to state 21
 
 
-State 124
+State 126
 
    31 elseif_list: ELSEIF . expr THEN stmt
 
@@ -2579,69 +2369,69 @@ State 124
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 128
+    expr              go to state 130
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
 
 
-State 125
+State 127
 
    30 if_stmt: IF expr THEN stmt_ends stmt elseif_list . ELSE stmt END IF
    32 elseif_list: elseif_list . ELSEIF expr THEN stmt
 
-    ELSE    shift, and go to state 129
-    ELSEIF  shift, and go to state 130
+    ELSE    shift, and go to state 131
+    ELSEIF  shift, and go to state 132
 
 
-State 126
+State 128
 
    33 select_stmt: SELECT CASE expr case_stmt END SELECT .
 
     $default  reduce using rule 33 (select_stmt)
 
 
-State 127
+State 129
 
    29 if_stmt: IF expr THEN stmt_ends stmt ELSE stmt . END IF
 
-    END  shift, and go to state 131
+    END  shift, and go to state 133
 
 
-State 128
+State 130
 
    31 elseif_list: ELSEIF expr . THEN stmt
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    THEN           shift, and go to state 132
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    THEN           shift, and go to state 134
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
 
-State 129
+State 131
 
    30 if_stmt: IF expr THEN stmt_ends stmt elseif_list ELSE . stmt END IF
 
@@ -2654,7 +2444,7 @@ State 129
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 133
+    stmt         go to state 135
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -2664,7 +2454,7 @@ State 129
     case_stmt    go to state 21
 
 
-State 130
+State 132
 
    32 elseif_list: elseif_list ELSEIF . expr THEN stmt
 
@@ -2676,20 +2466,20 @@ State 130
     '+'         shift, and go to state 32
     '-'         shift, and go to state 33
 
-    expr              go to state 134
+    expr              go to state 136
     operand           go to state 35
     basic_literal     go to state 36
     function_literal  go to state 37
 
 
-State 131
+State 133
 
    29 if_stmt: IF expr THEN stmt_ends stmt ELSE stmt END . IF
 
-    IF  shift, and go to state 135
+    IF  shift, and go to state 137
 
 
-State 132
+State 134
 
    31 elseif_list: ELSEIF expr THEN . stmt
 
@@ -2702,7 +2492,7 @@ State 132
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 136
+    stmt         go to state 138
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -2712,68 +2502,68 @@ State 132
     case_stmt    go to state 21
 
 
-State 133
+State 135
 
    30 if_stmt: IF expr THEN stmt_ends stmt elseif_list ELSE stmt . END IF
 
-    END  shift, and go to state 137
+    END  shift, and go to state 139
 
 
-State 134
+State 136
 
    32 elseif_list: elseif_list ELSEIF expr . THEN stmt
-   41 expr: expr . '+' expr
-   42     | expr . '-' expr
-   43     | expr . '*' expr
-   44     | expr . '/' expr
-   45     | expr . INT_DIV expr
-   46     | expr . '=' expr
-   47     | expr . '<' expr
-   48     | expr . '>' expr
-   49     | expr . '^' expr
-   50     | expr . NOT_EQUAL expr
-   51     | expr . LESS_OR_EQUAL expr
-   52     | expr . MORE_OR_EQUAL expr
-   53     | expr . '&' expr
+   42 expr: expr . '+' expr
+   43     | expr . '-' expr
+   44     | expr . '*' expr
+   45     | expr . '/' expr
+   46     | expr . INT_DIV expr
+   47     | expr . '=' expr
+   48     | expr . '<' expr
+   49     | expr . '>' expr
+   50     | expr . '^' expr
+   51     | expr . NOT_EQUAL expr
+   52     | expr . LESS_OR_EQUAL expr
+   53     | expr . MORE_OR_EQUAL expr
+   54     | expr . '&' expr
 
-    THEN           shift, and go to state 138
-    '+'            shift, and go to state 60
-    '-'            shift, and go to state 61
+    THEN           shift, and go to state 140
+    '^'            shift, and go to state 61
     '*'            shift, and go to state 62
     '/'            shift, and go to state 63
     INT_DIV        shift, and go to state 64
-    '^'            shift, and go to state 65
-    '<'            shift, and go to state 66
-    '>'            shift, and go to state 67
-    LESS_OR_EQUAL  shift, and go to state 68
-    MORE_OR_EQUAL  shift, and go to state 69
-    NOT_EQUAL      shift, and go to state 70
-    '&'            shift, and go to state 71
-    '='            shift, and go to state 72
+    '+'            shift, and go to state 65
+    '-'            shift, and go to state 66
+    '='            shift, and go to state 67
+    NOT_EQUAL      shift, and go to state 68
+    LESS_OR_EQUAL  shift, and go to state 69
+    MORE_OR_EQUAL  shift, and go to state 70
+    '>'            shift, and go to state 71
+    '<'            shift, and go to state 72
+    '&'            shift, and go to state 73
 
 
-State 135
+State 137
 
    29 if_stmt: IF expr THEN stmt_ends stmt ELSE stmt END IF .
 
     $default  reduce using rule 29 (if_stmt)
 
 
-State 136
+State 138
 
    31 elseif_list: ELSEIF expr THEN stmt .
 
     $default  reduce using rule 31 (elseif_list)
 
 
-State 137
+State 139
 
    30 if_stmt: IF expr THEN stmt_ends stmt elseif_list ELSE stmt END . IF
 
-    IF  shift, and go to state 139
+    IF  shift, and go to state 141
 
 
-State 138
+State 140
 
    32 elseif_list: elseif_list ELSEIF expr THEN . stmt
 
@@ -2786,7 +2576,7 @@ State 138
     SELECT      shift, and go to state 7
     CASE        shift, and go to state 8
 
-    stmt         go to state 140
+    stmt         go to state 142
     decl_stmt    go to state 15
     exec_stmt    go to state 16
     assign_stmt  go to state 17
@@ -2796,14 +2586,14 @@ State 138
     case_stmt    go to state 21
 
 
-State 139
+State 141
 
    30 if_stmt: IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF .
 
     $default  reduce using rule 30 (if_stmt)
 
 
-State 140
+State 142
 
    32 elseif_list: elseif_list ELSEIF expr THEN stmt .
 
