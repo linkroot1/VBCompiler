@@ -56,19 +56,7 @@ int yylex();
 
 %right UNARY_MINUS
 %right UNARY_PLUS
-%token '+'
-%token '-'
-%token '*'
-%token '/'
-%token INT_DIV
-%token '^'
-%token '<'
-%token '>'
-%token LESS_OR_EQUAL
-%token MORE_OR_EQUAL
-%token NOT_EQUAL
-%token '&'
-%token '='
+
 %token ASSIGN_CONSTRUCT
 %token ASSIGN_MULT
 %token ASSIGN_ORD_DIV
@@ -80,8 +68,11 @@ int yylex();
 %token ASSIGN_CONCAT
 
 %left '^'
-%left '*' '/' INT_DIV
+%left '*' '/'
+%left INT_DIV
 %left '+' '-'
+%left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
+%left '&'
 
 
 %type program_items_list
@@ -123,7 +114,7 @@ program_items_list_not_empty: program_item
                             ;
 
 program_item: stmt
-             | IMPORTS IDENTIFIER
+             | IMPORTS IDENTIFIER stmt_ends
              ;
 
 
@@ -193,6 +184,7 @@ case_stmt: CASE expr stmt
         | CASE IS expr stmt
         | CASE expr TO expr stmt
         | CASE ELSE stmt
+        |case_stmt case_stmt
         ;
 
 //---------------------------EXPRession (Доделать приоритет операций)
