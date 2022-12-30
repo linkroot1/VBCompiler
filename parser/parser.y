@@ -1,5 +1,7 @@
-%error-verbose
+//%error-verbose
+%define parse.error verbose
 
+//разделить stmt на single_line_stmt и multi_line_stmt и переработать в соответствии с этими stmt if_stmt и while_stmt
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -152,7 +154,6 @@ exec_stmt: assign_stmt
         | while_stmt
         | if_stmt
         | select_stmt
-		| case_stmt
         ;
 
 //-------------------------Assignment stmt
@@ -172,14 +173,14 @@ if_stmt: IF expr THEN stmt
       | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
       ;
 
-elseif_list: ELSEIF expr THEN stmt_ends stmt
-           | elseif_list ELSEIF expr THEN stmt_ends stmt
+elseif_list: ELSEIF expr THEN stmt
+           | elseif_list ELSEIF expr THEN stmt
            ;
 
 //--------------------------SELECT stmt
 select_stmt: SELECT CASE expr stmt_ends case_list END SELECT
           ;
-		  
+
 case_list: case_stmt
 		| case_list case_stmt
 		;
