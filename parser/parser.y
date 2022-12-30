@@ -177,14 +177,17 @@ elseif_list: ELSEIF expr THEN stmt_ends stmt
            ;
 
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr stmt_ends case_stmt END SELECT
+select_stmt: SELECT CASE expr stmt_ends case_list END SELECT
           ;
+		  
+case_list: case_stmt
+		| case_list case_stmt
+		;
 
 case_stmt: CASE expr stmt
         | CASE IS expr stmt
         | CASE expr TO expr stmt
         | CASE ELSE stmt
-        | case_stmt case_stmt
         ;
 
 //---------------------------EXPRession (Доделать приоритет операций)
