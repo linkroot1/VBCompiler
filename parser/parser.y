@@ -172,19 +172,19 @@ if_stmt: IF expr THEN stmt
       | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
       ;
 
-elseif_list: ELSEIF expr THEN stmt
-           | elseif_list ELSEIF expr THEN stmt
+elseif_list: ELSEIF expr THEN stmt_ends stmt
+           | elseif_list ELSEIF expr THEN stmt_ends stmt
            ;
 
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr case_stmt END SELECT
+select_stmt: SELECT CASE expr stmt_ends case_stmt END SELECT
           ;
 
 case_stmt: CASE expr stmt
         | CASE IS expr stmt
         | CASE expr TO expr stmt
         | CASE ELSE stmt
-        |case_stmt case_stmt
+        | case_stmt case_stmt
         ;
 
 //---------------------------EXPRession (Доделать приоритет операций)
