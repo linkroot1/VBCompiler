@@ -82,12 +82,14 @@ int yylex();
 %type program_item
 %type stmt_ends
 %type stmt
+%type single_line_stmt
+%type multi_line_stmt
 %type decl_stmt
 %type var_name
-%type exec_stmt
 %type assign_stmt
 %type while_stmt
-%type if_stmt
+%type if_stmt_multi_line
+%type if_stmt_single_line
 %type elseif_list
 %type select_stmt
 %type case_stmt
@@ -122,22 +124,39 @@ program_item: stmt
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
 
+
+stmt: multi_line_stmt
+    | single_line_stmt
+    ;
+
+
+single_line_stmt: if_stmt_single_line
+                ;
+
+multi_line_stmt: decl_stmt stmt_ends
+               | assign_stmt stmt_ends
+               | while_stmt stmt_ends
+               | select_stmt stmt_ends
+               | if_stmt_multi_line stmt_ends
+               ;
+
+
+
 stmt_ends: END_OF_LINE
     | stmt_ends END_OF_LINE
     ;
 
 
 
-stmt: decl_stmt stmt_ends
-    | exec_stmt stmt_ends
-    ;
-
 
 //-------------------------Declaration stmt
 decl_stmt: ACCESS SUB var_name stmt END SUB
+        | CONST var_name AS basic_literal '=' END_OF_LINE expr
         | CONST var_name AS basic_literal '=' expr
+        | DIM var_name AS basic_literal '=' END_OF_LINE expr
         | DIM var_name AS basic_literal '=' expr
         | DIM var_name AS basic_literal
+        | DIM var_name '=' END_OF_LINE expr
         | DIM var_name '=' expr
         | DIM var_name
         ;
@@ -147,14 +166,6 @@ var_name: IDENTIFIER'('expr')'
         | IDENTIFIER
 
 
-
-
-//-----------------------------------------Executable Statements
-exec_stmt: assign_stmt
-        | while_stmt
-        | if_stmt
-        | select_stmt
-        ;
 
 //-------------------------Assignment stmt
 assign_stmt: IDENTIFIER '=' expr
@@ -167,11 +178,16 @@ while_stmt: WHILE expr stmt_ends stmt END WHILE
          ;
 
 //-------------------------IF/ELSE stmt
-//—делать обработку переводов строки
-if_stmt: IF expr THEN stmt
-      | IF expr THEN stmt_ends stmt ELSE stmt END IF
-      | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
-      ;
+
+if_stmt_multi_line: IF expr THEN stmt_ends stmt ELSE stmt END IF
+                  | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
+                  ;
+
+
+if_stmt_single_line: IF expr THEN single_line_stmt
+                   | IF expr THEN single_line_stmt ELSE single_line_stmt
+                   ;
+
 
 elseif_list: ELSEIF expr THEN stmt
            | elseif_list ELSEIF expr THEN stmt
@@ -191,7 +207,7 @@ case_stmt: CASE expr stmt
         | CASE ELSE stmt
         ;
 
-//---------------------------EXPRession (Доделать приоритет операций)
+//---------------------------EXPRession
 expr: operand
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
@@ -223,7 +239,7 @@ basic_literal: INT
 function_literal: IDENTIFIER arguments
                ;
 
-arguments: '(' expr_list ')' //<-- ??
+arguments: '(' expr_list ')'
          | '(' ')'
          ;
 
