@@ -79,7 +79,7 @@ Exit 			//{printf("\nReserved keyword Exit: \n");}
 Finally 			//{printf("\nReserved keyword Finally: \n");}
 For {return yytokentype::FOR;} 			//{printf("\nReserved keyword For: \n");}
 Friend 			//{printf("\nReserved keyword Friend: \n");}
-Function 			//{printf("\nReserved keyword Function: \n");}
+Function {return yytokentype::SELECT;}
 Get 			//{printf("\nReserved keyword Get: \n");}
 GetType 			//{printf("\nReserved keyword GetType: \n");}
 GetXMLNamespace 			//{printf("\nReserved keyword: \n");}
@@ -103,7 +103,7 @@ Long 			//{printf("\nReserved keyword Long: \n");}
 Loop 			//{printf("\nReserved keyword Loop: \n");}
 Me 			//{printf("\nReserved keyword Me: \n");}
 Mod 			//{printf("\nReserved keyword Mod: \n");}
-Module 			//{printf("\nReserved keyword Module: \n");}
+Module {return yytokentype::MODULE;}
 MustInherit 			//{printf("\nReserved keyword MustInherit: \n");}
 MustOverride 			//{printf("\nReserved keyword MustOverride: \n");}
 MyBase 			//{printf("\nReserved keyword MyBase: \n");}
@@ -141,7 +141,7 @@ ReDim 			//{printf("\nReserved keyword ReDim: \n");}
 REM 			//{printf("\nReserved keyword REM: \n");}
 RemoveHandler 			//{printf("\nReserved keyword RemoveHandler: \n");}
 Resume 			//{printf("\nReserved keyword Resume: \n");}
-Return 			//{printf("\nReserved keyword Return: \n");}
+Return {return yytokentype::RETURN;}
 SByte 			//{printf("\nReserved keyword SByte: \n");}
 Select {return yytokentype::SELECT;} 			//{printf("\nReserved keyword Select: \n");}
 Set 			//{printf("\nReserved keyword Set: \n");}
