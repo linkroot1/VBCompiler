@@ -35,7 +35,7 @@ int yylex();
 
 %token ENDL
 
-%token ACCESS //no ACCESS in lex
+%token ACCESS
 %token SUB
 %token END
 %token CONST

@@ -22,6 +22,7 @@ int result = 111;
 %%
 
 
+Access {return yytokentype::ACCESS;}
 AddHandler 			//{printf("\nReserved keyword AddHandler: \n");}
 Alias 			//{printf("\nReserved keyword Alias: \n");}
 AddressOf 			//{printf("\nReserved keyword AddressOf: \n");}
