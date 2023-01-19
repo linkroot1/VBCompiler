@@ -51,7 +51,9 @@ int yylex();
 %token IS
 %token TO
 %token IMPORTS
-
+%token MODULE
+%token FUNCTION
+%token RETURN
 
 %token END_OF_LINE
 
@@ -99,6 +101,17 @@ int yylex();
 %type function_literal
 %type arguments
 %type expr_list
+%type module
+%type stmt_list
+%type functions_and_sub_list
+%type function_or_sub
+%type function
+%type sub_bloc
+%type parameterlist_or_empty
+%type parameterlist_with_type
+%type parameterlist_without_type
+%type parameter_with_type
+%type parameter_without_type
 
 
 %start root
@@ -117,12 +130,64 @@ program_items_list_not_empty: program_item
                             | program_items_list_not_empty program_item
                             ;
 
-program_item: stmt
+program_item: module
              | IMPORTS IDENTIFIER stmt_ends
              ;
 
 
+module: MODULE IDENTIFIER stmt_ends END MODULE
+      | MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE
+      ;
+
+
+functions_and_sub_list: function_or_sub
+                      | functions_and_sub_list stmt_ends function_or_sub
+                      ;
+
+function_or_sub: function
+               | sub_bloc
+               ;
+
+function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr END FUNCTION
+        ;
+
+
+sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
+        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
+        ;
+
+parameterlist_or_empty:
+                      | parameterlist_with_type
+                      | parameterlist_without_type
+                      ;
+
+parameterlist_with_type: parameter_with_type
+                       | parameterlist_with_type ',' parameter_with_type
+                       ;
+
+
+parameterlist_without_type: parameter_without_type
+                          | parameterlist_without_type ',' parameter_without_type
+                          ;
+
+
+parameter_with_type: IDENTIFIER AS basic_literal
+                   | IDENTIFIER AS basic_literal '(' ')'
+                   ;
+
+
+parameter_without_type: IDENTIFIER
+                      ;
+
+
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
+
+stmt_list: stmt
+         | stmt_list stmt
+         ;
 
 
 stmt: multi_line_stmt
