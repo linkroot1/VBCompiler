@@ -35,7 +35,6 @@ int yylex();
 
 %token ENDL
 
-%token ACCESS
 %token SUB
 %token END
 %token CONST
@@ -71,6 +70,11 @@ int yylex();
 %token ASSIGN_RSHIFT
 %token ASSIGN_CONCAT
 
+%token PRIVATE
+%token PROTECTED
+%token PUBLIC
+%token FRIEND
+
 %left '^'
 %left '*' '/'
 %left INT_DIV
@@ -79,6 +83,7 @@ int yylex();
 %left '&'
 
 
+%type access
 %type program_items_list
 %type program_items_list_not_empty
 %type program_item
@@ -214,7 +219,7 @@ stmt_ends: END_OF_LINE
 
 
 //-------------------------Declaration stmt
-decl_stmt: ACCESS SUB var_name stmt END SUB
+decl_stmt: access SUB var_name stmt END SUB
         | CONST var_name AS basic_literal '=' END_OF_LINE expr
         | CONST var_name AS basic_literal '=' expr
         | DIM var_name AS basic_literal '=' END_OF_LINE expr
@@ -229,6 +234,14 @@ decl_stmt: ACCESS SUB var_name stmt END SUB
 var_name: IDENTIFIER'('expr')'
         | IDENTIFIER
 
+
+access: PUBLIC
+	  | PROTECTED
+	  | FRIEND
+	  | PRIVATE
+	  | PROTECTED FRIEND
+	  | PRIVATE FRIEND
+	  
 
 
 //-------------------------Assignment stmt

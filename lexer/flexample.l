@@ -22,7 +22,6 @@ int result = 111;
 %%
 
 
-Access {return yytokentype::ACCESS;}
 AddHandler 			//{printf("\nReserved keyword AddHandler: \n");}
 Alias 			//{printf("\nReserved keyword Alias: \n");}
 AddressOf 			//{printf("\nReserved keyword AddressOf: \n");}
@@ -78,7 +77,7 @@ Event 			//{printf("\nReserved keyword Event: \n");}
 Exit 			//{printf("\nReserved keyword Exit: \n");}
 Finally 			//{printf("\nReserved keyword Finally: \n");}
 For {return yytokentype::FOR;} 			//{printf("\nReserved keyword For: \n");}
-Friend 			//{printf("\nReserved keyword Friend: \n");}
+Friend {return yytokentype::FRIEND;} 			//{printf("\nReserved keyword Friend: \n");}
 Function {return yytokentype::SELECT;}
 Get 			//{printf("\nReserved keyword Get: \n");}
 GetType 			//{printf("\nReserved keyword GetType: \n");}
@@ -131,10 +130,10 @@ Overridable 			//{printf("\nReserved keyword Overridable: \n");}
 Overrides 			//{printf("\nReserved keyword Overrides: \n");}
 ParamArray 			//{printf("\nReserved keyword ParamArray: \n");}
 Partial 			//{printf("\nReserved keyword Partial: \n");}
-Private 			//{printf("\nReserved keyword Private: \n");}
+Private {return yytokentype::PRIVATE;} 			//{printf("\nReserved keyword Private: \n");}
 Property 			//{printf("\nReserved keyword Property: \n");}
-Protected 			//{printf("\nReserved keyword Protected: \n");}
-Public 			//{printf("\nReserved keyword Public: \n");}
+Protected {return yytokentype::PROTECTED;} 			//{printf("\nReserved keyword Protected: \n");}
+Public {return yytokentype::PUBLIC;} 			//{printf("\nReserved keyword Public: \n");}
 RaiseEvent 			//{printf("\nReserved keyword RaiseEvent: \n");}
 ReadOnly 			//{printf("\nReserved keyword ReadOnly: \n");}
 ReDim 			//{printf("\nReserved keyword ReDim: \n");}
