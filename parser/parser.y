@@ -96,7 +96,6 @@ int yylex();
 %type select_stmt
 %type case_stmt
 %type expr
-%type operand
 %type basic_literal
 %type function_literal
 %type arguments
@@ -273,7 +272,8 @@ case_stmt: CASE expr stmt
         ;
 
 //---------------------------EXPRession
-expr: operand
+expr: basic_literal
+    | function_literal
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
     | expr '+' expr
@@ -290,10 +290,6 @@ expr: operand
     | expr MORE_OR_EQUAL expr
     | expr '&' expr
     ;
-
-operand: basic_literal
-       | function_literal
-       ;
 
 basic_literal: INT
             | STRING
