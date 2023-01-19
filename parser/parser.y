@@ -141,6 +141,8 @@ program_item: module
 
 module: MODULE IDENTIFIER stmt_ends END MODULE
       | MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE
+      | access MODULE IDENTIFIER stmt_ends END MODULE
+      | access MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE
       ;
 
 
@@ -156,11 +158,17 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
         | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr END FUNCTION
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr END FUNCTION
         ;
 
 
 sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
         | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
         ;
 
 parameterlist_or_empty:
