@@ -227,7 +227,7 @@ stmt_ends: END_OF_LINE
 
 
 //-------------------------Declaration stmt
-decl_stmt: access SUB var_name stmt END SUB
+decl_stmt: access SUB var_name stmt_list END SUB
         | CONST var_name AS basic_literal '=' END_OF_LINE expr
         | CONST var_name AS basic_literal '=' expr
         | DIM var_name AS basic_literal '=' END_OF_LINE expr
@@ -259,13 +259,15 @@ assign_stmt: IDENTIFIER '=' expr
 
 
 //-------------------------WHILE/for stmt
-while_stmt: WHILE expr stmt_ends stmt END WHILE
+while_stmt: WHILE expr stmt_ends stmt_list END WHILE
          ;
 
 //-------------------------IF/ELSE stmt
 
-if_stmt_multi_line: IF expr THEN stmt_ends stmt ELSE stmt END IF
-                  | IF expr THEN stmt_ends stmt elseif_list ELSE stmt END IF
+if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF
+				  | IF expr THEN stmt_ends stmt_list ELSE stmt_list END IF
+                  | IF expr THEN stmt_ends stmt_list elseif_list END IF
+				  | IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
                   ;
 
 
@@ -274,8 +276,8 @@ if_stmt_single_line: IF expr THEN single_line_stmt
                    ;
 
 
-elseif_list: ELSEIF expr THEN stmt
-           | elseif_list ELSEIF expr THEN stmt
+elseif_list: ELSEIF expr THEN stmt_list
+           | elseif_list ELSEIF expr THEN stmt_list
            ;
 
 //--------------------------SELECT stmt
