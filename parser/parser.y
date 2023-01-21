@@ -102,7 +102,6 @@ int yylex();
 %type case_stmt
 %type expr
 %type basic_literal
-%type function_literal
 %type arguments
 %type expr_list
 %type module
@@ -116,6 +115,11 @@ int yylex();
 %type parameterlist_without_type
 %type parameter_with_type
 %type parameter_without_type
+%type function_call_multiline
+%type function_call_singleline
+%type arguments_singleline
+%type arguments_multiline
+%type function_calls
 
 
 %start root
@@ -262,7 +266,8 @@ access: PUBLIC
 
 //-------------------------Assignment stmt
 assign_stmt: IDENTIFIER '=' expr
-          | IDENTIFIER '=' IDENTIFIER //...
+          | IDENTIFIER '=' IDENTIFIER
+          | IDENTIFIER '=' function_calls
           ;
 
 
@@ -302,9 +307,22 @@ case_stmt: CASE expr stmt_ends stmt_list
         | CASE ELSE stmt_ends stmt_list
         ;
 
+//------------------Call Function stmt
+function_call_multiline: IDENTIFIER arguments_multiline
+                       ;
+
+
+function_call_singleline: IDENTIFIER arguments_singleline
+                        ;
+
+function_calls: function_call_multiline
+              | function_call_singleline
+              ;
+
+
+
 //---------------------------EXPRession
 expr: basic_literal
-    | function_literal
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
     | expr '+' expr
@@ -328,20 +346,25 @@ basic_literal: INT
             | DOUBLE
             ;
 
-function_literal: IDENTIFIER arguments
-               ;
 
-arguments: '(' expr_list ')'
-         | '(' ')'
-         | '(' END_OF_LINE expr_list ')'
-         | '(' END_OF_LINE expr_list END_OF_LINE ')'
-         | '(' expr_list END_OF_LINE ')'
-         ;
+arguments_multiline: '(' END_OF_LINE expr_list ')'
+                   | '(' END_OF_LINE expr_list END_OF_LINE ')'
+                   | '(' expr_list END_OF_LINE ')'
+                   ;
+
+
+arguments_singleline: '(' expr_list ')'
+                    | '(' ')'
+                    ;
+
+arguments: arguments_multiline
+        | arguments_singleline
+        ;
+
 
 expr_list: expr
-        | expr_list ',' expr
-        | expr_list ',' END_OF_LINE expr
-        ;
+         | expr_list ',' expr
+         ;
 %%
 
 void yyerror(char const *s) {
