@@ -78,7 +78,7 @@ Exit 			//{printf("\nReserved keyword Exit: \n");}
 Finally 			//{printf("\nReserved keyword Finally: \n");}
 For {return yytokentype::FOR;} 			//{printf("\nReserved keyword For: \n");}
 Friend {return yytokentype::FRIEND;} 			//{printf("\nReserved keyword Friend: \n");}
-Function {return yytokentype::SELECT;}
+Function {return yytokentype::FUNCTION;}
 Get 			//{printf("\nReserved keyword Get: \n");}
 GetType 			//{printf("\nReserved keyword GetType: \n");}
 GetXMLNamespace 			//{printf("\nReserved keyword: \n");}
