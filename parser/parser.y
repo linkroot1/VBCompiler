@@ -173,16 +173,24 @@ sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
 
 parameterlist_or_empty:
                       | parameterlist_with_type
+                      | END_OF_LINE parameterlist_with_type END_OF_LINE
+                      | END_OF_LINE parameterlist_with_type
+                      | parameterlist_with_type END_OF_LINE
                       | parameterlist_without_type
+                      | END_OF_LINE parameterlist_without_type END_OF_LINE
+                      | parameterlist_without_type END_OF_LINE
+                      | END_OF_LINE parameterlist_without_type
                       ;
 
 parameterlist_with_type: parameter_with_type
                        | parameterlist_with_type ',' parameter_with_type
+                       | parameterlist_with_type ',' END_OF_LINE parameter_with_type
                        ;
 
 
 parameterlist_without_type: parameter_without_type
                           | parameterlist_without_type ',' parameter_without_type
+                          | parameterlist_without_type ',' END_OF_LINE parameter_without_type
                           ;
 
 
@@ -249,7 +257,7 @@ access: PUBLIC
 	  | PRIVATE
 	  | PROTECTED FRIEND
 	  | PRIVATE FRIEND
-	  
+
 
 
 //-------------------------Assignment stmt
@@ -325,10 +333,14 @@ function_literal: IDENTIFIER arguments
 
 arguments: '(' expr_list ')'
          | '(' ')'
+         | '(' END_OF_LINE expr_list ')'
+         | '(' END_OF_LINE expr_list END_OF_LINE ')'
+         | '(' expr_list END_OF_LINE ')'
          ;
 
 expr_list: expr
         | expr_list ',' expr
+        | expr_list ',' END_OF_LINE expr
         ;
 %%
 
