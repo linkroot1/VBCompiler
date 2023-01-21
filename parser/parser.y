@@ -211,7 +211,7 @@ stmt_list: stmt
 
 
 stmt: multi_line_stmt
-    | single_line_stmt
+    | single_line_stmt stmt_ends
     ;
 
 
@@ -247,7 +247,7 @@ decl_stmt: access SUB var_name stmt_list END SUB
         ;
 
 
-var_name: IDENTIFIER'('expr')'
+var_name: IDENTIFIER'(' expr ')'
         | IDENTIFIER
 
 
@@ -296,10 +296,10 @@ case_list: case_stmt
 		| case_list case_stmt
 		;
 
-case_stmt: CASE expr stmt
-        | CASE IS expr stmt
-        | CASE expr TO expr stmt
-        | CASE ELSE stmt
+case_stmt: CASE expr stmt_ends stmt_list
+        | CASE IS expr stmt_ends stmt_list
+        | CASE expr TO expr stmt_ends stmt_list
+        | CASE ELSE stmt_ends stmt_list
         ;
 
 //---------------------------EXPRession
