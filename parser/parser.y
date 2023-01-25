@@ -56,6 +56,12 @@ int yylex();
 %token DO
 %token LOOP
 %token UNTIL
+%token FOR
+%token NEXT
+%token STEP
+%token OF
+%token IN
+%token EACH
 
 %token END_OF_LINE
 
@@ -125,6 +131,8 @@ int yylex();
 %type function_calls
 %type do_loop_stmt
 %type do_loop_condition
+%type for_loop_stmt
+%type for_each_loop_stmt
 
 %start root
 
@@ -230,6 +238,8 @@ multi_line_stmt: decl_stmt stmt_ends
                | assign_stmt stmt_ends
                | while_stmt stmt_ends
 			   | do_loop_stmt
+			   | for_loop_stmt
+			   | for_each_loop_stmt
                | select_stmt stmt_ends
                | if_stmt_multi_line stmt_ends
                ;
@@ -258,6 +268,7 @@ decl_stmt: access SUB var_name stmt_list END SUB
 
 var_name: IDENTIFIER'(' expr ')'
         | IDENTIFIER
+		;
 
 
 access: PUBLIC
@@ -266,6 +277,7 @@ access: PUBLIC
 	  | PRIVATE
 	  | PROTECTED FRIEND
 	  | PRIVATE FRIEND
+	  ;
 
 
 
@@ -284,9 +296,22 @@ while_stmt: WHILE expr stmt_ends stmt_list END WHILE
 //-------------------------DO stmt
 do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
 			| DO stmt_ends stmt_list LOOP do_loop_condition
+			;
 
 do_loop_condition: UNTIL expr
 				 | WHILE expr
+				 ;
+				 
+				 
+//-------------------------FOR LOOP stmt (needs work)
+for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal stmt_ends stmt_list NEXT
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal STEP basic_literal stmt_ends stmt_list NEXT
+			 ;
+			 
+			 
+//-------------------------FOR EACH LOOP stmt (needs work) 
+for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT
+
 
 //-------------------------IF/ELSE stmt
 
