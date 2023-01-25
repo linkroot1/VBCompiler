@@ -53,6 +53,9 @@ int yylex();
 %token MODULE
 %token FUNCTION
 %token RETURN
+%token DO
+%token LOOP
+%token UNTIL
 
 %token END_OF_LINE
 
@@ -120,7 +123,8 @@ int yylex();
 %type arguments_singleline
 %type arguments_multiline
 %type function_calls
-
+%type do_loop_stmt
+%type do_loop_condition
 
 %start root
 
@@ -225,6 +229,7 @@ single_line_stmt: if_stmt_single_line
 multi_line_stmt: decl_stmt stmt_ends
                | assign_stmt stmt_ends
                | while_stmt stmt_ends
+			   | do_loop_stmt
                | select_stmt stmt_ends
                | if_stmt_multi_line stmt_ends
                ;
@@ -271,9 +276,17 @@ assign_stmt: IDENTIFIER '=' expr
           ;
 
 
-//-------------------------WHILE/for stmt
+//-------------------------WHILE stmt
 while_stmt: WHILE expr stmt_ends stmt_list END WHILE
          ;
+		 
+		 
+//-------------------------DO stmt
+do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
+			| DO stmt_ends stmt_list LOOP do_loop_condition
+
+do_loop_condition: UNTIL expr
+				 | WHILE expr
 
 //-------------------------IF/ELSE stmt
 
