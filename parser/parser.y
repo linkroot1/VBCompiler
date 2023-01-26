@@ -91,6 +91,8 @@ int yylex();
 %left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
 %left '&'
 
+%precedence THEN
+%precedence ELSE
 
 %type access
 %type program_items_list
@@ -133,6 +135,8 @@ int yylex();
 %type do_loop_condition
 %type for_loop_stmt
 %type for_each_loop_stmt
+
+%token TEST
 
 %start root
 
@@ -232,6 +236,7 @@ stmt: multi_line_stmt
 
 
 single_line_stmt: if_stmt_single_line
+				| TEST
                 ;
 
 multi_line_stmt: decl_stmt stmt_ends
@@ -322,14 +327,14 @@ if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF
                   ;
 
 
-if_stmt_single_line: IF expr THEN single_line_stmt
-                   | IF expr THEN single_line_stmt ELSE single_line_stmt
-                   ;
-
-
 elseif_list: ELSEIF expr THEN stmt_list
            | elseif_list ELSEIF expr THEN stmt_list
            ;
+
+
+if_stmt_single_line: IF expr THEN single_line_stmt
+                   | IF expr THEN single_line_stmt ELSE single_line_stmt
+                   ;
 
 //--------------------------SELECT stmt
 select_stmt: SELECT CASE expr stmt_ends case_list END SELECT
