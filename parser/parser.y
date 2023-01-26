@@ -135,8 +135,7 @@ int yylex();
 %type do_loop_condition
 %type for_loop_stmt
 %type for_each_loop_stmt
-
-%token TEST
+%type decl_stmt_single_line
 
 %start root
 
@@ -236,7 +235,7 @@ stmt: multi_line_stmt
 
 
 single_line_stmt: if_stmt_single_line
-				| TEST
+				| decl_stmt_single_line
                 ;
 
 multi_line_stmt: decl_stmt stmt_ends
@@ -259,16 +258,19 @@ stmt_ends: END_OF_LINE
 
 
 //-------------------------Declaration stmt
-decl_stmt: access SUB var_name stmt_list END SUB
-        | CONST var_name AS basic_literal '=' END_OF_LINE expr
-        | CONST var_name AS basic_literal '=' expr
-        | DIM var_name AS basic_literal '=' END_OF_LINE expr
-        | DIM var_name AS basic_literal '=' expr
-        | DIM var_name AS basic_literal
-        | DIM var_name '=' END_OF_LINE expr
-        | DIM var_name '=' expr
-        | DIM var_name
-        ;
+decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr
+         | DIM var_name AS basic_literal '=' END_OF_LINE expr
+         | DIM var_name '=' END_OF_LINE expr
+         ;
+		
+		
+decl_stmt_single_line: access SUB var_name stmt_list END SUB
+					| CONST var_name AS basic_literal '=' expr
+					| DIM var_name AS basic_literal '=' expr
+					| DIM var_name AS basic_literal
+					| DIM var_name '=' expr
+					| DIM var_name
+					;
 
 
 var_name: IDENTIFIER'(' expr ')'
@@ -326,15 +328,14 @@ if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF
 				  | IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
                   ;
 
-
 elseif_list: ELSEIF expr THEN stmt_list
            | elseif_list ELSEIF expr THEN stmt_list
            ;
 
-
 if_stmt_single_line: IF expr THEN single_line_stmt
                    | IF expr THEN single_line_stmt ELSE single_line_stmt
                    ;
+
 
 //--------------------------SELECT stmt
 select_stmt: SELECT CASE expr stmt_ends case_list END SELECT
