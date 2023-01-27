@@ -42,6 +42,7 @@ int yylex();
 %token AS
 %token WHILE
 %token IF
+%token NEW
 
 %token ELSEIF
 %token SELECT
@@ -272,6 +273,7 @@ decl_stmt_single_line: access SUB var_name stmt_list END SUB
 					| DIM var_name AS basic_literal
 					| DIM var_name '=' expr
 					| DIM var_name
+                    | DIM var_name '=' NEW basic_literal'('')' '{' expr_list '}'
 					;
 
 
