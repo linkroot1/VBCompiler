@@ -42,8 +42,10 @@ int yylex();
 %token AS
 %token WHILE
 %token IF
-%token THEN
-%token ELSE
+
+%precedence THEN
+%precedence ELSE
+
 %token ELSEIF
 %token SELECT
 %token CASE
