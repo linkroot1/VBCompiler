@@ -296,9 +296,13 @@ access: PUBLIC
 assign_stmt_singleline: IDENTIFIER '=' expr
                       | IDENTIFIER '=' IDENTIFIER
                       | IDENTIFIER '=' function_call_singleline
+                      | function_call_singleline '=' expr
+                      | function_call_singleline '=' IDENTIFIER
+                      | function_call_singleline '=' function_call_singleline
                       ;
 
 assign_stmt_multiline: IDENTIFIER '=' function_call_multiline
+                     | function_call_multiline '=' function_call_multiline
                      ;
 
 
