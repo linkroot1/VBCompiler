@@ -103,7 +103,8 @@ int yylex();
 %type multi_line_stmt
 %type decl_stmt
 %type var_name
-%type assign_stmt
+%type assign_stmt_multiline
+%type assign_stmt_singleline
 %type while_stmt
 %type if_stmt_multi_line
 %type if_stmt_single_line
@@ -129,7 +130,6 @@ int yylex();
 %type function_call_singleline
 %type arguments_singleline
 %type arguments_multiline
-%type function_calls
 %type do_loop_stmt
 %type do_loop_condition
 %type for_loop_stmt
@@ -235,16 +235,19 @@ stmt: multi_line_stmt
 
 single_line_stmt: if_stmt_single_line
 				| decl_stmt_single_line
+				| function_call_singleline
+				| assign_stmt_singleline
                 ;
 
 multi_line_stmt: decl_stmt stmt_ends
-               | assign_stmt stmt_ends
+               | assign_stmt_multiline stmt_ends
                | while_stmt stmt_ends
 			   | do_loop_stmt
 			   | for_loop_stmt
 			   | for_each_loop_stmt
                | select_stmt stmt_ends
                | if_stmt_multi_line stmt_ends
+               | function_call_multiline
                ;
 
 
@@ -261,8 +264,8 @@ decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr
          | DIM var_name AS basic_literal '=' END_OF_LINE expr
          | DIM var_name '=' END_OF_LINE expr
          ;
-		
-		
+
+
 decl_stmt_single_line: access SUB var_name stmt_list END SUB
 					| CONST var_name AS basic_literal '=' expr
 					| DIM var_name AS basic_literal '=' expr
@@ -288,17 +291,20 @@ access: PUBLIC
 
 
 //-------------------------Assignment stmt
-assign_stmt: IDENTIFIER '=' expr
-          | IDENTIFIER '=' IDENTIFIER
-          | IDENTIFIER '=' function_calls
-          ;
+assign_stmt_singleline: IDENTIFIER '=' expr
+                      | IDENTIFIER '=' IDENTIFIER
+                      | IDENTIFIER '=' function_call_singleline
+                      ;
+
+assign_stmt_multiline: IDENTIFIER '=' function_call_multiline
+                     ;
 
 
 //-------------------------WHILE stmt
 while_stmt: WHILE expr stmt_ends stmt_list END WHILE
          ;
-		 
-		 
+
+
 //-------------------------DO stmt
 do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
 			| DO stmt_ends stmt_list LOOP do_loop_condition
@@ -307,15 +313,15 @@ do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
 do_loop_condition: UNTIL expr
 				 | WHILE expr
 				 ;
-				 
-				 
+
+
 //-------------------------FOR LOOP stmt (needs work)
 for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal stmt_ends stmt_list NEXT
 			 | FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal STEP basic_literal stmt_ends stmt_list NEXT
 			 ;
-			 
-			 
-//-------------------------FOR EACH LOOP stmt (needs work) 
+
+
+//-------------------------FOR EACH LOOP stmt (needs work)
 for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT
 
 
@@ -358,9 +364,6 @@ function_call_multiline: IDENTIFIER arguments_multiline
 function_call_singleline: IDENTIFIER arguments_singleline
                         ;
 
-function_calls: function_call_multiline
-              | function_call_singleline
-              ;
 
 
 
