@@ -84,7 +84,7 @@ int yylex();
 %token PUBLIC
 %token FRIEND
 
-%left '(' ')'
+
 %left '^'
 %left '*' '/'
 %left INT_DIV
@@ -294,6 +294,8 @@ access: PUBLIC
 
 //-------------------------Assignment stmt
 assign_stmt_singleline: IDENTIFIER '=' expr
+                      | IDENTIFIER '=' IDENTIFIER
+                      | IDENTIFIER '=' function_call_singleline
                       | function_call_singleline '=' expr
                       | function_call_singleline '=' IDENTIFIER
                       | function_call_singleline '=' function_call_singleline
@@ -373,8 +375,6 @@ function_call_singleline: IDENTIFIER arguments_singleline
 
 //---------------------------EXPRession
 expr: basic_literal
-    | IDENTIFIER
-    | function_call_singleline
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
     | expr '+' expr
@@ -390,7 +390,6 @@ expr: basic_literal
     | expr LESS_OR_EQUAL expr
     | expr MORE_OR_EQUAL expr
     | expr '&' expr
-	| '('expr')'
     ;
 
 basic_literal: INT
