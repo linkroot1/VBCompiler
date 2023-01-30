@@ -84,6 +84,7 @@ int yylex();
 %token PUBLIC
 %token FRIEND
 
+%left '(' ')'
 %left '^'
 %left '*' '/'
 %left INT_DIV
@@ -267,14 +268,13 @@ decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr
          ;
 
 
-decl_stmt_single_line: access SUB var_name stmt_list END SUB
-					| CONST var_name AS basic_literal '=' expr
-					| DIM var_name AS basic_literal '=' expr
-					| DIM var_name AS basic_literal
-					| DIM var_name '=' expr
-					| DIM var_name
-                    | DIM var_name '=' NEW basic_literal'('')' '{' expr_list '}'
-					;
+decl_stmt_single_line: CONST var_name AS basic_literal '=' expr
+					 | DIM var_name AS basic_literal '=' expr
+					 | DIM var_name AS basic_literal
+				 	 | DIM var_name '=' expr
+					 | DIM var_name
+                     | DIM var_name '=' NEW basic_literal'('')' '{' expr_list '}'
+					 ;
 
 
 var_name: IDENTIFIER'(' expr ')'
@@ -294,8 +294,6 @@ access: PUBLIC
 
 //-------------------------Assignment stmt
 assign_stmt_singleline: IDENTIFIER '=' expr
-                      | IDENTIFIER '=' IDENTIFIER
-                      | IDENTIFIER '=' function_call_singleline
                       | function_call_singleline '=' expr
                       | function_call_singleline '=' IDENTIFIER
                       | function_call_singleline '=' function_call_singleline
@@ -375,6 +373,8 @@ function_call_singleline: IDENTIFIER arguments_singleline
 
 //---------------------------EXPRession
 expr: basic_literal
+    | IDENTIFIER
+    | function_call_singleline
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
     | expr '+' expr
@@ -390,6 +390,7 @@ expr: basic_literal
     | expr LESS_OR_EQUAL expr
     | expr MORE_OR_EQUAL expr
     | expr '&' expr
+	| '('expr')'
     ;
 
 basic_literal: INT
