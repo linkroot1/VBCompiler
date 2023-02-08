@@ -91,6 +91,7 @@ int yylex();
 %left '+' '-'
 %left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
 %left '&'
+%nonassoc '(' ')'
 
 %precedence THEN
 %precedence ELSE
@@ -390,6 +391,9 @@ expr: basic_literal
     | expr LESS_OR_EQUAL expr
     | expr MORE_OR_EQUAL expr
     | expr '&' expr
+    | '(' expr ')'
+//     | function_call_multiline
+//     | IDENTIFIER
     ;
 
 basic_literal: INT
