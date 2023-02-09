@@ -106,8 +106,6 @@ int yylex();
 %type multi_line_stmt
 %type decl_stmt
 %type var_name
-%type assign_stmt_multiline
-%type assign_stmt_singleline
 %type while_stmt
 %type if_stmt_multi_line
 %type if_stmt_single_line
@@ -239,11 +237,9 @@ stmt: multi_line_stmt
 single_line_stmt: if_stmt_single_line
 				| decl_stmt_single_line
 				| function_call_singleline
-				| assign_stmt_singleline
                 ;
 
 multi_line_stmt: decl_stmt stmt_ends
-               | assign_stmt_multiline stmt_ends
                | while_stmt stmt_ends
 			   | do_loop_stmt
 			   | for_loop_stmt
@@ -293,17 +289,6 @@ access: PUBLIC
 
 
 
-//-------------------------Assignment stmt
-assign_stmt_singleline: IDENTIFIER '=' expr
-                      | IDENTIFIER '=' IDENTIFIER
-                      //| function_call_singleline '=' expr
-                      //| function_call_singleline '=' IDENTIFIER
-                      //| function_call_singleline '=' function_call_singleline
-                      ;
-
-assign_stmt_multiline: IDENTIFIER '=' function_call_multiline
-                     | function_call_multiline '=' function_call_multiline
-                     ;
 
 
 //-------------------------WHILE stmt
@@ -392,8 +377,8 @@ expr: basic_literal
     | expr MORE_OR_EQUAL expr
     | expr '&' expr
     | '(' expr ')'
-//     | function_call_multiline
-//     | IDENTIFIER
+    | function_call_multiline
+    | IDENTIFIER
     ;
 
 basic_literal: INT
