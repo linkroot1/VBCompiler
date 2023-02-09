@@ -27,11 +27,18 @@ int yylex();
 	char* id_var_name;
 }
 
-%token<int_val> INT
-%token<double_val> DOUBLE
-%token<str_val> STRING
-%token<bool_val> BOOLEAN
-%token<id_name> IDENTIFIER
+%token<int_val> INT_VALUE
+%token<double_val> DOUBLE_VALUE
+%token<str_val> STRING_VALUE
+%token<bool_val> BOOLEAN_VALUE
+%token<id_name> IDENTIFIER_VALUE
+
+
+%token INT
+%token DOUBLE
+%token STRING
+%token BOOLEAN
+%token IDENTIFIER
 
 %token ENDL
 
@@ -136,6 +143,7 @@ int yylex();
 %type for_loop_stmt
 %type for_each_loop_stmt
 %type decl_stmt_single_line
+%type basic_literal_value
 
 %start root
 
@@ -359,7 +367,7 @@ function_call_singleline: IDENTIFIER arguments_singleline
 
 
 //---------------------------EXPRession
-expr: basic_literal
+expr: basic_literal_value
 	| function_call_singleline
     | '-' expr	%prec UNARY_MINUS
     | '+' expr	%prec UNARY_PLUS
@@ -386,6 +394,13 @@ basic_literal: INT
             | BOOLEAN
             | DOUBLE
             ;
+
+basic_literal_value: INT_VALUE
+                   | STRING_VALUE
+                   | BOOLEAN_VALUE
+                   | DOUBLE_VALUE
+                   ;
+
 
 
 arguments_multiline: '(' END_OF_LINE expr_list ')'
