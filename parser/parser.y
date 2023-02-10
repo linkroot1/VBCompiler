@@ -314,13 +314,13 @@ do_loop_condition: UNTIL expr
 				 ;
 
 
-//-------------------------FOR LOOP stmt (needs work)
-for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal stmt_ends stmt_list NEXT
-			 | FOR IDENTIFIER AS basic_literal '=' basic_literal TO basic_literal STEP basic_literal stmt_ends stmt_list NEXT
+//-------------------------FOR LOOP stmt
+for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT
 			 ;
 
 
-//-------------------------FOR EACH LOOP stmt (needs work)
+//-------------------------FOR EACH LOOP stmt
 for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT
 
 
