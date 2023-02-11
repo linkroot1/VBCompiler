@@ -113,13 +113,14 @@ int yylex();
 %type multi_line_stmt
 %type decl_stmt
 %type var_name
+%type var_name_singleline
 %type while_stmt
 %type if_stmt_multi_line
 %type if_stmt_single_line
 %type elseif_list
 %type select_stmt
 %type case_stmt
-%type expr
+%type expr_singleline
 %type basic_literal
 %type arguments
 %type expr_list
@@ -134,8 +135,6 @@ int yylex();
 %type parameterlist_without_type
 %type parameter_with_type
 %type parameter_without_type
-%type function_call_multiline
-%type function_call_singleline
 %type arguments_singleline
 %type arguments_multiline
 %type do_loop_stmt
@@ -144,6 +143,7 @@ int yylex();
 %type for_each_loop_stmt
 %type decl_stmt_single_line
 %type basic_literal_value
+%type expr_multiline
 
 %start root
 
@@ -182,13 +182,17 @@ function_or_sub: function
                ;
 
 function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION
         | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION
         | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION
         ;
 
 
@@ -244,7 +248,7 @@ stmt: multi_line_stmt
 
 single_line_stmt: if_stmt_single_line
 				| decl_stmt_single_line
-				| function_call_singleline
+				| expr_singleline
                 ;
 
 multi_line_stmt: decl_stmt stmt_ends
@@ -254,7 +258,7 @@ multi_line_stmt: decl_stmt stmt_ends
 			   | for_each_loop_stmt
                | select_stmt stmt_ends
                | if_stmt_multi_line stmt_ends
-               | function_call_multiline
+               | expr_multiline stmt_ends
                ;
 
 
@@ -267,22 +271,28 @@ stmt_ends: END_OF_LINE
 
 
 //-------------------------Declaration stmt
-decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr
-         | DIM var_name AS basic_literal '=' END_OF_LINE expr
-         | DIM var_name '=' END_OF_LINE expr
+decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline
+         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline
+         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline
+         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline
+         | DIM var_name '=' END_OF_LINE expr_multiline
+         | DIM var_name_singleline '=' END_OF_LINE expr_multiline
          ;
 
 
-decl_stmt_single_line: CONST var_name AS basic_literal '=' expr
-					 | DIM var_name AS basic_literal '=' expr
-					 | DIM var_name AS basic_literal
-				 	 | DIM var_name '=' expr
-					 | DIM var_name
-                     | DIM var_name '=' NEW basic_literal'('')' '{' expr_list '}'
+decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline
+					 | DIM var_name_singleline AS basic_literal '=' expr_singleline
+					 | DIM var_name_singleline AS basic_literal
+				 	 | DIM var_name_singleline '=' expr_singleline
+					 | DIM var_name_singleline
+                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}'
 					 ;
 
 
-var_name: IDENTIFIER'(' expr ')'
+var_name: IDENTIFIER'(' expr_multiline ')'
+		;
+
+var_name_singleline: IDENTIFIER'(' expr_singleline ')'
         | IDENTIFIER
 		;
 
@@ -300,17 +310,18 @@ access: PUBLIC
 
 
 //-------------------------WHILE stmt
-while_stmt: WHILE expr stmt_ends stmt_list END WHILE
+while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE
+          | WHILE expr_singleline stmt_ends stmt_list END WHILE
          ;
 
 
-//-------------------------DO stmt
+//-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
 do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
 			| DO stmt_ends stmt_list LOOP do_loop_condition
 			;
 
-do_loop_condition: UNTIL expr
-				 | WHILE expr
+do_loop_condition: UNTIL expr_singleline
+				 | WHILE expr_singleline
 				 ;
 
 
@@ -326,68 +337,95 @@ for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends
 
 //-------------------------IF/ELSE stmt
 
-if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF
-				  | IF expr THEN stmt_ends stmt_list ELSE stmt_list END IF
-                  | IF expr THEN stmt_ends stmt_list elseif_list END IF
-				  | IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
+if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF
+                  | IF expr_singleline THEN stmt_ends stmt_list END IF
+				  | IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF
+				  | IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF
+                  | IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF
+                  | IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF
+				  | IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
+				  | IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
                   ;
 
-elseif_list: ELSEIF expr THEN stmt_list
-           | elseif_list ELSEIF expr THEN stmt_list
+elseif_list: ELSEIF expr_multiline THEN stmt_list
+           | ELSEIF expr_singleline THEN stmt_list
+           | elseif_list ELSEIF expr_multiline THEN stmt_list
+           | elseif_list ELSEIF expr_singleline THEN stmt_list
            ;
 
-if_stmt_single_line: IF expr THEN single_line_stmt
-                   | IF expr THEN single_line_stmt ELSE single_line_stmt
+if_stmt_single_line: IF expr_singleline THEN single_line_stmt
+                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt
                    ;
 
 
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr stmt_ends case_list END SELECT
-          ;
+select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT
+           | SELECT CASE expr_multiline stmt_ends case_list END SELECT
+           ;
 
 case_list: case_stmt
 		| case_list case_stmt
 		;
 
-case_stmt: CASE expr stmt_ends stmt_list
-        | CASE IS expr stmt_ends stmt_list
-        | CASE expr TO expr stmt_ends stmt_list
+case_stmt: CASE expr_multiline stmt_ends stmt_list
+        | CASE expr_singleline stmt_ends stmt_list
+        | CASE IS expr_multiline stmt_ends stmt_list
+        | CASE IS expr_singleline stmt_ends stmt_list
+        | CASE expr_multiline TO expr_multiline stmt_ends stmt_list
+        | CASE expr_multiline TO expr_singleline stmt_ends stmt_list
+        | CASE expr_singleline TO expr_multiline stmt_ends stmt_list
+        | CASE expr_singleline TO expr_singleline stmt_ends stmt_list
         | CASE ELSE stmt_ends stmt_list
         ;
 
-//------------------Call Function stmt
-function_call_multiline: IDENTIFIER arguments_multiline
-                       ;
 
-
-function_call_singleline: IDENTIFIER arguments_singleline
-                        ;
 
 
 
 
 //---------------------------EXPRession
-expr: basic_literal_value
-	| function_call_singleline
-    | '-' expr	%prec UNARY_MINUS
-    | '+' expr	%prec UNARY_PLUS
-    | expr '+' expr
-    | expr '-' expr
-    | expr '*' expr
-    | expr '/' expr
-    | expr INT_DIV expr
-    | expr '=' expr
-    | expr '<' expr
-    | expr '>' expr
-    | expr '^' expr
-    | expr NOT_EQUAL expr
-    | expr LESS_OR_EQUAL expr
-    | expr MORE_OR_EQUAL expr
-    | expr '&' expr
-    | '(' expr ')'
-    | function_call_multiline
+expr_singleline: basic_literal_value
+    | '-' expr_singleline	%prec UNARY_MINUS
+    | '+' expr_singleline	%prec UNARY_PLUS
+    | expr_singleline '+' expr_singleline
+    | expr_singleline '-' expr_singleline
+    | expr_singleline '*' expr_singleline
+    | expr_singleline '/' expr_singleline
+    | expr_singleline INT_DIV expr_singleline
+    | expr_singleline '=' expr_singleline
+    | expr_singleline '<' expr_singleline
+    | expr_singleline '>' expr_singleline
+    | expr_singleline '^' expr_singleline
+    | expr_singleline NOT_EQUAL expr_singleline
+    | expr_singleline LESS_OR_EQUAL expr_singleline
+    | expr_singleline MORE_OR_EQUAL expr_singleline
+    | expr_singleline '&' expr_singleline
+    | '(' expr_singleline ')'
     | IDENTIFIER
+    | IDENTIFIER arguments_singleline
     ;
+
+
+
+
+expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline
+              | expr_singleline '-' END_OF_LINE expr_singleline
+              | expr_singleline '*' END_OF_LINE expr_singleline
+              | expr_singleline '/' END_OF_LINE expr_singleline
+              | expr_singleline INT_DIV END_OF_LINE expr_singleline
+              | expr_singleline '=' END_OF_LINE expr_singleline
+              | expr_singleline '<' END_OF_LINE expr_singleline
+              | expr_singleline '>' END_OF_LINE expr_singleline
+              | expr_singleline '^' END_OF_LINE expr_singleline
+              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline
+              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline
+              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline
+              | expr_singleline '&' END_OF_LINE expr_singleline
+              | '(' END_OF_LINE expr_singleline ')'
+              | '(' END_OF_LINE expr_singleline END_OF_LINE ')'
+              | '(' expr_singleline END_OF_LINE ')'
+              | IDENTIFIER arguments_multiline
+              ;
 
 basic_literal: INT
             | STRING
@@ -418,9 +456,11 @@ arguments: arguments_multiline
         ;
 
 
-expr_list: expr
-         | expr_list ',' expr
+expr_list: expr_singleline
+         | expr_list ',' expr_singleline
          ;
+
+
 %%
 
 void yyerror(char const *s) {
