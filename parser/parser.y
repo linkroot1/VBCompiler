@@ -102,6 +102,7 @@ int yylex();
 
 %precedence THEN
 %precedence ELSE
+%precedence IDENTIFIER
 
 %type access
 %type program_items_list
