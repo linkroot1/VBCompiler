@@ -73,9 +73,6 @@ int yylex();
 %token END_OF_LINE
 
 
-%right UNARY_MINUS
-%right UNARY_PLUS
-
 %token ASSIGN_CONSTRUCT
 %token ASSIGN_MULT
 %token ASSIGN_ORD_DIV
@@ -96,6 +93,7 @@ int yylex();
 %left '*' '/'
 %left INT_DIV
 %left '+' '-'
+%right UNARY_MINUS UNARY_PLUS
 %left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
 %left '&'
 %nonassoc '(' ')'
@@ -317,12 +315,12 @@ while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE
 
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
-do_loop_stmt: DO do_loop_condition stmt_ends stmt_list LOOP
+do_loop_stmt: DO do_loop_condition stmt_list LOOP
 			| DO stmt_ends stmt_list LOOP do_loop_condition
 			;
 
-do_loop_condition: UNTIL expr_singleline
-				 | WHILE expr_singleline
+do_loop_condition: UNTIL expr_singleline stmt_ends
+				 | WHILE expr_singleline stmt_ends
 				 ;
 
 
