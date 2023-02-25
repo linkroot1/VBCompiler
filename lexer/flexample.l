@@ -20,7 +20,12 @@ int result = 111;
 
 
 %%
-
+%{
+	int s = 0;
+	char symbol[2];
+	char buf[100000];
+	memset(buf, '\0', 100000);
+%}
 
 AddHandler 			//{printf("\nReserved keyword AddHandler: \n");}
 Alias 			//{printf("\nReserved keyword Alias: \n");}
@@ -91,7 +96,7 @@ Implements 			//{printf("\nReserved keyword Implements: \n");}
 Imports 			//{printf("\nReserved keyword Imports: \n");}
 In 			//{printf("\nReserved keyword In: \n");}
 Inherits 			//printf("\nReserved keyword Inherits: \n");}
-Integer 			//{printf("\nReserved keyword Integer: \n");}
+Integer {return yytokentype::INT;} 			//{printf("\nReserved keyword Integer: \n");}
 Interface 			//{printf("\nReserved keyword Interface: \n");}
 Is 			//{printf("\nReserved keyword Is: \n");}
 IsNot 			//{printf("\nReserved keyword IsNot: \n");}
@@ -181,11 +186,14 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 #End 			//{printf("\nReserved keyword #End: \n");}
 #If 			//{printf("\nReserved keyword #If: \n");}
 
-\" { BEGIN(STRING_LITERAL);}
-<STRING_LITERAL>[^"]+		{yylval.str_val = yytext;}//{ printf("\nString literal: %s\n", yytext); }
-<STRING_LITERAL>""			{yylval.str_val = "\n";}//{  printf("\nString literal: \"\n");}
+\" { buf[0] = 0; BEGIN(STRING_LITERAL);}
+<STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }//yylval.str_val = yytext;}//{ printf("\nString literal: %s\n", yytext); }
+<STRING_LITERAL>""			{ strcat(buf, "\""); }//{yylval.str_val = "\n";}//{  printf("\nString literal: \"\n");}
 <STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}//Error
-<STRING_LITERAL>\"			{  BEGIN(INITIAL);}
+<STRING_LITERAL>\"			{  BEGIN(INITIAL);
+						  yylval.str_val=(char *)malloc(strlen(buf)+1);
+						  strcpy(yylval.str_val, buf);
+						  return yytokentype::STRING_VALUE;}
 
 \= {return yytokentype::ASSIGN_EQUALS;} 			//{printf("\nAssignment operator: \n");}
 \+ {return yytokentype::ARITHMETIC_PLUS;} 			//{printf("\nAddition operator: \n");}
@@ -219,22 +227,25 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 <COMMENT><<EOF>> {BEGIN(INITIAL);}
 
 # {BEGIN(DATETIME);}
-<DATETIME>[^#\n]+  {yylval.datetime_val = yytext;}//{printf("\nDatetime: %s\n", yytext); }
-<DATETIME># {BEGIN(INITIAL);}
+<DATETIME>[^#\n]+  { strcat(buf, yytext); }//{yylval.datetime_val = yytext;}//{printf("\nDatetime: %s\n", yytext); }
+<DATETIME># {BEGIN(INITIAL);
+						  yylval.string_const=(char *)malloc(strlen(buf)+1);
+						  strcpy(yylval.datetime_val, buf);
+						  return yytokentype::DATETIME_VALUE;}
 
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext);}//printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); printf("\nInteger16 const: %d\n", result);}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); printf("\nInteger2 const: %d\n", result);}
-[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext);}//printf("\nSingle/double const: %f\n", atof(yytext));}
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return yytokentype::INT_VALUE;}//printf("\nInteger const: %d\n", atoi(yytext));}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); }//printf("\nInteger16 const: %d\n", result);}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); }//printf("\nInteger2 const: %d\n", result);}
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return yytokentype::DOUBLE_VALUE;}//printf("\nSingle/double const: %f\n", atof(yytext));}
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
-True {yylval.bool_val = 1;}//{printf("\nBoolean const true: %d\n", 1);}
-False {yylval.bool_val = 0;}//{printf("\nBoolean const false: %d\n", 0);}
-\n+  {printf("\nEnd of line:");}
+True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const true: %d\n", 1);}
+False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const false: %d\n", 0);}
+\n+  {return yytokentype::END_OF_LINE;}//printf("\nEnd of line:");}
 
 
 
-([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext;}//{ printf("\nIdentifier: %s\n", yytext);}
+([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE}//{ printf("\nIdentifier: %s\n", yytext);}
 %%
 
 int val(char c)
@@ -316,8 +327,8 @@ void remove_substr(char* str, const char* substr)
 
 }
 
-void main(int argc, char** argv){
+/*void main(int argc, char** argv){
     yyin = fopen(argv[1], "r");
     yylex();
     return;
-}
+}*/

@@ -1,7 +1,6 @@
-//%error-verbose
 %define parse.error verbose
 
-//разделить stmt на single_line_stmt и multi_line_stmt и переработать в соответствии с этими stmt if_stmt и while_stmt
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +31,7 @@ int yylex();
 %token<str_val> STRING_VALUE
 %token<bool_val> BOOLEAN_VALUE
 %token<id_name> IDENTIFIER_VALUE
+%token<datetime_val> DATETIME_VALUE
 
 
 %token INT
@@ -472,8 +472,16 @@ int main(int argc, char** argv) {
         yyin = fopen(argv[1], "r");
         yyparse();
         fclose(yyin);
+		/*
+
+		freopen("./gen_tree/tree_img.txt", "w", stdout);
+		printTree(root);
+		fclose(stdout);
+		fclose (yyin);*/
     }
     else {
         yyerror("not found file");
     }
 }
+
+// ------------------------------  Expression ------------------------------ 
