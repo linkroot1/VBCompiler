@@ -149,7 +149,7 @@ int yylex();
 %%
 
 //------------------programm Start-----------------------------
-root: program_items_list
+root: program_items_list {$$ = root = $1;}
     ;
 
 program_items_list:
@@ -383,48 +383,49 @@ case_stmt: CASE expr_multiline stmt_ends stmt_list
 
 
 //---------------------------EXPRession
-expr_singleline: basic_literal_value
-    | '-' expr_singleline	%prec UNARY_MINUS
-    | '+' expr_singleline	%prec UNARY_PLUS
-    | expr_singleline '+' expr_singleline
-    | expr_singleline '-' expr_singleline
-    | expr_singleline '*' expr_singleline
-    | expr_singleline '/' expr_singleline
-    | expr_singleline INT_DIV expr_singleline
-    | expr_singleline '=' expr_singleline
-    | expr_singleline '<' expr_singleline
-    | expr_singleline '>' expr_singleline
-    | expr_singleline '^' expr_singleline
-    | expr_singleline NOT_EQUAL expr_singleline
-    | expr_singleline LESS_OR_EQUAL expr_singleline
-    | expr_singleline MORE_OR_EQUAL expr_singleline
-    | expr_singleline '&' expr_singleline
-    | '(' expr_singleline ')'
-    | IDENTIFIER
-    | IDENTIFIER arguments_singleline
+expr_singleline: basic_literal_value {$$ = $1;}
+    | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2);}
+    | '+' expr_singleline	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2);}
+    | expr_singleline '+' expr_singleline {$$ = createExpression(ET_PLUS, $1, $3); }
+    | expr_singleline '-' expr_singleline {$$ = createExpression(ET_MINUS, $1, $3); }
+    | expr_singleline '*' expr_singleline {$$ = createExpression(ET_MULT, $1, $3);}
+    | expr_singleline '/' expr_singleline {$$ = createExpression(ET_DIV, $1, $3);}
+    | expr_singleline INT_DIV expr_singleline {$$ = createExpression(ET_INTDIV, $1, $3);}
+    | expr_singleline '=' expr_singleline {$$ = createExpression(ET_EQUAL, $1, $3);}
+    | expr_singleline '<' expr_singleline {$$ = createExpression(ET_LESSER, $1, $3);}
+    | expr_singleline '>' expr_singleline {$$ = createExpression(ET_GREATER, $1, $3);}
+    | expr_singleline '^' expr_singleline {$$ = createExpression(ET_EXP, $1, $3);}
+    | expr_singleline NOT_EQUAL expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $3);}
+    | expr_singleline LESS_OR_EQUAL expr_singleline {$$ = createExpression(ET_LESSER_EQUAL, $1, $3);}
+    | expr_singleline MORE_OR_EQUAL expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $3);}
+    | expr_singleline '&' expr_singleline {$$ = createExpression(ET_CONCAT, $1, $3);}
+    | '(' expr_singleline ')' {$$ = $2;}
+    | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1});}
+    | IDENTIFIER arguments_singleline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
     ;
 
 
 
 
-expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline
-              | expr_singleline '-' END_OF_LINE expr_singleline
-              | expr_singleline '*' END_OF_LINE expr_singleline
-              | expr_singleline '/' END_OF_LINE expr_singleline
-              | expr_singleline INT_DIV END_OF_LINE expr_singleline
-              | expr_singleline '=' END_OF_LINE expr_singleline
-              | expr_singleline '<' END_OF_LINE expr_singleline
-              | expr_singleline '>' END_OF_LINE expr_singleline
-              | expr_singleline '^' END_OF_LINE expr_singleline
-              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline
-              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline
-              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline
-              | expr_singleline '&' END_OF_LINE expr_singleline
-              | '(' END_OF_LINE expr_singleline ')'
-              | '(' END_OF_LINE expr_singleline END_OF_LINE ')'
-              | '(' expr_singleline END_OF_LINE ')'
-              | IDENTIFIER arguments_multiline
+expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); }
+              | expr_singleline '-' END_OF_LINE expr_singleline {$$ = createExpression(ET_MINUS, $1, $4); }
+              | expr_singleline '*' END_OF_LINE expr_singleline {$$ = createExpression(ET_MULT, $1, $4);}
+              | expr_singleline '/' END_OF_LINE expr_singleline {$$ = createExpression(ET_DIV, $1, $4);}
+              | expr_singleline INT_DIV END_OF_LINE expr_singleline {$$ = createExpression(ET_INTDIV, $1, $4);}
+              | expr_singleline '=' END_OF_LINE expr_singleline {$$ = createExpression(ET_EQUAL, $1, $4);}
+              | expr_singleline '<' END_OF_LINE expr_singleline {$$ = createExpression(ET_LESSER, $1, $4);}
+              | expr_singleline '>' END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER, $1, $4);}
+              | expr_singleline '^' END_OF_LINE expr_singleline {$$ = createExpression(ET_EXP, $1, $4);}
+              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $4);}
+              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  {$$ = createExpression(ET_LESSER_EQUAL, $1, $4);}
+              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $4);}
+              | expr_singleline '&' END_OF_LINE expr_singleline {$$ = createExpression(ET_CONCAT, $1, $4);}
+              | '(' END_OF_LINE expr_singleline ')' {$$ = $3;}
+              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = $3;}
+              | '(' expr_singleline END_OF_LINE ')' {$$ = $1;}
+              | IDENTIFIER arguments_multiline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
               ;
+
 
 basic_literal: INT
             | STRING
@@ -432,31 +433,31 @@ basic_literal: INT
             | DOUBLE
             ;
 
-basic_literal_value: INT_VALUE
-                   | STRING_VALUE
-                   | BOOLEAN_VALUE
-                   | DOUBLE_VALUE
+basic_literal_value: INT_VALUE {$$ = createSimpleExpression(ET_INTEGER, (Value){.int_val = $1});}
+                   | STRING_VALUE {$$ = createSimpleExpression(ET_STRING, (Value){.string_val=$1});}
+                   | BOOLEAN_VALUE {$$ = createSimpleExpression(ET_BOOL, (Value){.int_val=$1});}
+                   | DOUBLE_VALUE {$$ = createSimpleExpression(ET_FLOAT, (Value){.float_val=$1});}
                    ;
 
 
 
-arguments_multiline: '(' END_OF_LINE expr_list ')'
-                   | '(' END_OF_LINE expr_list END_OF_LINE ')'
-                   | '(' expr_list END_OF_LINE ')'
+arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = $3;}
+                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = $3;}
+                   | '(' expr_list END_OF_LINE ')' {$$ = $2;}
                    ;
 
 
-arguments_singleline: '(' expr_list ')'
-                    | '(' ')'
+arguments_singleline: '(' expr_list ')' {$$ = $2;}
+                    | '(' ')' {$$ = 0;}
                     ;
 
-arguments: arguments_multiline
-        | arguments_singleline
+arguments: arguments_multiline {$$ = createArgumentList($1);}
+        | arguments_singleline {$$ = createArgumentList($1);}
         ;
 
 
-expr_list: expr_singleline
-         | expr_list ',' expr_singleline
+expr_list: expr_singleline {$$ = createExpressionList($1);}
+         | expr_list ',' expr_singleline {$$ = appendExpressionToList($1,$3);}
          ;
 
 
@@ -485,3 +486,60 @@ int main(int argc, char** argv) {
 }
 
 // ------------------------------  Expression ------------------------------ 
+Expression *createExpression(ExprType type, Expression *left, Expression *right)
+{
+	Expression *result = (Expression *)malloc(sizeof(Expression));
+
+	result->type = type;
+
+	result->left = left;
+	result->right = right;
+
+	result->exprList = 0;
+	result->nextInList = 0;
+
+	return result;
+}
+
+Expression *createSimpleExpression(ExprType type, Value value)
+{
+	Expression *result = (Expression *)malloc(sizeof(Expression));
+
+	result->type = type;
+	result->value = value;
+
+	result->exprList = 0;
+	result->right = 0;
+	result->left = 0;
+	result->nextInList = 0;
+
+	return result;
+}
+
+ExpressionList *createExpressionList(Expression *expr)
+{
+	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
+
+	result->begin = expr;
+	result->end = expr;
+
+	return result;
+}
+
+ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr)
+{
+	list->end->nextInList = expr;
+	list->end = expr;
+
+	return list;
+}
+
+ExpressionList *createArgumentList(Expression *expr)
+{
+	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
+
+	result->begin = expr;
+	result->end = expr;
+
+	return result;
+}
