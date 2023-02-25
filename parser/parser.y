@@ -441,9 +441,9 @@ basic_literal_value: INT_VALUE {$$ = createSimpleExpression(ET_INTEGER, (Value){
 
 
 
-arguments_multiline: '(' END_OF_LINE expr_list ')'
-                   | '(' END_OF_LINE expr_list END_OF_LINE ')'
-                   | '(' expr_list END_OF_LINE ')'
+arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = $3;}
+                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = $3;}
+                   | '(' expr_list END_OF_LINE ')' {$$ = $2;}
                    ;
 
 
@@ -451,8 +451,8 @@ arguments_singleline: '(' expr_list ')' {$$ = $2;}
                     | '(' ')' {$$ = 0;}
                     ;
 
-arguments: arguments_multiline
-        | arguments_singleline
+arguments: arguments_multiline {$$ = createArgumentList($1);}
+        | arguments_singleline {$$ = createArgumentList($1);}
         ;
 
 
@@ -526,5 +526,17 @@ ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr)
 
 	return list;
 }
+
+ExpressionList *createArgumentList(Expression *expr)
+{
+	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
+
+	result->begin = expr;
+	result->end = expr;
+
+	return result;
+}
+
+
 
 
