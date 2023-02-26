@@ -21,231 +21,89 @@ int result = 111;
 
 %%
 %{
-	int s = 0;
-	char symbol[2];
 	char buf[100000];
 	memset(buf, '\0', 100000);
 %}
 
-AddHandler 			//{printf("\nReserved keyword AddHandler: \n");}
-Alias 			//{printf("\nReserved keyword Alias: \n");}
-AddressOf 			//{printf("\nReserved keyword AddressOf: \n");}
-And 			//{printf("\nReserved keyword And: \n");}
-AndAlso 			//{printf("\nReserved keyword AndAlso: \n");}
-As {return yytokentype::AS;} 			//{printf("\nReserved keyword As: \n");}
-Boolean {return yytokentype::BOOLEAN;} 			//{printf("\nReserved keyword Boolean: \n");}
-ByRef 			//{printf("\nReserved keyword ByRef: \n");}
-Byte 			//{printf("\nReserved keyword Byte: \n");}
-ByVal 			//{printf("\nReserved keyword ByVal: \n");}
-Call 			//{printf("\nReserved keyword Call: \n");}
-Case {return yytokentype::CASE;} 			//{printf("\nReserved keyword Case: \n");}
-Catch 			//{printf("\nReserved keyword Catch: \n");}
-CBool 			//{printf("\nReserved keyword CBool: \n");}
-CByte 			//{printf("\nReserved keyword CByte: \n");}
-CChar 			//{printf("\nReserved keyword CChar: \n");}
-CDate 			//{printf("\nReserved keyword CDate: \n");}
-CDbl 			//{printf("\nReserved keyword CDbl: \n");}
-CDec 			//{printf("\nReserved keyword CDec: \n");}
-Char 			//{printf("\nReserved keyword Char: \n");}
-CInt 			//{printf("\nReserved keyword CInt: \n");}
-Class 			//{printf("\nReserved keyword Class: \n");}
-CLng 			//{printf("\nReserved keyword CLng: \n");}
-CObj 			//{printf("\nReserved keyword CObj: \n");}
-Const {return yytokentype::CONST;} 			//{printf("\nReserved keyword Const: \n");}
-Continue 			//{printf("\nReserved keyword Continue: \n");}
-CSByte 			//{printf("\nReserved keyword CSByte: \n");}
-CShort 			//{printf("\nReserved keyword CShort: \n");}
-CSng 			//{printf("\nReserved keyword CSng: \n");}
-CStr 			//{printf("\nReserved keyword CStr: \n");}
-CType 			//{printf("\nReserved keyword CType: \n");}
-CUInt 			//{printf("\nReserved keyword CUInt: \n");}
-CULng 			//{printf("\nReserved keyword CULng: \n");}
-CUShort 			//{printf("\nReserved keyword CUShort: \n");}
-Date 			//{printf("\nReserved keyword Date: \n");}
-Decimal 			//{printf("\nReserved keyword Decimal: \n");}
-Declare 			//{printf("\nReserved keyword Declare: \n");}
-Default 			//{printf("\nReserved keyword Default: \n");}
-Delegate 			//{printf("\nReserved keyword Delegate: \n");}
-Dim {return yytokentype::DIM;} 			//{printf("\nReserved keyword Dim: \n");}
-DirectCast 			//{printf("\nReserved keyword DirectCast: \n");}
-Do 			//{printf("\nReserved keyword Do: \n");}
-Double {return yytokentype::DOUBLE;} 			//{printf("\nReserved keyword Double: \n");}
-Each 			//{printf("\nReserved keyword Each: \n");}
-Else {return yytokentype::ELSE;} 			//{printf("\nReserved keyword Else: \n");}
-ElseIf {return yytokentype::ELSEIF;} 			//{printf("\nReserved keyword ElseIf: \n");}
-End {return yytokentype::END;} 			//{printf("\nReserved keyword End: \n");}
-EndIf {return yytokentype::ENDIF;} 			//{printf("\nReserved keyword EndIf: \n");}
-Enum 			//{printf("\nReserved keyword Enum: \n");}
-Erase 			//{printf("\nReserved keyword Erase: \n");}
-Error 			//{printf("\nReserved keyword Error: \n");}
-Event 			//{printf("\nReserved keyword Event: \n");}
-Exit 			//{printf("\nReserved keyword Exit: \n");}
-Finally 			//{printf("\nReserved keyword Finally: \n");}
-For {return yytokentype::FOR;} 			//{printf("\nReserved keyword For: \n");}
-Friend {return yytokentype::FRIEND;} 			//{printf("\nReserved keyword Friend: \n");}
+As {return yytokentype::AS;}
+Boolean {return yytokentype::BOOLEAN;}
+Case {return yytokentype::CASE;}
+Const {return yytokentype::CONST;}
+Dim {return yytokentype::DIM;}
+Do {return yytokentype::DO;}
+Double {return yytokentype::DOUBLE;}
+Else {return yytokentype::ELSE;}
+ElseIf {return yytokentype::ELSEIF;}
+End {return yytokentype::END;}
+EndIf {return yytokentype::ENDIF;}
+For {return yytokentype::FOR;}
+Friend {return yytokentype::FRIEND;}
 Function {return yytokentype::FUNCTION;}
-Get 			//{printf("\nReserved keyword Get: \n");}
-GetType 			//{printf("\nReserved keyword GetType: \n");}
-GetXMLNamespace 			//{printf("\nReserved keyword: \n");}
-Global 			//{printf("\nReserved keyword GetXMLNamespace: \n");}
-GoSub 			//{printf("\nReserved keyword GoSub: \n");}
-GoTo 			//{printf("\nReserved keyword GoTo: \n");}
-Handles 			//{printf("\nReserved keyword Handles: \n");}
-If 			//{printf("\nReserved keyword If: \n");}
-Implements 			//{printf("\nReserved keyword Implements: \n");}
-Imports 			//{printf("\nReserved keyword Imports: \n");}
-In 			//{printf("\nReserved keyword In: \n");}
-Inherits 			//printf("\nReserved keyword Inherits: \n");}
-Integer {return yytokentype::INT;} 			//{printf("\nReserved keyword Integer: \n");}
-Interface 			//{printf("\nReserved keyword Interface: \n");}
-Is 			//{printf("\nReserved keyword Is: \n");}
-IsNot 			//{printf("\nReserved keyword IsNot: \n");}
-Let 			//{printf("\nReserved keyword Let: \n");}
-Lib 			//{printf("\nReserved keyword Lib: \n");}
-Like 			//{printf("\nReserved keyword Like: \n");}
-Long 			//{printf("\nReserved keyword Long: \n");}
-Loop 			//{printf("\nReserved keyword Loop: \n");}
-Me 			//{printf("\nReserved keyword Me: \n");}
-Mod 			//{printf("\nReserved keyword Mod: \n");}
+Integer {return yytokentype::INT;}
 Module {return yytokentype::MODULE;}
-MustInherit 			//{printf("\nReserved keyword MustInherit: \n");}
-MustOverride 			//{printf("\nReserved keyword MustOverride: \n");}
-MyBase 			//{printf("\nReserved keyword MyBase: \n");}
-MyClass 			//{printf("\nReserved keyword MyClass: \n");}
-NameOf 			//{printf("\nReserved keyword NameOf: \n");}
-Namespace 			//{printf("\nReserved keyword Namespace: \n");}
-Narrowing 			//{printf("\nReserved keyword Narrowing: \n");}
-New 			//{printf("\nReserved keyword New: \n");}
-Next 			//{printf("\nReserved keyword Next: \n");}
-Not 			//{printf("\nReserved keyword Not: \n");}
-Nothing 			//{printf("\nReserved keyword Nothing: \n");}
-NotInheritable 			//{printf("\nReserved keyword NotInheritable: \n");}
-NotOverridable 			//{printf("\nReserved keyword NotOverridable: \n");}
-Object 			//{printf("\nReserved keyword Object: \n");}
-Of 			//{printf("\nReserved keyword Of: \n");}
-On 			//{printf("\nReserved keyword On: \n");}
-Operator 			//printf("\nReserved keyword Operator: \n");}
-Option 			//{printf("\nReserved keyword Option: \n");}
-Optional 			//{printf("\nReserved keyword Optional: \n");}
-Or 			//{printf("\nReserved keyword Or: \n");}
-OrElse 			//{printf("\nReserved keyword OrElse: \n");}
-Out 			//{printf("\nReserved keyword Out: \n");}
-Overloads 			//{printf("\nReserved keyword Overloads: \n");}
-Overridable 			//{printf("\nReserved keyword Overridable: \n");}
-Overrides 			//{printf("\nReserved keyword Overrides: \n");}
-ParamArray 			//{printf("\nReserved keyword ParamArray: \n");}
-Partial 			//{printf("\nReserved keyword Partial: \n");}
-Private {return yytokentype::PRIVATE;} 			//{printf("\nReserved keyword Private: \n");}
-Property 			//{printf("\nReserved keyword Property: \n");}
-Protected {return yytokentype::PROTECTED;} 			//{printf("\nReserved keyword Protected: \n");}
-Public {return yytokentype::PUBLIC;} 			//{printf("\nReserved keyword Public: \n");}
-RaiseEvent 			//{printf("\nReserved keyword RaiseEvent: \n");}
-ReadOnly 			//{printf("\nReserved keyword ReadOnly: \n");}
-ReDim 			//{printf("\nReserved keyword ReDim: \n");}
-REM 			//{printf("\nReserved keyword REM: \n");}
-RemoveHandler 			//{printf("\nReserved keyword RemoveHandler: \n");}
-Resume 			//{printf("\nReserved keyword Resume: \n");}
+Private {return yytokentype::PRIVATE;}
+Protected {return yytokentype::PROTECTED;}
+Public {return yytokentype::PUBLIC;}
 Return {return yytokentype::RETURN;}
-SByte 			//{printf("\nReserved keyword SByte: \n");}
-Select {return yytokentype::SELECT;} 			//{printf("\nReserved keyword Select: \n");}
-Set 			//{printf("\nReserved keyword Set: \n");}
-Shadows 			//{printf("\nReserved keyword Shadows: \n");}
-Shared 			//{printf("\nReserved keyword Shared: \n");}
-Short 			//{printf("\nReserved keyword Short: \n");}
-Single 			//{printf("\nReserved keyword Single: \n");}
-Static 			//{printf("\nReserved keyword Static: \n");}
-Step 			//{printf("\nReserved keyword Step: \n");}
-Stop 			//{printf("\nReserved keyword Stop: \n");}
-String 			//{printf("\nReserved keyword String: \n");}
-Structure 			//{printf("\nReserved keyword Structure: \n");}
-Sub {return yytokentype::SUB;} 			//{printf("\nReserved keyword Sub: \n");}
-SyncLock 			//{printf("\nReserved keyword SyncLock: \n");}
-Then {return yytokentype::THEN;} 			//{printf("\nReserved keyword Then: \n");}
-Throw 			//{printf("\nReserved keyword Throw: \n");}
-To 			//{printf("\nReserved keyword To: \n");}
-Try 			//{printf("\nReserved keyword Try: \n");}
-TryCast 			//{printf("\nReserved keyword TryCast: \n");}
-TypeOf 			//{printf("\nReserved keyword TypeOf: \n");}
-Is 			//{printf("\nReserved keyword Is: \n");}
-UInteger 			//{printf("\nReserved keyword UInteger: \n");}
-ULong 			//{printf("\nReserved keyword ULong: \n");}
-UShort 			//{printf("\nReserved keyword UShort: \n");}
-Using 			//{printf("\nReserved keyword Using: \n");}
-Variant 			//{printf("\nReserved keyword Variant: \n");}
-Wend 			//{printf("\nReserved keyword Wend: \n");}
-When 			//{printf("\nReserved keyword When: \n");}
-While {return yytokentype::WHILE;} 			//{printf("\nReserved keyword While: \n");}
-Widening 			//{printf("\nReserved keyword Widening: \n");}
-With 			//{printf("\nReserved keyword With: \n");}
-WithEvents 			//{printf("\nReserved keyword WithEvents: \n");}
-WriteOnly 			//{printf("\nReserved keyword WriteOnly: \n");}
-Xor 			//{printf("\nReserved keyword Xor: \n");}
-#Const 			//{printf("\nReserved keyword #Const: \n");}
-#Else 			//{printf("\nReserved keyword #Else: \n");}
-#ElseIf 			//{printf("\nReserved keyword #ElseIf: \n");}
-#End 			//{printf("\nReserved keyword #End: \n");}
-#If 			//{printf("\nReserved keyword #If: \n");}
+Select {return yytokentype::SELECT;}
+Sub {return yytokentype::SUB;}
+Then {return yytokentype::THEN;}
+While {return yytokentype::WHILE;}
 
-\" { buf[0] = 0; BEGIN(STRING_LITERAL);}
-<STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }//yylval.str_val = yytext;}//{ printf("\nString literal: %s\n", yytext); }
-<STRING_LITERAL>""			{ strcat(buf, "\""); }//{yylval.str_val = "\n";}//{  printf("\nString literal: \"\n");}
-<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}//Error
-<STRING_LITERAL>\"			{  BEGIN(INITIAL);
-						  yylval.str_val=(char *)malloc(strlen(buf)+1);
-						  strcpy(yylval.str_val, buf);
-						  return yytokentype::STRING_VALUE;}
-
-\= {return yytokentype::ASSIGN_EQUALS;} 			//{printf("\nAssignment operator: \n");}
-\+ {return yytokentype::ARITHMETIC_PLUS;} 			//{printf("\nAddition operator: \n");}
-\- {return yytokentype::ARITHMETIC_MINUS;} 			//{printf("\nSubtraction operator: \n");}
-\^ {return yytokentype::EXPONENT;} 			//{printf("\nExponentiation operator: \n");}
+\= {return yytokentype::ASSIGN_EQUALS;}
+\+ {return yytokentype::ARITHMETIC_PLUS;}
+\- {return yytokentype::ARITHMETIC_MINUS;}
+\^ {return yytokentype::EXPONENT;}
 \* {return yytokentype::MULT;}
-\/ {return yytokentype::ORD_DIVISION;} 			//{printf("\nOrdinary division operator: \n");}
-\\ {return yytokentype::INT_DIVISION;} 			//{printf("\nInteger division operator: \n");}
-\< {return yytokentype::LESS;} 			//{printf("\nLess operator: \n");}
-\> {return yytokentype::MORE;} 			//{printf("\nMore operator: \n");}
-\>\= {return yytokentype::LESS_OR_EQUAL;} 			//{printf("\nMore or equal operator: \n");}
-\<\= {return yytokentype::MORE_OR_EQUAL;} 			//{printf("\nLess or equal operator: \n");}
-\<\> {return yytokentype::NOT_EQUAL;} 			//{printf("\nNot equal operator: \n");}
-\& {return yytokentype::CONCAT;} 			//{printf("\nConcathenation operator: \n");}
-\^\= {return yytokentype::ASSIGN_CONSTRUCT;} 			//{printf("\nAssignment after construction operator: \n");}
-\*\= {return yytokentype::ASSIGN_MULT;} 			//{printf("\nAssignment after multiplication operator: \n");}
-\/\= {return yytokentype::ASSIGN_ORD_DIV;} 			//{printf("\nAssignment after division the operator: \n");}
-\\\= {return yytokentype::ASSIGN_INT_DIV;} 			//{printf("\nAssignment after integer division operator: \n");}
-\+\= {return yytokentype::ASSIGN_ADD;} 			//{printf("\nAssignment after addition operator: \n");}
-\-\= {return yytokentype::ASSIGN_SUB;} 			//{printf("\nAssignment after subtraction operator: \n");}
-\>\>= {return yytokentype::ASSIGN_LSHIFT;} 			//{printf("\nAssignment after a shift to the right operator: \n");}
-\<\<= {return yytokentype::ASSIGN_RSHIFT;} 			//{printf("\nAssignment after left shift operator: \n");}
-\&\= {return yytokentype::ASSIGN_CONCAT;} 			//{printf("\nAssignment after concatenation of two values operator: \n");}
-
-
-
+\/ {return yytokentype::ORD_DIVISION;}
+\\ {return yytokentype::INT_DIVISION;}
+\< {return yytokentype::LESS;}
+\> {return yytokentype::MORE;}
+\>\= {return yytokentype::LESS_OR_EQUAL;}
+\<\= {return yytokentype::MORE_OR_EQUAL;}
+\<\> {return yytokentype::NOT_EQUAL;}
+\& {return yytokentype::CONCAT;}
+\^\= {return yytokentype::ASSIGN_CONSTRUCT;}
+\*\= {return yytokentype::ASSIGN_MULT;}
+\/\= {return yytokentype::ASSIGN_ORD_DIV;}
+\\\= {return yytokentype::ASSIGN_INT_DIV;}
+\+\= {return yytokentype::ASSIGN_ADD;}
+\-\= {return yytokentype::ASSIGN_SUB;}
+\>\>= {return yytokentype::ASSIGN_LSHIFT;}
+\<\<= {return yytokentype::ASSIGN_RSHIFT;}
+\&\= {return yytokentype::ASSIGN_CONCAT;}
 
 \' {BEGIN(COMMENT);}
-<COMMENT>[^\n]+  //{printf("\nComment: %s\n", yytext);}
+<COMMENT>[^\n]+
 <COMMENT>\n {BEGIN(INITIAL);}
 <COMMENT><<EOF>> {BEGIN(INITIAL);}
 
 # {BEGIN(DATETIME);}
-<DATETIME>[^#\n]+  { strcat(buf, yytext); }//{yylval.datetime_val = yytext;}//{printf("\nDatetime: %s\n", yytext); }
-<DATETIME># {BEGIN(INITIAL);
-						  yylval.string_const=(char *)malloc(strlen(buf)+1);
-						  strcpy(yylval.datetime_val, buf);
-						  return yytokentype::DATETIME_VALUE;}
+<DATETIME>[^#\n]+  { strcat(buf, yytext); }
+<DATETIME># {BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return yytokentype::DATETIME_VALUE;}
 
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return yytokentype::INT_VALUE;}//printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); }//printf("\nInteger16 const: %d\n", result);}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); }//printf("\nInteger2 const: %d\n", result);}
-[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return yytokentype::DOUBLE_VALUE;}//printf("\nSingle/double const: %f\n", atof(yytext));}
+
+\" { buf[0] = 0; BEGIN(STRING_LITERAL);}
+<STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }
+<STRING_LITERAL>""			{ strcat(buf, "\""); }
+<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}
+<STRING_LITERAL>\"			{  BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.str_val, buf); return yytokentype::STRING_VALUE;}
+
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return yytokentype::INT_VALUE;}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return yytokentype::INT_VALUE;}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return yytokentype::INT_VALUE;}
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return yytokentype::DOUBLE_VALUE;}
+
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
-True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const true: %d\n", 1);}
-False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const false: %d\n", 0);}
-\n+  {return yytokentype::END_OF_LINE;}//printf("\nEnd of line:");}
 
 
 
-([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE}//{ printf("\nIdentifier: %s\n", yytext);}
+True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}
+False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}
+\n+  {return yytokentype::END_OF_LINE;}
+
+([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE
 %%
 
 int val(char c)
@@ -325,6 +183,7 @@ void remove_substr(char* str, const char* substr)
     *begin = 0;
 
 
+<<<<<<< HEAD
 }
 
 // void main(int argc, char** argv){
@@ -332,3 +191,6 @@ void remove_substr(char* str, const char* substr)
 //     yylex();
 //     return;
 // }
+=======
+}
+>>>>>>> 01f2112f3ab736362ee42d938730857f540d4115
