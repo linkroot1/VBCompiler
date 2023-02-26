@@ -21,8 +21,6 @@ int result = 111;
 
 %%
 %{
-	int s = 0;
-	char symbol[2];
 	char buf[100000];
 	memset(buf, '\0', 100000);
 %}
@@ -161,19 +159,6 @@ Structure 			//{printf("\nReserved keyword Structure: \n");}
 Sub {return yytokentype::SUB;} 			//{printf("\nReserved keyword Sub: \n");}
 SyncLock 			//{printf("\nReserved keyword SyncLock: \n");}
 Then {return yytokentype::THEN;} 			//{printf("\nReserved keyword Then: \n");}
-Throw 			//{printf("\nReserved keyword Throw: \n");}
-To 			//{printf("\nReserved keyword To: \n");}
-Try 			//{printf("\nReserved keyword Try: \n");}
-TryCast 			//{printf("\nReserved keyword TryCast: \n");}
-TypeOf 			//{printf("\nReserved keyword TypeOf: \n");}
-Is 			//{printf("\nReserved keyword Is: \n");}
-UInteger 			//{printf("\nReserved keyword UInteger: \n");}
-ULong 			//{printf("\nReserved keyword ULong: \n");}
-UShort 			//{printf("\nReserved keyword UShort: \n");}
-Using 			//{printf("\nReserved keyword Using: \n");}
-Variant 			//{printf("\nReserved keyword Variant: \n");}
-Wend 			//{printf("\nReserved keyword Wend: \n");}
-When 			//{printf("\nReserved keyword When: \n");}
 While {return yytokentype::WHILE;} 			//{printf("\nReserved keyword While: \n");}
 Widening 			//{printf("\nReserved keyword Widening: \n");}
 With 			//{printf("\nReserved keyword With: \n");}
@@ -185,15 +170,6 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 #ElseIf 			//{printf("\nReserved keyword #ElseIf: \n");}
 #End 			//{printf("\nReserved keyword #End: \n");}
 #If 			//{printf("\nReserved keyword #If: \n");}
-
-\" { buf[0] = 0; BEGIN(STRING_LITERAL);}
-<STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }//yylval.str_val = yytext;}//{ printf("\nString literal: %s\n", yytext); }
-<STRING_LITERAL>""			{ strcat(buf, "\""); }//{yylval.str_val = "\n";}//{  printf("\nString literal: \"\n");}
-<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}//Error
-<STRING_LITERAL>\"			{  BEGIN(INITIAL);
-						  yylval.str_val=(char *)malloc(strlen(buf)+1);
-						  strcpy(yylval.str_val, buf);
-						  return yytokentype::STRING_VALUE;}
 
 \= {return yytokentype::ASSIGN_EQUALS;} 			//{printf("\nAssignment operator: \n");}
 \+ {return yytokentype::ARITHMETIC_PLUS;} 			//{printf("\nAddition operator: \n");}
@@ -218,9 +194,6 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 \<\<= {return yytokentype::ASSIGN_RSHIFT;} 			//{printf("\nAssignment after left shift operator: \n");}
 \&\= {return yytokentype::ASSIGN_CONCAT;} 			//{printf("\nAssignment after concatenation of two values operator: \n");}
 
-
-
-
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+  //{printf("\nComment: %s\n", yytext);}
 <COMMENT>\n {BEGIN(INITIAL);}
@@ -228,22 +201,28 @@ Xor 			//{printf("\nReserved keyword Xor: \n");}
 
 # {BEGIN(DATETIME);}
 <DATETIME>[^#\n]+  { strcat(buf, yytext); }//{yylval.datetime_val = yytext;}//{printf("\nDatetime: %s\n", yytext); }
-<DATETIME># {BEGIN(INITIAL);
-						  yylval.string_const=(char *)malloc(strlen(buf)+1);
-						  strcpy(yylval.datetime_val, buf);
-						  return yytokentype::DATETIME_VALUE;}
+<DATETIME># {BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return yytokentype::DATETIME_VALUE;}
 
+//<problem>
+
+\" { buf[0] = 0; BEGIN(STRING_LITERAL);}
+<STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }
+<STRING_LITERAL>""			{ strcat(buf, "\""); }//{yylval.str_val = "\n";}{  printf("\nString literal: \"\n");}
+<STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}//Error
+<STRING_LITERAL>\"			{  BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.str_val, buf); return yytokentype::STRING_VALUE;}
 
 ([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return yytokentype::INT_VALUE;}//printf("\nInteger const: %d\n", atoi(yytext));}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); }//printf("\nInteger16 const: %d\n", result);}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); }//printf("\nInteger2 const: %d\n", result);}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return yytokentype::INT_VALUE;}//printf("\nInteger16 const: %d\n", result);}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return yytokentype::INT_VALUE;}//printf("\nInteger2 const: %d\n", result);}
 [-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return yytokentype::DOUBLE_VALUE;}//printf("\nSingle/double const: %f\n", atof(yytext));}
+
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
+
+//</problem>
+
 True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const true: %d\n", 1);}
 False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}//{printf("\nBoolean const false: %d\n", 0);}
 \n+  {return yytokentype::END_OF_LINE;}//printf("\nEnd of line:");}
-
-
 
 ([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE}//{ printf("\nIdentifier: %s\n", yytext);}
 %%
