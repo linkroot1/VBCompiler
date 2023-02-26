@@ -25,53 +25,53 @@ int result = 111;
 	memset(buf, '\0', 100000);
 %}
 
-As {return yytokentype::AS;}
-Boolean {return yytokentype::BOOLEAN;}
-Case {return yytokentype::CASE;}
-Const {return yytokentype::CONST;}
-Dim {return yytokentype::DIM;}
-Do {return yytokentype::DO;}
-Double {return yytokentype::DOUBLE;}
-Else {return yytokentype::ELSE;}
-ElseIf {return yytokentype::ELSEIF;}
-End {return yytokentype::END;}
-EndIf {return yytokentype::ENDIF;}
-For {return yytokentype::FOR;}
-Friend {return yytokentype::FRIEND;}
-Function {return yytokentype::FUNCTION;}
-Integer {return yytokentype::INT;}
-Module {return yytokentype::MODULE;}
-Private {return yytokentype::PRIVATE;}
-Protected {return yytokentype::PROTECTED;}
-Public {return yytokentype::PUBLIC;}
-Return {return yytokentype::RETURN;}
-Select {return yytokentype::SELECT;}
-Sub {return yytokentype::SUB;}
-Then {return yytokentype::THEN;}
-While {return yytokentype::WHILE;}
+As {return AS;}
+Boolean {return BOOLEAN;}
+Case {return CASE;}
+Const {return CONST;}
+Dim {return DIM;}
+Do {return DO;}
+Double {return DOUBLE;}
+Else {return ELSE;}
+ElseIf {return ELSEIF;}
+End {return END;}
+EndIf {return ENDIF;}
+For {return FOR;}
+Friend {return FRIEND;}
+Function {return FUNCTION;}
+Integer {return INT;}
+Module {return MODULE;}
+Private {return PRIVATE;}
+Protected {return PROTECTED;}
+Public {return PUBLIC;}
+Return {return RETURN;}
+Select {return SELECT;}
+Sub {return SUB;}
+Then {return THEN;}
+While {return WHILE;}
 
-\= {return yytokentype::ASSIGN_EQUALS;}
-\+ {return yytokentype::ARITHMETIC_PLUS;}
-\- {return yytokentype::ARITHMETIC_MINUS;}
-\^ {return yytokentype::EXPONENT;}
-\* {return yytokentype::MULT;}
-\/ {return yytokentype::ORD_DIVISION;}
-\\ {return yytokentype::INT_DIVISION;}
-\< {return yytokentype::LESS;}
-\> {return yytokentype::MORE;}
-\>\= {return yytokentype::LESS_OR_EQUAL;}
-\<\= {return yytokentype::MORE_OR_EQUAL;}
-\<\> {return yytokentype::NOT_EQUAL;}
-\& {return yytokentype::CONCAT;}
-\^\= {return yytokentype::ASSIGN_CONSTRUCT;}
-\*\= {return yytokentype::ASSIGN_MULT;}
-\/\= {return yytokentype::ASSIGN_ORD_DIV;}
-\\\= {return yytokentype::ASSIGN_INT_DIV;}
-\+\= {return yytokentype::ASSIGN_ADD;}
-\-\= {return yytokentype::ASSIGN_SUB;}
-\>\>= {return yytokentype::ASSIGN_LSHIFT;}
-\<\<= {return yytokentype::ASSIGN_RSHIFT;}
-\&\= {return yytokentype::ASSIGN_CONCAT;}
+\= {return ASSIGN_EQUALS;}
+\+ {return ARITHMETIC_PLUS;}
+\- {return ARITHMETIC_MINUS;}
+\^ {return EXPONENT;}
+\* {return MULT;}
+\/ {return ORD_DIVISION;}
+\\ {return INT_DIVISION;}
+\< {return LESS;}
+\> {return MORE;}
+\>\= {return LESS_OR_EQUAL;}
+\<\= {return MORE_OR_EQUAL;}
+\<\> {return NOT_EQUAL;}
+\& {return CONCAT;}
+\^\= {return ASSIGN_CONSTRUCT;}
+\*\= {return ASSIGN_MULT;}
+\/\= {return ASSIGN_ORD_DIV;}
+\\\= {return ASSIGN_INT_DIV;}
+\+\= {return ASSIGN_ADD;}
+\-\= {return ASSIGN_SUB;}
+\>\>= {return ASSIGN_LSHIFT;}
+\<\<= {return ASSIGN_RSHIFT;}
+\&\= {return ASSIGN_CONCAT;}
 
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+
@@ -80,7 +80,7 @@ While {return yytokentype::WHILE;}
 
 # {BEGIN(DATETIME);}
 <DATETIME>[^#\n]+  { strcat(buf, yytext); }
-<DATETIME># {BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return yytokentype::DATETIME_VALUE;}
+<DATETIME># {BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE;}
 
 
 
@@ -88,22 +88,22 @@ While {return yytokentype::WHILE;}
 <STRING_LITERAL>[^"]+		{ strcat(buf, yytext); }
 <STRING_LITERAL>""			{ strcat(buf, "\""); }
 <STRING_LITERAL><<EOF>>		{  printf("\nError: unterminated string literal\n"); yyterminate();}
-<STRING_LITERAL>\"			{  BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.str_val, buf); return yytokentype::STRING_VALUE;}
+<STRING_LITERAL>\"			{  BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.str_val, buf); return STRING_VALUE;}
 
-([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return yytokentype::INT_VALUE;}
-([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return yytokentype::INT_VALUE;}
-([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return yytokentype::INT_VALUE;}
-[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return yytokentype::DOUBLE_VALUE;}
+([+-]?[0-9](([Ee][+-])?([0-9]|_)+)?) {remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return INT_VALUE;}
+([+-]?(&H)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return INT_VALUE;}
+([+-]?(&B)([0-9]+(([0-9]|_)+[0-9]+)*)) {remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return INT_VALUE;}
+[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][-+]?[0-9]+)? {yylval.double_val = atof(yytext); return DOUBLE_VALUE;}
 
 \"[^"]*\" {printf("\nString const: %s\n", yytext);}
 
 
 
-True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}
-False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}
-\n+  {return yytokentype::END_OF_LINE;}
+True {yylval.bool_val = 1; return BOOLEAN_VALUE}
+False {yylval.bool_val = 0; return BOOLEAN_VALUE}
+\n+  {return END_OF_LINE;}
 
-([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE}
+([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return IDENTIFIER_VALUE}
 %%
 
 int val(char c)
