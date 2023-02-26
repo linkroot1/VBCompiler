@@ -327,8 +327,8 @@ void remove_substr(char* str, const char* substr)
 
 }
 
-/*void main(int argc, char** argv){
-    yyin = fopen(argv[1], "r");
-    yylex();
-    return;
-}*/
+// void main(int argc, char** argv){
+//     yyin = fopen(argv[1], "r");
+//     yylex();
+//     return;
+// }

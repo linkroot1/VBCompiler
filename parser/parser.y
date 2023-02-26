@@ -152,46 +152,46 @@ int yylex();
 root: program_items_list {$$ = root = $1;}
     ;
 
-program_items_list:
-                  |program_items_list_not_empty
+program_items_list: {$$ = 0;}
+                  |program_items_list_not_empty {$$ = $1;}
                   ;
 
-program_items_list_not_empty: program_item
-                            | program_items_list_not_empty program_item
+program_items_list_not_empty: program_item { $$ = createProgramList($1); }
+                            | program_items_list_not_empty program_item { $$ = appendProgramToList($1,$2); }
                             ;
 
-program_item: module
-             | IMPORTS IDENTIFIER stmt_ends
+program_item: module {$$ = createModuleList($1);}
+             | IMPORTS IDENTIFIER stmt_ends  {$$ = createImports($2);}
              ;
 
 
-module: MODULE IDENTIFIER stmt_ends END MODULE
-      | MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE
-      | access MODULE IDENTIFIER stmt_ends END MODULE
-      | access MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE
+module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0);}
+      | MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE {$$ = createModule($2,$4);}
+      | access MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($3,0);}
+      | access MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE {$$ = createModule($3,$5);}
       ;
 
 
-functions_and_sub_list: function_or_sub
-                      | functions_and_sub_list stmt_ends function_or_sub
+functions_and_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
+                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$2);}
                       ;
 
-function_or_sub: function
-               | sub_bloc
+function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
+               | sub_bloc {$$ = createFunctionOrSub($1,0);}
                ;
 
-function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION
+function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,0);}
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,$6);}
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,$6);}
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$3,$5,0);}
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,0,0);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$4,$6,0);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($3,$4,$6,$8);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($3,$4,$6,$8);}
         ;
 
 
@@ -543,3 +543,96 @@ ExpressionList *createArgumentList(Expression *expr)
 
 	return result;
 }
+
+ProgramList *createProgramList(ProgramItem *programItem)
+{
+	ProgramList *result = (ProgramList *)malloc(sizeof(ProgramList));
+
+	result->begin = programItem;
+	result->end = programItem;
+
+	return result;
+}
+
+ProgramList *appendProgramToList(ProgramList *list, ProgramItem *programItem)
+{
+	list->end->nextInList = programItem;
+	list->end = programItem;
+
+	return list;
+}
+
+Imports *createImports(char* id_var_name)
+{
+	Imports *result = (Imports *)malloc(sizeof(Imports));
+
+	result->id = id_var_name;
+
+	return result;
+}
+
+ModuleList *createModuleList(Module *module)
+{
+	ModuleList *result = (ModuleList *)malloc(sizeof(ModuleList));
+
+	result->begin = module;
+	result->end = module;
+	return result;
+}
+
+Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList)
+{
+	Module *result = (Module *)malloc(sizeof(Module));
+
+	result->id = id_var_name;
+	result->functionsAndSubList = functionsAndSubList;
+
+
+	//result->nextInList = NULL; --- ???
+
+	return result;
+}
+
+
+FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub)
+{
+	FunctionOrSubList *result = (FunctionOrSubList *)malloc(sizeof(FunctionOrSubList));
+
+	result->begin = functionOrSub;
+	result->end = functionOrSub;
+	return result;
+}
+
+
+FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub)
+{
+	list->end->nextInList = functionOrSub;
+	list->end = functionOrSub;
+	return list;
+}
+
+FunctionOrSub *createFunctionOrSub(SubBloc subBloc, Function function)
+{
+	FunctionOrSub *result = (FunctionOrSub *)malloc(sizeof(FunctionOrSub));
+
+	result->isSubBloc = subBloc != 0;
+	result->subBloc = subBloc;
+
+	result->isFunction = function != 0;
+	result->function=function;
+
+	return result;
+}
+
+Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmtList, ExpressionList *exprList)
+{
+	Function *result = (Function *)malloc(sizeof(Function));
+
+	result->id = id_var_name;
+	result->arguments = arguments;
+	result->stmtList = stmtList;
+	result->exprList = exprList;
+
+	return result;
+}
+
