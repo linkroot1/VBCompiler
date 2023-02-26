@@ -103,7 +103,7 @@ True {yylval.bool_val = 1; return yytokentype::BOOLEAN_VALUE}
 False {yylval.bool_val = 0; return yytokentype::BOOLEAN_VALUE}
 \n+  {return yytokentype::END_OF_LINE;}
 
-([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE
+([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_name = yytext; return yytokentype::IDENTIFIER_VALUE}
 %%
 
 int val(char c)
@@ -183,7 +183,7 @@ void remove_substr(char* str, const char* substr)
     *begin = 0;
 
 
-<<<<<<< HEAD
+
 }
 
 // void main(int argc, char** argv){
@@ -191,6 +191,3 @@ void remove_substr(char* str, const char* substr)
 //     yylex();
 //     return;
 // }
-=======
-}
->>>>>>> 01f2112f3ab736362ee42d938730857f540d4115
