@@ -235,35 +235,35 @@ parameter_without_type: IDENTIFIER
 
 /* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
 
-stmt_list: stmt
-         | stmt_list stmt
+stmt_list: stmt { $$ = createStmtList($1); }
+         | stmt_list stmt { $$ = appendStmtList($1,$2); }
          ;
 
 
-stmt: multi_line_stmt
-    | single_line_stmt stmt_ends
+stmt: multi_line_stmt {$$ = createStatement(ST_MULTI, (StmtValue){.multiLineStmt=$1});}
+    | single_line_stmt stmt_ends {$$ = createStatement(ST_SINGLE, (StmtValue){.singleLineStmt=$1});}
     ;
 
 
-single_line_stmt: if_stmt_single_line
-				| decl_stmt_single_line
-				| expr_singleline
+single_line_stmt: if_stmt_single_line {$$ = createStatementSingle(ST_IF_SINGLE, (StmtValue){.singleLineIfStmt=$1});}
+				| decl_stmt_single_line {$$ = createStatementSingle(ST_DECL_SINGLE, (StmtValue){.singleLineDeclStmt=$1});}
+				| expr_singleline {$$ = createStatementSingle(EXPR_SINGLE, (StmtValue){.singleLineExpr=$1});}
                 ;
 
-multi_line_stmt: decl_stmt stmt_ends
-               | while_stmt stmt_ends
-			   | do_loop_stmt
-			   | for_loop_stmt
-			   | for_each_loop_stmt
-               | select_stmt stmt_ends
-               | if_stmt_multi_line stmt_ends
-               | expr_multiline stmt_ends
+multi_line_stmt: decl_stmt stmt_ends {$$ = createStatementMulti(ST_DECL_MULTI, (StmtValue){.multiLineDeclStmt=$1});}
+               | while_stmt stmt_ends {$$ = createStatementMulti(ST_WHILE_MULTI, (StmtValue){.multiLineWhileStmt=$1});}
+			   | do_loop_stmt {$$ = createStatementMulti(ST_DOLOOP_MULTI, (StmtValue){.multiLineDoLoopStmt=$1});}
+			   | for_loop_stmt {$$ = createStatementMulti(ST_FORLOOP_MULTI, (StmtValue){.multiLineForLoopStmt=$1});}
+			   | for_each_loop_stmt {$$ = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtValue){.multiLineForEachLoopStmt=$1});}
+               | select_stmt stmt_ends {$$ = createStatementMulti(ST_SELECT_MULTI, (StmtValue){.multiLineSelectStmt=$1});}
+               | if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_MULTI, (StmtValue){.multiLineIfStmt=$1});}
+               | expr_multiline stmt_ends {$$ = createStatementMulti(EXPR_MULTI, (StmtValue){.multiLineExpr=$1});}
                ;
 
 
 
-stmt_ends: END_OF_LINE
-    | stmt_ends END_OF_LINE
+stmt_ends: END_OF_LINE {$$ = 0;}
+    | stmt_ends END_OF_LINE {$$ = 0;}
     ;
 
 
@@ -427,10 +427,10 @@ expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpr
               ;
 
 
-basic_literal: INT
-            | STRING
-            | BOOLEAN
-            | DOUBLE
+basic_literal: INT {$$ = VT_INTEGER;}
+            | STRING {$$ = VT_STRING;}
+            | BOOLEAN {$$ = VT_BOOLEAN;}
+            | DOUBLE {$$ = VT_DOUBLE;}
             ;
 
 basic_literal_value: INT_VALUE {$$ = createSimpleExpression(ET_INTEGER, (Value){.int_val = $1});}
@@ -632,6 +632,60 @@ Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmt
 	result->arguments = arguments;
 	result->stmtList = stmtList;
 	result->exprList = exprList;
+
+	return result;
+}
+
+
+StmtList *createStmtList(Stmt *statement)
+{
+	StmtList *result = (StmtList *)malloc(sizeof(StmtList));
+
+	result->begin = statement;
+	result->end = statement;
+
+	return result;
+}
+
+StmtList *appendStmtList(StmtList *list, Stmt *statement)
+{
+	list->end->nextInList = statement;
+	list->end = statement;
+
+	return list;
+}
+
+
+Statement *createStatement(StmtType type, StmtValue value)
+{
+	Statement *result = (Statement *)malloc(sizeof(Statement));
+
+	result->type = type;
+	result->stmtValue = value;
+	result->nextInList = 0;
+
+	return result;
+}
+
+StatementSingle *createStatementSingle(StmtSingleType type, StmtSingleValue value)
+{
+	StatementSingle *result = (StatementSingle *)malloc(sizeof(StatementSingle));
+
+	result->type = type;
+	result->stmtValue = value;
+	result->nextInList = 0;
+
+	return result;
+}
+
+
+StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value)
+{
+	StatementMulti *result = (StatementMulti *)malloc(sizeof(StatementMulti));
+
+	result->type = type;
+	result->stmtValue = value;
+	result->nextInList = 0;
 
 	return result;
 }
