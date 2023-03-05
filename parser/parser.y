@@ -173,7 +173,7 @@ module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0);}
 
 
 functions_and_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
-                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$2);}
+                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$2);} //$2 maybe be wrong
                       ;
 
 function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
@@ -195,41 +195,41 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
         ;
 
 
-sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = SubBloc($3,$4,$6);}
-        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
+sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($2,$3,0);}
+        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$3,$5);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$4,0);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$4,$6);}
         ;
 
-parameterlist_or_empty:
-                      | parameterlist_with_type
-                      | END_OF_LINE parameterlist_with_type END_OF_LINE
-                      | END_OF_LINE parameterlist_with_type
-                      | parameterlist_with_type END_OF_LINE
-                      | parameterlist_without_type
-                      | END_OF_LINE parameterlist_without_type END_OF_LINE
-                      | parameterlist_without_type END_OF_LINE
-                      | END_OF_LINE parameterlist_without_type
+parameterlist_or_empty:  {$$ = createParameterListWithType(0, 0);}//How to do empty?
+                      | parameterlist_with_type {$$ = createParameterListWithType($1, 0);}
+                      | END_OF_LINE parameterlist_with_type END_OF_LINE {$$ = createParameterListWithType($2, 0);}
+                      | END_OF_LINE parameterlist_with_type {$$ = createParameterListWithType($2, 0);}
+                      | parameterlist_with_type END_OF_LINE {$$ = createParameterListWithType($1, 0);}
+                      | parameterlist_without_type {$$ = createParameterListWithType(0, $1);}
+                      | END_OF_LINE parameterlist_without_type END_OF_LINE {$$ = createParameterListWithType(0, $2);}
+                      | parameterlist_without_type END_OF_LINE {$$ = createParameterListWithType(0, $1);}
+                      | END_OF_LINE parameterlist_without_type {$$ = createParameterListWithType(0, $2);}
                       ;
 
-parameterlist_with_type: parameter_with_type
-                       | parameterlist_with_type ',' parameter_with_type
-                       | parameterlist_with_type ',' END_OF_LINE parameter_with_type
+parameterlist_with_type: parameter_with_type {$$ = createParameterListWithType($1);}
+                       | parameterlist_with_type ',' parameter_with_type {$$ = appendParameterListWithType($1,$3);}
+                       | parameterlist_with_type ',' END_OF_LINE parameter_with_type {$$ = appendParameterListWithType($1,$4);}
                        ;
 
 
-parameterlist_without_type: parameter_without_type
-                          | parameterlist_without_type ',' parameter_without_type
-                          | parameterlist_without_type ',' END_OF_LINE parameter_without_type
+parameterlist_without_type: parameter_without_type {$$ = createParameterListWithoutType($1);}
+                          | parameterlist_without_type ',' parameter_without_type {$$ = appendParameterListWithoutType($1,$3);}
+                          | parameterlist_without_type ',' END_OF_LINE parameter_without_type {$$ = appendParameterListWithoutType($1,$4);}
                           ;
 
-
-parameter_with_type: IDENTIFIER AS basic_literal
-                   | IDENTIFIER AS basic_literal '(' ')'
+//WIP
+parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($1);}
+                   | IDENTIFIER AS basic_literal '(' ')'  {$$ = createParameterWithType($1);}
                    ;
 
 
-parameter_without_type: IDENTIFIER
+parameter_without_type: IDENTIFIER {$$ = createParameterWithoutType($1);}
                       ;
 
 
@@ -593,7 +593,6 @@ Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList
 	return result;
 }
 
-
 FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub)
 {
 	FunctionOrSubList *result = (FunctionOrSubList *)malloc(sizeof(FunctionOrSubList));
@@ -636,13 +635,75 @@ Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmt
 	return result;
 }
 
-SubBloc *createSubBloc(char* id_var_name, Arguments *arguments, StmtList *stmtList)
+SubBloc *createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList)
 {
 	SubBloc *result = (SubBloc *)malloc(sizeof(SubBloc));
 
 	result->id = id_var_name;
 	result->arguments = arguments;
 	result->stmtList = stmtList;
+
+	return result;
+}
+
+//WIP
+ParameterListOrEmpty *createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType)
+{
+	ParameterListOrEmpty *result = (ParameterListOrEmpty *)malloc(sizeof(ParameterListOrEmpty));
+
+	result->parameterListWithType = parameterListWithType;
+	result->parameterListWithoutType = parameterListWithoutType;
+
+	return result;
+}
+
+ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType)
+{
+	ParameterListWithType *result = (ParameterListWithType)malloc(sizeof(ParameterListWithType));
+
+	result->begin = parameterWithType;
+	result->end = parameterWithType;
+	return result;	
+}
+
+ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType)
+{	
+	list->end->nextInList = parameterWithType;
+	list->end = parameterWithType;
+	return list;
+}
+
+ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType)
+{
+	ParameterListWithoutType *result = (ParameterListWithoutType)malloc(sizeof(ParameterListWithoutType));
+
+	result->begin = parameterWithoutType;
+	result->end = parameterWithoutType;
+	return result;
+}
+
+ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType)
+{	
+	list->end->nextInList = parameterWithoutType;
+	list->end = parameterWithoutType;
+	return list;
+}
+
+ParameterWithType *createParameterWithType(char* id_var_name, Value value) //WIP
+{
+	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
+	
+	result->id = id_var_name;
+	result->value = value;
+
+	return result;
+}
+
+ParameterWithoutType *createParameterWithoutType(char* id_var_name)
+{
+	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
+	
+	result->id = id_var_name;
 
 	return result;
 }
