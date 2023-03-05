@@ -224,8 +224,8 @@ parameterlist_without_type: parameter_without_type {$$ = createParameterListWith
                           ;
 
 //WIP
-parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($1);}
-                   | IDENTIFIER AS basic_literal '(' ')'  {$$ = createParameterWithType($1);}
+parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($1,$3);}
+                   | IDENTIFIER AS basic_literal '(' ')'  {$$ = createParameterWithType($1,$3);}
                    ;
 
 
