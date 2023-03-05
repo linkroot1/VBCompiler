@@ -195,7 +195,7 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
         ;
 
 
-sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
+sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = SubBloc($3,$4,$6);}
         | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB
@@ -636,3 +636,13 @@ Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmt
 	return result;
 }
 
+SubBloc *createSubBloc(char* id_var_name, Arguments *arguments, StmtList *stmtList)
+{
+	SubBloc *result = (SubBloc *)malloc(sizeof(SubBloc));
+
+	result->id = id_var_name;
+	result->arguments = arguments;
+	result->stmtList = stmtList;
+
+	return result;
+}
