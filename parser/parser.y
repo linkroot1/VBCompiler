@@ -195,10 +195,10 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
         ;
 
 
-sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($2,$3,0);}
-        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$3,$5);}
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$4,0);}
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$4,$6);}
+sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($2,$4,0);}
+        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$6);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$5,0);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$7);}
         ;
 
 parameterlist_or_empty:  {$$ = createParameterListWithType(0, 0);}//How to do empty?
@@ -268,34 +268,33 @@ stmt_ends: END_OF_LINE {$$ = 0;}
 
 
 
-
 //-------------------------Declaration stmt
-decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline
-         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline
-         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline
-         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline
-         | DIM var_name '=' END_OF_LINE expr_multiline
-         | DIM var_name_singleline '=' END_OF_LINE expr_multiline
+decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7);}
+         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7);}
+         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7);}
+         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7);}
+         | DIM var_name '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5);}
+         | DIM var_name_singleline '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5);}
          ;
 
 
-decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline
-					 | DIM var_name_singleline AS basic_literal '=' expr_singleline
-					 | DIM var_name_singleline AS basic_literal
-				 	 | DIM var_name_singleline '=' expr_singleline
-					 | DIM var_name_singleline
-                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}'
+decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(1, $2, $4, $6);}
+					 | DIM var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, $4, $6);}
+					 | DIM var_name_singleline AS basic_literal {$$ = createDeclStmtSingle(0, $2, $4, 0);}
+				 	 | DIM var_name_singleline '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, 0, $4);}
+					 | DIM var_name_singleline {$$ = createDeclStmtSingle(0, $2, 0, 0);}
+                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}'//How to make an array
 					 ;
 
 
-var_name: IDENTIFIER'(' expr_multiline ')'
+var_name: IDENTIFIER'(' expr_multiline ')' {$$ = createVarNameMulti($1, $3);}
 		;
 
-var_name_singleline: IDENTIFIER'(' expr_singleline ')'
-        | IDENTIFIER
+var_name_singleline: IDENTIFIER'(' expr_singleline ')' {$$ = createVarNameSingle($1, $3);}
+        | IDENTIFIER {$$ = createVarNameSingle($1, 0);}
 		;
 
-
+//WIP
 access: PUBLIC
 	  | PROTECTED
 	  | FRIEND
@@ -306,75 +305,74 @@ access: PUBLIC
 
 
 
-
-
 //-------------------------WHILE stmt
-while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE
-          | WHILE expr_singleline stmt_ends stmt_list END WHILE
+while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
+          | WHILE expr_singleline stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
          ;
 
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
-do_loop_stmt: DO do_loop_condition stmt_list LOOP
-			| DO stmt_ends stmt_list LOOP do_loop_condition
+do_loop_stmt: DO do_loop_condition stmt_list LOOP {$$ = createDoLoopStmt($2, $3);}
+			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);}
 			;
 
-do_loop_condition: UNTIL expr_singleline stmt_ends
-				 | WHILE expr_singleline stmt_ends
+do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1, $2);} //How do distinguish?
+				 | WHILE expr_singleline stmt_ends {$$ = createDoLoopCondition(0, $2);}
 				 ;
 
 
 //-------------------------FOR LOOP stmt
-for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT
-			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT
+for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT {$$ = createIfStmtMulti($2, $4, $6, $8, 0, $10);}
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT {$$ = createIfStmtMulti($2, $4, $6, $8, $10, $12);}
 			 ;
 
 
 //-------------------------FOR EACH LOOP stmt
-for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT
+for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT {$$ = createForEachLoopStmt($3, $5, $7, $9);}
 
 
 //-------------------------IF/ELSE stmt
 
-if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF
-                  | IF expr_singleline THEN stmt_ends stmt_list END IF
-				  | IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF
-				  | IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF
-                  | IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF
-                  | IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF
-				  | IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
-				  | IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF
+if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0);}
+                  | IF expr_singleline THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0);}
+				  | IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $7);}
+				  | IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $7);}
+                  | IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0);}
+                  | IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0);}
+				  | IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $8);}
+				  | IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $8);}
                   ;
 
-elseif_list: ELSEIF expr_multiline THEN stmt_list
-           | ELSEIF expr_singleline THEN stmt_list
-           | elseif_list ELSEIF expr_multiline THEN stmt_list
-           | elseif_list ELSEIF expr_singleline THEN stmt_list
+elseif_list: elseif {$$ = createElseIfList($1);}
+           | elseif_list elseif {$$ = appendElseIfList($1, $2);}
            ;
+		   
+elseif: ELSEIF expr_multiline THEN stmt_list {$$ = createElseIf($2, $4);}
+      | ELSEIF expr_singleline THEN stmt_list {$$ = createElseIf($2, $4);}
 
-if_stmt_single_line: IF expr_singleline THEN single_line_stmt
-                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt
+if_stmt_single_line: IF expr_singleline THEN single_line_stmt  {$$ = createIfStmtSingle($2, $4, 0);}
+                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  {$$ = createIfStmtSingle($2, $4, $6);}
                    ;
 
 
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT
-           | SELECT CASE expr_multiline stmt_ends case_list END SELECT
+select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5);}
+           | SELECT CASE expr_multiline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5);}
            ;
 
-case_list: case_stmt
-		| case_list case_stmt
+case_list: case_stmt {$$ = createCaseList($1);}
+		| case_list case_stmt {$$ = appendCaseList($1, $2);}
 		;
 
-case_stmt: CASE expr_multiline stmt_ends stmt_list
-        | CASE expr_singleline stmt_ends stmt_list
-        | CASE IS expr_multiline stmt_ends stmt_list
-        | CASE IS expr_singleline stmt_ends stmt_list
-        | CASE expr_multiline TO expr_multiline stmt_ends stmt_list
-        | CASE expr_multiline TO expr_singleline stmt_ends stmt_list
-        | CASE expr_singleline TO expr_multiline stmt_ends stmt_list
-        | CASE expr_singleline TO expr_singleline stmt_ends stmt_list
-        | CASE ELSE stmt_ends stmt_list
+case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0, $4);}
+        | CASE expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0, $4);}
+        | CASE IS expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, 0, $5);}
+        | CASE IS expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, 0, $5);}
+        | CASE expr_multiline TO expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
+        | CASE expr_multiline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
+        | CASE expr_singleline TO expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
+        | CASE expr_singleline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
+        | CASE ELSE stmt_ends stmt_list {$$ = createCaseStmt(0, 0, 0, $6);}
         ;
 
 
@@ -757,6 +755,198 @@ StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value)
 	result->type = type;
 	result->stmtValue = value;
 	result->nextInList = 0;
+
+	return result;
+}
+
+WhileStmt *createWhileStmt(Expression expression, StmtList stmtList)
+{
+	WhileStmt *result = (WhileStmt *)malloc(sizeof(WhileStmt));
+
+	result->expression = expression;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+DoLoopStmt *createDoLoopStmt(DoLoopCondition doLoopCondition, Expression expression)
+{
+	DoLoopStmt *result = (DoLoopStmt *)malloc(sizeof(DoLoopStmt));
+
+	result->doLoopCondition = doLoopCondition;
+	result->expression = expression;
+
+	return result;
+}
+
+//WIP
+DoLoopCondition *createDoLoopCondition(bool isUntil, Expression expression)
+{
+	DoLoopCondition *result = (DoLoopCondition *)malloc(sizeof(DoLoopCondition));
+
+	result->isUntil = isUntil;
+	result->expression = expression;
+
+	return result;
+}
+
+ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList stmtList)
+{
+	ForLoopStmt *result = (ForLoopStmt *)malloc(sizeof(ForLoopStmt));
+
+	result->counterVarName = counterVarName;
+	result->counterType = counterType;
+	result->fromValue = fromValue;
+	result->toValue = toValue;
+	result->stepValue = stepValue;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList stmtList)
+{
+	ForEachLoopStmt *result = (ForEachLoopStmt *)malloc(sizeof(ForEachLoopStmt));
+
+	result->counterVarName = counterVarName;
+	result->counterType = counterType;
+	result->counterSourceName = counterSourceName;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+IfStmtMulti *createIfStmtMulti(Expression expression, StmtList thenStmtList, ElseIfList elseIfList, StmtList elseStmtList)
+{
+	IfStmtMulti *result = (IfStmtMulti *)malloc(sizeof(IfStmtMulti));
+
+	result->expression = expression;
+	result->thenStmtList = thenStmtList;
+	result->elseStmtList = elseStmtList;
+
+	return result;
+}
+
+ElseIfList *createElseIfList(ElseIf *elseIf)
+{
+	ElseIfList *result = (ElseIfList *)malloc(sizeof(ElseIfList));
+
+	result->begin = elseIf;
+	result->end = elseIf;
+
+	return result;
+}
+
+ElseIfList *appendElseIfList(ElseIfList *list, ElseIf elseIf)
+{
+	list->end->nextInList = elseIf;
+	list->end = elseIf;
+
+	return list;
+}
+
+ElseIf *createElseIf(Expression expression, StmtList stmtList)
+{
+	ElseIf *result = (ElseIf)malloc(sizeof(ElseIf));
+
+	result->expression = expression;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+IfStmtSingle *createIfStmtSingle(Expression expression, StmtList thenStmtList, StmtList elseStmtList)
+{
+	IfStmtSingle *result = (IfStmtSingle *)malloc(sizeof(IfStmtSingle));
+
+	result->expression = expression;
+	result->thenStmtList = thenStmtList;
+	result->elseStmtList = elseStmtList;
+
+	return result;
+}
+
+SelectStmt *createSelectStmt(Expression expression, CaseList caseList)
+{
+	SelectStmt *result = (SelectStmt)malloc(sizeof(SelectStmt));
+
+	result->expression = expression;
+	result->caseList = caseList;
+
+	return result;
+}
+
+CaseList *createCaseList(CaseStmt *caseStmt)
+{
+	CaseList *result = (CaseList *)malloc(sizeof(CaseList));
+
+	result->begin = caseStmt;
+	result->end = caseStmt;
+
+	return result;
+}
+
+CaseList *appendCaseList(CaseList *list, CaseStmt caseStmt)
+{
+	list->end->nextInList = caseStmt;
+	list->end = caseStmt;
+
+	return list;
+}
+
+CaseStmt *createCaseStmt(bool isIs, Expression fromExpression, Expression toExpression, StmtList stmtList)
+{
+	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
+
+	result->isIs = isIs;
+	result->fromExpression = fromExpression;
+	result->toExpression = toExpression;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+//WIP
+DeclStmtSingle *createDeclStmtSingle(bool isConst, char* id_var_name, BasicLiteral varType, Expression expression)
+{
+	DeclStmtSingle *result = (DeclStmtSingle)malloc(sizeof(DeclStmtSingle));
+
+	result->isConst = isConst;
+	result->id_var_name = id_var_name;
+	result->varType = varType;
+	result->expression = expression;
+
+	return result;
+}
+
+DeclStmtMulti *createDeclStmtMulti(bool isConst, char* id_var_name, BasicLiteral varType, Expression expression)
+{
+	DeclStmtMulti *result = (DeclStmtMulti)malloc(sizeof(DeclStmtMulti));
+
+	result->isConst = isConst;
+	result->id_var_name = id_var_name;
+	result->varType = varType;
+	result->expression = expression;
+
+	return result;
+}
+
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression expression)
+{
+	VarNameSingle *result = (VarNameSingle *)malloc(sizeof(VarNameSingle));
+
+	result->id_var_name = id_var_name;
+	result->expression = expression;
+
+	return result;
+}
+
+VarNameMulti *createVarNameMulti(char* id_var_name, Expression expression)
+{
+	VarNameMulti *result = (VarNameMulti *)malloc(sizeof(VarNameMulti));
+
+	result->id_var_name = id_var_name;
+	result->expression = expression;
 
 	return result;
 }
