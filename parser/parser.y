@@ -608,7 +608,7 @@ FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSu
 	return list;
 }
 
-FunctionOrSub *createFunctionOrSub(SubBloc subBloc, Function function)
+FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 {
 	FunctionOrSub *result = (FunctionOrSub *)malloc(sizeof(FunctionOrSub));
 
@@ -759,7 +759,7 @@ StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value)
 	return result;
 }
 
-WhileStmt *createWhileStmt(Expression expression, StmtList stmtList)
+WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList)
 {
 	WhileStmt *result = (WhileStmt *)malloc(sizeof(WhileStmt));
 
@@ -769,7 +769,7 @@ WhileStmt *createWhileStmt(Expression expression, StmtList stmtList)
 	return result;
 }
 
-DoLoopStmt *createDoLoopStmt(DoLoopCondition doLoopCondition, Expression expression)
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression)
 {
 	DoLoopStmt *result = (DoLoopStmt *)malloc(sizeof(DoLoopStmt));
 
@@ -780,7 +780,7 @@ DoLoopStmt *createDoLoopStmt(DoLoopCondition doLoopCondition, Expression express
 }
 
 //WIP
-DoLoopCondition *createDoLoopCondition(bool isUntil, Expression expression)
+DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression)
 {
 	DoLoopCondition *result = (DoLoopCondition *)malloc(sizeof(DoLoopCondition));
 
@@ -790,7 +790,7 @@ DoLoopCondition *createDoLoopCondition(bool isUntil, Expression expression)
 	return result;
 }
 
-ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList stmtList)
+ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList)
 {
 	ForLoopStmt *result = (ForLoopStmt *)malloc(sizeof(ForLoopStmt));
 
@@ -804,7 +804,7 @@ ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, V
 	return result;
 }
 
-ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList stmtList)
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList *stmtList)
 {
 	ForEachLoopStmt *result = (ForEachLoopStmt *)malloc(sizeof(ForEachLoopStmt));
 
@@ -816,7 +816,7 @@ ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counte
 	return result;
 }
 
-IfStmtMulti *createIfStmtMulti(Expression expression, StmtList thenStmtList, ElseIfList elseIfList, StmtList elseStmtList)
+IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList)
 {
 	IfStmtMulti *result = (IfStmtMulti *)malloc(sizeof(IfStmtMulti));
 
@@ -837,7 +837,7 @@ ElseIfList *createElseIfList(ElseIf *elseIf)
 	return result;
 }
 
-ElseIfList *appendElseIfList(ElseIfList *list, ElseIf elseIf)
+ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf)
 {
 	list->end->nextInList = elseIf;
 	list->end = elseIf;
@@ -845,7 +845,7 @@ ElseIfList *appendElseIfList(ElseIfList *list, ElseIf elseIf)
 	return list;
 }
 
-ElseIf *createElseIf(Expression expression, StmtList stmtList)
+ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
 {
 	ElseIf *result = (ElseIf)malloc(sizeof(ElseIf));
 
@@ -855,7 +855,7 @@ ElseIf *createElseIf(Expression expression, StmtList stmtList)
 	return result;
 }
 
-IfStmtSingle *createIfStmtSingle(Expression expression, StmtList thenStmtList, StmtList elseStmtList)
+IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList)
 {
 	IfStmtSingle *result = (IfStmtSingle *)malloc(sizeof(IfStmtSingle));
 
@@ -866,7 +866,7 @@ IfStmtSingle *createIfStmtSingle(Expression expression, StmtList thenStmtList, S
 	return result;
 }
 
-SelectStmt *createSelectStmt(Expression expression, CaseList caseList)
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList)
 {
 	SelectStmt *result = (SelectStmt)malloc(sizeof(SelectStmt));
 
@@ -886,7 +886,7 @@ CaseList *createCaseList(CaseStmt *caseStmt)
 	return result;
 }
 
-CaseList *appendCaseList(CaseList *list, CaseStmt caseStmt)
+CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
 {
 	list->end->nextInList = caseStmt;
 	list->end = caseStmt;
@@ -894,7 +894,7 @@ CaseList *appendCaseList(CaseList *list, CaseStmt caseStmt)
 	return list;
 }
 
-CaseStmt *createCaseStmt(bool isIs, Expression fromExpression, Expression toExpression, StmtList stmtList)
+CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
 {
 	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
 
@@ -907,7 +907,7 @@ CaseStmt *createCaseStmt(bool isIs, Expression fromExpression, Expression toExpr
 }
 
 //WIP
-DeclStmtSingle *createDeclStmtSingle(bool isConst, char* id_var_name, BasicLiteral varType, Expression expression)
+DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression)
 {
 	DeclStmtSingle *result = (DeclStmtSingle)malloc(sizeof(DeclStmtSingle));
 
@@ -919,7 +919,7 @@ DeclStmtSingle *createDeclStmtSingle(bool isConst, char* id_var_name, BasicLiter
 	return result;
 }
 
-DeclStmtMulti *createDeclStmtMulti(bool isConst, char* id_var_name, BasicLiteral varType, Expression expression)
+DeclStmtMulti *createDeclStmtMulti(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression)
 {
 	DeclStmtMulti *result = (DeclStmtMulti)malloc(sizeof(DeclStmtMulti));
 
@@ -931,7 +931,7 @@ DeclStmtMulti *createDeclStmtMulti(bool isConst, char* id_var_name, BasicLiteral
 	return result;
 }
 
-VarNameSingle *createVarNameSingle(char* id_var_name, Expression expression)
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression)
 {
 	VarNameSingle *result = (VarNameSingle *)malloc(sizeof(VarNameSingle));
 
@@ -941,7 +941,7 @@ VarNameSingle *createVarNameSingle(char* id_var_name, Expression expression)
 	return result;
 }
 
-VarNameMulti *createVarNameMulti(char* id_var_name, Expression expression)
+VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 {
 	VarNameMulti *result = (VarNameMulti *)malloc(sizeof(VarNameMulti));
 
