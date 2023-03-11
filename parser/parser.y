@@ -153,15 +153,15 @@ root: program_items_list {$$ = root = $1;}
     ;
 
 program_items_list: {$$ = 0;}
-                  |program_items_list_not_empty {$$ = $1;}
+                  |program_items_list_not_empty {$$ = createProgramItemsList($1);}
                   ;
 
-program_items_list_not_empty: program_item { $$ = createProgramList($1); }
-                            | program_items_list_not_empty program_item { $$ = appendProgramToList($1,$2); }
+program_items_list_not_empty: program_item { $$ = createProgramListNotEmpty($1); }
+                            | program_items_list_not_empty program_item { $$ = appendProgramToListNotEmpty($1,$2); }
                             ;
 
-program_item: module {$$ = createModuleList($1);}
-             | IMPORTS IDENTIFIER stmt_ends  {$$ = createImports($2);}
+program_item: module {$$ = createProgramItem($1,0);}
+             | IMPORTS IDENTIFIER stmt_ends  {$$ =  createProgramItem(0,$2);}
              ;
 
 
@@ -173,7 +173,7 @@ module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0);}
 
 
 functions_and_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
-                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$2);} //$2 maybe be wrong
+                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$3);}
                       ;
 
 function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
@@ -201,7 +201,7 @@ sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = cr
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$7);}
         ;
 
-parameterlist_or_empty:  {$$ = createParameterListWithType(0, 0);}//How to do empty?
+parameterlist_or_empty:  {$$ = 0}
                       | parameterlist_with_type {$$ = createParameterListWithType($1, 0);}
                       | END_OF_LINE parameterlist_with_type END_OF_LINE {$$ = createParameterListWithType($2, 0);}
                       | END_OF_LINE parameterlist_with_type {$$ = createParameterListWithType($2, 0);}
@@ -542,9 +542,20 @@ ExpressionList *createArgumentList(Expression *expr)
 	return result;
 }
 
-ProgramList *createProgramList(ProgramItem *programItem)
+
+ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty)
 {
-	ProgramList *result = (ProgramList *)malloc(sizeof(ProgramList));
+	ProgramItemList *result = (ProgramItemList *)malloc(sizeof(ProgramItemList));
+
+	result->begin = programItemListNotEmpty;
+	result->end = programItemListNotEmpty;
+
+	return result;
+}
+
+ProgramListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
+{
+	ProgramListNotEmpty *result = (ProgramListNotEmpty *)malloc(sizeof(ProgramListNotEmpty));
 
 	result->begin = programItem;
 	result->end = programItem;
@@ -552,31 +563,28 @@ ProgramList *createProgramList(ProgramItem *programItem)
 	return result;
 }
 
-ProgramList *appendProgramToList(ProgramList *list, ProgramItem *programItem)
+ProgramToListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem)
 {
-	list->end->nextInList = programItem;
+	list->end->nextInList = programItemListNotEmpty;
 	list->end = programItem;
 
 	return list;
 }
 
-Imports *createImports(char* id_var_name)
-{
-	Imports *result = (Imports *)malloc(sizeof(Imports));
 
-	result->id = id_var_name;
+ProgramItem *createProgramItem(Module *module, char *id_var_name)
+{
+	ProgramItem *result = (ProgramItem *)malloc(sizeof(ProgramItem));
+
+	result->isModule = module != 0;
+	result->module = module;
+
+	result->isImport = id_var_name != 0;
+	result->id_var_name=id_var_name;
 
 	return result;
 }
 
-ModuleList *createModuleList(Module *module)
-{
-	ModuleList *result = (ModuleList *)malloc(sizeof(ModuleList));
-
-	result->begin = module;
-	result->end = module;
-	return result;
-}
 
 Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList)
 {
@@ -625,7 +633,7 @@ Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmt
 {
 	Function *result = (Function *)malloc(sizeof(Function));
 
-	result->id = id_var_name;
+	result->id_var_name = id_var_name;
 	result->arguments = arguments;
 	result->stmtList = stmtList;
 	result->exprList = exprList;
@@ -637,7 +645,7 @@ SubBloc *createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtL
 {
 	SubBloc *result = (SubBloc *)malloc(sizeof(SubBloc));
 
-	result->id = id_var_name;
+	result->id_var_name = id_var_name;
 	result->arguments = arguments;
 	result->stmtList = stmtList;
 
