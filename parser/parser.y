@@ -12,8 +12,56 @@ extern FILE* yyin;
 
 extern RootNode * rootNode;
 
-int yyparse();
-int yylex();
+extern int yyparse();
+extern int yylex();
+
+// ----- declarations -----
+Expression *createExpression(ExprType type, Expression *left, Expression *right);
+Expression *createSimpleExpression(ExprType type, Value value);
+ExpressionList *createExpressionList(Expression *expr);
+ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr);
+ExpressionList *createArgumentList(Expression *expr);
+ProgramList *createProgramList(ProgramItem *programItem);
+ProgramList *appendProgramToList(ProgramList *list, ProgramItem *programItem);
+Imports *createImports(char* id_var_name);
+ModuleList *createModuleList(Module *module);
+Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList);
+FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub);
+FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
+FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function);
+Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmtList, ExpressionList *exprList);
+SubBloc *createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
+ParameterListOrEmpty *createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
+ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType);
+ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType);
+ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType);
+ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType);
+ParameterWithType *createParameterWithType(char* id_var_name, Value value);
+ParameterWithoutType *createParameterWithoutType(char* id_var_name);
+StmtList *createStmtList(Stmt *statement);
+StmtList *appendStmtList(StmtList *list, Stmt *statement);
+Statement *createStatement(StmtType type, StmtValue value);
+StatementSingle *createStatementSingle(StmtSingleType type, StmtSingleValue value);
+StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value);
+WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
+DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression);
+ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList *stmtList);
+IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
+ElseIfList *createElseIfList(ElseIf *elseIf);
+ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
+ElseIf *createElseIf(Expression *expression, StmtList *stmtList);
+IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList);
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
+CaseList *createCaseList(CaseStmt *caseStmt);
+CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
+CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
+DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
+DeclStmtMulti *createDeclStmtMulti(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression;
+VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
+
 %}
 
 %union {
