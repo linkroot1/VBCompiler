@@ -8,15 +8,16 @@ typedef struct Function Function;
 typedef struct FunctionOrSub FunctionOrSub;
 typedef struct FunctionOrSubList FunctionOrSubList;
 typedef struct Module Module;
-typedef struct ModuleList ModuleList;
-typedef struct Imports Imports;
 typedef struct Expression Expression;
 typedef struct ExpressionList ExpressionList;
-typedef struct ProgramList ProgramList;
 typedef struct ProgramItem ProgramItem;
+typedef struct ProgramItemList;
+typedef struct ProgramItemListNotEmpty;
+
 
 
 typedef enum StmtType StmtType;
+typedef enum ExprType ExprType;
 
 
 typedef union StmtValue StmtValue;
@@ -31,6 +32,24 @@ enum StmtType
 {
 	ST_MULTI,
 	ST_SINGLE
+};
+
+enum ExprType
+{
+	ET_EQUAL,
+	ET_NOT_EQUAL,
+	ET_LESSER,
+	ET_GREATER,
+	ET_LESSER_EQUAL,
+	ET_GREATER_EQUAL,
+	ET_PLUS,
+	ET_MINUS,
+	ET_CONCAT,
+	ET_MULT,
+	ET_DIV,
+	ET_EXP,
+	ET_ID,
+	ET_ARRAY_OR_FUNC
 };
 
 
@@ -100,21 +119,6 @@ struct Module
 };
 
 
-struct ModuleList
-{
-	Module* begin;
-	Module* end;
-};
-
-
-
-struct Imports
-{
-	char* id_var_name;
-};
-
-
-
 
 
 struct ExpressionList
@@ -125,10 +129,35 @@ struct ExpressionList
 
 struct Expression
 {
+	enum ExprType type;
+
+	Value value;
+
+	Expression* left;
+	Expression* right;
+
+
+	ExpressionList* exprList; // expression has expression list
+
+	Expression* nextInList; // expression is part of list
+};
+
+
+
+struct ProgramItem
+{
+	int isModule;
+	Module* module;
+
+	int isImport;
+	char* id_var_name;
+
 
 };
 
-struct ProgramList
+
+
+struct ProgramItemListNotEmpty
 {
 
 	ProgramItem* begin;
@@ -137,13 +166,23 @@ struct ProgramList
 };
 
 
-struct ProgramItem
+
+struct ProgramItemList
 {
 
-
+	ProgramItemListNotEmpty* begin;
+	ProgramItemListNotEmpty* end;
 
 };
 
 
+struct SubBloc
+{
+
+	char* id_var_name;
+	ParameterListOrEmpty* arguments;
+	StmtList* stmtList;
+
+};
 
 //ToDo: Доделать
