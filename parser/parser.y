@@ -72,6 +72,43 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
+	
+	Expression *expression;
+	ExpressionList *expressionList;
+	ProgramItemList *programItemList;
+	ProgramListNotEmpty *programListNotEmpty;
+	ProgramToListNotEmpty *programToListNotEmpty;
+	ProgramItem *programItem;
+	Module *module;
+	FunctionOrSubList *functionOrSubList;
+	FunctionOrSub *functionOrSub;
+	Function *function;
+	SubBloc *subBloc;
+	ParameterListOrEmpty *parameterListOrEmpty;
+	ParameterListWithType *parameterListWithType;
+	ParameterListWithoutType *parameterListWithoutType;
+	ParameterWithType *parameterWithType;
+	ParameterWithoutType *parameterWithoutType;
+	StmtList *stmtList;
+	Statement *statement;
+	StatementSingle *statementSingle;
+	StatementMulti *statementMulti;
+	WhileStmt *whileStmt;
+	DoLoopStmt *doLoopStmt;
+	DoLoopCondition *doLoopCondition;
+	ForLoopStmt *forLoopStmt;
+	ForEachLoopStmt *forEachLoopStmt;
+	IfStmtMulti *ifStmtMulti;
+	ElseIfList *elseIfList;
+	ElseIf *elseIf;
+	IfStmtSingle *ifStmtSingle;
+	SelectStmt *selectStmt;
+	CaseList *caseList;
+	CaseStmt *caseStmt;
+	DeclStmtSingle *declStmtSingle;
+	DeclStmtMulti *declStmtMulti;
+	VarNameSingle *varNameSingle;
+	VarNameMulti *varNameMulti;
 }
 
 %token<int_val> INT_VALUE
