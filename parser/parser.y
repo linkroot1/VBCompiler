@@ -77,7 +77,6 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	ExpressionList *expressionList;
 	ProgramItemList *programItemList;
 	ProgramListNotEmpty *programListNotEmpty;
-	ProgramToListNotEmpty *programToListNotEmpty;
 	ProgramItem *programItem;
 	Module *module;
 	FunctionOrSubList *functionOrSubList;
@@ -111,6 +110,42 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	VarNameMulti *varNameMulti;
 }
 
+%type <expression> expr_singleline expr_multiline basic_literal_value;
+%type <expressionList> expr_list arguments;
+%type <programItemList> program_items_list root;
+%type <programListNotEmpty> program_items_list_not_empty;
+%type <programItem> program_item;
+%type <module> module;
+%type <functionOrSubList> functions_and_sub_list;
+%type <functionOrSub> function_or_sub;
+%type <function> function;
+%type <subBloc> sub_bloc;
+%type <parameterListOrEmpty> parameterlist_or_empty;
+%type <parameterListWithType> parameterlist_with_type;
+%type <parameterListWithoutType> parameterlist_without_type;
+%type <parameterWithType> parameter_with_type;
+%type <parameterWithoutType> parameter_without_type;
+%type <stmtList> stmt_list;
+%type <statement> stmt;
+%type <statementSingle> single_line_stmt;
+%type <statementMulti> multi_line_stmt;
+%type <whileStmt> while_stmt;
+%type <doLoopStmt> do_loop_stmt;
+%type <doLoopCondition> do_loop_condition;
+%type <forLoopStmt> for_loop_stmt;
+%type <forEachLoopStmt> for_each_loop_stmt;
+%type <ifStmtMulti> if_stmt_multi_line;
+%type <elseIfList> elseif_list;
+%type <elseIf> elseif;
+%type <ifStmtSingle> if_stmt_single_line;
+%type <selectStmt> select_stmt;
+%type <caseList> case_list;
+%type <caseStmt> case_stmt;
+%type <declStmtSingle> decl_stmt_single_line;
+%type <declStmtMulti> decl_stmt;
+%type <varNameSingle> var_name_singleline;
+%type <varNameMulti> var_name;
+
 %token<int_val> INT_VALUE
 %token<double_val> DOUBLE_VALUE
 %token<str_val> STRING_VALUE
@@ -119,11 +154,11 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %token<datetime_val> DATETIME_VALUE
 
 
-%token INT
-%token DOUBLE
-%token STRING
-%token BOOLEAN
-%token IDENTIFIER
+%token<int_val> INT
+%token<double_val> DOUBLE
+%token<str_val> STRING
+%token<bool_val> BOOLEAN
+%token<id_var_name> IDENTIFIER
 
 %token ENDL
 
@@ -187,6 +222,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %precedence ELSE
 %precedence IDENTIFIER
 
+/*
 %type access
 %type program_items_list
 %type program_items_list_not_empty
@@ -228,6 +264,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %type decl_stmt_single_line
 %type basic_literal_value
 %type expr_multiline
+*/
 
 %start root
 
@@ -368,7 +405,7 @@ decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singl
 					 | DIM var_name_singleline AS basic_literal {$$ = createDeclStmtSingle(0, $2, $4, 0);}
 				 	 | DIM var_name_singleline '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, 0, $4);}
 					 | DIM var_name_singleline {$$ = createDeclStmtSingle(0, $2, 0, 0);}
-                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}'//How to make an array
+                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}' {}//How to make an array
 					 ;
 
 
@@ -648,7 +685,7 @@ ProgramListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
 	return result;
 }
 
-ProgramToListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem)
+ProgramListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem)
 {
 	list->end->nextInList = programItemListNotEmpty;
 	list->end = programItem;
