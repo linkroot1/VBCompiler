@@ -13,14 +13,35 @@ typedef struct ExpressionList ExpressionList;
 typedef struct ProgramItem ProgramItem;
 typedef struct ProgramItemList;
 typedef struct ProgramItemListNotEmpty;
+typedef struct ParameterListOrEmpty;
+typedef struct ParameterListWithType;
+typedef struct WhileStmt;
+typedef struct DoLoopStmt;
+typedef struct DoLoopCondition;
+typedef struct IfStmtMulti;
+typedef struct ElseIfList;
+typedef struct ElseIf;
+typedef struct ForEachLoopStmt;
+typedef struct SelectStmt;
+typedef struct CaseList;
+typedef struct CaseStmt;
+typedef struct IfStmtSingle;
+typedef struct DeclStmtSingle;
+typedef struct VarNameSingle;
+typedef struct VarNameMulti;
+
+
 
 
 
 typedef enum StmtType StmtType;
 typedef enum ExprType ExprType;
+typedef enum VarType VarType;
 
 
 typedef union StmtValue StmtValue;
+typedef union StmtMultiValue StmtMultiValue;
+typedef union StmtSingleValue StmtSingleValue;
 
 union StmtValue
 {
@@ -28,10 +49,44 @@ union StmtValue
 	StatementSingle* statementSingle;
 };
 
+union StmtMultiValue
+{
+	DeclStmtMulti* declStmtMulti;
+	WhileStmt* whileStmt;
+	DoLoopStmt* doLoopStmt;
+	IfStmtMulti* ifStmtMulti;
+	ForEachLoopStmt* forEachLoopStmt;
+	SelectStmt* selectStmt;
+	Expression* expression;
+
+};
+
+
+union StmtSingleValue
+{
+
+	IfStmtSingle* ifStmtSingle;
+	DeclStmtSingle* declStmtSingle;
+	Expression* expression;
+
+
+};
+
+
 enum StmtType
 {
 	ST_MULTI,
 	ST_SINGLE
+};
+
+enum VarType
+{
+
+	VT_INTEGER,
+	VT_STRING,
+	VT_BOOLEAN,
+	VT_DOUBLE
+	
 };
 
 enum ExprType
@@ -187,3 +242,181 @@ struct SubBloc
 };
 
 //ToDo: Доделать
+
+struct ParameterListOrEmpty
+{
+
+	ParameterListWithType* parameterListWithType
+	ParameterListWithoutType* parameterListWithoutType
+
+};
+
+struct ParameterListWithType
+{
+	
+	ParameterWithType* begin;
+	ParameterWithType* end;
+
+};
+
+
+struct ParameterListWithoutType
+{
+
+	ParameterWithoutType* begin;
+	ParameterWithoutType* end;
+
+};
+
+
+struct ParameterWithType
+{
+
+	char* id_var_name;
+	enum VarType basic_literal;
+
+};
+
+struct ParameterWithoutType
+{
+
+	char* id_var_name;
+
+};
+
+
+struct DeclStmtMulti
+{
+	int isConst;
+	char* id_var_name;
+	enum VarType varType;
+	Expression* expression;
+
+};
+
+
+
+
+struct WhileStmt
+{
+	Expression* expression;
+	StmtList* stmtList;
+
+};
+
+
+struct DoLoopStmt
+{
+	DoLoopCondition* doLoopCondition;
+	Expression* expression;
+
+};
+
+struct DoLoopCondition
+{
+	bool* isUntil;
+	Expression* expression;
+
+};
+
+struct IfStmtMulti
+{
+	Expression* expression;
+	StmtList* thenStmtList;
+	ElseIfList* elseIfList;
+	StmtList* elseStmtList;
+
+};
+
+
+struct ElseIfList
+{
+
+	ElseIf* begin;
+	ElseIf* end;
+
+};
+
+struct ElseIf
+{
+
+	Expression* expression;
+	StmtList* stmtList;
+
+};
+
+struct ForEachLoopStmt
+{
+
+	char* counterVarName;
+	enum VarType counterType;
+	char* counterSourceName;
+	StmtList* stmtList;
+
+};
+
+struct SelectStmt
+{
+
+	Expression* expression;
+	CaseList* caseList;
+
+};
+
+struct CaseList
+{
+
+	CaseStmt* begin;
+	CaseStmt* end;
+
+};
+
+
+struct CaseStmt
+{
+
+	bool* isIs;
+	Expression* fromExpression;
+	Expression* toExpression;
+	StmtList* stmtList;
+
+};
+
+
+struct IfStmtSingle
+{
+
+	Expression* expression;
+	StmtList* thenStmtList;
+	StmtList* elseStmtList;
+
+};
+
+
+struct DeclStmtSingle
+{
+
+	bool* isConst;
+	char* id_var_name;
+	enum VarType varType;
+	Expression* expression;
+
+};
+
+struct VarNameSingle
+{
+
+	char* id_var_name;
+	Expression* expression;
+
+};
+
+
+struct VarNameMulti
+{
+
+	char* id_var_name;
+	Expression* expression;
+
+};
+

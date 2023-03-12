@@ -21,10 +21,10 @@ Expression *createSimpleExpression(ExprType type, Value value);
 ExpressionList *createExpressionList(Expression *expr);
 ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr);
 ExpressionList *createArgumentList(Expression *expr);
-ProgramList *createProgramList(ProgramItem *programItem);
-ProgramList *appendProgramToList(ProgramList *list, ProgramItem *programItem);
-Imports *createImports(char* id_var_name);
-ModuleList *createModuleList(Module *module);
+ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty);
+ProgramListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem);
+ProgramListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
+ProgramItem *createProgramItem(Module *module, char *id_var_name);
 Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList);
 FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub);
 FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
@@ -827,7 +827,7 @@ ParameterWithType *createParameterWithType(char* id_var_name, BasicLiteral* basi
 {
 	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
 
-	result->id = id_var_name;
+	result->id_var_name = id_var_name;
 	result->basic_literal = basic_literal;
 
 	return result;
@@ -837,7 +837,7 @@ ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 {
 	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
 
-	result->id = id_var_name;
+	result->id_var_name = id_var_name;
 
 	return result;
 }
