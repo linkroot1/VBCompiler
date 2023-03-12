@@ -72,7 +72,8 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
-	
+	BasicLiteral* basic_literal;
+
 	Expression *expression;
 	ExpressionList *expressionList;
 	ProgramItemList *programItemList;
@@ -108,9 +109,10 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	DeclStmtMulti *declStmtMulti;
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
+	StmtEnds *stmtEnds;
 }
 
-%type <expression> expr_singleline expr_multiline basic_literal_value;
+%type <expression> expr_singleline expr_multiline basic_literal_value arguments_singleline arguments_multiline;
 %type <expressionList> expr_list arguments;
 %type <programItemList> program_items_list root;
 %type <programListNotEmpty> program_items_list_not_empty;
@@ -145,6 +147,8 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %type <declStmtMulti> decl_stmt;
 %type <varNameSingle> var_name_singleline;
 %type <varNameMulti> var_name;
+%type <stmtEnds> stmt_ends;
+%type <basic_literal> basic_literal;
 
 %token<int_val> INT_VALUE
 %token<double_val> DOUBLE_VALUE
@@ -159,6 +163,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %token<str_val> STRING
 %token<bool_val> BOOLEAN
 %token<id_var_name> IDENTIFIER
+
 
 %token ENDL
 
@@ -318,9 +323,9 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
 
 
 sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($2,$4,0);}
-        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$6);}
+        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$7);}
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$5,0);}
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$7);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$8);}
         ;
 
 parameterlist_or_empty:  {$$ = 0}
@@ -468,7 +473,7 @@ if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF {$$ = crea
 elseif_list: elseif {$$ = createElseIfList($1);}
            | elseif_list elseif {$$ = appendElseIfList($1, $2);}
            ;
-		   
+
 elseif: ELSEIF expr_multiline THEN stmt_list {$$ = createElseIf($2, $4);}
       | ELSEIF expr_singleline THEN stmt_list {$$ = createElseIf($2, $4);}
 
@@ -494,7 +499,7 @@ case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0
         | CASE expr_multiline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
         | CASE expr_singleline TO expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
         | CASE expr_singleline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
-        | CASE ELSE stmt_ends stmt_list {$$ = createCaseStmt(0, 0, 0, $6);}
+        | CASE ELSE stmt_ends stmt_list {$$ = createCaseStmt(0, 0, 0, $4);}
         ;
 
 
@@ -519,7 +524,7 @@ expr_singleline: basic_literal_value {$$ = $1;}
     | expr_singleline LESS_OR_EQUAL expr_singleline {$$ = createExpression(ET_LESSER_EQUAL, $1, $3);}
     | expr_singleline MORE_OR_EQUAL expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $3);}
     | expr_singleline '&' expr_singleline {$$ = createExpression(ET_CONCAT, $1, $3);}
-    | '(' expr_singleline ')' {$$ = $2;}
+    | '(' expr_singleline ')' {$$ = createExpression(0, $2);}
     | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1});}
     | IDENTIFIER arguments_singleline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
     ;
@@ -540,9 +545,9 @@ expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpr
               | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  {$$ = createExpression(ET_LESSER_EQUAL, $1, $4);}
               | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $4);}
               | expr_singleline '&' END_OF_LINE expr_singleline {$$ = createExpression(ET_CONCAT, $1, $4);}
-              | '(' END_OF_LINE expr_singleline ')' {$$ = $3;}
-              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = $3;}
-              | '(' expr_singleline END_OF_LINE ')' {$$ = $1;}
+              | '(' END_OF_LINE expr_singleline ')' {$$ = createExpression(0,$3);}
+              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = createExpression(0,$3);}
+              | '(' expr_singleline END_OF_LINE ')' {$$ = createExpression(0,$2);}
               | IDENTIFIER arguments_multiline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
               ;
 
@@ -561,13 +566,13 @@ basic_literal_value: INT_VALUE {$$ = createSimpleExpression(ET_INTEGER, (Value){
 
 
 
-arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = $3;}
-                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = $3;}
-                   | '(' expr_list END_OF_LINE ')' {$$ = $2;}
+arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = createExpression(0,$3);}
+                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = createExpression(0,$3);}
+                   | '(' expr_list END_OF_LINE ')' {$$ = createExpression(0,$2);}
                    ;
 
 
-arguments_singleline: '(' expr_list ')' {$$ = $2;}
+arguments_singleline: '(' expr_list ')' {$$ = createExpression(0,$2);}
                     | '(' ')' {$$ = 0;}
                     ;
 
@@ -605,7 +610,7 @@ int main(int argc, char** argv) {
     }
 }
 
-// ------------------------------  Expression ------------------------------ 
+// ------------------------------  Expression ------------------------------
 Expression *createExpression(ExprType type, Expression *left, Expression *right)
 {
 	Expression *result = (Expression *)malloc(sizeof(Expression));
@@ -625,6 +630,7 @@ Expression *createSimpleExpression(ExprType type, Value value)
 {
 	Expression *result = (Expression *)malloc(sizeof(Expression));
 
+	result->IsType = type != 0;
 	result->type = type;
 	result->value = value;
 
@@ -791,11 +797,11 @@ ParameterListWithType *createParameterListWithType(ParameterWithType *parameterW
 
 	result->begin = parameterWithType;
 	result->end = parameterWithType;
-	return result;	
+	return result;
 }
 
 ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType)
-{	
+{
 	list->end->nextInList = parameterWithType;
 	list->end = parameterWithType;
 	return list;
@@ -811,18 +817,18 @@ ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *p
 }
 
 ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType)
-{	
+{
 	list->end->nextInList = parameterWithoutType;
 	list->end = parameterWithoutType;
 	return list;
 }
 
-ParameterWithType *createParameterWithType(char* id_var_name, Value value) //WIP
+ParameterWithType *createParameterWithType(char* id_var_name, BasicLiteral* basic_literal) //WIP
 {
 	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
-	
+
 	result->id = id_var_name;
-	result->value = value;
+	result->basic_literal = basic_literal;
 
 	return result;
 }
@@ -830,7 +836,7 @@ ParameterWithType *createParameterWithType(char* id_var_name, Value value) //WIP
 ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 {
 	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
-	
+
 	result->id = id_var_name;
 
 	return result;

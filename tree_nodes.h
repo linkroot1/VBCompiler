@@ -129,6 +129,7 @@ struct ExpressionList
 
 struct Expression
 {
+	int isType;
 	enum ExprType type;
 
 	Value value;
