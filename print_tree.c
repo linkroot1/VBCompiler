@@ -154,19 +154,19 @@ void parseStatementMulti(StatementSingle* stmt, Tree* tree, int parentNum)
 			parseExpressionMulti(stmt->stmtValue.multiLineExpr, tree, currentIter);
 			break;
 		case ST_WHILE_MULTI:
-			parseIfStatementMulti(stmt->stmtValue.multiLineWhileStmt, tree, currentIter);
+			parseWhileStatement(stmt->stmtValue.multiLineWhileStmt, tree, currentIter);
 			break;
 		case ST_DOLOOP_MULTI:
-			parseDeclarationStatementMulti(stmt->stmtValue.multiLineDoLoopStmt, tree, currentIter);
+			parseDoLoopStatement(stmt->stmtValue.multiLineDoLoopStmt, tree, currentIter);
 			break;
 		case ST_FORLOOP_MULTI:
-			parseExpressionMulti(stmt->stmtValue.multiLineForLoopStmt, tree, currentIter);
+			parseForLoopStatement(stmt->stmtValue.multiLineForLoopStmt, tree, currentIter);
 			break;
 		case ST_FOREACHLOOP_MULTI:
-			parseIfStatementMulti(stmt->stmtValue.multiLineForEachLoopStmt, tree, currentIter);
+			parseForEachLoopStatement(stmt->stmtValue.multiLineForEachLoopStmt, tree, currentIter);
 			break;
 		case ST_SELECT_MULTI:
-			parseDeclarationStatementMulti(stmt->stmtValue.multiLineSelectStmt, tree, currentIter);
+			parseSelectStatement(stmt->stmtValue.multiLineSelectStmt, tree, currentIter);
 			break;
 		}
 	}
@@ -206,6 +206,64 @@ void parseStatementList(StatementList* stmtList, Tree* tree, int parentNum)
 		}
 	}
 }
+
+void parseWhileStatement(WhileStatement* whileStmt, Tree* tree, int parentNum)
+{
+    if (whileStmt != NULL)
+    {
+        addTreeUnit(tree, newTreeUnit(parentNum, "WhileStatement", ""));
+        int currentIter = tree->end->num;
+
+        parseExpression(whileStmt->condition, tree, currentIter);
+
+        parseStatementList(whileStmt->stmtList, tree, currentIter);
+    }
+}
+
+parseDoLoopStatement(DoLoopStmt* doLoopStmt, Tree* tree, int parentNum)
+{
+	if (doLoopStmt != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopStatement", ""));
+		int currentIter = tree->end->num;
+
+		parceDoLoopCondition(doLoopStmt->condition, tree, currentIter);
+
+		parseStatementList(doLoopStmt->stmtList, tree, currentIter);
+	}
+}
+
+parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
+{
+	if (doLoopStmt != NULL)
+	{
+		if (condition->isUntil)
+			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopUntilCondition", ""));
+		else
+			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopWhileCondition", ""));
+				
+		int currentIter = tree->end->num;
+
+		parseExpression(condition->expression, tree, currentIter);
+	}
+}
+
+parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
+{
+
+}
+
+parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int parentNum)
+{
+
+}
+
+parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
+{
+
+}
+
+//CaseList, CaseStmt
 
 char* expr_type_str(ExprType et)
 {
@@ -275,7 +333,7 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 
 		case VT_STRING:
 		case ET_ID:
-		//case ET_LENGTH_ARR_ATTR:
+			//case ET_LENGTH_ARR_ATTR:
 
 			addTreeUnit(tree,
 				newTreeUnit(currentIter, expr->value.string_val, expr_type_str(expr->type)));
@@ -287,10 +345,10 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 
 			break;
 
-		/*case ET_CHARACTER:
-			buf[0] = expr->value.char_val; buf[1] = '\0';
-			addTreeUnit(tree, newTreeUnit(currentIter, buf, "character"));
-			break;*/
+			/*case ET_CHARACTER:
+				buf[0] = expr->value.char_val; buf[1] = '\0';
+				addTreeUnit(tree, newTreeUnit(currentIter, buf, "character"));
+				break;*/
 
 		default:
 
@@ -324,17 +382,3 @@ void parseExpressionList(ExpressionList* exprList, Tree* tree, int parentNum)
 		}
 	}
 }
-
-void parseWhileStatement(WhileStatement* whileStmt, Tree* tree, int parentNum)
-{
-    if (whileStmt != NULL)
-    {
-        addTreeUnit(tree, newTreeUnit(parentNum, "WhileStatement", ""));
-        int currentIter = tree->end->num;
-
-        parseExpression(whileStmt->condition, tree, currentIter);
-
-        parseStatementList(whileStmt->whileBlock, tree, currentIter);
-    }
-}
-

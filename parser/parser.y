@@ -902,11 +902,11 @@ WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList)
 	return result;
 }
 
-DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression)
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList)
 {
 	DoLoopStmt *result = (DoLoopStmt *)malloc(sizeof(DoLoopStmt));
 
-	result->doLoopCondition = doLoopCondition;
+	result->condition = condition;
 	result->expression = expression;
 
 	return result;
