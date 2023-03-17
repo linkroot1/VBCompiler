@@ -250,20 +250,64 @@ parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
 
 parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
 {
+	if (forLoopStmt != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ForLoopStatement", ""));
+		int currentIter = tree->end->num;
 
+		parseStatementList(forLoopStmt->stmtList, tree, currentIter);
+	}
 }
 
 parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int parentNum)
 {
+	if (forEachLoopStmt != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ForEachLoopStatement", ""));
+		int currentIter = tree->end->num;
 
+		parseStatementList(forLoopStmt->stmtList, tree, currentIter);
+	}
 }
 
 parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
 {
+	selectStmt{
+		addTreeUnit(tree, newTreeUnit(parentNum, "SelectStatement", ""));
+		int currentIter = tree->end->num;
 
+		parseExpression(selectStmt->expression, tree, currentIter);
+		parseCaseStatement(selectStmt->caseList, tree, currentIter);
+	}
+}
+//CaseList, CaseStmt
+void parseCaseList(CaseList* caseList, Tree* tree, int parentNum)
+{
+	if (caseList != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "CaseStatementList", ""));
+		int currentIter = tree->end->num;
+
+		CaseStmt* ds = caseList->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parseCaseStatement(ds, tree, currentIter);
+		}
+	}
 }
 
-//CaseList, CaseStmt
+parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
+{
+	if (caseStmt != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "CaseStatement", ""));
+		int currentIter = tree->end->num;
+
+		parseExpression(caseStmt->fromExpression, tree, currentIter);
+		parseExpression(caseStmt->toExpression, tree, currentIter);
+		parseStatementList(caseStmt->stmtList, tree, currentIter);
+	}
+}
 
 char* expr_type_str(ExprType et)
 {
@@ -272,7 +316,6 @@ char* expr_type_str(ExprType et)
 	if (et == ET_MULT) return "*";
 	if (et == ET_DIV) return "/";
 	if (et == ET_INTDIV) return "INT_DIV";
-	if (et == ET_INTEGER) return "ET_INTEGER";
 	if (et == ET_EQUAL) return "=";
 	if (et == ET_LESSER) return "<";
 	if (et == ET_GREATER) return ">";
@@ -300,7 +343,7 @@ char* expr_type_str(ExprType et)
 char* variable_type_str(VarType et)
 {
 	if (et == VT_INTEGER) return "INTEGER";
-	if (et == VT_FLOAT) return "FLOAT";
+	if (et == VT_DOUBLE) return "DOUBLE";
 	if (et == VT_BOOLEAN) return "BOOLEAN";
 	if (et == VT_STRING) return "STRING";
 	return "";

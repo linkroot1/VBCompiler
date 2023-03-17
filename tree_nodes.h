@@ -102,6 +102,7 @@ enum ExprType
 	ET_CONCAT,
 	ET_MULT,
 	ET_DIV,
+	ET_INTDIV,
 	ET_EXP,
 	ET_ID,
 	ET_ARRAY_OR_FUNC
