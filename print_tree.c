@@ -431,7 +431,8 @@ void parceIfStatementSingle(IfStmtSingle* ifStmtSingle, Tree* tree, int parentNu
 
 void parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
 {
-	selectStmt{
+	if (selectStmt != NULL)
+	{
 		addTreeUnit(tree, newTreeUnit(parentNum, "SelectStatement", ""));
 		int currentIter = tree->end->num;
 
