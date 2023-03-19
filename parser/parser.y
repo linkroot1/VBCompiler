@@ -118,7 +118,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %type <programListNotEmpty> program_items_list_not_empty;
 %type <programItem> program_item;
 %type <module> module;
-%type <functionOrSubList> functions_and_sub_list;
+%type <functionOrSubList> functions_or_sub_list;
 %type <functionOrSub> function_or_sub;
 %type <function> function;
 %type <subBloc> sub_bloc;
@@ -251,7 +251,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %type expr_list
 %type module
 %type stmt_list
-%type functions_and_sub_list
+%type functions_or_sub_list
 %type function_or_sub
 %type function
 %type sub_bloc
@@ -293,15 +293,15 @@ program_item: module {$$ = createProgramItem($1,0);}
 
 
 module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0);}
-      | MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE {$$ = createModule($2,$4);}
+      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($2,$4);}
       | access MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($3,0);}
-      | access MODULE IDENTIFIER stmt_ends functions_and_sub_list END MODULE {$$ = createModule($3,$5);}
+      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($3,$5);}
       ;
 
 
-functions_and_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
-                      | functions_and_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$3);}
-                      ;
+functions_or_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
+                     | functions_or_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$3);}
+                     ;
 
 function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
                | sub_bloc {$$ = createFunctionOrSub($1,0);}
@@ -504,9 +504,6 @@ case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0
 
 
 
-
-
-
 //---------------------------EXPRession
 expr_singleline: basic_literal_value {$$ = $1;}
     | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2);}
@@ -573,8 +570,8 @@ arguments_singleline: '(' expr_list ')' {$$ = createExpression(0,$2);}
                     | '(' ')' {$$ = 0;}
                     ;
 
-arguments: arguments_multiline {$$ = createArgumentList($1);}
-        | arguments_singleline {$$ = createArgumentList($1);}
+arguments: arguments_multiline {$$ = createExpressionList($1);}
+        | arguments_singleline {$$ = createExpressionList($1);}
         ;
 
 
@@ -656,7 +653,7 @@ ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr)
 
 	return list;
 }
-
+/*
 ExpressionList *createArgumentList(Expression *expr)
 {
 	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
@@ -666,7 +663,7 @@ ExpressionList *createArgumentList(Expression *expr)
 
 	return result;
 }
-
+*/
 
 ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty)
 {

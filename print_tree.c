@@ -113,6 +113,153 @@ char* stmt_type_str(StmtType et)
 	return "";
 }
 
+char* expr_type_str(ExprType et)
+{
+	if (et == ET_PLUS) return "+";
+	if (et == ET_MINUS) return "-";
+	if (et == ET_MULT) return "*";
+	if (et == ET_DIV) return "/";
+	if (et == ET_INTDIV) return "INT_DIV";
+	if (et == ET_EQUAL) return "=";
+	if (et == ET_LESSER) return "<";
+	if (et == ET_GREATER) return ">";
+	if (et == ET_EXP) return "^";
+	if (et == ET_NOT_EQUAL) return "/=";
+	if (et == ET_LESSER_EQUAL) return "<=";
+	if (et == ET_GREATER_EQUAL) return ">=";
+	if (et == ET_CONCAT) return "&";
+
+	if (et == ET_ID) return "ET_ID";
+	if (et == ET_ARRAY_OR_FUNC) return "ET_ARRAY_OR_FUNC";
+	/*
+	if (et == ET_FLOAT) return "ET_FLOAT";
+	if (et == ET_STRING) return "ET_STRING";
+	if (et == ET_CHARACTER) return "ET_CHARACTER";
+	if (et == ET_BOOL) return "ET_BOOL";
+	if (et == ET_CONCAT) return "&";
+	if (et == ET_LOGIC_OR) return "OR";
+	if (et == ET_LOGIC_AND) return "AND";
+	if (et == ET_ASSIGN) return ":=";
+	if (et == ET_NOT) return "NOT";*/
+	return "";
+}
+
+char* variable_type_str(VarType et)
+{
+	if (et == VT_INTEGER) return "INTEGER";
+	if (et == VT_DOUBLE) return "DOUBLE";
+	if (et == VT_BOOLEAN) return "BOOLEAN";
+	if (et == VT_STRING) return "STRING";
+	return "";
+}
+
+/*
+//Sample
+void parce(*, Tree* tree, int parentNum)
+{
+
+}*/
+
+void programParse(ProgramList* progList, Tree* tree, int parentNum) 
+{
+
+}
+
+void parceProgramItemsListNotEmpty(*, Tree* tree, int parentNum)
+{
+
+}
+
+void programItemParse(ProgramItem* prog, Tree* tree, int parentNum)
+{
+
+}
+
+void parseModule(Module* mod, Tree* tree, int parentNum)
+{
+
+}
+
+void parceFunctionAndSubList(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parseFunctionOrSub(FunctionOrSub* fos, Tree* tree, int parentNum)
+{
+
+}
+
+void parseFunction(Function* func, Tree* tree, int parentNum)
+{
+
+}
+
+void parceSubBlock(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceParameterListOrEmpty(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceParameterListWithType(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceParameterListWithoutType(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceParameterWithType(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceParameterWithoutType(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parseStatementList(StatementList* stmtList, Tree* tree, int parentNum)
+{
+	if (stmtList != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "StatementList", ""));
+		int currentIter = tree->end->num;
+
+		Statement* ds = stmtList->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parseStatement(ds, tree, currentIter);
+		}
+	}
+}
+
+void parseStatement(Statement* stmt, Tree* tree, int parentNum)
+{
+	if (stmt != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, stmt_type_str(stmt->type), "Statement"));
+		int currentIter = tree->end->num;
+
+		switch (stmt->type)
+		{
+		case ST_SINGLE:
+			parseStatementSingle(stmt->stmtValue.singleLineStmt, tree, currentIter);
+			break;
+
+		case ST_MULTI:
+			parseStatementMulti(stmt->stmtValue.multiLineStmt, tree, currentIter);
+			break;
+		}
+	}
+}
+
 void parseStatementSingle(StatementSingle* stmt, Tree* tree, int parentNum)
 {
 	if (stmt != NULL)
@@ -172,55 +319,44 @@ void parseStatementMulti(StatementSingle* stmt, Tree* tree, int parentNum)
 	}
 }
 
-void parseStatement(Statement* stmt, Tree* tree, int parentNum)
+void parceDeclarationStatementMulti(*, Tree* tree, int parentNum)
 {
-	if (stmt != NULL)
-	{
-		addTreeUnit(tree, newTreeUnit(parentNum, stmt_type_str(stmt->type), "Statement"));
-		int currentIter = tree->end->num;
 
-		switch (stmt->type)
-		{
-		case ST_SINGLE:
-			parseStatementSingle(stmt->stmtValue.singleLineStmt, tree, currentIter);
-			break;
-
-		case ST_MULTI:
-			parseStatementMulti(stmt->stmtValue.multiLineStmt, tree, currentIter);
-			break;
-		}
-	}
 }
 
-void parseStatementList(StatementList* stmtList, Tree* tree, int parentNum)
+void parceDeclarationStatementSingle(*, Tree* tree, int parentNum)
 {
-	if (stmtList != NULL)
-	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "StatementList", ""));
-		int currentIter = tree->end->num;
 
-		Statement* ds = stmtList->begin;
-		for (; ds != NULL; ds = ds->nextInList)
-		{
-			parseStatement(ds, tree, currentIter);
-		}
-	}
 }
 
+void parceVarNameMulti(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceVarNameSingle(*, Tree* tree, int parentNum)
+{
+
+}
+/*
+void parceAccess(*, Tree* tree, int parentNum)
+{
+
+}
+*/
 void parseWhileStatement(WhileStatement* whileStmt, Tree* tree, int parentNum)
 {
     if (whileStmt != NULL)
     {
         addTreeUnit(tree, newTreeUnit(parentNum, "WhileStatement", ""));
         int currentIter = tree->end->num;
-
         parseExpression(whileStmt->condition, tree, currentIter);
 
         parseStatementList(whileStmt->stmtList, tree, currentIter);
     }
 }
 
-parseDoLoopStatement(DoLoopStmt* doLoopStmt, Tree* tree, int parentNum)
+void parseDoLoopStatement(DoLoopStmt* doLoopStmt, Tree* tree, int parentNum)
 {
 	if (doLoopStmt != NULL)
 	{
@@ -233,7 +369,7 @@ parseDoLoopStatement(DoLoopStmt* doLoopStmt, Tree* tree, int parentNum)
 	}
 }
 
-parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
+void parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
 {
 	if (doLoopStmt != NULL)
 	{
@@ -248,7 +384,7 @@ parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
 	}
 }
 
-parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
+void parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
 {
 	if (forLoopStmt != NULL)
 	{
@@ -259,7 +395,7 @@ parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
 	}
 }
 
-parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int parentNum)
+void parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int parentNum)
 {
 	if (forEachLoopStmt != NULL)
 	{
@@ -270,7 +406,27 @@ parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int pare
 	}
 }
 
-parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
+void parceIfStatementMulti(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceElseIfList(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceElseIf(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parceIfStatementSingle(*, Tree* tree, int parentNum)
+{
+
+}
+
+void parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
 {
 	selectStmt{
 		addTreeUnit(tree, newTreeUnit(parentNum, "SelectStatement", ""));
@@ -307,46 +463,6 @@ parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
 		parseExpression(caseStmt->toExpression, tree, currentIter);
 		parseStatementList(caseStmt->stmtList, tree, currentIter);
 	}
-}
-
-char* expr_type_str(ExprType et)
-{
-	if (et == ET_PLUS) return "+";
-	if (et == ET_MINUS) return "-";
-	if (et == ET_MULT) return "*";
-	if (et == ET_DIV) return "/";
-	if (et == ET_INTDIV) return "INT_DIV";
-	if (et == ET_EQUAL) return "=";
-	if (et == ET_LESSER) return "<";
-	if (et == ET_GREATER) return ">";
-	if (et == ET_EXP) return "^";
-	if (et == ET_NOT_EQUAL) return "/=";
-	if (et == ET_LESSER_EQUAL) return "<=";
-	if (et == ET_GREATER_EQUAL) return ">=";
-	if (et == ET_CONCAT) return "&";
-
-	if (et == ET_ID) return "ET_ID";
-	if (et == ET_ARRAY_OR_FUNC) return "ET_ARRAY_OR_FUNC";
-	/*
-	if (et == ET_FLOAT) return "ET_FLOAT";
-	if (et == ET_STRING) return "ET_STRING";
-	if (et == ET_CHARACTER) return "ET_CHARACTER";
-	if (et == ET_BOOL) return "ET_BOOL";
-	if (et == ET_CONCAT) return "&";
-	if (et == ET_LOGIC_OR) return "OR";
-	if (et == ET_LOGIC_AND) return "AND";
-	if (et == ET_ASSIGN) return ":=";
-	if (et == ET_NOT) return "NOT";*/
-	return "";
-}
-
-char* variable_type_str(VarType et)
-{
-	if (et == VT_INTEGER) return "INTEGER";
-	if (et == VT_DOUBLE) return "DOUBLE";
-	if (et == VT_BOOLEAN) return "BOOLEAN";
-	if (et == VT_STRING) return "STRING";
-	return "";
 }
 
 void parseExpression(Expression* expr, Tree* tree, int parentNum)
@@ -411,6 +527,16 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 	}
 }
 
+void parceBasicLiteralValue(*, Tree* tree, int parentNum)
+{
+
+}
+/* Are arguments just expressions?
+void parceArgumen(*, Tree* tree, int parentNum)
+{
+
+}
+*/
 void parseExpressionList(ExpressionList* exprList, Tree* tree, int parentNum)
 {
 	if (exprList != NULL)
