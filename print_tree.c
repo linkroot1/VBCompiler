@@ -160,12 +160,12 @@ void parce(*, Tree* tree, int parentNum)
 
 }*/
 
-void programParse(ProgramList* progList, Tree* tree, int parentNum) 
+void programParse(ProgramItemList* progList, Tree* tree, int parentNum) 
 {
 
 }
 
-void parceProgramItemsListNotEmpty(*, Tree* tree, int parentNum)
+void parceProgramItemsListNotEmpty(ProgramItemListNotEmpty* programItemListNotEmpty, Tree* tree, int parentNum)
 {
 
 }
@@ -180,7 +180,7 @@ void parseModule(Module* mod, Tree* tree, int parentNum)
 
 }
 
-void parceFunctionAndSubList(*, Tree* tree, int parentNum)
+void parceFunctionOrSubList(FunctionOrSubList* functionOrSubList, Tree* tree, int parentNum)
 {
 
 }
@@ -195,32 +195,32 @@ void parseFunction(Function* func, Tree* tree, int parentNum)
 
 }
 
-void parceSubBlock(*, Tree* tree, int parentNum)
+void parceSubBlock(SubBlock* subBlock, Tree* tree, int parentNum)
 {
 
 }
 
-void parceParameterListOrEmpty(*, Tree* tree, int parentNum)
+void parceParameterListOrEmpty(ParameterListOrEmpty* parameterListOrEmpty, Tree* tree, int parentNum)
 {
 
 }
 
-void parceParameterListWithType(*, Tree* tree, int parentNum)
+void parceParameterListWithType(ParameterListWithType* parameterListWithType, Tree* tree, int parentNum)
 {
 
 }
 
-void parceParameterListWithoutType(*, Tree* tree, int parentNum)
+void parceParameterListWithoutType(ParameterListWithoutType* parameterListWithoutType, Tree* tree, int parentNum)
 {
 
 }
 
-void parceParameterWithType(*, Tree* tree, int parentNum)
+void parceParameterWithType(ParameterWithType* parameterWithType, Tree* tree, int parentNum)
 {
 
 }
 
-void parceParameterWithoutType(*, Tree* tree, int parentNum)
+void parceParameterWithoutType(ParameterWithoutType* parameterWithoutType, Tree* tree, int parentNum)
 {
 
 }
@@ -319,22 +319,22 @@ void parseStatementMulti(StatementSingle* stmt, Tree* tree, int parentNum)
 	}
 }
 
-void parceDeclarationStatementMulti(*, Tree* tree, int parentNum)
+void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, int parentNum)
 {
 
 }
 
-void parceDeclarationStatementSingle(*, Tree* tree, int parentNum)
+void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree, int parentNum)
 {
 
 }
 
-void parceVarNameMulti(*, Tree* tree, int parentNum)
+void parceVarNameMulti(VarNameMulti* varNameMulti, Tree* tree, int parentNum)
 {
 
 }
 
-void parceVarNameSingle(*, Tree* tree, int parentNum)
+void parceVarNameSingle(VarNameSingle* varNameSingle, Tree* tree, int parentNum)
 {
 
 }
@@ -344,7 +344,7 @@ void parceAccess(*, Tree* tree, int parentNum)
 
 }
 */
-void parseWhileStatement(WhileStatement* whileStmt, Tree* tree, int parentNum)
+void parseWhileStatement(WhileStmt* whileStmt, Tree* tree, int parentNum)
 {
     if (whileStmt != NULL)
     {
@@ -391,6 +391,9 @@ void parseForLoopStatement(ForLoopStmt* forLoopStmt, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "ForLoopStatement", ""));
 		int currentIter = tree->end->num;
 
+		parseExpression(condition->fromValue, tree, currentIter);
+		parseExpression(condition->toValue, tree, currentIter);
+		parseExpression(condition->stepValue, tree, currentIter);
 		parseStatementList(forLoopStmt->stmtList, tree, currentIter);
 	}
 }
@@ -406,22 +409,22 @@ void parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int
 	}
 }
 
-void parceIfStatementMulti(*, Tree* tree, int parentNum)
+void parceIfStatementMulti(IfStmtMulti* ifStmtMulti, Tree* tree, int parentNum)
 {
 
 }
 
-void parceElseIfList(*, Tree* tree, int parentNum)
+void parceElseIfList(ElseIfList* elseIfList, Tree* tree, int parentNum)
 {
 
 }
 
-void parceElseIf(*, Tree* tree, int parentNum)
+void parceElseIf(ElseIf* elseIf, Tree* tree, int parentNum)
 {
 
 }
 
-void parceIfStatementSingle(*, Tree* tree, int parentNum)
+void parceIfStatementSingle(IfStmtSingle* ifStmtSingle, Tree* tree, int parentNum)
 {
 
 }
@@ -436,7 +439,7 @@ void parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
 		parseCaseStatement(selectStmt->caseList, tree, currentIter);
 	}
 }
-//CaseList, CaseStmt
+
 void parseCaseList(CaseList* caseList, Tree* tree, int parentNum)
 {
 	if (caseList != NULL)
@@ -452,7 +455,7 @@ void parseCaseList(CaseList* caseList, Tree* tree, int parentNum)
 	}
 }
 
-parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
+void parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
 {
 	if (caseStmt != NULL)
 	{
@@ -526,12 +529,13 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 		//}
 	}
 }
-
+/*
+* Are these just expressions?
 void parceBasicLiteralValue(*, Tree* tree, int parentNum)
 {
 
 }
-/* Are arguments just expressions?
+ 
 void parceArgumen(*, Tree* tree, int parentNum)
 {
 

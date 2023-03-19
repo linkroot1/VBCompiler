@@ -920,7 +920,7 @@ DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression)
 	return result;
 }
 
-ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList)
+ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList)
 {
 	ForLoopStmt *result = (ForLoopStmt *)malloc(sizeof(ForLoopStmt));
 
