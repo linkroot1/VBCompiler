@@ -162,74 +162,197 @@ void parce(*, Tree* tree, int parentNum)
 
 void programParse(ProgramItemList* progList, Tree* tree, int parentNum) 
 {
+	if (progList != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "Root", ""));
+		int currentIter = tree->end->num;
 
+		ProgramItemListNotEmpty* ds = progList->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parceProgramItemsListNotEmpty(ds, tree, currentIter);
+		}
+	}
 }
 
 void parceProgramItemsListNotEmpty(ProgramItemListNotEmpty* programItemListNotEmpty, Tree* tree, int parentNum)
 {
+	if (programItemListNotEmpty != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ProgramItemListNotEmpty", ""));
+		int currentIter = tree->end->num;
 
+		ProgramItem* ds = programItemListNotEmpty->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			programItemParse(ds, tree, currentIter);
+		}
+	}
 }
 
 void programItemParse(ProgramItem* prog, Tree* tree, int parentNum)
 {
-
+	if (prog != NULL)
+	{
+		if (prog->isImport)
+		{
+			addTreeUnit(tree, newTreeUnit(parentNum, "ProgramItem", "IMPORT" + prog->id_var_name));
+			int currentIter = tree->end->num;
+		}
+		else
+		{
+			addTreeUnit(tree, newTreeUnit(parentNum, "ProgramItem", ""));
+			int currentIter = tree->end->num;
+			parseModule(prog->module, tree, currentIter);
+		}
+	}
 }
 
 void parseModule(Module* mod, Tree* tree, int parentNum)
 {
+	if (mod != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "Module", mod->id_var_name));
+		int currentIter = tree->end->num;
 
+		parceFunctionOrSubList(mod->functionsOrSubList, tree, currentIter);
+	}
 }
 
 void parceFunctionOrSubList(FunctionOrSubList* functionOrSubList, Tree* tree, int parentNum)
 {
+	if (functionOrSubList != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "FunctionOrSubList", ""));
+		int currentIter = tree->end->num;
 
+		FunctionOrSub* ds = functionOrSubList->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parseFunctionOrSub(ds, tree, currentIter);
+		}
+	}
 }
 
 void parseFunctionOrSub(FunctionOrSub* fos, Tree* tree, int parentNum)
 {
+	if (fos != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "FunctionOrSub", ""));
+		int currentIter = tree->end->num;
 
+		parseFunction(fos->function, tree, currentIter);
+		parceSubBlock(fos->subBloc, tree, currentIter);
+	}
 }
 
 void parseFunction(Function* func, Tree* tree, int parentNum)
 {
+	if (func != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "Function", func->id_var_name));
+		int currentIter = tree->end->num;
 
+		parceParameterListOrEmpty(func->arguments, tree, currentIter);
+		parseStatementList(func->stmtList, tree, currentIter);
+		parseExpression(func->expression, tree, currentIter);
+	}
 }
 
-void parceSubBlock(SubBlock* subBlock, Tree* tree, int parentNum)
+void parceSubBlock(SubBloc* subBlock, Tree* tree, int parentNum)
 {
+	if (subBlock != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "SubBlock", subBlock->id_var_name));
+		int currentIter = tree->end->num;
 
+		parceParameterListOrEmpty(subBlock->arguments, tree, currentIter);
+		parseStatementList(subBlock->stmtList, tree, currentIter);
+	}
 }
 
 void parceParameterListOrEmpty(ParameterListOrEmpty* parameterListOrEmpty, Tree* tree, int parentNum)
 {
+	if (parameterListOrEmpty != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterListOrEmpty", ""));
+		int currentIter = tree->end->num;
 
+		parceParameterListWithType(parameterListOrEmpty->parameterListWithType, tree, currentIter);
+		parceParameterListWithoutType(parameterListOrEmpty->parameterListWithoutType, tree, currentIter);
+	}
 }
 
 void parceParameterListWithType(ParameterListWithType* parameterListWithType, Tree* tree, int parentNum)
 {
+	if (parameterListWithType != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterListWithType", ""));
+		int currentIter = tree->end->num;
 
+		ParameterWithType* ds = parameterListWithType->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parceParameterWithType(ds, tree, currentIter);
+		}
+	}
 }
 
 void parceParameterListWithoutType(ParameterListWithoutType* parameterListWithoutType, Tree* tree, int parentNum)
 {
+	if (parameterListWithoutType != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterListWithoutType", ""));
+		int currentIter = tree->end->num;
 
+		ParameterWithoutType* ds = parameterListWithoutType->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parceParameterWithoutType(ds, tree, currentIter);
+		}
+	}
 }
 
 void parceParameterWithType(ParameterWithType* parameterWithType, Tree* tree, int parentNum)
 {
+	if (parameterWithType != NULL)
+	{
+		char* type;
+		switch (parameterWithType->basic_literal)
+		{
+		case VT_INTEGER:
+			type = "int";
+			break;
+		case VT_STRING:
+			type = "string";
+			break;
+		case VT_BOOLEAN:
+			type = "bool";
+			break;
+		case VT_DOUBLE:
+			type = "double";
+			break;
+		}
 
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterWithType", type + parameterWithType->id_var_name));
+		int currentIter = tree->end->num;
+	}
 }
 
 void parceParameterWithoutType(ParameterWithoutType* parameterWithoutType, Tree* tree, int parentNum)
 {
-
+	if (parameterWithoutType != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterWithoutType", parameterWithoutType->id_var_name));
+		int currentIter = tree->end->num;
+	}
 }
 
-void parseStatementList(StatementList* stmtList, Tree* tree, int parentNum)
+void parseStatementList(StmtList* stmtList, Tree* tree, int parentNum)
 {
 	if (stmtList != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "StatementList", ""));
+		addTreeUnit(tree, newTreeUnit(parentNum, "StmtList", ""));
 		int currentIter = tree->end->num;
 
 		Statement* ds = stmtList->begin;
@@ -321,22 +444,54 @@ void parseStatementMulti(StatementSingle* stmt, Tree* tree, int parentNum)
 
 void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, int parentNum)
 {
+	if (declStmtMulti != NULL)
+	{
+		if (declStmtMulti->isConst)
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", "const" + declStmtMulti->varType + declStmtMulti->id_var_name));
+		else
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varType + declStmtMulti->id_var_name));
 
+		int currentIter = tree->end->num;
+
+		parseExpression(declStmtMulti->expression, tree, currentIter);
+	}
 }
 
-void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree, int parentNum)
+void parceDeclarationStatementSingle(DeclStmtSingle* declStmtMulti, Tree* tree, int parentNum)
 {
+	if (declStmtSingle != NULL)
+	{
+		if (declStmtSingle->isConst)
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", "const" + declStmtSingle->varType + declStmtSingle->id_var_name));
+		else
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varType + declStmtSingle->id_var_name));
 
+		int currentIter = tree->end->num;
+
+		parseExpression(declStmtSingle->expression, tree, currentIter);
+	}
 }
 
 void parceVarNameMulti(VarNameMulti* varNameMulti, Tree* tree, int parentNum)
 {
+	if (varNameMulti != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "VarNameMulti", varNameMulti->id_var_name));
+		int currentIter = tree->end->num;
 
+		parseExpression(varNameMulti->expression, tree, currentIter);
+	}
 }
 
 void parceVarNameSingle(VarNameSingle* varNameSingle, Tree* tree, int parentNum)
 {
+	if (varNameSingle != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "VarNameSingle", varNameSingle->id_var_name));
+		int currentIter = tree->end->num;
 
+		parseExpression(varNameSingle->expression, tree, currentIter);
+	}
 }
 /*
 void parceAccess(*, Tree* tree, int parentNum)
@@ -350,8 +505,8 @@ void parseWhileStatement(WhileStmt* whileStmt, Tree* tree, int parentNum)
     {
         addTreeUnit(tree, newTreeUnit(parentNum, "WhileStatement", ""));
         int currentIter = tree->end->num;
-        parseExpression(whileStmt->condition, tree, currentIter);
 
+        parseExpression(whileStmt->condition, tree, currentIter);
         parseStatementList(whileStmt->stmtList, tree, currentIter);
     }
 }
@@ -371,12 +526,12 @@ void parseDoLoopStatement(DoLoopStmt* doLoopStmt, Tree* tree, int parentNum)
 
 void parceDoLoopCondition(DoLoopCondition* condition, Tree* tree, int parentNum)
 {
-	if (doLoopStmt != NULL)
+	if (condition != NULL)
 	{
 		if (condition->isUntil)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopUntilCondition", ""));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopCondition", "Until"));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopWhileCondition", ""));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DoLoopCondition", "While"));
 				
 		int currentIter = tree->end->num;
 
@@ -411,22 +566,56 @@ void parseForEachLoopStatement(ForEachLoopStmt* forEachLoopStmt, Tree* tree, int
 
 void parceIfStatementMulti(IfStmtMulti* ifStmtMulti, Tree* tree, int parentNum)
 {
+	if (ifStmtMulti != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "IfStatementMulti", ""));
+		int currentIter = tree->end->num;
 
+		parseExpression(ifStmtMulti->expression, tree, currentIter);
+		parseStatementList(ifStmtMulti->thenStmtList, tree, currentIter);
+		parceElseIfList(ifStmtMulti->elseIfList, tree, currentIter);
+		parseStatementList(ifStmtMulti->elseStmtList, tree, currentIter);
+	}
 }
 
 void parceElseIfList(ElseIfList* elseIfList, Tree* tree, int parentNum)
 {
+	if (elseIfList != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ElseIfList", ""));
+		int currentIter = tree->end->num;
 
+		ElseIf* ds = elseIfList->begin;
+		for (; ds != NULL; ds = ds->nextInList)
+		{
+			parceElseIf(ds, tree, currentIter);
+		}
+	}
 }
 
 void parceElseIf(ElseIf* elseIf, Tree* tree, int parentNum)
 {
+	if (elseIf != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "ElseIf", ""));
+		int currentIter = tree->end->num;
 
+		parseExpression(ifStmtSingle->expression, tree, currentIter);
+		parseStatementList(ifStmtSingle->stmtList, tree, currentIter);
+	}
 }
 
 void parceIfStatementSingle(IfStmtSingle* ifStmtSingle, Tree* tree, int parentNum)
 {
+	if (ifStmtSingle != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "IfStatementSingle", ""));
+		int currentIter = tree->end->num;
 
+		parseExpression(ifStmtSingle->expression, tree, currentIter);
+		parseStatementList(ifStmtSingle->thenStmtList, tree, currentIter);
+		parseStatementList(ifStmtSingle->elseStmtList, tree, currentIter);
+	}
 }
 
 void parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)

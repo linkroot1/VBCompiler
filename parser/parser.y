@@ -698,11 +698,9 @@ ProgramItem *createProgramItem(Module *module, char *id_var_name)
 {
 	ProgramItem *result = (ProgramItem *)malloc(sizeof(ProgramItem));
 
-	result->isModule = module != 0;
-	result->module = module;
-
 	result->isImport = id_var_name != 0;
 	result->id_var_name=id_var_name;
+	result->module = module;
 
 	return result;
 }
@@ -854,7 +852,6 @@ StmtList *appendStmtList(StmtList *list, Stmt *statement)
 	return list;
 }
 
-
 Statement *createStatement(StmtType type, StmtValue value)
 {
 	Statement *result = (Statement *)malloc(sizeof(Statement));
@@ -876,7 +873,6 @@ StatementSingle *createStatementSingle(StmtSingleType type, StmtSingleValue valu
 
 	return result;
 }
-
 
 StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value)
 {
@@ -951,8 +947,9 @@ IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, E
 	IfStmtMulti *result = (IfStmtMulti *)malloc(sizeof(IfStmtMulti));
 
 	result->expression = expression;
-	result->thenStmtList = thenStmtList;
-	result->elseStmtList = elseStmtList;
+	result->thenStmtList = thenStmt;
+	result->elseIfList = elseIfList;
+	result->elseStmtList = elseStmt;
 
 	return result;
 }

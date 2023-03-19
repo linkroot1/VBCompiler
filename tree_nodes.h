@@ -7,7 +7,7 @@ typedef struct Module Module;
 typedef struct FunctionOrSubList FunctionOrSubList;
 typedef struct FunctionOrSub FunctionOrSub;
 typedef struct Function Function;
-typedef struct SubBlock SubBlock;
+typedef struct SubBloc SubBloc;
 typedef struct ParameterListOrEmpty ParameterListOrEmpty;
 typedef struct ParameterListWithType ParameterListWithType;
 typedef struct ParameterListWithoutType ParameterListWithoutType;;
@@ -42,11 +42,9 @@ typedef enum StmtType StmtType;
 typedef enum ExprType ExprType;
 typedef enum VarType VarType;
 
-
 typedef union StmtValue StmtValue;
 typedef union StmtMultiValue StmtMultiValue;
 typedef union StmtSingleValue StmtSingleValue;
-
 
 
 //----------------- Unions
@@ -65,18 +63,14 @@ union StmtMultiValue
 	ForEachLoopStmt* forEachLoopStmt;
 	SelectStmt* selectStmt;
 	Expression* expression;
-
 };
 
 
 union StmtSingleValue
 {
-
 	IfStmtSingle* ifStmtSingle;
 	DeclStmtSingle* declStmtSingle;
 	Expression* expression;
-
-
 };
 
 
@@ -89,12 +83,10 @@ enum StmtType
 
 enum VarType
 {
-
 	VT_INTEGER,
 	VT_STRING,
 	VT_BOOLEAN,
-	VT_DOUBLE
-	
+	VT_DOUBLE	
 };
 
 enum ExprType
@@ -133,10 +125,8 @@ struct ProgramItemListNotEmpty
 
 struct ProgramItem
 {
-	int isModule;
+	bool* isImport;
 	Module* module;
-
-	int isImport;
 	char* id_var_name;
 };
 
