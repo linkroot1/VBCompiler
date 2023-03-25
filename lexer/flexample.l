@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "parser.tab.h"
+#include "parser.tab.c"
 
 #define YY_DECL int yylex()
 
@@ -38,7 +39,6 @@ Double {return DOUBLE;}
 Else {return ELSE;}
 ElseIf {return ELSEIF;}
 End {return END;}
-EndIf {return ENDIF;}
 For {return FOR;}
 Friend {return FRIEND;}
 Function {return FUNCTION;}
@@ -53,19 +53,9 @@ Sub {return SUB;}
 Then {return THEN;}
 While {return WHILE;}
 
-\= {return ASSIGN_EQUALS;}
-\+ {return ARITHMETIC_PLUS;}
-\- {return ARITHMETIC_MINUS;}
-\^ {return EXPONENT;}
-\* {return MULT;}
-\/ {return ORD_DIVISION;}
-\\ {return INT_DIVISION;}
-\< {return LESS;}
-\> {return MORE;}
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}
 \<\> {return NOT_EQUAL;}
-\& {return CONCAT;}
 \^\= {return ASSIGN_CONSTRUCT;}
 \*\= {return ASSIGN_MULT;}
 \/\= {return ASSIGN_ORD_DIV;}
