@@ -5,33 +5,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "TreeNodes/root.h"
 
 extern int yylineno;
 extern FILE* yyin;
-
-extern RootNode * rootNode;
 
 extern int yyparse();
 extern int yylex();
 
 // ----- declarations -----
-Expression *createExpression(ExprType type, Expression *left, Expression *right);
-Expression *createSimpleExpression(ExprType type, Value value);
-ExpressionList *createExpressionList(Expression *expr);
-ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr);
-ExpressionList *createArgumentList(Expression *expr);
-ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty);
-ProgramListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem);
-ProgramListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
-ProgramItem *createProgramItem(Module *module, char *id_var_name);
-Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList);
-FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub);
-FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
-FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function);
-Function *createFunction(char* id_var_name, Arguments *arguments, StmtList *stmtList, ExpressionList *exprList);
-SubBloc *createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
-ParameterListOrEmpty *createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
+Expression* createExpression(ExprType type, Expression *left, Expression *right);
+Expression* createSimpleExpression(ExprType type, Value value);
+ExpressionList* createExpressionList(Expression *expr);
+ExpressionList* appendExpressionToList(ExpressionList *list, Expression *expr);
+ExpressionList* createArgumentList(Expression *expr);
+ProgramItemList* createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty);
+ProgramListNotEmpty* createProgramListNotEmpty(ProgramItem *programItem);
+ProgramListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
+ProgramItem* createProgramItem(Module *module, char *id_var_name);
+Module* createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList);
+FunctionOrSubList* createFunctionOrSubList(FunctionOrSub *functionOrSub);
+FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
+FunctionOrSub* createFunctionOrSub(SubBloc *subBloc, Function *function);
+Function* createFunction(char* id_var_name, Arguments *arguments, StmtList *stmtList, ExpressionList *exprList);
+SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
+ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
 ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType);
 ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType);
 ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType);
