@@ -139,7 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\parser\parser.tab.c" />
+    <ClCompile Include="..\tree\print_tree.c" />
     <ClCompile Include="lex.yy.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\parser\parser.tab.h" />
+    <ClInclude Include="..\tree\print_tree.h" />
+    <ClInclude Include="..\tree\tree_nodes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
