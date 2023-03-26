@@ -45,6 +45,7 @@ typedef enum VarType VarType;
 typedef union StmtValue StmtValue;
 typedef union StmtMultiValue StmtMultiValue;
 typedef union StmtSingleValue StmtSingleValue;
+typedef union Value Value;
 
 
 //----------------- Unions
@@ -52,6 +53,14 @@ union StmtValue
 {
 	StatementMulti* statementMulti;
 	StatementSingle* statementSingle;
+};
+
+union Value
+{
+	int int_val;
+	float float_val;
+	char char_val;
+	char* string_val;
 };
 
 union StmtMultiValue
@@ -86,7 +95,7 @@ enum VarType
 	VT_INTEGER,
 	VT_STRING,
 	VT_BOOLEAN,
-	VT_DOUBLE	
+	VT_DOUBLE
 };
 
 enum ExprType
@@ -125,7 +134,7 @@ struct ProgramItemListNotEmpty
 
 struct ProgramItem
 {
-	bool* isImport;
+	int* isImport;
 	Module* module;
 	char* id_var_name;
 };
@@ -226,7 +235,7 @@ struct DeclStmtMulti
 
 struct DeclStmtSingle
 {
-	bool* isConst;
+	int* isConst;
 	char* id_var_name;
 	enum VarType varType;
 	Expression* expression;
@@ -259,7 +268,7 @@ struct DoLoopStmt
 
 struct DoLoopCondition
 {
-	bool* isUntil;
+	int* isUntil;
 	Expression* expression;
 };
 
@@ -322,7 +331,7 @@ struct CaseList
 
 struct CaseStmt
 {
-	bool* isIs;
+	int* isIs;
 	Expression* fromExpression;
 	Expression* toExpression;
 	StmtList* stmtList;
