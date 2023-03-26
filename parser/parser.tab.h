@@ -131,12 +131,12 @@ union YYSTYPE
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
-	BasicLiteral* basic_literal;
+	VarType * basic_literal;
 
 	Expression *expression;
 	ExpressionList *expressionList;
 	ProgramItemList *programItemList;
-	ProgramListNotEmpty *programListNotEmpty;
+	ProgramItemListNotEmpty *programListNotEmpty;
 	ProgramItem *programItem;
 	Module *module;
 	FunctionOrSubList *functionOrSubList;

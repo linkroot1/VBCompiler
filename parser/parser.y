@@ -72,12 +72,12 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
-	BasicLiteral* basic_literal;
+	VarType * basic_literal;
 
 	Expression *expression;
 	ExpressionList *expressionList;
 	ProgramItemList *programItemList;
-	ProgramListNotEmpty *programListNotEmpty;
+	ProgramItemListNotEmpty *programListNotEmpty;
 	ProgramItem *programItem;
 	Module *module;
 	FunctionOrSubList *functionOrSubList;
@@ -389,8 +389,8 @@ multi_line_stmt: if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_M
 
 
 
-stmt_ends: END_OF_LINE {$$ = 0;}
-    | stmt_ends END_OF_LINE {$$ = 0;}
+stmt_ends: END_OF_LINE {$$ = createStmtEnds();}
+    | stmt_ends END_OF_LINE {$$ = createStmtEnds();}
     ;
 
 
@@ -1082,5 +1082,12 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 	result->id_var_name = id_var_name;
 	result->expression = expression;
 
+	return result;
+}
+
+StmtEnds *createStmtEnds()
+{
+	StmtEnds *result = (StmtEnds *)malloc(sizeof(StmtEnds));
+	
 	return result;
 }

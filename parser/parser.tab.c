@@ -2470,13 +2470,13 @@ yyreduce:
 
   case 66: /* stmt_ends: END_OF_LINE  */
 #line 392 "parser.y"
-                       {(yyval.stmtEnds) = 0;}
+                       {(yyval.stmtEnds) = createStmtEnds();}
 #line 2475 "parser.tab.c"
     break;
 
   case 67: /* stmt_ends: stmt_ends END_OF_LINE  */
 #line 393 "parser.y"
-                            {(yyval.stmtEnds) = 0;}
+                            {(yyval.stmtEnds) = createStmtEnds();}
 #line 2481 "parser.tab.c"
     break;
 
@@ -3832,5 +3832,12 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 	result->id_var_name = id_var_name;
 	result->expression = expression;
 
+	return result;
+}
+
+StmtEnds *createStmtEnds()
+{
+	StmtEnds *result = (StmtEnds *)malloc(sizeof(StmtEnds));
+	
 	return result;
 }
