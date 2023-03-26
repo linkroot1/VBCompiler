@@ -689,6 +689,8 @@ ProgramListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *progra
 {
 	list->end->nextInList = programItemListNotEmpty;
 	list->end = programItem;
+	
+	result->nextInList = 0;
 
 	return list;
 }
@@ -701,6 +703,8 @@ ProgramItem *createProgramItem(Module *module, char *id_var_name)
 	result->isImport = id_var_name != 0;
 	result->id_var_name=id_var_name;
 	result->module = module;
+	
+	result->nextInList = 0;
 
 	return result;
 }
@@ -745,6 +749,8 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 
 	result->isFunction = function != 0;
 	result->function=function;
+	
+	result->nextInList = 0;
 
 	return result;
 }
@@ -821,6 +827,8 @@ ParameterWithType *createParameterWithType(char* id_var_name, BasicLiteral* basi
 
 	result->id_var_name = id_var_name;
 	result->basic_literal = basic_literal;
+	
+	result->nextInList = 0;
 
 	return result;
 }
@@ -830,6 +838,8 @@ ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
 
 	result->id_var_name = id_var_name;
+	
+	result->nextInList = 0;
 
 	return result;
 }
@@ -858,6 +868,7 @@ Statement *createStatement(StmtType type, StmtValue value)
 
 	result->type = type;
 	result->stmtValue = value;
+	
 	result->nextInList = 0;
 
 	return result;
@@ -900,7 +911,7 @@ DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList)
 	DoLoopStmt *result = (DoLoopStmt *)malloc(sizeof(DoLoopStmt));
 
 	result->condition = condition;
-	result->expression = expression;
+	result->stmtList = stmtList;
 
 	return result;
 }
@@ -978,6 +989,8 @@ ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
 
 	result->expression = expression;
 	result->stmtList = stmtList;
+	
+	result->nextInList = 0;
 
 	return result;
 }
@@ -1029,6 +1042,8 @@ CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toE
 	result->fromExpression = fromExpression;
 	result->toExpression = toExpression;
 	result->stmtList = stmtList;
+	
+	result->nextInList = 0;
 
 	return result;
 }
