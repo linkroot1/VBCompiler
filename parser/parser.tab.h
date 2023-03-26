@@ -124,7 +124,7 @@ union YYSTYPE
 {
 #line 67 "parser.y"
 
-	bool bool_val;
+	int bool_val;
 	int int_val;
 	//bin and hex
 	double double_val;

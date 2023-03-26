@@ -72,8 +72,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 #include <stdlib.h>
-#include "tree_nodes.h"
-#include "print_tree.h"
+#include "../tree/tree_nodes.h"
+#include "../tree/print_tree.h"
 
 
 extern int yylineno;
@@ -89,10 +89,10 @@ ExpressionList* createExpressionList(Expression *expr);
 ExpressionList* appendExpressionToList(ExpressionList *list, Expression *expr);
 ExpressionList* createArgumentList(Expression *expr);
 ProgramItemList* createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty);
-ProgramListNotEmpty* createProgramListNotEmpty(ProgramItem *programItem);
-ProgramListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
+ProgramItemListNotEmpty* createProgramListNotEmpty(ProgramItem *programItem);
+ProgramItemListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
 ProgramItem* createProgramItem(Module *module, char *id_var_name);
-Module* createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList);
+Module* createModule(char *id_var_name, FunctionOrSubList *functionsAndSubList);
 FunctionOrSubList* createFunctionOrSubList(FunctionOrSub *functionOrSub);
 FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
 FunctionOrSub* createFunctionOrSub(SubBloc *subBloc, Function *function);
@@ -105,16 +105,16 @@ ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *p
 ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType);
 ParameterWithType *createParameterWithType(char* id_var_name, Value value);
 ParameterWithoutType *createParameterWithoutType(char* id_var_name);
-StmtList *createStmtList(Stmt *statement);
-StmtList *appendStmtList(StmtList *list, Stmt *statement);
+StmtList *createStmtList(Statement *statement);
+StmtList *appendStmtList(StmtList *list, Statement *statement);
 Statement *createStatement(StmtType type, StmtValue value);
-StatementSingle *createStatementSingle(StmtSingleType type, StmtSingleValue value);
-StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value);
+StatementSingle *createStatementSingle(StmtSingleValue type, StmtSingleValue value);
+StatementMulti *createStatementMulti(StmtMultiValue type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
 DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
-DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression);
-ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
-ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList *stmtList);
+DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
+ForLoopStmt *createForLoopStmt(char* counterVarName, Expression counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, Expression counterType, char* counterSourceName, StmtList *stmtList);
 IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
 ElseIfList *createElseIfList(ElseIf *elseIf);
 ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
@@ -123,9 +123,9 @@ IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList,
 SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
-CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
-DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
-DeclStmtMulti *createDeclStmtMulti(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
+CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
+DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, Expression varType, Expression *expression);
+DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, Expression varType, Expression *expression);
 VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
@@ -821,16 +821,16 @@ static const yytype_uint8 yydefact[] =
      126,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,   172,     0,   142,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      51,     0,    53,     0,    56,     0,    60,    61,    62,     0,
+      51,     0,    53,     0,    56,     0,    62,    63,    64,     0,
       55,     0,    57,     0,     0,     0,   161,   164,   162,   163,
       48,    35,    39,     0,     0,     0,    43,    50,     0,    46,
        0,     0,   169,   141,   136,   130,   131,   132,   128,   129,
      133,   137,   138,   139,   135,   134,   140,   171,   177,   160,
       17,    82,     0,     0,     0,    78,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    52,    54,    58,    59,    64,    63,     0,
+       0,     0,     0,    52,    54,    59,    61,    58,    65,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,    65,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    60,     0,     0,     0,     0,     0,     0,     0,
       44,    47,   170,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,    20,     0,     0,     0,
@@ -1340,7 +1340,7 @@ static const yytype_int8 yyr2[] =
        9,     9,    10,     0,     1,     3,     2,     2,     1,     3,
        2,     2,     1,     3,     4,     1,     3,     4,     3,     5,
        1,     1,     2,     1,     2,     1,     1,     1,     2,     2,
-       1,     1,     1,     2,     2,     2,     1,     2,     7,     7,
+       2,     2,     1,     1,     1,     2,     1,     2,     7,     7,
        7,     7,     5,     5,     6,     6,     4,     4,     2,    10,
        4,     4,     1,     1,     1,     1,     1,     2,     2,     6,
        6,     4,     5,     3,     3,    11,    13,    10,     7,     7,
@@ -2086,7 +2086,7 @@ yyreduce:
     {
   case 2: /* root: program_items_list  */
 #line 279 "parser.y"
-                         {(yyval.programItemList) = root = (yyvsp[0].programItemList);}
+                         {(yyval.programItemList) /*= root*/ = (yyvsp[0].programItemList);}
 #line 2091 "parser.tab.c"
     break;
 
@@ -2272,7 +2272,7 @@ yyreduce:
 
   case 33: /* parameterlist_or_empty: %empty  */
 #line 331 "parser.y"
-                         {(yyval.parameterListOrEmpty) = 0}
+                         {(yyval.parameterListOrEmpty) = 0;}
 #line 2277 "parser.tab.c"
     break;
 
@@ -2392,79 +2392,79 @@ yyreduce:
 
   case 53: /* stmt: multi_line_stmt  */
 #line 370 "parser.y"
-                      {(yyval.statement) = createStatement(ST_MULTI, (StmtValue){.multiLineStmt=(yyvsp[0].statementMulti)});}
+                      {(yyval.statement) = createStatement(ST_MULTI, (StmtValue){.statementMulti=(yyvsp[0].statementMulti)});}
 #line 2397 "parser.tab.c"
     break;
 
   case 54: /* stmt: single_line_stmt stmt_ends  */
 #line 371 "parser.y"
-                                 {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue){.singleLineStmt=(yyvsp[-1].statementSingle)});}
+                                 {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue){.statementSingle=(yyvsp[-1].statementSingle)});}
 #line 2403 "parser.tab.c"
     break;
 
   case 55: /* single_line_stmt: if_stmt_single_line  */
 #line 375 "parser.y"
-                                      {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtValue){.singleLineIfStmt=(yyvsp[0].ifStmtSingle)});}
+                                      {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue){.ifStmtSingle=(yyvsp[0].ifStmtSingle)});}
 #line 2409 "parser.tab.c"
     break;
 
   case 56: /* single_line_stmt: decl_stmt_single_line  */
 #line 376 "parser.y"
-                                                        {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtValue){.singleLineDeclStmt=(yyvsp[0].declStmtSingle)});}
+                                                        {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue){.declStmtSingle=(yyvsp[0].declStmtSingle)});}
 #line 2415 "parser.tab.c"
     break;
 
   case 57: /* single_line_stmt: expr_singleline  */
 #line 377 "parser.y"
-                                                  {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtValue){.singleLineExpr=(yyvsp[0].expression)});}
+                                                  {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtSingleValue){.expression=(yyvsp[0].expression)});}
 #line 2421 "parser.tab.c"
     break;
 
-  case 58: /* multi_line_stmt: decl_stmt stmt_ends  */
+  case 58: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
 #line 380 "parser.y"
-                                     {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtValue){.multiLineDeclStmt=(yyvsp[-1].declStmtMulti)});}
+                                              {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtMultiValue){.ifStmtMulti=(yyvsp[-1].ifStmtMulti)});}
 #line 2427 "parser.tab.c"
     break;
 
-  case 59: /* multi_line_stmt: while_stmt stmt_ends  */
+  case 59: /* multi_line_stmt: decl_stmt stmt_ends  */
 #line 381 "parser.y"
-                                      {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtValue){.multiLineWhileStmt=(yyvsp[-1].whileStmt)});}
+                                     {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue){.declStmtMulti=(yyvsp[-1].declStmtMulti)});}
 #line 2433 "parser.tab.c"
     break;
 
-  case 60: /* multi_line_stmt: do_loop_stmt  */
+  case 60: /* multi_line_stmt: expr_multiline stmt_ends  */
 #line 382 "parser.y"
-                                          {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtValue){.multiLineDoLoopStmt=(yyvsp[0].doLoopStmt)});}
+                                          {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtMultiValue){.expression=(yyvsp[-1].expression)});}
 #line 2439 "parser.tab.c"
     break;
 
-  case 61: /* multi_line_stmt: for_loop_stmt  */
+  case 61: /* multi_line_stmt: while_stmt stmt_ends  */
 #line 383 "parser.y"
-                                           {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtValue){.multiLineForLoopStmt=(yyvsp[0].forLoopStmt)});}
+                                      {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue){.whileStmt=(yyvsp[-1].whileStmt)});}
 #line 2445 "parser.tab.c"
     break;
 
-  case 62: /* multi_line_stmt: for_each_loop_stmt  */
+  case 62: /* multi_line_stmt: do_loop_stmt  */
 #line 384 "parser.y"
-                                                {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtValue){.multiLineForEachLoopStmt=(yyvsp[0].forEachLoopStmt)});}
+                                          {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue){.doLoopStmt=(yyvsp[0].doLoopStmt)});}
 #line 2451 "parser.tab.c"
     break;
 
-  case 63: /* multi_line_stmt: select_stmt stmt_ends  */
+  case 63: /* multi_line_stmt: for_loop_stmt  */
 #line 385 "parser.y"
-                                       {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtValue){.multiLineSelectStmt=(yyvsp[-1].selectStmt)});}
+                                           {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue){.forLoopStmt=(yyvsp[0].forLoopStmt)});}
 #line 2457 "parser.tab.c"
     break;
 
-  case 64: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
+  case 64: /* multi_line_stmt: for_each_loop_stmt  */
 #line 386 "parser.y"
-                                              {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtValue){.multiLineIfStmt=(yyvsp[-1].ifStmtMulti)});}
+                                                {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue){.forEachLoopStmt=(yyvsp[0].forEachLoopStmt)});}
 #line 2463 "parser.tab.c"
     break;
 
-  case 65: /* multi_line_stmt: expr_multiline stmt_ends  */
+  case 65: /* multi_line_stmt: select_stmt stmt_ends  */
 #line 387 "parser.y"
-                                          {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtValue){.multiLineExpr=(yyvsp[-1].expression)});}
+                                       {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue){.selectStmt=(yyvsp[-1].selectStmt)});}
 #line 2469 "parser.tab.c"
     break;
 
@@ -2884,7 +2884,7 @@ yyreduce:
 
   case 141: /* expr_singleline: '(' expr_singleline ')'  */
 #line 524 "parser.y"
-                              {(yyval.expression) = createExpression(0, (yyvsp[-1].expression));}
+                              {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2889 "parser.tab.c"
     break;
 
@@ -2980,19 +2980,19 @@ yyreduce:
 
   case 157: /* expr_multiline: '(' END_OF_LINE expr_singleline ')'  */
 #line 542 "parser.y"
-                                                    {(yyval.expression) = createExpression(0,(yyvsp[-1].expression));}
+                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2985 "parser.tab.c"
     break;
 
   case 158: /* expr_multiline: '(' END_OF_LINE expr_singleline END_OF_LINE ')'  */
 #line 543 "parser.y"
-                                                                {(yyval.expression) = createExpression(0,(yyvsp[-2].expression));}
+                                                                {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2991 "parser.tab.c"
     break;
 
   case 159: /* expr_multiline: '(' expr_singleline END_OF_LINE ')'  */
 #line 544 "parser.y"
-                                                    {(yyval.expression) = createExpression(0,(yyvsp[-2].expression));}
+                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2997 "parser.tab.c"
     break;
 
@@ -3028,49 +3028,49 @@ yyreduce:
 
   case 165: /* basic_literal_value: INT_VALUE  */
 #line 555 "parser.y"
-                               {(yyval.expression) = createSimpleExpression(ET_INTEGER, (Value){.int_val = (yyvsp[0].int_val)});}
+                               {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)});}
 #line 3033 "parser.tab.c"
     break;
 
   case 166: /* basic_literal_value: STRING_VALUE  */
 #line 556 "parser.y"
-                                  {(yyval.expression) = createSimpleExpression(ET_STRING, (Value){.string_val=(yyvsp[0].str_val)});}
+                                  {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)});}
 #line 3039 "parser.tab.c"
     break;
 
   case 167: /* basic_literal_value: BOOLEAN_VALUE  */
 #line 557 "parser.y"
-                                   {(yyval.expression) = createSimpleExpression(ET_BOOL, (Value){.int_val=(yyvsp[0].bool_val)});}
+                                   {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)});}
 #line 3045 "parser.tab.c"
     break;
 
   case 168: /* basic_literal_value: DOUBLE_VALUE  */
 #line 558 "parser.y"
-                                  {(yyval.expression) = createSimpleExpression(ET_FLOAT, (Value){.float_val=(yyvsp[0].double_val)});}
+                                  {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)});}
 #line 3051 "parser.tab.c"
     break;
 
   case 169: /* arguments_multiline: '(' END_OF_LINE expr_list ')'  */
 #line 563 "parser.y"
-                                                   {(yyval.expression) = createExpression(0,(yyvsp[-1].expressionList));}
+                                                   {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3057 "parser.tab.c"
     break;
 
   case 170: /* arguments_multiline: '(' END_OF_LINE expr_list END_OF_LINE ')'  */
 #line 564 "parser.y"
-                                                               {(yyval.expression) = createExpression(0,(yyvsp[-2].expressionList));}
+                                                               {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3063 "parser.tab.c"
     break;
 
   case 171: /* arguments_multiline: '(' expr_list END_OF_LINE ')'  */
 #line 565 "parser.y"
-                                                   {(yyval.expression) = createExpression(0,(yyvsp[-2].expressionList));}
+                                                   {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3069 "parser.tab.c"
     break;
 
   case 172: /* arguments_singleline: '(' expr_list ')'  */
 #line 569 "parser.y"
-                                        {(yyval.expression) = createExpression(0,(yyvsp[-1].expressionList));}
+                                        {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3075 "parser.tab.c"
     break;
 
@@ -3374,7 +3374,7 @@ Expression *createSimpleExpression(ExprType type, Value value)
 {
 	Expression *result = (Expression *)malloc(sizeof(Expression));
 
-	result->IsType = type != 0;
+	result->isType = type != 0;
 	result->type = type;
 	result->value = value;
 
@@ -3425,22 +3425,22 @@ ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemList
 	return result;
 }
 
-ProgramListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
+ProgramItemListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
 {
-	ProgramListNotEmpty *result = (ProgramListNotEmpty *)malloc(sizeof(ProgramListNotEmpty));
+	ProgramItemListNotEmpty *result = (ProgramItemListNotEmpty *)malloc(sizeof(ProgramItemListNotEmpty));
 
 	result->begin = programItem;
 	result->end = programItem;
+	
+	result->nextInList = 0;
 
 	return result;
 }
 
-ProgramListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem)
+ProgramItemListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *list, ProgramItem *programItem)
 {
-	list->end->nextInList = programItemListNotEmpty;
+	list->end->nextInList = list;
 	list->end = programItem;
-	
-	result->nextInList = 0;
 
 	return list;
 }
@@ -3460,15 +3460,12 @@ ProgramItem *createProgramItem(Module *module, char *id_var_name)
 }
 
 
-Module *createModule(char *id_var_name, FunctionsAndSubList *functionsAndSubList)
+Module *createModule(char *id_var_name, FunctionOrSubList *functionOrSubList)
 {
 	Module *result = (Module *)malloc(sizeof(Module));
 
-	result->id = id_var_name;
-	result->functionsAndSubList = functionsAndSubList;
-
-
-	//result->nextInList = NULL; --- ???
+	result->id_var_name = id_var_name;
+	result->functionOrSubList = functionOrSubList;
 
 	return result;
 }
@@ -3494,10 +3491,7 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 {
 	FunctionOrSub *result = (FunctionOrSub *)malloc(sizeof(FunctionOrSub));
 
-	result->isSubBloc = subBloc != 0;
 	result->subBloc = subBloc;
-
-	result->isFunction = function != 0;
 	result->function=function;
 	
 	result->nextInList = 0;
@@ -3541,7 +3535,7 @@ ParameterListOrEmpty *createParameterListOrEmpty(ParameterListWithType *paramete
 
 ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType)
 {
-	ParameterListWithType *result = (ParameterListWithType)malloc(sizeof(ParameterListWithType));
+	ParameterListWithType *result = (ParameterListWithType*)malloc(sizeof(ParameterListWithType));
 
 	result->begin = parameterWithType;
 	result->end = parameterWithType;
@@ -3557,7 +3551,7 @@ ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, 
 
 ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType)
 {
-	ParameterListWithoutType *result = (ParameterListWithoutType)malloc(sizeof(ParameterListWithoutType));
+	ParameterListWithoutType *result = (ParameterListWithoutType*)malloc(sizeof(ParameterListWithoutType));
 
 	result->begin = parameterWithoutType;
 	result->end = parameterWithoutType;
@@ -3571,7 +3565,7 @@ ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutTyp
 	return list;
 }
 
-ParameterWithType *createParameterWithType(char* id_var_name, BasicLiteral* basic_literal) //WIP
+ParameterWithType *createParameterWithType(char* id_var_name, VarType* basic_literal)
 {
 	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
 
@@ -3594,7 +3588,7 @@ ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 	return result;
 }
 
-StmtList *createStmtList(Stmt *statement)
+StmtList *createStmtList(Statement *statement)
 {
 	StmtList *result = (StmtList *)malloc(sizeof(StmtList));
 
@@ -3604,7 +3598,7 @@ StmtList *createStmtList(Stmt *statement)
 	return result;
 }
 
-StmtList *appendStmtList(StmtList *list, Stmt *statement)
+StmtList *appendStmtList(StmtList *list, Statement *statement)
 {
 	list->end->nextInList = statement;
 	list->end = statement;
@@ -3617,31 +3611,29 @@ Statement *createStatement(StmtType type, StmtValue value)
 	Statement *result = (Statement *)malloc(sizeof(Statement));
 
 	result->type = type;
-	result->stmtValue = value;
+	result->value = value;
 	
 	result->nextInList = 0;
 
 	return result;
 }
 
-StatementSingle *createStatementSingle(StmtSingleType type, StmtSingleValue value)
+StatementSingle *createStatementSingle(StmtSingleValue* type, StmtSingleValue value)
 {
 	StatementSingle *result = (StatementSingle *)malloc(sizeof(StatementSingle));
 
 	result->type = type;
-	result->stmtValue = value;
-	result->nextInList = 0;
+	result->value = value;
 
 	return result;
 }
 
-StatementMulti *createStatementMulti(StmtMultiType type, StmtMultiValue value)
+StatementMulti *createStatementMulti(StmtMultiValue* type, StmtMultiValue value)
 {
 	StatementMulti *result = (StatementMulti *)malloc(sizeof(StatementMulti));
 
 	result->type = type;
-	result->stmtValue = value;
-	result->nextInList = 0;
+	result->value = value;
 
 	return result;
 }
@@ -3667,7 +3659,7 @@ DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList)
 }
 
 //WIP
-DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression)
+DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression)
 {
 	DoLoopCondition *result = (DoLoopCondition *)malloc(sizeof(DoLoopCondition));
 
@@ -3677,7 +3669,7 @@ DoLoopCondition *createDoLoopCondition(bool *isUntil, Expression *expression)
 	return result;
 }
 
-ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList)
+ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList)
 {
 	ForLoopStmt *result = (ForLoopStmt *)malloc(sizeof(ForLoopStmt));
 
@@ -3691,7 +3683,7 @@ ForLoopStmt *createForLoopStmt(char* counterVarName, BasicLiteral counterType, E
 	return result;
 }
 
-ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, BasicLiteral counterType, char* counterSourceName, StmtList *stmtList)
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList)
 {
 	ForEachLoopStmt *result = (ForEachLoopStmt *)malloc(sizeof(ForEachLoopStmt));
 
@@ -3708,9 +3700,9 @@ IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, E
 	IfStmtMulti *result = (IfStmtMulti *)malloc(sizeof(IfStmtMulti));
 
 	result->expression = expression;
-	result->thenStmtList = thenStmt;
+	result->thenStmtList = thenStmtList;
 	result->elseIfList = elseIfList;
-	result->elseStmtList = elseStmt;
+	result->elseStmtList = elseStmtList;
 
 	return result;
 }
@@ -3735,7 +3727,7 @@ ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf)
 
 ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
 {
-	ElseIf *result = (ElseIf)malloc(sizeof(ElseIf));
+	ElseIf *result = (ElseIf*)malloc(sizeof(ElseIf));
 
 	result->expression = expression;
 	result->stmtList = stmtList;
@@ -3758,7 +3750,7 @@ IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList,
 
 SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList)
 {
-	SelectStmt *result = (SelectStmt)malloc(sizeof(SelectStmt));
+	SelectStmt *result = (SelectStmt*)malloc(sizeof(SelectStmt));
 
 	result->expression = expression;
 	result->caseList = caseList;
@@ -3784,7 +3776,7 @@ CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
 	return list;
 }
 
-CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
+CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
 {
 	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
 
@@ -3799,9 +3791,9 @@ CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toE
 }
 
 //WIP
-DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression)
+DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression)
 {
-	DeclStmtSingle *result = (DeclStmtSingle)malloc(sizeof(DeclStmtSingle));
+	DeclStmtSingle *result = (DeclStmtSingle*)malloc(sizeof(DeclStmtSingle));
 
 	result->isConst = isConst;
 	result->id_var_name = id_var_name;
@@ -3811,9 +3803,9 @@ DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLite
 	return result;
 }
 
-DeclStmtMulti *createDeclStmtMulti(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression)
+DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression)
 {
-	DeclStmtMulti *result = (DeclStmtMulti)malloc(sizeof(DeclStmtMulti));
+	DeclStmtMulti *result = (DeclStmtMulti*)malloc(sizeof(DeclStmtMulti));
 
 	result->isConst = isConst;
 	result->id_var_name = id_var_name;
