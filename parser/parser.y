@@ -2,8 +2,11 @@
 
 
 %{
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 #include <stdlib.h>
+#include "tree_nodes.h"
+#include "print_tree.h"
 
 
 extern int yylineno;
@@ -56,7 +59,7 @@ CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
 CaseStmt *createCaseStmt(bool *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
 DeclStmtSingle *createDeclStmtSingle(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
 DeclStmtMulti *createDeclStmtMulti(bool *isConst, char* id_var_name, BasicLiteral varType, Expression *expression);
-VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression;
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
 %}
