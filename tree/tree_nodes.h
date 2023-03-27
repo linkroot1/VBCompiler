@@ -102,6 +102,8 @@ enum StmtType
 	ST_IF_MULTI
 };
 
+
+
 enum VarType
 {
 	VT_INTEGER,
@@ -239,13 +241,13 @@ struct Statement
 
 struct StatementSingle
 {
-	enum StmtSingleType type;
+	enum StmtType type;
 	union StmtSingleValue value;
 };
 
 struct StatementMulti
 {
-	enum StmtMultiType type;
+	enum StmtType type;
 	union StmtMultiValue value;
 };
 

@@ -36,18 +36,18 @@ ParameterListWithType *createParameterListWithType(ParameterWithType *parameterW
 ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType);
 ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType);
 ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType);
-ParameterWithType *createParameterWithType(char* id_var_name, Value value);
+ParameterWithType *createParameterWithType(char* id_var_name, VarType value);
 ParameterWithoutType *createParameterWithoutType(char* id_var_name);
 StmtList *createStmtList(Statement *statement);
 StmtList *appendStmtList(StmtList *list, Statement *statement);
 Statement *createStatement(StmtType type, StmtValue value);
-StatementSingle *createStatementSingle(StmtSingleValue type, StmtSingleValue value);
-StatementMulti *createStatementMulti(StmtMultiValue type, StmtMultiValue value);
+StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value);
+StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
 DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
 DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
 ForLoopStmt *createForLoopStmt(char* counterVarName, Expression counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
-ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, Expression counterType, char* counterSourceName, StmtList *stmtList);
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
 IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
 ElseIfList *createElseIfList(ElseIf *elseIf);
 ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
@@ -57,8 +57,8 @@ SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
 CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
-DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, Expression varType, Expression *expression);
-DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, Expression varType, Expression *expression);
+DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression);
+DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression);
 VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
@@ -582,9 +582,9 @@ expr_list: expr_singleline {$$ = createExpressionList($1);}
 
 %%
 
-void yyerror(char const *s) {
-    fprintf(stderr, "Error: %s on line %d\n", s, yylineno);
-    exit(1);
+void yyerror(const char* s) {
+	fprintf(stderr, "Parse error: %s\n", s);
+	exit(1);
 }
 
 int main(int argc, char** argv) {
@@ -815,7 +815,7 @@ ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutTyp
 	return list;
 }
 
-ParameterWithType *createParameterWithType(char* id_var_name, VarType* basic_literal)
+ParameterWithType *createParameterWithType(char* id_var_name, VarType basic_literal)
 {
 	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
 
@@ -868,7 +868,7 @@ Statement *createStatement(StmtType type, StmtValue value)
 	return result;
 }
 
-StatementSingle *createStatementSingle(StmtSingleValue* type, StmtSingleValue value)
+StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value)
 {
 	StatementSingle *result = (StatementSingle *)malloc(sizeof(StatementSingle));
 
@@ -878,7 +878,7 @@ StatementSingle *createStatementSingle(StmtSingleValue* type, StmtSingleValue va
 	return result;
 }
 
-StatementMulti *createStatementMulti(StmtMultiValue* type, StmtMultiValue value)
+StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value)
 {
 	StatementMulti *result = (StatementMulti *)malloc(sizeof(StatementMulti));
 

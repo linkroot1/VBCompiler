@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "parser.tab.h"
-#include "parser.tab.c"
+
 #define _CRT_SECURE_NO_WARNINGS 1
 #define YY_DECL int yylex()
 
