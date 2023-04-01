@@ -1,135 +1,149 @@
 ﻿  parser.tab.c
-parser.tab.c(1667,39): warning C4244: return: преобразование "__int64" в "long", возможна потеря данных
-parser.y(311,118): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(312,118): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(314,137): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(315,137): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(316,99): warning C4020: createFunction: слишком много фактических параметров
-parser.y(317,118): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(318,118): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(320,137): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(321,137): warning C4133: функция: несовместимые типы - из "Expression *" в "ExpressionList *"
-parser.y(332,97): warning C4133: функция: несовместимые типы - из "ParameterListWithType *" в "ParameterWithType *"
-parser.y(332,99): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(332,101): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(333,98): warning C4133: функция: несовместимые типы - из "ParameterListWithType *" в "ParameterWithType *"
-parser.y(333,100): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(333,102): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(334,97): warning C4133: функция: несовместимые типы - из "ParameterListWithType *" в "ParameterWithType *"
-parser.y(334,99): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(334,101): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(335,98): warning C4133: функция: несовместимые типы - из "ParameterListWithType *" в "ParameterWithType *"
-parser.y(335,100): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(335,102): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(336,77): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(336,104): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(337,78): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(337,105): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(338,78): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(338,105): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(339,77): warning C4020: createParameterListWithType: слишком много фактических параметров
-parser.y(339,104): warning C4133: =: несовместимые типы - из "ParameterListWithType *" в "ParameterListOrEmpty *"
-parser.y(354,107): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(354,92): warning C4024: createParameterWithType: различные типы для формального и фактического параметров 2
-parser.y(355,108): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(355,93): warning C4024: createParameterWithType: различные типы для формального и фактического параметров 2
-parser.y(392,25): warning C4013: createStmtEnds: нет определения; предполагается "extern" с возвратом типа "int"
-parser.y(392,41): warning C4047: =: "StmtEnds *" отличается по уровням косвенного обращения от "int"
-parser.y(393,41): warning C4047: =: "StmtEnds *" отличается по уровням косвенного обращения от "int"
-parser.y(399,51): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(399,50): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 1
-parser.y(399,77): warning C4133: функция: несовместимые типы - из "VarNameMulti *" в "char *"
-parser.y(399,104): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(399,89): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 3
-parser.y(400,51): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(400,50): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 1
-parser.y(400,78): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(400,105): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(400,90): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 3
-parser.y(401,77): warning C4133: функция: несовместимые типы - из "VarNameMulti *" в "char *"
-parser.y(401,104): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(401,89): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 3
-parser.y(402,78): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(402,105): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(402,90): warning C4024: createDeclStmtMulti: различные типы для формального и фактического параметров 3
-parser.y(403,77): warning C4133: функция: несовместимые типы - из "VarNameMulti *" в "char *"
-parser.y(404,78): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(408,53): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(408,52): warning C4024: createDeclStmtSingle: различные типы для формального и фактического параметров 1
-parser.y(408,80): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(408,107): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(408,92): warning C4024: createDeclStmtSingle: различные типы для формального и фактического параметров 3
-parser.y(409,80): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(409,107): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(409,92): warning C4024: createDeclStmtSingle: различные типы для формального и фактического параметров 3
-parser.y(410,80): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(410,106): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(410,91): warning C4024: createDeclStmtSingle: различные типы для формального и фактического параметров 3
-parser.y(411,80): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(412,79): warning C4133: функция: несовместимые типы - из "VarNameSingle *" в "char *"
-parser.y(442,93): warning C4133: функция: несовместимые типы - из "StmtList *" в "Expression *"
-parser.y(443,92): warning C4133: функция: несовместимые типы - из "StmtList *" в "Expression *"
-parser.y(446,55): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(446,54): warning C4024: createDoLoopCondition: различные типы для формального и фактического параметров 1
-parser.y(452,69): warning C4133: функция: несовместимые типы - из "char *" в "Expression *"
-parser.y(452,96): warning C4133: функция: несовместимые типы - из "VarType *" в "StmtList *"
-parser.y(452,120): warning C4133: функция: несовместимые типы - из "Expression *" в "ElseIfList *"
-parser.y(452,144): warning C4133: функция: несовместимые типы - из "Expression *" в "StmtList *"
-parser.y(452,146): warning C4020: createIfStmtMulti: слишком много фактических параметров
-parser.y(452,170): warning C4133: =: несовместимые типы - из "IfStmtMulti *" в "ForLoopStmt *"
-parser.y(453,70): warning C4133: функция: несовместимые типы - из "char *" в "Expression *"
-parser.y(453,97): warning C4133: функция: несовместимые типы - из "VarType *" в "StmtList *"
-parser.y(453,121): warning C4133: функция: несовместимые типы - из "Expression *" в "ElseIfList *"
-parser.y(453,145): warning C4133: функция: несовместимые типы - из "Expression *" в "StmtList *"
-parser.y(453,157): warning C4020: createIfStmtMulti: слишком много фактических параметров
-parser.y(453,192): warning C4133: =: несовместимые типы - из "IfStmtMulti *" в "ForLoopStmt *"
-parser.y(458,104): error C2440: функция: невозможно преобразовать "VarType *" в "VarType"
-parser.y(458,89): warning C4024: createForEachLoopStmt: различные типы для формального и фактического параметров 2
-parser.y(480,98): warning C4133: функция: несовместимые типы - из "StatementSingle *" в "StmtList *"
-parser.y(481,99): warning C4133: функция: несовместимые типы - из "StatementSingle *" в "StmtList *"
-parser.y(481,127): warning C4133: функция: несовместимые типы - из "StatementSingle *" в "StmtList *"
-parser.y(496,41): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(496,40): warning C4024: createCaseStmt: различные типы для формального и фактического параметров 1
-parser.y(497,41): warning C4047: функция: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(497,40): warning C4024: createCaseStmt: различные типы для формального и фактического параметров 1
-parser.y(526,27): warning C4013: createExpressionWithList: нет определения; предполагается "extern" с возвратом типа "int"
-parser.y(526,143): warning C4047: =: "Expression *" отличается по уровням косвенного обращения от "int"
-parser.y(545,143): warning C4047: =: "Expression *" отличается по уровням косвенного обращения от "int"
-parser.y(550,39): warning C4047: =: "VarType *" отличается по уровням косвенного обращения от "int"
-parser.y(551,40): warning C4047: =: "VarType *" отличается по уровням косвенного обращения от "int"
-parser.y(552,39): warning C4047: =: "VarType *" отличается по уровням косвенного обращения от "int"
-parser.y(563,76): warning C4133: функция: несовместимые типы - из "ExpressionList *" в "Expression *"
-parser.y(564,76): warning C4133: функция: несовместимые типы - из "ExpressionList *" в "Expression *"
-parser.y(565,76): warning C4133: функция: несовместимые типы - из "ExpressionList *" в "Expression *"
-parser.y(569,76): warning C4133: функция: несовместимые типы - из "ExpressionList *" в "Expression *"
-parser.tab.c(3182,13): warning C4013: yyerror: нет определения; предполагается "extern" с возвратом типа "int"
-parser.tab.c(1918,43): warning C4244: инициализация: преобразование "__int64" в "long", возможна потеря данных
-parser.y(585,6): error C2371: yyerror: переопределение; различные базовые типы
-parser.y(692,33): warning C4133: =: несовместимые типы - из "ProgramItemListNotEmpty *" в "ProgramItem *"
-parser.y(703,40): warning C4047: =: "int *" отличается по уровням косвенного обращения от "int"
-parser.y(901,68): warning C4028: формальный параметр 2 отличается от объявления
-parser.y(922,62): warning C4028: формальный параметр 2 отличается от объявления
-parser.y(922,87): warning C4028: формальный параметр 3 отличается от объявления
-parser.y(922,110): warning C4028: формальный параметр 4 отличается от объявления
-parser.y(922,131): warning C4028: формальный параметр 5 отличается от объявления
-parser.y(1060,30): warning C4047: =: "int" отличается по уровням косвенного обращения от "int *"
-parser.y(1088,11): error C2040: createStmtEnds: "StmtEnds *()" отличается по уровням косвенного обращения от "int ()"
+parser.tab.c(1667,43): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
+parser.y(310,207): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(311,206): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(313,236): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(314,235): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(315,161): warning C4020: 'createFunction': too many actual parameters
+parser.y(316,214): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(317,213): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(319,243): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(320,242): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(331,141): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(331,143): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(331,145): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(332,166): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(332,168): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(332,170): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(333,153): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(333,155): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(333,157): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(334,154): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(334,156): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(334,158): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(335,124): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(335,151): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(336,149): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(336,176): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(337,137): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(337,164): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(338,136): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(338,163): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(398,121): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(398,120): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+parser.y(398,147): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(399,132): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(399,131): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+parser.y(399,159): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(400,145): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(401,157): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(402,128): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(403,140): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(407,135): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(407,134): warning C4024: 'createDeclStmtSingle': different types for formal and actual parameter 1
+parser.y(407,162): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(408,180): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(409,160): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(410,163): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(411,142): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(441,139): warning C4133: 'function': incompatible types - from 'StmtList *' to 'Expression *'
+parser.y(442,160): warning C4133: 'function': incompatible types - from 'StmtList *' to 'Expression *'
+parser.y(445,102): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(445,101): warning C4024: 'createDoLoopCondition': different types for formal and actual parameter 1
+parser.y(451,200): error C2440: 'function': cannot convert from 'VarType' to 'Expression'
+parser.y(451,196): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 2
+parser.y(451,224): error C2440: 'function': cannot convert from 'Expression *' to 'Value'
+parser.y(451,212): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 3
+parser.y(451,248): error C2440: 'function': cannot convert from 'Expression *' to 'Value'
+parser.y(451,236): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 4
+parser.y(451,251): error C2440: 'function': cannot convert from 'int' to 'Value'
+parser.y(451,250): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 5
+parser.y(452,238): error C2440: 'function': cannot convert from 'VarType' to 'Expression'
+parser.y(452,234): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 2
+parser.y(452,262): error C2440: 'function': cannot convert from 'Expression *' to 'Value'
+parser.y(452,250): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 3
+parser.y(452,286): error C2440: 'function': cannot convert from 'Expression *' to 'Value'
+parser.y(452,274): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 4
+parser.y(452,310): error C2440: 'function': cannot convert from 'Expression *' to 'Value'
+parser.y(452,298): warning C4024: 'createForLoopStmt': different types for formal and actual parameter 5
+parser.y(479,157): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(480,180): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(480,208): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(495,90): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(495,89): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+parser.y(496,91): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(496,90): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+parser.y(525,85): warning C4013: 'createExpressionWithList' undefined; assuming extern returning int
+parser.y(525,172): warning C4047: '=': 'Expression *' differs in levels of indirection from 'int'
+parser.y(544,181): warning C4047: '=': 'Expression *' differs in levels of indirection from 'int'
+parser.y(562,123): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(563,135): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(564,123): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(568,112): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.tab.c(3182,17): warning C4013: 'yyerror' undefined; assuming extern returning int
+parser.tab.c(1918,1): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+parser.y(584,6): error C2371: 'yyerror': redefinition; different basic types
+parser.y(691,30): warning C4133: '=': incompatible types - from 'ProgramItemListNotEmpty *' to 'ProgramItem *'
+parser.y(702,37): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+parser.y(900,68): warning C4028: formal parameter 2 different from declaration
+parser.y(921,62): warning C4028: formal parameter 2 different from declaration
+parser.y(921,87): warning C4028: formal parameter 3 different from declaration
+parser.y(921,110): warning C4028: formal parameter 4 different from declaration
+parser.y(921,131): warning C4028: formal parameter 5 different from declaration
+parser.y(1059,27): warning C4047: '=': 'int' differs in levels of indirection from 'int *'
   print_tree.c
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(13,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(15,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(219,3): warning C4013: parceFunctionOrSubList: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(257,44): warning C4133: функция: несовместимые типы - из "ExpressionList *" в "ParameterListOrEmpty *"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(381,50): warning C4133: функция: несовместимые типы - из "StatementMulti *" в "StatementSingle *"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(397,4): warning C4013: parseIfStatementSingle: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(400,4): warning C4013: parseDeclarationStatementSingle: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(403,4): warning C4013: parseExpressionSingle: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(409,42): warning C4028: формальный параметр 1 отличается от объявления
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(419,4): warning C4013: parseIfStatementMulti: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(422,4): warning C4013: parseDeclarationStatementMulti: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(425,4): warning C4013: parseExpressionMulti: нет определения; предполагается "extern" с возвратом типа "int"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(629,42): warning C4133: функция: несовместимые типы - из "CaseList *" в "CaseStmt *"
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(674,4): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-H:\Компилятор\git\VBCompiler\tree\print_tree.c(681,4): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(13,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(15,9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(219,25): warning C4013: 'parceFunctionOrSubList' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(257,44): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'ParameterListOrEmpty *'
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(381,50): warning C4133: 'function': incompatible types - from 'StatementMulti *' to 'StatementSingle *'
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(397,26): warning C4013: 'parseIfStatementSingle' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(400,35): warning C4013: 'parseDeclarationStatementSingle' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(403,25): warning C4013: 'parseExpressionSingle' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(409,42): warning C4028: formal parameter 1 different from declaration
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(419,25): warning C4013: 'parseIfStatementMulti' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(422,34): warning C4013: 'parseDeclarationStatementMulti' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(425,24): warning C4013: 'parseExpressionMulti' undefined; assuming extern returning int
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(629,42): warning C4133: 'function': incompatible types - from 'CaseList *' to 'CaseStmt *'
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(674,4): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(681,4): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   lex.yy.c
-flexample.l(8,10): fatal  error C1083: Не удается открыть файл включение: parser.tab.h: No such file or directory,
-  Создание кода...
+parser.y(75,2): error C2061: syntax error: identifier 'VarType'
+parser.y(77,13): error C2143: syntax error: missing '{' before '*'
+parser.y(78,17): error C2143: syntax error: missing '{' before '*'
+parser.y(79,18): error C2143: syntax error: missing '{' before '*'
+parser.y(80,26): error C2143: syntax error: missing '{' before '*'
+parser.y(81,14): error C2143: syntax error: missing '{' before '*'
+parser.y(82,9): error C2143: syntax error: missing '{' before '*'
+parser.y(83,20): error C2143: syntax error: missing '{' before '*'
+parser.y(84,16): error C2143: syntax error: missing '{' before '*'
+parser.y(85,11): error C2143: syntax error: missing '{' before '*'
+parser.y(86,10): error C2143: syntax error: missing '{' before '*'
+parser.y(87,23): error C2143: syntax error: missing '{' before '*'
+parser.y(88,24): error C2143: syntax error: missing '{' before '*'
+parser.y(89,27): error C2143: syntax error: missing '{' before '*'
+parser.y(90,20): error C2143: syntax error: missing '{' before '*'
+parser.y(91,23): error C2143: syntax error: missing '{' before '*'
+parser.y(92,11): error C2143: syntax error: missing '{' before '*'
+parser.y(93,12): error C2143: syntax error: missing '{' before '*'
+parser.y(94,18): error C2143: syntax error: missing '{' before '*'
+parser.y(95,17): error C2143: syntax error: missing '{' before '*'
+parser.y(96,12): error C2143: syntax error: missing '{' before '*'
+parser.y(97,13): error C2143: syntax error: missing '{' before '*'
+parser.y(98,18): error C2143: syntax error: missing '{' before '*'
+parser.y(99,14): error C2143: syntax error: missing '{' before '*'
+parser.y(100,18): error C2143: syntax error: missing '{' before '*'
+parser.y(101,14): error C2143: syntax error: missing '{' before '*'
+parser.y(102,13): error C2143: syntax error: missing '{' before '*'
+parser.y(103,9): error C2143: syntax error: missing '{' before '*'
+parser.y(104,15): error C2143: syntax error: missing '{' before '*'
+parser.y(105,13): error C2143: syntax error: missing '{' before '*'
+parser.y(106,11): error C2143: syntax error: missing '{' before '*'
+parser.y(107,11): error C2143: syntax error: missing '{' before '*'
+parser.y(108,17): error C2143: syntax error: missing '{' before '*'
+parser.y(109,16): error C2143: syntax error: missing '{' before '*'
+parser.y(110,16): error C2143: syntax error: missing '{' before '*'
+parser.y(111,15): error C2143: syntax error: missing '{' before '*'
+parser.tab.h(174,1): error C2059: syntax error: '}'
+lex.yy.c(634,10): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
+  Generating Code...
