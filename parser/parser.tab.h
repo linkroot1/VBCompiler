@@ -131,7 +131,7 @@ union YYSTYPE
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
-	VarType * basic_literal;
+	VarType vt;
 
 	Expression *expression;
 	ExpressionList *expressionList;
@@ -169,7 +169,7 @@ union YYSTYPE
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
 
-#line 174 "parser.tab.h"
+#line 173 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

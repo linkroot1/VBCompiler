@@ -671,24 +671,24 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   279,   279,   282,   283,   286,   287,   290,   291,   295,
-     296,   297,   298,   302,   303,   306,   307,   310,   311,   312,
-     313,   314,   315,   316,   317,   318,   319,   320,   321,   325,
-     326,   327,   328,   331,   332,   333,   334,   335,   336,   337,
-     338,   339,   342,   343,   344,   348,   349,   350,   354,   355,
-     359,   365,   366,   370,   371,   375,   376,   377,   380,   381,
-     382,   383,   384,   385,   386,   387,   392,   393,   399,   400,
-     401,   402,   403,   404,   408,   409,   410,   411,   412,   413,
-     417,   420,   421,   425,   426,   427,   428,   429,   430,   436,
-     437,   442,   443,   446,   447,   452,   453,   458,   463,   464,
-     465,   466,   467,   468,   469,   470,   473,   474,   477,   478,
-     480,   481,   486,   487,   490,   491,   494,   495,   496,   497,
-     498,   499,   500,   501,   502,   508,   509,   510,   511,   512,
-     513,   514,   515,   516,   517,   518,   519,   520,   521,   522,
-     523,   524,   525,   526,   529,   530,   531,   532,   533,   534,
-     535,   536,   537,   538,   539,   540,   541,   542,   543,   544,
-     545,   549,   550,   551,   552,   555,   556,   557,   558,   563,
-     564,   565,   569,   570,   573,   574,   578,   579
+       0,   278,   278,   281,   282,   285,   286,   289,   290,   294,
+     295,   296,   297,   301,   302,   305,   306,   309,   310,   311,
+     312,   313,   314,   315,   316,   317,   318,   319,   320,   324,
+     325,   326,   327,   330,   331,   332,   333,   334,   335,   336,
+     337,   338,   341,   342,   343,   347,   348,   349,   353,   354,
+     358,   364,   365,   369,   370,   374,   375,   376,   379,   380,
+     381,   382,   383,   384,   385,   386,   391,   392,   398,   399,
+     400,   401,   402,   403,   407,   408,   409,   410,   411,   412,
+     416,   419,   420,   424,   425,   426,   427,   428,   429,   435,
+     436,   441,   442,   445,   446,   451,   452,   457,   462,   463,
+     464,   465,   466,   467,   468,   469,   472,   473,   476,   477,
+     479,   480,   485,   486,   489,   490,   493,   494,   495,   496,
+     497,   498,   499,   500,   501,   507,   508,   509,   510,   511,
+     512,   513,   514,   515,   516,   517,   518,   519,   520,   521,
+     522,   523,   524,   525,   528,   529,   530,   531,   532,   533,
+     534,   535,   536,   537,   538,   539,   540,   541,   542,   543,
+     544,   548,   549,   550,   551,   554,   555,   556,   557,   562,
+     563,   564,   568,   569,   572,   573,   577,   578
 };
 #endif
 
@@ -2085,1021 +2085,1021 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* root: program_items_list  */
-#line 279 "parser.y"
+#line 278 "parser.y"
                          {(yyval.programItemList) /*= root*/ = (yyvsp[0].programItemList);}
 #line 2091 "parser.tab.c"
     break;
 
   case 3: /* program_items_list: %empty  */
-#line 282 "parser.y"
+#line 281 "parser.y"
                     {(yyval.programItemList) = 0;}
 #line 2097 "parser.tab.c"
     break;
 
   case 4: /* program_items_list: program_items_list_not_empty  */
-#line 283 "parser.y"
+#line 282 "parser.y"
                                                 {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty));}
 #line 2103 "parser.tab.c"
     break;
 
   case 5: /* program_items_list_not_empty: program_item  */
-#line 286 "parser.y"
+#line 285 "parser.y"
                                            { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); }
 #line 2109 "parser.tab.c"
     break;
 
   case 6: /* program_items_list_not_empty: program_items_list_not_empty program_item  */
-#line 287 "parser.y"
+#line 286 "parser.y"
                                                                         { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty),(yyvsp[0].programItem)); }
 #line 2115 "parser.tab.c"
     break;
 
   case 7: /* program_item: module  */
-#line 290 "parser.y"
+#line 289 "parser.y"
                      {(yyval.programItem) = createProgramItem((yyvsp[0].module),0);}
 #line 2121 "parser.tab.c"
     break;
 
   case 8: /* program_item: IMPORTS IDENTIFIER stmt_ends  */
-#line 291 "parser.y"
+#line 290 "parser.y"
                                              {(yyval.programItem) =  createProgramItem(0,(yyvsp[-1].id_var_name));}
 #line 2127 "parser.tab.c"
     break;
 
   case 9: /* module: MODULE IDENTIFIER stmt_ends END MODULE  */
-#line 295 "parser.y"
+#line 294 "parser.y"
                                                {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
 #line 2133 "parser.tab.c"
     break;
 
   case 10: /* module: MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
-#line 296 "parser.y"
+#line 295 "parser.y"
                                                                      {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
 #line 2139 "parser.tab.c"
     break;
 
   case 11: /* module: access MODULE IDENTIFIER stmt_ends END MODULE  */
-#line 297 "parser.y"
+#line 296 "parser.y"
                                                       {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
 #line 2145 "parser.tab.c"
     break;
 
   case 12: /* module: access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
-#line 298 "parser.y"
+#line 297 "parser.y"
                                                                             {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
 #line 2151 "parser.tab.c"
     break;
 
   case 13: /* functions_or_sub_list: function_or_sub  */
-#line 302 "parser.y"
+#line 301 "parser.y"
                                        {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub));}
 #line 2157 "parser.tab.c"
     break;
 
   case 14: /* functions_or_sub_list: functions_or_sub_list stmt_ends function_or_sub  */
-#line 303 "parser.y"
+#line 302 "parser.y"
                                                                        {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-2].functionOrSubList),(yyvsp[0].functionOrSub));}
 #line 2163 "parser.tab.c"
     break;
 
   case 15: /* function_or_sub: function  */
-#line 306 "parser.y"
+#line 305 "parser.y"
                           {(yyval.functionOrSub) = createFunctionOrSub(0,(yyvsp[0].function));}
 #line 2169 "parser.tab.c"
     break;
 
   case 16: /* function_or_sub: sub_bloc  */
-#line 307 "parser.y"
+#line 306 "parser.y"
                           {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc),0);}
 #line 2175 "parser.tab.c"
     break;
 
   case 17: /* function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
-#line 310 "parser.y"
+#line 309 "parser.y"
                                                                {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0);}
 #line 2181 "parser.tab.c"
     break;
 
   case 18: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 311 "parser.y"
+#line 310 "parser.y"
                                                                                                 {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2187 "parser.tab.c"
     break;
 
   case 19: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 312 "parser.y"
+#line 311 "parser.y"
                                                                                                {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2193 "parser.tab.c"
     break;
 
   case 20: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
-#line 313 "parser.y"
+#line 312 "parser.y"
                                                                          {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
 #line 2199 "parser.tab.c"
     break;
 
   case 21: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 314 "parser.y"
+#line 313 "parser.y"
                                                                                                           {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2205 "parser.tab.c"
     break;
 
   case 22: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 315 "parser.y"
+#line 314 "parser.y"
                                                                                                          {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2211 "parser.tab.c"
     break;
 
   case 23: /* function: access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
-#line 316 "parser.y"
+#line 315 "parser.y"
                                                                       {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0,0);}
 #line 2217 "parser.tab.c"
     break;
 
   case 24: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 317 "parser.y"
+#line 316 "parser.y"
                                                                                                        {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2223 "parser.tab.c"
     break;
 
   case 25: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 318 "parser.y"
+#line 317 "parser.y"
                                                                                                       {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2229 "parser.tab.c"
     break;
 
   case 26: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
-#line 319 "parser.y"
+#line 318 "parser.y"
                                                                                 {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
 #line 2235 "parser.tab.c"
     break;
 
   case 27: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 320 "parser.y"
+#line 319 "parser.y"
                                                                                                                  {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2241 "parser.tab.c"
     break;
 
   case 28: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 321 "parser.y"
+#line 320 "parser.y"
                                                                                                                 {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2247 "parser.tab.c"
     break;
 
   case 29: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
-#line 325 "parser.y"
+#line 324 "parser.y"
                                                                         {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
 #line 2253 "parser.tab.c"
     break;
 
   case 30: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
-#line 326 "parser.y"
+#line 325 "parser.y"
                                                                                   {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
 #line 2259 "parser.tab.c"
     break;
 
   case 31: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
-#line 327 "parser.y"
+#line 326 "parser.y"
                                                                                {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
 #line 2265 "parser.tab.c"
     break;
 
   case 32: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
-#line 328 "parser.y"
+#line 327 "parser.y"
                                                                                          {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
 #line 2271 "parser.tab.c"
     break;
 
   case 33: /* parameterlist_or_empty: %empty  */
-#line 331 "parser.y"
+#line 330 "parser.y"
                          {(yyval.parameterListOrEmpty) = 0;}
 #line 2277 "parser.tab.c"
     break;
 
   case 34: /* parameterlist_or_empty: parameterlist_with_type  */
-#line 332 "parser.y"
+#line 331 "parser.y"
                                                 {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
 #line 2283 "parser.tab.c"
     break;
 
   case 35: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type END_OF_LINE  */
-#line 333 "parser.y"
+#line 332 "parser.y"
                                                                         {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
 #line 2289 "parser.tab.c"
     break;
 
   case 36: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type  */
-#line 334 "parser.y"
+#line 333 "parser.y"
                                                             {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
 #line 2295 "parser.tab.c"
     break;
 
   case 37: /* parameterlist_or_empty: parameterlist_with_type END_OF_LINE  */
-#line 335 "parser.y"
+#line 334 "parser.y"
                                                             {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
 #line 2301 "parser.tab.c"
     break;
 
   case 38: /* parameterlist_or_empty: parameterlist_without_type  */
-#line 336 "parser.y"
+#line 335 "parser.y"
                                                    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
 #line 2307 "parser.tab.c"
     break;
 
   case 39: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type END_OF_LINE  */
-#line 337 "parser.y"
+#line 336 "parser.y"
                                                                            {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
 #line 2313 "parser.tab.c"
     break;
 
   case 40: /* parameterlist_or_empty: parameterlist_without_type END_OF_LINE  */
-#line 338 "parser.y"
+#line 337 "parser.y"
                                                                {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
 #line 2319 "parser.tab.c"
     break;
 
   case 41: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type  */
-#line 339 "parser.y"
+#line 338 "parser.y"
                                                                {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
 #line 2325 "parser.tab.c"
     break;
 
   case 42: /* parameterlist_with_type: parameter_with_type  */
-#line 342 "parser.y"
+#line 341 "parser.y"
                                              {(yyval.parameterListWithType) = createParameterListWithType((yyvsp[0].parameterWithType));}
 #line 2331 "parser.tab.c"
     break;
 
   case 43: /* parameterlist_with_type: parameterlist_with_type ',' parameter_with_type  */
-#line 343 "parser.y"
+#line 342 "parser.y"
                                                                          {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-2].parameterListWithType),(yyvsp[0].parameterWithType));}
 #line 2337 "parser.tab.c"
     break;
 
   case 44: /* parameterlist_with_type: parameterlist_with_type ',' END_OF_LINE parameter_with_type  */
-#line 344 "parser.y"
+#line 343 "parser.y"
                                                                                      {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-3].parameterListWithType),(yyvsp[0].parameterWithType));}
 #line 2343 "parser.tab.c"
     break;
 
   case 45: /* parameterlist_without_type: parameter_without_type  */
-#line 348 "parser.y"
+#line 347 "parser.y"
                                                    {(yyval.parameterListWithoutType) = createParameterListWithoutType((yyvsp[0].parameterWithoutType));}
 #line 2349 "parser.tab.c"
     break;
 
   case 46: /* parameterlist_without_type: parameterlist_without_type ',' parameter_without_type  */
-#line 349 "parser.y"
+#line 348 "parser.y"
                                                                                   {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-2].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
 #line 2355 "parser.tab.c"
     break;
 
   case 47: /* parameterlist_without_type: parameterlist_without_type ',' END_OF_LINE parameter_without_type  */
-#line 350 "parser.y"
+#line 349 "parser.y"
                                                                                               {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-3].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
 #line 2361 "parser.tab.c"
     break;
 
   case 48: /* parameter_with_type: IDENTIFIER AS basic_literal  */
-#line 354 "parser.y"
-                                                 {(yyval.parameterWithType) = createParameterWithType((yyvsp[-2].id_var_name),(yyvsp[0].basic_literal));}
+#line 353 "parser.y"
+                                                 {(yyval.parameterWithType) = createParameterWithType((yyvsp[-2].id_var_name),(yyvsp[0].vt));}
 #line 2367 "parser.tab.c"
     break;
 
   case 49: /* parameter_with_type: IDENTIFIER AS basic_literal '(' ')'  */
-#line 355 "parser.y"
-                                                          {(yyval.parameterWithType) = createParameterWithType((yyvsp[-4].id_var_name),(yyvsp[-2].basic_literal));}
+#line 354 "parser.y"
+                                                          {(yyval.parameterWithType) = createParameterWithType((yyvsp[-4].id_var_name),(yyvsp[-2].vt));}
 #line 2373 "parser.tab.c"
     break;
 
   case 50: /* parameter_without_type: IDENTIFIER  */
-#line 359 "parser.y"
+#line 358 "parser.y"
                                    {(yyval.parameterWithoutType) = createParameterWithoutType((yyvsp[0].id_var_name));}
 #line 2379 "parser.tab.c"
     break;
 
   case 51: /* stmt_list: stmt  */
-#line 365 "parser.y"
+#line 364 "parser.y"
                 { (yyval.stmtList) = createStmtList((yyvsp[0].statement)); }
 #line 2385 "parser.tab.c"
     break;
 
   case 52: /* stmt_list: stmt_list stmt  */
-#line 366 "parser.y"
+#line 365 "parser.y"
                           { (yyval.stmtList) = appendStmtList((yyvsp[-1].stmtList),(yyvsp[0].statement)); }
 #line 2391 "parser.tab.c"
     break;
 
   case 53: /* stmt: multi_line_stmt  */
-#line 370 "parser.y"
+#line 369 "parser.y"
                       {(yyval.statement) = createStatement(ST_MULTI, (StmtValue){.statementMulti=(yyvsp[0].statementMulti)});}
 #line 2397 "parser.tab.c"
     break;
 
   case 54: /* stmt: single_line_stmt stmt_ends  */
-#line 371 "parser.y"
+#line 370 "parser.y"
                                  {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue){.statementSingle=(yyvsp[-1].statementSingle)});}
 #line 2403 "parser.tab.c"
     break;
 
   case 55: /* single_line_stmt: if_stmt_single_line  */
-#line 375 "parser.y"
+#line 374 "parser.y"
                                       {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue){.ifStmtSingle=(yyvsp[0].ifStmtSingle)});}
 #line 2409 "parser.tab.c"
     break;
 
   case 56: /* single_line_stmt: decl_stmt_single_line  */
-#line 376 "parser.y"
+#line 375 "parser.y"
                                                         {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue){.declStmtSingle=(yyvsp[0].declStmtSingle)});}
 #line 2415 "parser.tab.c"
     break;
 
   case 57: /* single_line_stmt: expr_singleline  */
-#line 377 "parser.y"
+#line 376 "parser.y"
                                                   {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtSingleValue){.expression=(yyvsp[0].expression)});}
 #line 2421 "parser.tab.c"
     break;
 
   case 58: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
-#line 380 "parser.y"
+#line 379 "parser.y"
                                               {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtMultiValue){.ifStmtMulti=(yyvsp[-1].ifStmtMulti)});}
 #line 2427 "parser.tab.c"
     break;
 
   case 59: /* multi_line_stmt: decl_stmt stmt_ends  */
-#line 381 "parser.y"
+#line 380 "parser.y"
                                      {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue){.declStmtMulti=(yyvsp[-1].declStmtMulti)});}
 #line 2433 "parser.tab.c"
     break;
 
   case 60: /* multi_line_stmt: expr_multiline stmt_ends  */
-#line 382 "parser.y"
+#line 381 "parser.y"
                                           {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtMultiValue){.expression=(yyvsp[-1].expression)});}
 #line 2439 "parser.tab.c"
     break;
 
   case 61: /* multi_line_stmt: while_stmt stmt_ends  */
-#line 383 "parser.y"
+#line 382 "parser.y"
                                       {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue){.whileStmt=(yyvsp[-1].whileStmt)});}
 #line 2445 "parser.tab.c"
     break;
 
   case 62: /* multi_line_stmt: do_loop_stmt  */
-#line 384 "parser.y"
+#line 383 "parser.y"
                                           {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue){.doLoopStmt=(yyvsp[0].doLoopStmt)});}
 #line 2451 "parser.tab.c"
     break;
 
   case 63: /* multi_line_stmt: for_loop_stmt  */
-#line 385 "parser.y"
+#line 384 "parser.y"
                                            {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue){.forLoopStmt=(yyvsp[0].forLoopStmt)});}
 #line 2457 "parser.tab.c"
     break;
 
   case 64: /* multi_line_stmt: for_each_loop_stmt  */
-#line 386 "parser.y"
+#line 385 "parser.y"
                                                 {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue){.forEachLoopStmt=(yyvsp[0].forEachLoopStmt)});}
 #line 2463 "parser.tab.c"
     break;
 
   case 65: /* multi_line_stmt: select_stmt stmt_ends  */
-#line 387 "parser.y"
+#line 386 "parser.y"
                                        {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue){.selectStmt=(yyvsp[-1].selectStmt)});}
 #line 2469 "parser.tab.c"
     break;
 
   case 66: /* stmt_ends: END_OF_LINE  */
-#line 392 "parser.y"
+#line 391 "parser.y"
                        { }
 #line 2475 "parser.tab.c"
     break;
 
   case 67: /* stmt_ends: stmt_ends END_OF_LINE  */
-#line 393 "parser.y"
+#line 392 "parser.y"
                             { }
 #line 2481 "parser.tab.c"
     break;
 
   case 68: /* decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 399 "parser.y"
-                                                                          {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
+#line 398 "parser.y"
+                                                                          {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameMulti), (yyvsp[-3].vt), (yyvsp[0].expression));}
 #line 2487 "parser.tab.c"
     break;
 
   case 69: /* decl_stmt: CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 400 "parser.y"
-                                                                                     {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
+#line 399 "parser.y"
+                                                                                     {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameSingle), (yyvsp[-3].vt), (yyvsp[0].expression));}
 #line 2493 "parser.tab.c"
     break;
 
   case 70: /* decl_stmt: DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 401 "parser.y"
-                                                                        {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
+#line 400 "parser.y"
+                                                                        {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameMulti), (yyvsp[-3].vt), (yyvsp[0].expression));}
 #line 2499 "parser.tab.c"
     break;
 
   case 71: /* decl_stmt: DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 402 "parser.y"
-                                                                                   {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
+#line 401 "parser.y"
+                                                                                   {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameSingle), (yyvsp[-3].vt), (yyvsp[0].expression));}
 #line 2505 "parser.tab.c"
     break;
 
   case 72: /* decl_stmt: DIM var_name '=' END_OF_LINE expr_multiline  */
-#line 403 "parser.y"
+#line 402 "parser.y"
                                                        {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameMulti), 0, (yyvsp[0].expression));}
 #line 2511 "parser.tab.c"
     break;
 
   case 73: /* decl_stmt: DIM var_name_singleline '=' END_OF_LINE expr_multiline  */
-#line 404 "parser.y"
+#line 403 "parser.y"
                                                                   {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameSingle), 0, (yyvsp[0].expression));}
 #line 2517 "parser.tab.c"
     break;
 
   case 74: /* decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline  */
-#line 408 "parser.y"
-                                                                                      {(yyval.declStmtSingle) = createDeclStmtSingle(1, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression));}
+#line 407 "parser.y"
+                                                                                      {(yyval.declStmtSingle) = createDeclStmtSingle(1, (yyvsp[-4].varNameSingle), (yyvsp[-2].vt), (yyvsp[0].expression));}
 #line 2523 "parser.tab.c"
     break;
 
   case 75: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal '=' expr_singleline  */
-#line 409 "parser.y"
-                                                                                                        {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression));}
+#line 408 "parser.y"
+                                                                                                        {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-4].varNameSingle), (yyvsp[-2].vt), (yyvsp[0].expression));}
 #line 2529 "parser.tab.c"
     break;
 
   case 76: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal  */
-#line 410 "parser.y"
-                                                                                    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), (yyvsp[0].basic_literal), 0);}
+#line 409 "parser.y"
+                                                                                    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), (yyvsp[0].vt), 0);}
 #line 2535 "parser.tab.c"
     break;
 
   case 77: /* decl_stmt_single_line: DIM var_name_singleline '=' expr_singleline  */
-#line 411 "parser.y"
+#line 410 "parser.y"
                                                                                        {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), 0, (yyvsp[0].expression));}
 #line 2541 "parser.tab.c"
     break;
 
   case 78: /* decl_stmt_single_line: DIM var_name_singleline  */
-#line 412 "parser.y"
+#line 411 "parser.y"
                                                                    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[0].varNameSingle), 0, 0);}
 #line 2547 "parser.tab.c"
     break;
 
   case 79: /* decl_stmt_single_line: DIM var_name_singleline '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
-#line 413 "parser.y"
+#line 412 "parser.y"
                                                                                              {}
 #line 2553 "parser.tab.c"
     break;
 
   case 80: /* var_name: IDENTIFIER '(' expr_multiline ')'  */
-#line 417 "parser.y"
+#line 416 "parser.y"
                                            {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
 #line 2559 "parser.tab.c"
     break;
 
   case 81: /* var_name_singleline: IDENTIFIER '(' expr_singleline ')'  */
-#line 420 "parser.y"
+#line 419 "parser.y"
                                                        {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
 #line 2565 "parser.tab.c"
     break;
 
   case 82: /* var_name_singleline: IDENTIFIER  */
-#line 421 "parser.y"
+#line 420 "parser.y"
                      {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0);}
 #line 2571 "parser.tab.c"
     break;
 
   case 89: /* while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE  */
-#line 436 "parser.y"
+#line 435 "parser.y"
                                                                {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2577 "parser.tab.c"
     break;
 
   case 90: /* while_stmt: WHILE expr_singleline stmt_ends stmt_list END WHILE  */
-#line 437 "parser.y"
+#line 436 "parser.y"
                                                                 {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2583 "parser.tab.c"
     break;
 
   case 91: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP  */
-#line 442 "parser.y"
+#line 441 "parser.y"
                                                   {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-2].doLoopCondition), (yyvsp[-1].stmtList));}
 #line 2589 "parser.tab.c"
     break;
 
   case 92: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
-#line 443 "parser.y"
+#line 442 "parser.y"
                                                                         {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList));}
 #line 2595 "parser.tab.c"
     break;
 
   case 93: /* do_loop_condition: UNTIL expr_singleline stmt_ends  */
-#line 446 "parser.y"
+#line 445 "parser.y"
                                                    {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression));}
 #line 2601 "parser.tab.c"
     break;
 
   case 94: /* do_loop_condition: WHILE expr_singleline stmt_ends  */
-#line 447 "parser.y"
+#line 446 "parser.y"
                                                                    {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression));}
 #line 2607 "parser.tab.c"
     break;
 
   case 95: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT  */
-#line 452 "parser.y"
-                                                                                                                       {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-9].id_var_name), (yyvsp[-7].basic_literal), (yyvsp[-5].expression), (yyvsp[-3].expression), 0, (yyvsp[-1].stmtList));}
+#line 451 "parser.y"
+                                                                                                                       {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-9].id_var_name), (yyvsp[-7].vt), (yyvsp[-5].expression), (yyvsp[-3].expression), 0, (yyvsp[-1].stmtList));}
 #line 2613 "parser.tab.c"
     break;
 
   case 96: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT  */
-#line 453 "parser.y"
-                                                                                                                                                            {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-11].id_var_name), (yyvsp[-9].basic_literal), (yyvsp[-7].expression), (yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].stmtList));}
+#line 452 "parser.y"
+                                                                                                                                                            {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-11].id_var_name), (yyvsp[-9].vt), (yyvsp[-7].expression), (yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].stmtList));}
 #line 2619 "parser.tab.c"
     break;
 
   case 97: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT  */
-#line 458 "parser.y"
-                                                                                                {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-7].id_var_name), (yyvsp[-5].basic_literal), (yyvsp[-3].id_var_name), (yyvsp[-1].stmtList));}
+#line 457 "parser.y"
+                                                                                                {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-7].id_var_name), (yyvsp[-5].vt), (yyvsp[-3].id_var_name), (yyvsp[-1].stmtList));}
 #line 2625 "parser.tab.c"
     break;
 
   case 98: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF  */
-#line 463 "parser.y"
+#line 462 "parser.y"
                                                                       {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
 #line 2631 "parser.tab.c"
     break;
 
   case 99: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list END IF  */
-#line 464 "parser.y"
+#line 463 "parser.y"
                                                                        {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
 #line 2637 "parser.tab.c"
     break;
 
   case 100: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
-#line 465 "parser.y"
+#line 464 "parser.y"
                                                                                                      {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
 #line 2643 "parser.tab.c"
     break;
 
   case 101: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
-#line 466 "parser.y"
+#line 465 "parser.y"
                                                                                                       {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
 #line 2649 "parser.tab.c"
     break;
 
   case 102: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF  */
-#line 467 "parser.y"
+#line 466 "parser.y"
                                                                                   {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
 #line 2655 "parser.tab.c"
     break;
 
   case 103: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF  */
-#line 468 "parser.y"
+#line 467 "parser.y"
                                                                                    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
 #line 2661 "parser.tab.c"
     break;
 
   case 104: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
-#line 469 "parser.y"
+#line 468 "parser.y"
                                                                                                                  {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
 #line 2667 "parser.tab.c"
     break;
 
   case 105: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
-#line 470 "parser.y"
+#line 469 "parser.y"
                                                                                                                   {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
 #line 2673 "parser.tab.c"
     break;
 
   case 106: /* elseif_list: elseif  */
-#line 473 "parser.y"
+#line 472 "parser.y"
                     {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf));}
 #line 2679 "parser.tab.c"
     break;
 
   case 107: /* elseif_list: elseif_list elseif  */
-#line 474 "parser.y"
+#line 473 "parser.y"
                                 {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf));}
 #line 2685 "parser.tab.c"
     break;
 
   case 108: /* elseif: ELSEIF expr_multiline THEN stmt_list  */
-#line 477 "parser.y"
+#line 476 "parser.y"
                                              {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2691 "parser.tab.c"
     break;
 
   case 109: /* elseif: ELSEIF expr_singleline THEN stmt_list  */
-#line 478 "parser.y"
+#line 477 "parser.y"
                                               {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2697 "parser.tab.c"
     break;
 
   case 110: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt  */
-#line 480 "parser.y"
+#line 479 "parser.y"
                                                                {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0);}
 #line 2703 "parser.tab.c"
     break;
 
   case 111: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  */
-#line 481 "parser.y"
+#line 480 "parser.y"
                                                                                      {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle));}
 #line 2709 "parser.tab.c"
     break;
 
   case 112: /* select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT  */
-#line 486 "parser.y"
+#line 485 "parser.y"
                                                                         {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
 #line 2715 "parser.tab.c"
     break;
 
   case 113: /* select_stmt: SELECT CASE expr_multiline stmt_ends case_list END SELECT  */
-#line 487 "parser.y"
+#line 486 "parser.y"
                                                                        {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
 #line 2721 "parser.tab.c"
     break;
 
   case 114: /* case_list: case_stmt  */
-#line 490 "parser.y"
+#line 489 "parser.y"
                      {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt));}
 #line 2727 "parser.tab.c"
     break;
 
   case 115: /* case_list: case_list case_stmt  */
-#line 491 "parser.y"
+#line 490 "parser.y"
                                       {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt));}
 #line 2733 "parser.tab.c"
     break;
 
   case 116: /* case_stmt: CASE expr_multiline stmt_ends stmt_list  */
-#line 494 "parser.y"
+#line 493 "parser.y"
                                                    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2739 "parser.tab.c"
     break;
 
   case 117: /* case_stmt: CASE expr_singleline stmt_ends stmt_list  */
-#line 495 "parser.y"
+#line 494 "parser.y"
                                                    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2745 "parser.tab.c"
     break;
 
   case 118: /* case_stmt: CASE IS expr_multiline stmt_ends stmt_list  */
-#line 496 "parser.y"
+#line 495 "parser.y"
                                                      {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2751 "parser.tab.c"
     break;
 
   case 119: /* case_stmt: CASE IS expr_singleline stmt_ends stmt_list  */
-#line 497 "parser.y"
+#line 496 "parser.y"
                                                       {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2757 "parser.tab.c"
     break;
 
   case 120: /* case_stmt: CASE expr_multiline TO expr_multiline stmt_ends stmt_list  */
-#line 498 "parser.y"
+#line 497 "parser.y"
                                                                     {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2763 "parser.tab.c"
     break;
 
   case 121: /* case_stmt: CASE expr_multiline TO expr_singleline stmt_ends stmt_list  */
-#line 499 "parser.y"
+#line 498 "parser.y"
                                                                      {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2769 "parser.tab.c"
     break;
 
   case 122: /* case_stmt: CASE expr_singleline TO expr_multiline stmt_ends stmt_list  */
-#line 500 "parser.y"
+#line 499 "parser.y"
                                                                      {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2775 "parser.tab.c"
     break;
 
   case 123: /* case_stmt: CASE expr_singleline TO expr_singleline stmt_ends stmt_list  */
-#line 501 "parser.y"
+#line 500 "parser.y"
                                                                       {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2781 "parser.tab.c"
     break;
 
   case 124: /* case_stmt: CASE ELSE stmt_ends stmt_list  */
-#line 502 "parser.y"
+#line 501 "parser.y"
                                         {(yyval.caseStmt) = createCaseStmt(0, 0, 0, (yyvsp[0].stmtList));}
 #line 2787 "parser.tab.c"
     break;
 
   case 125: /* expr_singleline: basic_literal_value  */
-#line 508 "parser.y"
+#line 507 "parser.y"
                                      {(yyval.expression) = (yyvsp[0].expression);}
 #line 2793 "parser.tab.c"
     break;
 
   case 126: /* expr_singleline: '-' expr_singleline  */
-#line 509 "parser.y"
+#line 508 "parser.y"
                                                   {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression));}
 #line 2799 "parser.tab.c"
     break;
 
   case 127: /* expr_singleline: '+' expr_singleline  */
-#line 510 "parser.y"
+#line 509 "parser.y"
                                                  {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression));}
 #line 2805 "parser.tab.c"
     break;
 
   case 128: /* expr_singleline: expr_singleline '+' expr_singleline  */
-#line 511 "parser.y"
+#line 510 "parser.y"
                                           {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2811 "parser.tab.c"
     break;
 
   case 129: /* expr_singleline: expr_singleline '-' expr_singleline  */
-#line 512 "parser.y"
+#line 511 "parser.y"
                                           {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2817 "parser.tab.c"
     break;
 
   case 130: /* expr_singleline: expr_singleline '*' expr_singleline  */
-#line 513 "parser.y"
+#line 512 "parser.y"
                                           {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2823 "parser.tab.c"
     break;
 
   case 131: /* expr_singleline: expr_singleline '/' expr_singleline  */
-#line 514 "parser.y"
+#line 513 "parser.y"
                                           {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2829 "parser.tab.c"
     break;
 
   case 132: /* expr_singleline: expr_singleline INT_DIV expr_singleline  */
-#line 515 "parser.y"
+#line 514 "parser.y"
                                               {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2835 "parser.tab.c"
     break;
 
   case 133: /* expr_singleline: expr_singleline '=' expr_singleline  */
-#line 516 "parser.y"
+#line 515 "parser.y"
                                           {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2841 "parser.tab.c"
     break;
 
   case 134: /* expr_singleline: expr_singleline '<' expr_singleline  */
-#line 517 "parser.y"
+#line 516 "parser.y"
                                           {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2847 "parser.tab.c"
     break;
 
   case 135: /* expr_singleline: expr_singleline '>' expr_singleline  */
-#line 518 "parser.y"
+#line 517 "parser.y"
                                           {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2853 "parser.tab.c"
     break;
 
   case 136: /* expr_singleline: expr_singleline '^' expr_singleline  */
-#line 519 "parser.y"
+#line 518 "parser.y"
                                           {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2859 "parser.tab.c"
     break;
 
   case 137: /* expr_singleline: expr_singleline NOT_EQUAL expr_singleline  */
-#line 520 "parser.y"
+#line 519 "parser.y"
                                                 {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2865 "parser.tab.c"
     break;
 
   case 138: /* expr_singleline: expr_singleline LESS_OR_EQUAL expr_singleline  */
-#line 521 "parser.y"
+#line 520 "parser.y"
                                                     {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2871 "parser.tab.c"
     break;
 
   case 139: /* expr_singleline: expr_singleline MORE_OR_EQUAL expr_singleline  */
-#line 522 "parser.y"
+#line 521 "parser.y"
                                                     {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2877 "parser.tab.c"
     break;
 
   case 140: /* expr_singleline: expr_singleline '&' expr_singleline  */
-#line 523 "parser.y"
+#line 522 "parser.y"
                                           {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2883 "parser.tab.c"
     break;
 
   case 141: /* expr_singleline: '(' expr_singleline ')'  */
-#line 524 "parser.y"
+#line 523 "parser.y"
                               {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2889 "parser.tab.c"
     break;
 
   case 142: /* expr_singleline: IDENTIFIER  */
-#line 525 "parser.y"
+#line 524 "parser.y"
                  {(yyval.expression) = createSimpleExpression(ET_ID, (Value){.string_val=(yyvsp[0].id_var_name)});}
 #line 2895 "parser.tab.c"
     break;
 
   case 143: /* expr_singleline: IDENTIFIER arguments_singleline  */
-#line 526 "parser.y"
+#line 525 "parser.y"
                                       {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
 #line 2901 "parser.tab.c"
     break;
 
   case 144: /* expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline  */
-#line 529 "parser.y"
+#line 528 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
 #line 2907 "parser.tab.c"
     break;
 
   case 145: /* expr_multiline: expr_singleline '-' END_OF_LINE expr_singleline  */
-#line 530 "parser.y"
+#line 529 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
 #line 2913 "parser.tab.c"
     break;
 
   case 146: /* expr_multiline: expr_singleline '*' END_OF_LINE expr_singleline  */
-#line 531 "parser.y"
+#line 530 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2919 "parser.tab.c"
     break;
 
   case 147: /* expr_multiline: expr_singleline '/' END_OF_LINE expr_singleline  */
-#line 532 "parser.y"
+#line 531 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2925 "parser.tab.c"
     break;
 
   case 148: /* expr_multiline: expr_singleline INT_DIV END_OF_LINE expr_singleline  */
-#line 533 "parser.y"
+#line 532 "parser.y"
                                                                     {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2931 "parser.tab.c"
     break;
 
   case 149: /* expr_multiline: expr_singleline '=' END_OF_LINE expr_singleline  */
-#line 534 "parser.y"
+#line 533 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2937 "parser.tab.c"
     break;
 
   case 150: /* expr_multiline: expr_singleline '<' END_OF_LINE expr_singleline  */
-#line 535 "parser.y"
+#line 534 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2943 "parser.tab.c"
     break;
 
   case 151: /* expr_multiline: expr_singleline '>' END_OF_LINE expr_singleline  */
-#line 536 "parser.y"
+#line 535 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2949 "parser.tab.c"
     break;
 
   case 152: /* expr_multiline: expr_singleline '^' END_OF_LINE expr_singleline  */
-#line 537 "parser.y"
+#line 536 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2955 "parser.tab.c"
     break;
 
   case 153: /* expr_multiline: expr_singleline NOT_EQUAL END_OF_LINE expr_singleline  */
-#line 538 "parser.y"
+#line 537 "parser.y"
                                                                       {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2961 "parser.tab.c"
     break;
 
   case 154: /* expr_multiline: expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  */
-#line 539 "parser.y"
+#line 538 "parser.y"
                                                                            {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2967 "parser.tab.c"
     break;
 
   case 155: /* expr_multiline: expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline  */
-#line 540 "parser.y"
+#line 539 "parser.y"
                                                                           {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2973 "parser.tab.c"
     break;
 
   case 156: /* expr_multiline: expr_singleline '&' END_OF_LINE expr_singleline  */
-#line 541 "parser.y"
+#line 540 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2979 "parser.tab.c"
     break;
 
   case 157: /* expr_multiline: '(' END_OF_LINE expr_singleline ')'  */
-#line 542 "parser.y"
+#line 541 "parser.y"
                                                     {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2985 "parser.tab.c"
     break;
 
   case 158: /* expr_multiline: '(' END_OF_LINE expr_singleline END_OF_LINE ')'  */
-#line 543 "parser.y"
+#line 542 "parser.y"
                                                                 {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2991 "parser.tab.c"
     break;
 
   case 159: /* expr_multiline: '(' expr_singleline END_OF_LINE ')'  */
-#line 544 "parser.y"
+#line 543 "parser.y"
                                                     {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2997 "parser.tab.c"
     break;
 
   case 160: /* expr_multiline: IDENTIFIER arguments_multiline  */
-#line 545 "parser.y"
+#line 544 "parser.y"
                                                {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
 #line 3003 "parser.tab.c"
     break;
 
   case 161: /* basic_literal: INT  */
-#line 549 "parser.y"
-                   {(yyval.basic_literal) = VT_INTEGER;}
+#line 548 "parser.y"
+                   {(yyval.vt) = VT_INTEGER;}
 #line 3009 "parser.tab.c"
     break;
 
   case 162: /* basic_literal: STRING  */
-#line 550 "parser.y"
-                     {(yyval.basic_literal) = VT_STRING;}
+#line 549 "parser.y"
+                     {(yyval.vt) = VT_STRING;}
 #line 3015 "parser.tab.c"
     break;
 
   case 163: /* basic_literal: BOOLEAN  */
-#line 551 "parser.y"
-                      {(yyval.basic_literal) = VT_BOOLEAN;}
+#line 550 "parser.y"
+                      {(yyval.vt) = VT_BOOLEAN;}
 #line 3021 "parser.tab.c"
     break;
 
   case 164: /* basic_literal: DOUBLE  */
-#line 552 "parser.y"
-                     {(yyval.basic_literal) = VT_DOUBLE;}
+#line 551 "parser.y"
+                     {(yyval.vt) = VT_DOUBLE;}
 #line 3027 "parser.tab.c"
     break;
 
   case 165: /* basic_literal_value: INT_VALUE  */
-#line 555 "parser.y"
+#line 554 "parser.y"
                                {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)});}
 #line 3033 "parser.tab.c"
     break;
 
   case 166: /* basic_literal_value: STRING_VALUE  */
-#line 556 "parser.y"
+#line 555 "parser.y"
                                   {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)});}
 #line 3039 "parser.tab.c"
     break;
 
   case 167: /* basic_literal_value: BOOLEAN_VALUE  */
-#line 557 "parser.y"
+#line 556 "parser.y"
                                    {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)});}
 #line 3045 "parser.tab.c"
     break;
 
   case 168: /* basic_literal_value: DOUBLE_VALUE  */
-#line 558 "parser.y"
+#line 557 "parser.y"
                                   {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)});}
 #line 3051 "parser.tab.c"
     break;
 
   case 169: /* arguments_multiline: '(' END_OF_LINE expr_list ')'  */
-#line 563 "parser.y"
+#line 562 "parser.y"
                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3057 "parser.tab.c"
     break;
 
   case 170: /* arguments_multiline: '(' END_OF_LINE expr_list END_OF_LINE ')'  */
-#line 564 "parser.y"
+#line 563 "parser.y"
                                                                {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3063 "parser.tab.c"
     break;
 
   case 171: /* arguments_multiline: '(' expr_list END_OF_LINE ')'  */
-#line 565 "parser.y"
+#line 564 "parser.y"
                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3069 "parser.tab.c"
     break;
 
   case 172: /* arguments_singleline: '(' expr_list ')'  */
-#line 569 "parser.y"
+#line 568 "parser.y"
                                         {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3075 "parser.tab.c"
     break;
 
   case 173: /* arguments_singleline: '(' ')'  */
-#line 570 "parser.y"
+#line 569 "parser.y"
                               {(yyval.expression) = 0;}
 #line 3081 "parser.tab.c"
     break;
 
   case 174: /* arguments: arguments_multiline  */
-#line 573 "parser.y"
+#line 572 "parser.y"
                                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3087 "parser.tab.c"
     break;
 
   case 175: /* arguments: arguments_singleline  */
-#line 574 "parser.y"
+#line 573 "parser.y"
                                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3093 "parser.tab.c"
     break;
 
   case 176: /* expr_list: expr_singleline  */
-#line 578 "parser.y"
+#line 577 "parser.y"
                            {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3099 "parser.tab.c"
     break;
 
   case 177: /* expr_list: expr_list ',' expr_singleline  */
-#line 579 "parser.y"
+#line 578 "parser.y"
                                          {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList),(yyvsp[0].expression));}
 #line 3105 "parser.tab.c"
     break;
@@ -3329,7 +3329,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 583 "parser.y"
+#line 582 "parser.y"
 
 
 void yyerror(const char* s) {
@@ -3834,10 +3834,3 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 
 	return result;
 }
-
-// StmtEnds *createStmtEnds()
-// {
-// 	StmtEnds *result = (StmtEnds *)malloc(sizeof(StmtEnds));
-//
-// 	return result;
-// }

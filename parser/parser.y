@@ -72,7 +72,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	char* datetime_val;//time_t
 	char* str_val;
 	char* id_var_name;
-	VarType * basic_literal;
+	VarType vt;
 
 	Expression *expression;
 	ExpressionList *expressionList;
@@ -109,7 +109,6 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	DeclStmtMulti *declStmtMulti;
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
-	StmtEnds *stmtEnds;
 }
 
 %type <expression> expr_singleline expr_multiline basic_literal_value arguments_singleline arguments_multiline;
@@ -148,7 +147,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %type <varNameSingle> var_name_singleline;
 %type <varNameMulti> var_name;
 %type <stmtEnds> stmt_ends;
-%type <basic_literal> basic_literal;
+%type <vt> basic_literal;
 
 %token<int_val> INT_VALUE
 %token<double_val> DOUBLE_VALUE
@@ -449,8 +448,8 @@ do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1
 
 
 //-------------------------FOR LOOP stmt
-for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT {$$ = createIfStmtMulti($2, $4, $6, $8, 0, $10);}
-			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT {$$ = createIfStmtMulti($2, $4, $6, $8, $10, $12);}
+for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT {$$ = createForLoopStmt($2, $4, $6, $8, 0, $10);}
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT {$$ = createForLoopStmt($2, $4, $6, $8, $10, $12);}
 			 ;
 
 
