@@ -46,7 +46,7 @@ StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
 DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
 DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
-ForLoopStmt *createForLoopStmt(char* counterVarName, Expression counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
+ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList);
 ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
 IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
 ElseIfList *createElseIfList(ElseIf *elseIf);
