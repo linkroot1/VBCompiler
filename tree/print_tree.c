@@ -745,12 +745,3 @@ void parseExpressionList(ExpressionList* exprList, Tree* tree, int parentNum)
 		}
 	}
 }
-
-void parseStmtEnds(StmtEnds* end, Tree* tree, int parentNum)
-{
-	if (end != NULL)
-	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "StatementEnd", ""));
-		int currentIter = tree->end->num;
-	}
-}

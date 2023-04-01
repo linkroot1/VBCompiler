@@ -389,8 +389,8 @@ multi_line_stmt: if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_M
 
 
 
-stmt_ends: END_OF_LINE {$$ = createStmtEnds();}
-    | stmt_ends END_OF_LINE {$$ = createStmtEnds();}
+stmt_ends: END_OF_LINE { }
+    | stmt_ends END_OF_LINE { }
     ;
 
 
@@ -1082,12 +1082,5 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 	result->id_var_name = id_var_name;
 	result->expression = expression;
 
-	return result;
-}
-
-StmtEnds *createStmtEnds()
-{
-	StmtEnds *result = (StmtEnds *)malloc(sizeof(StmtEnds));
-	
 	return result;
 }

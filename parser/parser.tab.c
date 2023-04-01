@@ -18,34 +18,34 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-   /* As a special exception, you may create a larger work that contains
-      part or all of the Bison parser skeleton and distribute that work
-      under terms of your choice, so long as that work isn't itself a
-      parser generator using the skeleton or a modified version thereof
-      as a parser skeleton.  Alternatively, if you modify or redistribute
-      the parser skeleton itself, you may (at your option) remove this
-      special exception, which will cause the skeleton and the resulting
-      Bison output files to be licensed under the GNU General Public
-      License without this special exception.
+/* As a special exception, you may create a larger work that contains
+   part or all of the Bison parser skeleton and distribute that work
+   under terms of your choice, so long as that work isn't itself a
+   parser generator using the skeleton or a modified version thereof
+   as a parser skeleton.  Alternatively, if you modify or redistribute
+   the parser skeleton itself, you may (at your option) remove this
+   special exception, which will cause the skeleton and the resulting
+   Bison output files to be licensed under the GNU General Public
+   License without this special exception.
 
-      This special exception was added by the Free Software Foundation in
-      version 2.2 of Bison.  */
+   This special exception was added by the Free Software Foundation in
+   version 2.2 of Bison.  */
 
-      /* C LALR(1) parser skeleton written by Richard Stallman, by
-         simplifying the original so-called "semantic" parser.  */
+/* C LALR(1) parser skeleton written by Richard Stallman, by
+   simplifying the original so-called "semantic" parser.  */
 
-         /* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-            especially those whose name start with YY_ or yy_.  They are
-            private implementation details that can be changed or removed.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
-            /* All symbols defined below should begin with yy or YY, to avoid
-               infringing on user name space.  This should be done even for local
-               variables, as they might otherwise be expanded by user macros.
-               There are some unavoidable exceptions within include files to
-               define necessary library symbols; they are noted "INFRINGES ON
-               USER NAME SPACE" below.  */
+/* All symbols defined below should begin with yy or YY, to avoid
+   infringing on user name space.  This should be done even for local
+   variables, as they might otherwise be expanded by user macros.
+   There are some unavoidable exceptions within include files to
+   define necessary library symbols; they are noted "INFRINGES ON
+   USER NAME SPACE" below.  */
 
-               /* Identify Bison output, and Bison version.  */
+/* Identify Bison output, and Bison version.  */
 #define YYBISON 30802
 
 /* Bison version string.  */
@@ -83,51 +83,51 @@ extern int yyparse();
 extern int yylex();
 
 // ----- declarations -----
-Expression* createExpression(ExprType type, Expression* left, Expression* right);
+Expression* createExpression(ExprType type, Expression *left, Expression *right);
 Expression* createSimpleExpression(ExprType type, Value value);
-ExpressionList* createExpressionList(Expression* expr);
-ExpressionList* appendExpressionToList(ExpressionList* list, Expression* expr);
-ExpressionList* createArgumentList(Expression* expr);
-ProgramItemList* createProgramItemsList(ProgramItemListNotEmpty* programItemListNotEmpty);
-ProgramItemListNotEmpty* createProgramListNotEmpty(ProgramItem* programItem);
-ProgramItemListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty* programItemListNotEmpty, ProgramItem* programItem);
-ProgramItem* createProgramItem(Module* module, char* id_var_name);
-Module* createModule(char* id_var_name, FunctionOrSubList* functionsAndSubList);
-FunctionOrSubList* createFunctionOrSubList(FunctionOrSub* functionOrSub);
-FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList* list, FunctionOrSub* functionOrSub);
-FunctionOrSub* createFunctionOrSub(SubBloc* subBloc, Function* function);
-Function* createFunction(char* id_var_name, ExpressionList* arguments, StmtList* stmtList, ExpressionList* exprList);
-SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty* arguments, StmtList* stmtList);
-ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType* parameterListWithType, ParameterListWithoutType* parameterListWithoutType);
-ParameterListWithType* createParameterListWithType(ParameterWithType* parameterWithType);
-ParameterListWithType* appendParameterListWithType(ParameterListWithType* list, ParameterWithType* parameterWithType);
-ParameterListWithoutType* createParameterListWithoutType(ParameterWithoutType* parameterWithoutType);
-ParameterListWithoutType* appendParameterListWithoutType(ParameterListWithoutType* list, ParameterWithoutType* parameterWithoutType);
-ParameterWithType* createParameterWithType(char* id_var_name, VarType value);
-ParameterWithoutType* createParameterWithoutType(char* id_var_name);
-StmtList* createStmtList(Statement* statement);
-StmtList* appendStmtList(StmtList* list, Statement* statement);
-Statement* createStatement(StmtType type, StmtValue value);
-StatementSingle* createStatementSingle(StmtType type, StmtSingleValue value);
-StatementMulti* createStatementMulti(StmtType type, StmtMultiValue value);
-WhileStmt* createWhileStmt(Expression* expression, StmtList* stmtList);
-DoLoopStmt* createDoLoopStmt(DoLoopCondition* doLoopCondition, Expression* expression);
-DoLoopCondition* createDoLoopCondition(int* isUntil, Expression* expression);
-ForLoopStmt* createForLoopStmt(char* counterVarName, Expression counterType, Value fromValue, Value toValue, Value stepValue, StmtList* stmtList);
-ForEachLoopStmt* createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList* stmtList);
-IfStmtMulti* createIfStmtMulti(Expression* expression, StmtList* thenStmtList, ElseIfList* elseIfList, StmtList* elseStmtList);
-ElseIfList* createElseIfList(ElseIf* elseIf);
-ElseIfList* appendElseIfList(ElseIfList* list, ElseIf* elseIf);
-ElseIf* createElseIf(Expression* expression, StmtList* stmtList);
-IfStmtSingle* createIfStmtSingle(Expression* expression, StmtList* thenStmtList, StmtList* elseStmtList);
-SelectStmt* createSelectStmt(Expression* expression, CaseList* caseList);
-CaseList* createCaseList(CaseStmt* caseStmt);
-CaseList* appendCaseList(CaseList* list, CaseStmt* caseStmt);
-CaseStmt* createCaseStmt(int* isIs, Expression* fromExpression, Expression* toExpression, StmtList* stmtList);
-DeclStmtSingle* createDeclStmtSingle(int* isConst, char* id_var_name, VarType varType, Expression* expression);
-DeclStmtMulti* createDeclStmtMulti(int* isConst, char* id_var_name, VarType varType, Expression* expression);
-VarNameSingle* createVarNameSingle(char* id_var_name, Expression* expression);
-VarNameMulti* createVarNameMulti(char* id_var_name, Expression* expression);
+ExpressionList* createExpressionList(Expression *expr);
+ExpressionList* appendExpressionToList(ExpressionList *list, Expression *expr);
+ExpressionList* createArgumentList(Expression *expr);
+ProgramItemList* createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty);
+ProgramItemListNotEmpty* createProgramListNotEmpty(ProgramItem *programItem);
+ProgramItemListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty *programItemListNotEmpty, ProgramItem *programItem);
+ProgramItem* createProgramItem(Module *module, char *id_var_name);
+Module* createModule(char *id_var_name, FunctionOrSubList *functionsAndSubList);
+FunctionOrSubList* createFunctionOrSubList(FunctionOrSub *functionOrSub);
+FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
+FunctionOrSub* createFunctionOrSub(SubBloc *subBloc, Function *function);
+Function* createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, ExpressionList *exprList);
+SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
+ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
+ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType);
+ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType);
+ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType);
+ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType);
+ParameterWithType *createParameterWithType(char* id_var_name, VarType value);
+ParameterWithoutType *createParameterWithoutType(char* id_var_name);
+StmtList *createStmtList(Statement *statement);
+StmtList *appendStmtList(StmtList *list, Statement *statement);
+Statement *createStatement(StmtType type, StmtValue value);
+StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value);
+StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
+WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
+DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
+ForLoopStmt *createForLoopStmt(char* counterVarName, Expression counterType, Value fromValue, Value toValue, Value stepValue, StmtList *stmtList);
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
+IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
+ElseIfList *createElseIfList(ElseIf *elseIf);
+ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
+ElseIf *createElseIf(Expression *expression, StmtList *stmtList);
+IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList);
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
+CaseList *createCaseList(CaseStmt *caseStmt);
+CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
+CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
+DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression);
+DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression);
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
+VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
 
 #line 134 "parser.tab.c"
@@ -157,129 +157,129 @@ VarNameMulti* createVarNameMulti(char* id_var_name, Expression* expression);
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
-    YYSYMBOL_YYEMPTY = -2,
-    YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
-    YYSYMBOL_YYerror = 1,                    /* error  */
-    YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-    YYSYMBOL_INT_VALUE = 3,                  /* INT_VALUE  */
-    YYSYMBOL_DOUBLE_VALUE = 4,               /* DOUBLE_VALUE  */
-    YYSYMBOL_STRING_VALUE = 5,               /* STRING_VALUE  */
-    YYSYMBOL_BOOLEAN_VALUE = 6,              /* BOOLEAN_VALUE  */
-    YYSYMBOL_IDENTIFIER_VALUE = 7,           /* IDENTIFIER_VALUE  */
-    YYSYMBOL_DATETIME_VALUE = 8,             /* DATETIME_VALUE  */
-    YYSYMBOL_INT = 9,                        /* INT  */
-    YYSYMBOL_DOUBLE = 10,                    /* DOUBLE  */
-    YYSYMBOL_STRING = 11,                    /* STRING  */
-    YYSYMBOL_BOOLEAN = 12,                   /* BOOLEAN  */
-    YYSYMBOL_IDENTIFIER = 13,                /* IDENTIFIER  */
-    YYSYMBOL_ENDL = 14,                      /* ENDL  */
-    YYSYMBOL_SUB = 15,                       /* SUB  */
-    YYSYMBOL_END = 16,                       /* END  */
-    YYSYMBOL_CONST = 17,                     /* CONST  */
-    YYSYMBOL_DIM = 18,                       /* DIM  */
-    YYSYMBOL_AS = 19,                        /* AS  */
-    YYSYMBOL_WHILE = 20,                     /* WHILE  */
-    YYSYMBOL_IF = 21,                        /* IF  */
-    YYSYMBOL_NEW = 22,                       /* NEW  */
-    YYSYMBOL_ELSEIF = 23,                    /* ELSEIF  */
-    YYSYMBOL_SELECT = 24,                    /* SELECT  */
-    YYSYMBOL_CASE = 25,                      /* CASE  */
-    YYSYMBOL_IS = 26,                        /* IS  */
-    YYSYMBOL_TO = 27,                        /* TO  */
-    YYSYMBOL_IMPORTS = 28,                   /* IMPORTS  */
-    YYSYMBOL_MODULE = 29,                    /* MODULE  */
-    YYSYMBOL_FUNCTION = 30,                  /* FUNCTION  */
-    YYSYMBOL_RETURN = 31,                    /* RETURN  */
-    YYSYMBOL_DO = 32,                        /* DO  */
-    YYSYMBOL_LOOP = 33,                      /* LOOP  */
-    YYSYMBOL_UNTIL = 34,                     /* UNTIL  */
-    YYSYMBOL_FOR = 35,                       /* FOR  */
-    YYSYMBOL_NEXT = 36,                      /* NEXT  */
-    YYSYMBOL_STEP = 37,                      /* STEP  */
-    YYSYMBOL_OF = 38,                        /* OF  */
-    YYSYMBOL_IN = 39,                        /* IN  */
-    YYSYMBOL_EACH = 40,                      /* EACH  */
-    YYSYMBOL_END_OF_LINE = 41,               /* END_OF_LINE  */
-    YYSYMBOL_ASSIGN_CONSTRUCT = 42,          /* ASSIGN_CONSTRUCT  */
-    YYSYMBOL_ASSIGN_MULT = 43,               /* ASSIGN_MULT  */
-    YYSYMBOL_ASSIGN_ORD_DIV = 44,            /* ASSIGN_ORD_DIV  */
-    YYSYMBOL_ASSIGN_INT_DIV = 45,            /* ASSIGN_INT_DIV  */
-    YYSYMBOL_ASSIGN_ADD = 46,                /* ASSIGN_ADD  */
-    YYSYMBOL_ASSIGN_SUB = 47,                /* ASSIGN_SUB  */
-    YYSYMBOL_ASSIGN_LSHIFT = 48,             /* ASSIGN_LSHIFT  */
-    YYSYMBOL_ASSIGN_RSHIFT = 49,             /* ASSIGN_RSHIFT  */
-    YYSYMBOL_ASSIGN_CONCAT = 50,             /* ASSIGN_CONCAT  */
-    YYSYMBOL_PRIVATE = 51,                   /* PRIVATE  */
-    YYSYMBOL_PROTECTED = 52,                 /* PROTECTED  */
-    YYSYMBOL_PUBLIC = 53,                    /* PUBLIC  */
-    YYSYMBOL_FRIEND = 54,                    /* FRIEND  */
-    YYSYMBOL_55_ = 55,                       /* '^'  */
-    YYSYMBOL_56_ = 56,                       /* '*'  */
-    YYSYMBOL_57_ = 57,                       /* '/'  */
-    YYSYMBOL_INT_DIV = 58,                   /* INT_DIV  */
-    YYSYMBOL_59_ = 59,                       /* '+'  */
-    YYSYMBOL_60_ = 60,                       /* '-'  */
-    YYSYMBOL_UNARY_MINUS = 61,               /* UNARY_MINUS  */
-    YYSYMBOL_UNARY_PLUS = 62,                /* UNARY_PLUS  */
-    YYSYMBOL_63_ = 63,                       /* '='  */
-    YYSYMBOL_NOT_EQUAL = 64,                 /* NOT_EQUAL  */
-    YYSYMBOL_LESS_OR_EQUAL = 65,             /* LESS_OR_EQUAL  */
-    YYSYMBOL_MORE_OR_EQUAL = 66,             /* MORE_OR_EQUAL  */
-    YYSYMBOL_67_ = 67,                       /* '>'  */
-    YYSYMBOL_68_ = 68,                       /* '<'  */
-    YYSYMBOL_69_ = 69,                       /* '&'  */
-    YYSYMBOL_70_ = 70,                       /* '('  */
-    YYSYMBOL_71_ = 71,                       /* ')'  */
-    YYSYMBOL_THEN = 72,                      /* THEN  */
-    YYSYMBOL_ELSE = 73,                      /* ELSE  */
-    YYSYMBOL_74_ = 74,                       /* ','  */
-    YYSYMBOL_75_ = 75,                       /* '{'  */
-    YYSYMBOL_76_ = 76,                       /* '}'  */
-    YYSYMBOL_YYACCEPT = 77,                  /* $accept  */
-    YYSYMBOL_root = 78,                      /* root  */
-    YYSYMBOL_program_items_list = 79,        /* program_items_list  */
-    YYSYMBOL_program_items_list_not_empty = 80, /* program_items_list_not_empty  */
-    YYSYMBOL_program_item = 81,              /* program_item  */
-    YYSYMBOL_module = 82,                    /* module  */
-    YYSYMBOL_functions_or_sub_list = 83,     /* functions_or_sub_list  */
-    YYSYMBOL_function_or_sub = 84,           /* function_or_sub  */
-    YYSYMBOL_function = 85,                  /* function  */
-    YYSYMBOL_sub_bloc = 86,                  /* sub_bloc  */
-    YYSYMBOL_parameterlist_or_empty = 87,    /* parameterlist_or_empty  */
-    YYSYMBOL_parameterlist_with_type = 88,   /* parameterlist_with_type  */
-    YYSYMBOL_parameterlist_without_type = 89, /* parameterlist_without_type  */
-    YYSYMBOL_parameter_with_type = 90,       /* parameter_with_type  */
-    YYSYMBOL_parameter_without_type = 91,    /* parameter_without_type  */
-    YYSYMBOL_stmt_list = 92,                 /* stmt_list  */
-    YYSYMBOL_stmt = 93,                      /* stmt  */
-    YYSYMBOL_single_line_stmt = 94,          /* single_line_stmt  */
-    YYSYMBOL_multi_line_stmt = 95,           /* multi_line_stmt  */
-    YYSYMBOL_stmt_ends = 96,                 /* stmt_ends  */
-    YYSYMBOL_decl_stmt = 97,                 /* decl_stmt  */
-    YYSYMBOL_decl_stmt_single_line = 98,     /* decl_stmt_single_line  */
-    YYSYMBOL_var_name = 99,                  /* var_name  */
-    YYSYMBOL_var_name_singleline = 100,      /* var_name_singleline  */
-    YYSYMBOL_access = 101,                   /* access  */
-    YYSYMBOL_while_stmt = 102,               /* while_stmt  */
-    YYSYMBOL_do_loop_stmt = 103,             /* do_loop_stmt  */
-    YYSYMBOL_do_loop_condition = 104,        /* do_loop_condition  */
-    YYSYMBOL_for_loop_stmt = 105,            /* for_loop_stmt  */
-    YYSYMBOL_for_each_loop_stmt = 106,       /* for_each_loop_stmt  */
-    YYSYMBOL_if_stmt_multi_line = 107,       /* if_stmt_multi_line  */
-    YYSYMBOL_elseif_list = 108,              /* elseif_list  */
-    YYSYMBOL_elseif = 109,                   /* elseif  */
-    YYSYMBOL_if_stmt_single_line = 110,      /* if_stmt_single_line  */
-    YYSYMBOL_select_stmt = 111,              /* select_stmt  */
-    YYSYMBOL_case_list = 112,                /* case_list  */
-    YYSYMBOL_case_stmt = 113,                /* case_stmt  */
-    YYSYMBOL_expr_singleline = 114,          /* expr_singleline  */
-    YYSYMBOL_expr_multiline = 115,           /* expr_multiline  */
-    YYSYMBOL_basic_literal = 116,            /* basic_literal  */
-    YYSYMBOL_basic_literal_value = 117,      /* basic_literal_value  */
-    YYSYMBOL_arguments_multiline = 118,      /* arguments_multiline  */
-    YYSYMBOL_arguments_singleline = 119,     /* arguments_singleline  */
-    YYSYMBOL_arguments = 120,                /* arguments  */
-    YYSYMBOL_expr_list = 121                 /* expr_list  */
+  YYSYMBOL_YYEMPTY = -2,
+  YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
+  YYSYMBOL_YYerror = 1,                    /* error  */
+  YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
+  YYSYMBOL_INT_VALUE = 3,                  /* INT_VALUE  */
+  YYSYMBOL_DOUBLE_VALUE = 4,               /* DOUBLE_VALUE  */
+  YYSYMBOL_STRING_VALUE = 5,               /* STRING_VALUE  */
+  YYSYMBOL_BOOLEAN_VALUE = 6,              /* BOOLEAN_VALUE  */
+  YYSYMBOL_IDENTIFIER_VALUE = 7,           /* IDENTIFIER_VALUE  */
+  YYSYMBOL_DATETIME_VALUE = 8,             /* DATETIME_VALUE  */
+  YYSYMBOL_INT = 9,                        /* INT  */
+  YYSYMBOL_DOUBLE = 10,                    /* DOUBLE  */
+  YYSYMBOL_STRING = 11,                    /* STRING  */
+  YYSYMBOL_BOOLEAN = 12,                   /* BOOLEAN  */
+  YYSYMBOL_IDENTIFIER = 13,                /* IDENTIFIER  */
+  YYSYMBOL_ENDL = 14,                      /* ENDL  */
+  YYSYMBOL_SUB = 15,                       /* SUB  */
+  YYSYMBOL_END = 16,                       /* END  */
+  YYSYMBOL_CONST = 17,                     /* CONST  */
+  YYSYMBOL_DIM = 18,                       /* DIM  */
+  YYSYMBOL_AS = 19,                        /* AS  */
+  YYSYMBOL_WHILE = 20,                     /* WHILE  */
+  YYSYMBOL_IF = 21,                        /* IF  */
+  YYSYMBOL_NEW = 22,                       /* NEW  */
+  YYSYMBOL_ELSEIF = 23,                    /* ELSEIF  */
+  YYSYMBOL_SELECT = 24,                    /* SELECT  */
+  YYSYMBOL_CASE = 25,                      /* CASE  */
+  YYSYMBOL_IS = 26,                        /* IS  */
+  YYSYMBOL_TO = 27,                        /* TO  */
+  YYSYMBOL_IMPORTS = 28,                   /* IMPORTS  */
+  YYSYMBOL_MODULE = 29,                    /* MODULE  */
+  YYSYMBOL_FUNCTION = 30,                  /* FUNCTION  */
+  YYSYMBOL_RETURN = 31,                    /* RETURN  */
+  YYSYMBOL_DO = 32,                        /* DO  */
+  YYSYMBOL_LOOP = 33,                      /* LOOP  */
+  YYSYMBOL_UNTIL = 34,                     /* UNTIL  */
+  YYSYMBOL_FOR = 35,                       /* FOR  */
+  YYSYMBOL_NEXT = 36,                      /* NEXT  */
+  YYSYMBOL_STEP = 37,                      /* STEP  */
+  YYSYMBOL_OF = 38,                        /* OF  */
+  YYSYMBOL_IN = 39,                        /* IN  */
+  YYSYMBOL_EACH = 40,                      /* EACH  */
+  YYSYMBOL_END_OF_LINE = 41,               /* END_OF_LINE  */
+  YYSYMBOL_ASSIGN_CONSTRUCT = 42,          /* ASSIGN_CONSTRUCT  */
+  YYSYMBOL_ASSIGN_MULT = 43,               /* ASSIGN_MULT  */
+  YYSYMBOL_ASSIGN_ORD_DIV = 44,            /* ASSIGN_ORD_DIV  */
+  YYSYMBOL_ASSIGN_INT_DIV = 45,            /* ASSIGN_INT_DIV  */
+  YYSYMBOL_ASSIGN_ADD = 46,                /* ASSIGN_ADD  */
+  YYSYMBOL_ASSIGN_SUB = 47,                /* ASSIGN_SUB  */
+  YYSYMBOL_ASSIGN_LSHIFT = 48,             /* ASSIGN_LSHIFT  */
+  YYSYMBOL_ASSIGN_RSHIFT = 49,             /* ASSIGN_RSHIFT  */
+  YYSYMBOL_ASSIGN_CONCAT = 50,             /* ASSIGN_CONCAT  */
+  YYSYMBOL_PRIVATE = 51,                   /* PRIVATE  */
+  YYSYMBOL_PROTECTED = 52,                 /* PROTECTED  */
+  YYSYMBOL_PUBLIC = 53,                    /* PUBLIC  */
+  YYSYMBOL_FRIEND = 54,                    /* FRIEND  */
+  YYSYMBOL_55_ = 55,                       /* '^'  */
+  YYSYMBOL_56_ = 56,                       /* '*'  */
+  YYSYMBOL_57_ = 57,                       /* '/'  */
+  YYSYMBOL_INT_DIV = 58,                   /* INT_DIV  */
+  YYSYMBOL_59_ = 59,                       /* '+'  */
+  YYSYMBOL_60_ = 60,                       /* '-'  */
+  YYSYMBOL_UNARY_MINUS = 61,               /* UNARY_MINUS  */
+  YYSYMBOL_UNARY_PLUS = 62,                /* UNARY_PLUS  */
+  YYSYMBOL_63_ = 63,                       /* '='  */
+  YYSYMBOL_NOT_EQUAL = 64,                 /* NOT_EQUAL  */
+  YYSYMBOL_LESS_OR_EQUAL = 65,             /* LESS_OR_EQUAL  */
+  YYSYMBOL_MORE_OR_EQUAL = 66,             /* MORE_OR_EQUAL  */
+  YYSYMBOL_67_ = 67,                       /* '>'  */
+  YYSYMBOL_68_ = 68,                       /* '<'  */
+  YYSYMBOL_69_ = 69,                       /* '&'  */
+  YYSYMBOL_70_ = 70,                       /* '('  */
+  YYSYMBOL_71_ = 71,                       /* ')'  */
+  YYSYMBOL_THEN = 72,                      /* THEN  */
+  YYSYMBOL_ELSE = 73,                      /* ELSE  */
+  YYSYMBOL_74_ = 74,                       /* ','  */
+  YYSYMBOL_75_ = 75,                       /* '{'  */
+  YYSYMBOL_76_ = 76,                       /* '}'  */
+  YYSYMBOL_YYACCEPT = 77,                  /* $accept  */
+  YYSYMBOL_root = 78,                      /* root  */
+  YYSYMBOL_program_items_list = 79,        /* program_items_list  */
+  YYSYMBOL_program_items_list_not_empty = 80, /* program_items_list_not_empty  */
+  YYSYMBOL_program_item = 81,              /* program_item  */
+  YYSYMBOL_module = 82,                    /* module  */
+  YYSYMBOL_functions_or_sub_list = 83,     /* functions_or_sub_list  */
+  YYSYMBOL_function_or_sub = 84,           /* function_or_sub  */
+  YYSYMBOL_function = 85,                  /* function  */
+  YYSYMBOL_sub_bloc = 86,                  /* sub_bloc  */
+  YYSYMBOL_parameterlist_or_empty = 87,    /* parameterlist_or_empty  */
+  YYSYMBOL_parameterlist_with_type = 88,   /* parameterlist_with_type  */
+  YYSYMBOL_parameterlist_without_type = 89, /* parameterlist_without_type  */
+  YYSYMBOL_parameter_with_type = 90,       /* parameter_with_type  */
+  YYSYMBOL_parameter_without_type = 91,    /* parameter_without_type  */
+  YYSYMBOL_stmt_list = 92,                 /* stmt_list  */
+  YYSYMBOL_stmt = 93,                      /* stmt  */
+  YYSYMBOL_single_line_stmt = 94,          /* single_line_stmt  */
+  YYSYMBOL_multi_line_stmt = 95,           /* multi_line_stmt  */
+  YYSYMBOL_stmt_ends = 96,                 /* stmt_ends  */
+  YYSYMBOL_decl_stmt = 97,                 /* decl_stmt  */
+  YYSYMBOL_decl_stmt_single_line = 98,     /* decl_stmt_single_line  */
+  YYSYMBOL_var_name = 99,                  /* var_name  */
+  YYSYMBOL_var_name_singleline = 100,      /* var_name_singleline  */
+  YYSYMBOL_access = 101,                   /* access  */
+  YYSYMBOL_while_stmt = 102,               /* while_stmt  */
+  YYSYMBOL_do_loop_stmt = 103,             /* do_loop_stmt  */
+  YYSYMBOL_do_loop_condition = 104,        /* do_loop_condition  */
+  YYSYMBOL_for_loop_stmt = 105,            /* for_loop_stmt  */
+  YYSYMBOL_for_each_loop_stmt = 106,       /* for_each_loop_stmt  */
+  YYSYMBOL_if_stmt_multi_line = 107,       /* if_stmt_multi_line  */
+  YYSYMBOL_elseif_list = 108,              /* elseif_list  */
+  YYSYMBOL_elseif = 109,                   /* elseif  */
+  YYSYMBOL_if_stmt_single_line = 110,      /* if_stmt_single_line  */
+  YYSYMBOL_select_stmt = 111,              /* select_stmt  */
+  YYSYMBOL_case_list = 112,                /* case_list  */
+  YYSYMBOL_case_stmt = 113,                /* case_stmt  */
+  YYSYMBOL_expr_singleline = 114,          /* expr_singleline  */
+  YYSYMBOL_expr_multiline = 115,           /* expr_multiline  */
+  YYSYMBOL_basic_literal = 116,            /* basic_literal  */
+  YYSYMBOL_basic_literal_value = 117,      /* basic_literal_value  */
+  YYSYMBOL_arguments_multiline = 118,      /* arguments_multiline  */
+  YYSYMBOL_arguments_singleline = 119,     /* arguments_singleline  */
+  YYSYMBOL_arguments = 120,                /* arguments  */
+  YYSYMBOL_expr_list = 121                 /* expr_list  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -302,10 +302,10 @@ typedef enum yysymbol_kind_t yysymbol_kind_t;
 # endif
 #endif
 
-   /* Narrow types that promote to a signed type and that can represent a
-      signed or unsigned integer of at least N bits.  In tables they can
-      save space and decrease cache pressure.  Promoting to a signed type
-      helps avoid bugs in integer arithmetic.  */
+/* Narrow types that promote to a signed type and that can represent a
+   signed or unsigned integer of at least N bits.  In tables they can
+   save space and decrease cache pressure.  Promoting to a signed type
+   helps avoid bugs in integer arithmetic.  */
 
 #ifdef __INT_LEAST8_MAX__
 typedef __INT_LEAST8_TYPE__ yytype_int8;
@@ -532,13 +532,13 @@ typedef int yy_state_fast_t;
 #  ifndef YYMALLOC
 #   define YYMALLOC malloc
 #   if ! defined malloc && ! defined EXIT_SUCCESS
-void* malloc(YYSIZE_T); /* INFRINGES ON USER NAME SPACE */
+void *malloc (YYSIZE_T); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 #  ifndef YYFREE
 #   define YYFREE free
 #   if ! defined free && ! defined EXIT_SUCCESS
-void free(void*); /* INFRINGES ON USER NAME SPACE */
+void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 # endif
@@ -551,8 +551,8 @@ void free(void*); /* INFRINGES ON USER NAME SPACE */
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
 {
-    yy_state_t yyss_alloc;
-    YYSTYPE yyvs_alloc;
+  yy_state_t yyss_alloc;
+  YYSTYPE yyvs_alloc;
 };
 
 /* The size of the maximum gap between one aligned stack and the next.  */
@@ -566,11 +566,11 @@ union yyalloc
 
 # define YYCOPY_NEEDED 1
 
-   /* Relocate STACK from its old location to the new one.  The
-      local variables YYSIZE and YYSTACKSIZE give the old and new number of
-      elements in the stack, and YYPTR gives the new location of the
-      stack.  Advance YYPTR to a properly aligned location for the next
-      stack.  */
+/* Relocate STACK from its old location to the new one.  The
+   local variables YYSIZE and YYSTACKSIZE give the old and new number of
+   elements in the stack, and YYPTR gives the new location of the
+   stack.  Advance YYPTR to a properly aligned location for the next
+   stack.  */
 # define YYSTACK_RELOCATE(Stack_alloc, Stack)                           \
     do                                                                  \
       {                                                                 \
@@ -585,8 +585,8 @@ union yyalloc
 #endif
 
 #if defined YYCOPY_NEEDED && YYCOPY_NEEDED
-      /* Copy COUNT objects from SRC to DST.  The source and destination do
-         not overlap.  */
+/* Copy COUNT objects from SRC to DST.  The source and destination do
+   not overlap.  */
 # ifndef YYCOPY
 #  if defined __GNUC__ && 1 < __GNUC__
 #   define YYCOPY(Dst, Src, Count) \
@@ -604,7 +604,7 @@ union yyalloc
 # endif
 #endif /* !YYCOPY_NEEDED */
 
-         /* YYFINAL -- State number of the termination state.  */
+/* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  17
 /* YYLAST -- Last index in YYTABLE.  */
 #define YYLAST   1808
@@ -629,8 +629,8 @@ union yyalloc
    ? YY_CAST (yysymbol_kind_t, yytranslate[YYX])        \
    : YYSYMBOL_YYUNDEF)
 
-   /* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
-      as returned by yylex.  */
+/* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex.  */
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -698,11 +698,11 @@ static const yytype_int16 yyrline[] =
 #if 1
 /* The user-facing name of the symbol whose (internal) number is
    YYSYMBOL.  No bounds checking.  */
-static const char* yysymbol_name(yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
+static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
-static const char* const yytname[] =
+static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "INT_VALUE",
   "DOUBLE_VALUE", "STRING_VALUE", "BOOLEAN_VALUE", "IDENTIFIER_VALUE",
@@ -732,10 +732,10 @@ static const char* const yytname[] =
   "arguments", "expr_list", YY_NULLPTR
 };
 
-static const char*
-yysymbol_name(yysymbol_kind_t yysymbol)
+static const char *
+yysymbol_name (yysymbol_kind_t yysymbol)
 {
-    return yytname[yysymbol];
+  return yytname[yysymbol];
 }
 #endif
 
@@ -1390,7 +1390,7 @@ enum { YYENOMEM = -2 };
 #define YYERRCODE YYUNDEF
 
 
-   /* Enable debugging if requested.  */
+/* Enable debugging if requested.  */
 #if YYDEBUG
 
 # ifndef YYFPRINTF
@@ -1424,16 +1424,16 @@ do {                                                                      \
 `-----------------------------------*/
 
 static void
-yy_symbol_value_print(FILE* yyo,
-    yysymbol_kind_t yykind, YYSTYPE const* const yyvaluep)
+yy_symbol_value_print (FILE *yyo,
+                       yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
-    FILE* yyoutput = yyo;
-    YY_USE(yyoutput);
-    if (!yyvaluep)
-        return;
-    YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-        YY_USE(yykind);
-    YY_IGNORE_MAYBE_UNINITIALIZED_END
+  FILE *yyoutput = yyo;
+  YY_USE (yyoutput);
+  if (!yyvaluep)
+    return;
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YY_USE (yykind);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
@@ -1442,14 +1442,14 @@ yy_symbol_value_print(FILE* yyo,
 `---------------------------*/
 
 static void
-yy_symbol_print(FILE* yyo,
-    yysymbol_kind_t yykind, YYSTYPE const* const yyvaluep)
+yy_symbol_print (FILE *yyo,
+                 yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
-    YYFPRINTF(yyo, "%s %s (",
-        yykind < YYNTOKENS ? "token" : "nterm", yysymbol_name(yykind));
+  YYFPRINTF (yyo, "%s %s (",
+             yykind < YYNTOKENS ? "token" : "nterm", yysymbol_name (yykind));
 
-    yy_symbol_value_print(yyo, yykind, yyvaluep);
-    YYFPRINTF(yyo, ")");
+  yy_symbol_value_print (yyo, yykind, yyvaluep);
+  YYFPRINTF (yyo, ")");
 }
 
 /*------------------------------------------------------------------.
@@ -1458,15 +1458,15 @@ yy_symbol_print(FILE* yyo,
 `------------------------------------------------------------------*/
 
 static void
-yy_stack_print(yy_state_t* yybottom, yy_state_t* yytop)
+yy_stack_print (yy_state_t *yybottom, yy_state_t *yytop)
 {
-    YYFPRINTF(stderr, "Stack now");
-    for (; yybottom <= yytop; yybottom++)
+  YYFPRINTF (stderr, "Stack now");
+  for (; yybottom <= yytop; yybottom++)
     {
-        int yybot = *yybottom;
-        YYFPRINTF(stderr, " %d", yybot);
+      int yybot = *yybottom;
+      YYFPRINTF (stderr, " %d", yybot);
     }
-    YYFPRINTF(stderr, "\n");
+  YYFPRINTF (stderr, "\n");
 }
 
 # define YY_STACK_PRINT(Bottom, Top)                            \
@@ -1481,22 +1481,22 @@ do {                                                            \
 `------------------------------------------------*/
 
 static void
-yy_reduce_print(yy_state_t* yyssp, YYSTYPE* yyvsp,
-    int yyrule)
+yy_reduce_print (yy_state_t *yyssp, YYSTYPE *yyvsp,
+                 int yyrule)
 {
-    int yylno = yyrline[yyrule];
-    int yynrhs = yyr2[yyrule];
-    int yyi;
-    YYFPRINTF(stderr, "Reducing stack by rule %d (line %d):\n",
-        yyrule - 1, yylno);
-    /* The symbols being reduced.  */
-    for (yyi = 0; yyi < yynrhs; yyi++)
+  int yylno = yyrline[yyrule];
+  int yynrhs = yyr2[yyrule];
+  int yyi;
+  YYFPRINTF (stderr, "Reducing stack by rule %d (line %d):\n",
+             yyrule - 1, yylno);
+  /* The symbols being reduced.  */
+  for (yyi = 0; yyi < yynrhs; yyi++)
     {
-        YYFPRINTF(stderr, "   $%d = ", yyi + 1);
-        yy_symbol_print(stderr,
-            YY_ACCESSING_SYMBOL(+yyssp[yyi + 1 - yynrhs]),
-            &yyvsp[(yyi + 1) - (yynrhs)]);
-        YYFPRINTF(stderr, "\n");
+      YYFPRINTF (stderr, "   $%d = ", yyi + 1);
+      yy_symbol_print (stderr,
+                       YY_ACCESSING_SYMBOL (+yyssp[yyi + 1 - yynrhs]),
+                       &yyvsp[(yyi + 1) - (yynrhs)]);
+      YYFPRINTF (stderr, "\n");
     }
 }
 
@@ -1534,11 +1534,11 @@ int yydebug;
 #endif
 
 
-   /* Context of a parse error.  */
+/* Context of a parse error.  */
 typedef struct
 {
-    yy_state_t* yyssp;
-    yysymbol_kind_t yytoken;
+  yy_state_t *yyssp;
+  yysymbol_kind_t yytoken;
 } yypcontext_t;
 
 /* Put in YYARG at most YYARGN of the expected tokens given the
@@ -1548,37 +1548,37 @@ typedef struct
    Return 0 if there are more than YYARGN expected tokens, yet fill
    YYARG up to YYARGN. */
 static int
-yypcontext_expected_tokens(const yypcontext_t* yyctx,
-    yysymbol_kind_t yyarg[], int yyargn)
+yypcontext_expected_tokens (const yypcontext_t *yyctx,
+                            yysymbol_kind_t yyarg[], int yyargn)
 {
-    /* Actual size of YYARG. */
-    int yycount = 0;
-    int yyn = yypact[+*yyctx->yyssp];
-    if (!yypact_value_is_default(yyn))
+  /* Actual size of YYARG. */
+  int yycount = 0;
+  int yyn = yypact[+*yyctx->yyssp];
+  if (!yypact_value_is_default (yyn))
     {
-        /* Start YYX at -YYN if negative to avoid negative indexes in
-           YYCHECK.  In other words, skip the first -YYN actions for
-           this state because they are default actions.  */
-        int yyxbegin = yyn < 0 ? -yyn : 0;
-        /* Stay within bounds of both yycheck and yytname.  */
-        int yychecklim = YYLAST - yyn + 1;
-        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
-        int yyx;
-        for (yyx = yyxbegin; yyx < yyxend; ++yyx)
-            if (yycheck[yyx + yyn] == yyx && yyx != YYSYMBOL_YYerror
-                && !yytable_value_is_error(yytable[yyx + yyn]))
-            {
-                if (!yyarg)
-                    ++yycount;
-                else if (yycount == yyargn)
-                    return 0;
-                else
-                    yyarg[yycount++] = YY_CAST(yysymbol_kind_t, yyx);
-            }
+      /* Start YYX at -YYN if negative to avoid negative indexes in
+         YYCHECK.  In other words, skip the first -YYN actions for
+         this state because they are default actions.  */
+      int yyxbegin = yyn < 0 ? -yyn : 0;
+      /* Stay within bounds of both yycheck and yytname.  */
+      int yychecklim = YYLAST - yyn + 1;
+      int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+      int yyx;
+      for (yyx = yyxbegin; yyx < yyxend; ++yyx)
+        if (yycheck[yyx + yyn] == yyx && yyx != YYSYMBOL_YYerror
+            && !yytable_value_is_error (yytable[yyx + yyn]))
+          {
+            if (!yyarg)
+              ++yycount;
+            else if (yycount == yyargn)
+              return 0;
+            else
+              yyarg[yycount++] = YY_CAST (yysymbol_kind_t, yyx);
+          }
     }
-    if (yyarg && yycount == 0 && 0 < yyargn)
-        yyarg[0] = YYSYMBOL_YYEMPTY;
-    return yycount;
+  if (yyarg && yycount == 0 && 0 < yyargn)
+    yyarg[0] = YYSYMBOL_YYEMPTY;
+  return yycount;
 }
 
 
@@ -1590,12 +1590,12 @@ yypcontext_expected_tokens(const yypcontext_t* yyctx,
 # else
 /* Return the length of YYSTR.  */
 static YYPTRDIFF_T
-yystrlen(const char* yystr)
+yystrlen (const char *yystr)
 {
-    YYPTRDIFF_T yylen;
-    for (yylen = 0; yystr[yylen]; yylen++)
-        continue;
-    return yylen;
+  YYPTRDIFF_T yylen;
+  for (yylen = 0; yystr[yylen]; yylen++)
+    continue;
+  return yylen;
 }
 # endif
 #endif
@@ -1606,16 +1606,16 @@ yystrlen(const char* yystr)
 # else
 /* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
    YYDEST.  */
-static char*
-yystpcpy(char* yydest, const char* yysrc)
+static char *
+yystpcpy (char *yydest, const char *yysrc)
 {
-    char* yyd = yydest;
-    const char* yys = yysrc;
+  char *yyd = yydest;
+  const char *yys = yysrc;
 
-    while ((*yyd++ = *yys++) != '\0')
-        continue;
+  while ((*yyd++ = *yys++) != '\0')
+    continue;
 
-    return yyd - 1;
+  return yyd - 1;
 }
 # endif
 #endif
@@ -1629,91 +1629,91 @@ yystpcpy(char* yydest, const char* yysrc)
    null, do not copy; instead, return the length of what the result
    would have been.  */
 static YYPTRDIFF_T
-yytnamerr(char* yyres, const char* yystr)
+yytnamerr (char *yyres, const char *yystr)
 {
-    if (*yystr == '"')
+  if (*yystr == '"')
     {
-        YYPTRDIFF_T yyn = 0;
-        char const* yyp = yystr;
-        for (;;)
-            switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-                goto do_not_strip_quotes;
+      YYPTRDIFF_T yyn = 0;
+      char const *yyp = yystr;
+      for (;;)
+        switch (*++yyp)
+          {
+          case '\'':
+          case ',':
+            goto do_not_strip_quotes;
 
-            case '\\':
-                if (*++yyp != '\\')
-                    goto do_not_strip_quotes;
-                else
-                    goto append;
+          case '\\':
+            if (*++yyp != '\\')
+              goto do_not_strip_quotes;
+            else
+              goto append;
 
-            append:
-            default:
-                if (yyres)
-                    yyres[yyn] = *yyp;
-                yyn++;
-                break;
+          append:
+          default:
+            if (yyres)
+              yyres[yyn] = *yyp;
+            yyn++;
+            break;
 
-            case '"':
-                if (yyres)
-                    yyres[yyn] = '\0';
-                return yyn;
-            }
-    do_not_strip_quotes:;
+          case '"':
+            if (yyres)
+              yyres[yyn] = '\0';
+            return yyn;
+          }
+    do_not_strip_quotes: ;
     }
 
-    if (yyres)
-        return yystpcpy(yyres, yystr) - yyres;
-    else
-        return yystrlen(yystr);
+  if (yyres)
+    return yystpcpy (yyres, yystr) - yyres;
+  else
+    return yystrlen (yystr);
 }
 #endif
 
 
 static int
-yy_syntax_error_arguments(const yypcontext_t* yyctx,
-    yysymbol_kind_t yyarg[], int yyargn)
+yy_syntax_error_arguments (const yypcontext_t *yyctx,
+                           yysymbol_kind_t yyarg[], int yyargn)
 {
-    /* Actual size of YYARG. */
-    int yycount = 0;
-    /* There are many possibilities here to consider:
-       - If this state is a consistent state with a default action, then
-         the only way this function was invoked is if the default action
-         is an error action.  In that case, don't check for expected
-         tokens because there are none.
-       - The only way there can be no lookahead present (in yychar) is if
-         this state is a consistent state with a default action.  Thus,
-         detecting the absence of a lookahead is sufficient to determine
-         that there is no unexpected or expected token to report.  In that
-         case, just report a simple "syntax error".
-       - Don't assume there isn't a lookahead just because this state is a
-         consistent state with a default action.  There might have been a
-         previous inconsistent state, consistent state with a non-default
-         action, or user semantic action that manipulated yychar.
-       - Of course, the expected token list depends on states to have
-         correct lookahead information, and it depends on the parser not
-         to perform extra reductions after fetching a lookahead from the
-         scanner and before detecting a syntax error.  Thus, state merging
-         (from LALR or IELR) and default reductions corrupt the expected
-         token list.  However, the list is correct for canonical LR with
-         one exception: it will still contain any token that will not be
-         accepted due to an error action in a later state.
-    */
-    if (yyctx->yytoken != YYSYMBOL_YYEMPTY)
+  /* Actual size of YYARG. */
+  int yycount = 0;
+  /* There are many possibilities here to consider:
+     - If this state is a consistent state with a default action, then
+       the only way this function was invoked is if the default action
+       is an error action.  In that case, don't check for expected
+       tokens because there are none.
+     - The only way there can be no lookahead present (in yychar) is if
+       this state is a consistent state with a default action.  Thus,
+       detecting the absence of a lookahead is sufficient to determine
+       that there is no unexpected or expected token to report.  In that
+       case, just report a simple "syntax error".
+     - Don't assume there isn't a lookahead just because this state is a
+       consistent state with a default action.  There might have been a
+       previous inconsistent state, consistent state with a non-default
+       action, or user semantic action that manipulated yychar.
+     - Of course, the expected token list depends on states to have
+       correct lookahead information, and it depends on the parser not
+       to perform extra reductions after fetching a lookahead from the
+       scanner and before detecting a syntax error.  Thus, state merging
+       (from LALR or IELR) and default reductions corrupt the expected
+       token list.  However, the list is correct for canonical LR with
+       one exception: it will still contain any token that will not be
+       accepted due to an error action in a later state.
+  */
+  if (yyctx->yytoken != YYSYMBOL_YYEMPTY)
     {
-        int yyn;
-        if (yyarg)
-            yyarg[yycount] = yyctx->yytoken;
-        ++yycount;
-        yyn = yypcontext_expected_tokens(yyctx,
-            yyarg ? yyarg + 1 : yyarg, yyargn - 1);
-        if (yyn == YYENOMEM)
-            return YYENOMEM;
-        else
-            yycount += yyn;
+      int yyn;
+      if (yyarg)
+        yyarg[yycount] = yyctx->yytoken;
+      ++yycount;
+      yyn = yypcontext_expected_tokens (yyctx,
+                                        yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+      if (yyn == YYENOMEM)
+        return YYENOMEM;
+      else
+        yycount += yyn;
     }
-    return yycount;
+  return yycount;
 }
 
 /* Copy into *YYMSG, which is of size *YYMSG_ALLOC, an error message
@@ -1725,83 +1725,83 @@ yy_syntax_error_arguments(const yypcontext_t* yyctx,
    *YYMSG_ALLOC to the required number of bytes.  Return YYENOMEM if the
    required number of bytes is too large to store.  */
 static int
-yysyntax_error(YYPTRDIFF_T* yymsg_alloc, char** yymsg,
-    const yypcontext_t* yyctx)
+yysyntax_error (YYPTRDIFF_T *yymsg_alloc, char **yymsg,
+                const yypcontext_t *yyctx)
 {
-    enum { YYARGS_MAX = 5 };
-    /* Internationalized format string. */
-    const char* yyformat = YY_NULLPTR;
-    /* Arguments of yyformat: reported tokens (one for the "unexpected",
-       one per "expected"). */
-    yysymbol_kind_t yyarg[YYARGS_MAX];
-    /* Cumulated lengths of YYARG.  */
-    YYPTRDIFF_T yysize = 0;
+  enum { YYARGS_MAX = 5 };
+  /* Internationalized format string. */
+  const char *yyformat = YY_NULLPTR;
+  /* Arguments of yyformat: reported tokens (one for the "unexpected",
+     one per "expected"). */
+  yysymbol_kind_t yyarg[YYARGS_MAX];
+  /* Cumulated lengths of YYARG.  */
+  YYPTRDIFF_T yysize = 0;
 
-    /* Actual size of YYARG. */
-    int yycount = yy_syntax_error_arguments(yyctx, yyarg, YYARGS_MAX);
-    if (yycount == YYENOMEM)
-        return YYENOMEM;
+  /* Actual size of YYARG. */
+  int yycount = yy_syntax_error_arguments (yyctx, yyarg, YYARGS_MAX);
+  if (yycount == YYENOMEM)
+    return YYENOMEM;
 
-    switch (yycount)
+  switch (yycount)
     {
 #define YYCASE_(N, S)                       \
       case N:                               \
         yyformat = S;                       \
         break
     default: /* Avoid compiler warnings. */
-        YYCASE_(0, YY_("syntax error"));
-        YYCASE_(1, YY_("syntax error, unexpected %s"));
-        YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
-        YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
-        YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
-        YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+      YYCASE_(0, YY_("syntax error"));
+      YYCASE_(1, YY_("syntax error, unexpected %s"));
+      YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
+      YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+      YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+      YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
 #undef YYCASE_
     }
 
-    /* Compute error message size.  Don't count the "%s"s, but reserve
-       room for the terminator.  */
-    yysize = yystrlen(yyformat) - 2 * yycount + 1;
+  /* Compute error message size.  Don't count the "%s"s, but reserve
+     room for the terminator.  */
+  yysize = yystrlen (yyformat) - 2 * yycount + 1;
+  {
+    int yyi;
+    for (yyi = 0; yyi < yycount; ++yyi)
+      {
+        YYPTRDIFF_T yysize1
+          = yysize + yytnamerr (YY_NULLPTR, yytname[yyarg[yyi]]);
+        if (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM)
+          yysize = yysize1;
+        else
+          return YYENOMEM;
+      }
+  }
+
+  if (*yymsg_alloc < yysize)
     {
-        int yyi;
-        for (yyi = 0; yyi < yycount; ++yyi)
+      *yymsg_alloc = 2 * yysize;
+      if (! (yysize <= *yymsg_alloc
+             && *yymsg_alloc <= YYSTACK_ALLOC_MAXIMUM))
+        *yymsg_alloc = YYSTACK_ALLOC_MAXIMUM;
+      return -1;
+    }
+
+  /* Avoid sprintf, as that infringes on the user's name space.
+     Don't have undefined behavior even if the translation
+     produced a string with the wrong number of "%s"s.  */
+  {
+    char *yyp = *yymsg;
+    int yyi = 0;
+    while ((*yyp = *yyformat) != '\0')
+      if (*yyp == '%' && yyformat[1] == 's' && yyi < yycount)
         {
-            YYPTRDIFF_T yysize1
-                = yysize + yytnamerr(YY_NULLPTR, yytname[yyarg[yyi]]);
-            if (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM)
-                yysize = yysize1;
-            else
-                return YYENOMEM;
+          yyp += yytnamerr (yyp, yytname[yyarg[yyi++]]);
+          yyformat += 2;
         }
-    }
-
-    if (*yymsg_alloc < yysize)
-    {
-        *yymsg_alloc = 2 * yysize;
-        if (!(yysize <= *yymsg_alloc
-            && *yymsg_alloc <= YYSTACK_ALLOC_MAXIMUM))
-            *yymsg_alloc = YYSTACK_ALLOC_MAXIMUM;
-        return -1;
-    }
-
-    /* Avoid sprintf, as that infringes on the user's name space.
-       Don't have undefined behavior even if the translation
-       produced a string with the wrong number of "%s"s.  */
-    {
-        char* yyp = *yymsg;
-        int yyi = 0;
-        while ((*yyp = *yyformat) != '\0')
-            if (*yyp == '%' && yyformat[1] == 's' && yyi < yycount)
-            {
-                yyp += yytnamerr(yyp, yytname[yyarg[yyi++]]);
-                yyformat += 2;
-            }
-            else
-            {
-                ++yyp;
-                ++yyformat;
-            }
-    }
-    return 0;
+      else
+        {
+          ++yyp;
+          ++yyformat;
+        }
+  }
+  return 0;
 }
 
 
@@ -1810,17 +1810,17 @@ yysyntax_error(YYPTRDIFF_T* yymsg_alloc, char** yymsg,
 `-----------------------------------------------*/
 
 static void
-yydestruct(const char* yymsg,
-    yysymbol_kind_t yykind, YYSTYPE* yyvaluep)
+yydestruct (const char *yymsg,
+            yysymbol_kind_t yykind, YYSTYPE *yyvaluep)
 {
-    YY_USE(yyvaluep);
-    if (!yymsg)
-        yymsg = "Deleting";
-    YY_SYMBOL_PRINT(yymsg, yykind, yyvaluep, yylocationp);
+  YY_USE (yyvaluep);
+  if (!yymsg)
+    yymsg = "Deleting";
+  YY_SYMBOL_PRINT (yymsg, yykind, yyvaluep, yylocationp);
 
-    YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-        YY_USE(yykind);
-    YY_IGNORE_MAYBE_UNINITIALIZED_END
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YY_USE (yykind);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
@@ -1840,7 +1840,7 @@ int yynerrs;
 `----------*/
 
 int
-yyparse(void)
+yyparse (void)
 {
     yy_state_fast_t yystate = 0;
     /* Number of tokens to shift before error messages enabled.  */
@@ -1849,1492 +1849,1492 @@ yyparse(void)
     /* Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
 
-       /* Their size.  */
+    /* Their size.  */
     YYPTRDIFF_T yystacksize = YYINITDEPTH;
 
     /* The state stack: array, bottom, top.  */
     yy_state_t yyssa[YYINITDEPTH];
-    yy_state_t* yyss = yyssa;
-    yy_state_t* yyssp = yyss;
+    yy_state_t *yyss = yyssa;
+    yy_state_t *yyssp = yyss;
 
     /* The semantic value stack: array, bottom, top.  */
     YYSTYPE yyvsa[YYINITDEPTH];
-    YYSTYPE* yyvs = yyvsa;
-    YYSTYPE* yyvsp = yyvs;
+    YYSTYPE *yyvs = yyvsa;
+    YYSTYPE *yyvsp = yyvs;
 
-    int yyn;
-    /* The return value of yyparse.  */
-    int yyresult;
-    /* Lookahead symbol kind.  */
-    yysymbol_kind_t yytoken = YYSYMBOL_YYEMPTY;
-    /* The variables used to return semantic value and location from the
-       action routines.  */
-    YYSTYPE yyval;
+  int yyn;
+  /* The return value of yyparse.  */
+  int yyresult;
+  /* Lookahead symbol kind.  */
+  yysymbol_kind_t yytoken = YYSYMBOL_YYEMPTY;
+  /* The variables used to return semantic value and location from the
+     action routines.  */
+  YYSTYPE yyval;
 
-    /* Buffer for error messages, and its allocated size.  */
-    char yymsgbuf[128];
-    char* yymsg = yymsgbuf;
-    YYPTRDIFF_T yymsg_alloc = sizeof yymsgbuf;
+  /* Buffer for error messages, and its allocated size.  */
+  char yymsgbuf[128];
+  char *yymsg = yymsgbuf;
+  YYPTRDIFF_T yymsg_alloc = sizeof yymsgbuf;
 
 #define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
 
-    /* The number of symbols on the RHS of the reduced rule.
-       Keep to zero when no symbol should be popped.  */
-    int yylen = 0;
+  /* The number of symbols on the RHS of the reduced rule.
+     Keep to zero when no symbol should be popped.  */
+  int yylen = 0;
 
-    YYDPRINTF((stderr, "Starting parse\n"));
+  YYDPRINTF ((stderr, "Starting parse\n"));
 
-    yychar = YYEMPTY; /* Cause a token to be read.  */
+  yychar = YYEMPTY; /* Cause a token to be read.  */
 
-    goto yysetstate;
+  goto yysetstate;
 
 
-    /*------------------------------------------------------------.
-    | yynewstate -- push a new state, which is found in yystate.  |
-    `------------------------------------------------------------*/
+/*------------------------------------------------------------.
+| yynewstate -- push a new state, which is found in yystate.  |
+`------------------------------------------------------------*/
 yynewstate:
-    /* In all cases, when you get here, the value and location stacks
-       have just been pushed.  So pushing a state here evens the stacks.  */
-    yyssp++;
+  /* In all cases, when you get here, the value and location stacks
+     have just been pushed.  So pushing a state here evens the stacks.  */
+  yyssp++;
 
 
-    /*--------------------------------------------------------------------.
-    | yysetstate -- set current state (the top of the stack) to yystate.  |
-    `--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------.
+| yysetstate -- set current state (the top of the stack) to yystate.  |
+`--------------------------------------------------------------------*/
 yysetstate:
-    YYDPRINTF((stderr, "Entering state %d\n", yystate));
-    YY_ASSERT(0 <= yystate && yystate < YYNSTATES);
-    YY_IGNORE_USELESS_CAST_BEGIN
-        * yyssp = YY_CAST(yy_state_t, yystate);
-    YY_IGNORE_USELESS_CAST_END
-        YY_STACK_PRINT(yyss, yyssp);
+  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+  YY_ASSERT (0 <= yystate && yystate < YYNSTATES);
+  YY_IGNORE_USELESS_CAST_BEGIN
+  *yyssp = YY_CAST (yy_state_t, yystate);
+  YY_IGNORE_USELESS_CAST_END
+  YY_STACK_PRINT (yyss, yyssp);
 
-    if (yyss + yystacksize - 1 <= yyssp)
+  if (yyss + yystacksize - 1 <= yyssp)
 #if !defined yyoverflow && !defined YYSTACK_RELOCATE
-        YYNOMEM;
+    YYNOMEM;
 #else
     {
-        /* Get the current used size of the three stacks, in elements.  */
-        YYPTRDIFF_T yysize = yyssp - yyss + 1;
+      /* Get the current used size of the three stacks, in elements.  */
+      YYPTRDIFF_T yysize = yyssp - yyss + 1;
 
 # if defined yyoverflow
-        {
-            /* Give user a chance to reallocate the stack.  Use copies of
-               these so that the &'s don't force the real ones into
-               memory.  */
-            yy_state_t* yyss1 = yyss;
-            YYSTYPE* yyvs1 = yyvs;
+      {
+        /* Give user a chance to reallocate the stack.  Use copies of
+           these so that the &'s don't force the real ones into
+           memory.  */
+        yy_state_t *yyss1 = yyss;
+        YYSTYPE *yyvs1 = yyvs;
 
-            /* Each stack pointer address is followed by the size of the
-               data in use in that stack, in bytes.  This used to be a
-               conditional around just the two extra args, but that might
-               be undefined if yyoverflow is a macro.  */
-            yyoverflow(YY_("memory exhausted"),
-                &yyss1, yysize * YYSIZEOF(*yyssp),
-                &yyvs1, yysize * YYSIZEOF(*yyvsp),
-                &yystacksize);
-            yyss = yyss1;
-            yyvs = yyvs1;
-        }
+        /* Each stack pointer address is followed by the size of the
+           data in use in that stack, in bytes.  This used to be a
+           conditional around just the two extra args, but that might
+           be undefined if yyoverflow is a macro.  */
+        yyoverflow (YY_("memory exhausted"),
+                    &yyss1, yysize * YYSIZEOF (*yyssp),
+                    &yyvs1, yysize * YYSIZEOF (*yyvsp),
+                    &yystacksize);
+        yyss = yyss1;
+        yyvs = yyvs1;
+      }
 # else /* defined YYSTACK_RELOCATE */
-        /* Extend the stack our own way.  */
-        if (YYMAXDEPTH <= yystacksize)
-            YYNOMEM;
-        yystacksize *= 2;
-        if (YYMAXDEPTH < yystacksize)
-            yystacksize = YYMAXDEPTH;
+      /* Extend the stack our own way.  */
+      if (YYMAXDEPTH <= yystacksize)
+        YYNOMEM;
+      yystacksize *= 2;
+      if (YYMAXDEPTH < yystacksize)
+        yystacksize = YYMAXDEPTH;
 
-        {
-            yy_state_t* yyss1 = yyss;
-            union yyalloc* yyptr =
-                YY_CAST(union yyalloc*,
-                    YYSTACK_ALLOC(YY_CAST(YYSIZE_T, YYSTACK_BYTES(yystacksize))));
-            if (!yyptr)
-                YYNOMEM;
-            YYSTACK_RELOCATE(yyss_alloc, yyss);
-            YYSTACK_RELOCATE(yyvs_alloc, yyvs);
+      {
+        yy_state_t *yyss1 = yyss;
+        union yyalloc *yyptr =
+          YY_CAST (union yyalloc *,
+                   YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
+        if (! yyptr)
+          YYNOMEM;
+        YYSTACK_RELOCATE (yyss_alloc, yyss);
+        YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
-            if (yyss1 != yyssa)
-                YYSTACK_FREE(yyss1);
-        }
+        if (yyss1 != yyssa)
+          YYSTACK_FREE (yyss1);
+      }
 # endif
 
-        yyssp = yyss + yysize - 1;
-        yyvsp = yyvs + yysize - 1;
+      yyssp = yyss + yysize - 1;
+      yyvsp = yyvs + yysize - 1;
 
-        YY_IGNORE_USELESS_CAST_BEGIN
-            YYDPRINTF((stderr, "Stack size increased to %ld\n",
-                YY_CAST(long, yystacksize)));
-        YY_IGNORE_USELESS_CAST_END
+      YY_IGNORE_USELESS_CAST_BEGIN
+      YYDPRINTF ((stderr, "Stack size increased to %ld\n",
+                  YY_CAST (long, yystacksize)));
+      YY_IGNORE_USELESS_CAST_END
 
-            if (yyss + yystacksize - 1 <= yyssp)
-                YYABORT;
+      if (yyss + yystacksize - 1 <= yyssp)
+        YYABORT;
     }
 #endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
 
 
-    if (yystate == YYFINAL)
-        YYACCEPT;
+  if (yystate == YYFINAL)
+    YYACCEPT;
 
-    goto yybackup;
+  goto yybackup;
 
 
-    /*-----------.
-    | yybackup.  |
-    `-----------*/
+/*-----------.
+| yybackup.  |
+`-----------*/
 yybackup:
-    /* Do appropriate processing given the current state.  Read a
-       lookahead token if we need one and don't already have one.  */
+  /* Do appropriate processing given the current state.  Read a
+     lookahead token if we need one and don't already have one.  */
 
-       /* First try to decide what to do without reference to lookahead token.  */
-    yyn = yypact[yystate];
-    if (yypact_value_is_default(yyn))
-        goto yydefault;
+  /* First try to decide what to do without reference to lookahead token.  */
+  yyn = yypact[yystate];
+  if (yypact_value_is_default (yyn))
+    goto yydefault;
 
-    /* Not known => get a lookahead token if don't already have one.  */
+  /* Not known => get a lookahead token if don't already have one.  */
 
-    /* YYCHAR is either empty, or end-of-input, or a valid lookahead.  */
-    if (yychar == YYEMPTY)
+  /* YYCHAR is either empty, or end-of-input, or a valid lookahead.  */
+  if (yychar == YYEMPTY)
     {
-        YYDPRINTF((stderr, "Reading a token\n"));
-        yychar = yylex();
+      YYDPRINTF ((stderr, "Reading a token\n"));
+      yychar = yylex ();
     }
 
-    if (yychar <= YYEOF)
+  if (yychar <= YYEOF)
     {
-        yychar = YYEOF;
-        yytoken = YYSYMBOL_YYEOF;
-        YYDPRINTF((stderr, "Now at end of input.\n"));
+      yychar = YYEOF;
+      yytoken = YYSYMBOL_YYEOF;
+      YYDPRINTF ((stderr, "Now at end of input.\n"));
     }
-    else if (yychar == YYerror)
+  else if (yychar == YYerror)
     {
-        /* The scanner already issued an error message, process directly
-           to error recovery.  But do not keep the error token as
-           lookahead, it is too special and may lead us to an endless
-           loop in error recovery. */
-        yychar = YYUNDEF;
-        yytoken = YYSYMBOL_YYerror;
-        goto yyerrlab1;
+      /* The scanner already issued an error message, process directly
+         to error recovery.  But do not keep the error token as
+         lookahead, it is too special and may lead us to an endless
+         loop in error recovery. */
+      yychar = YYUNDEF;
+      yytoken = YYSYMBOL_YYerror;
+      goto yyerrlab1;
     }
-    else
+  else
     {
-        yytoken = YYTRANSLATE(yychar);
-        YY_SYMBOL_PRINT("Next token is", yytoken, &yylval, &yylloc);
-    }
-
-    /* If the proper action on seeing token YYTOKEN is to reduce or to
-       detect an error, take that action.  */
-    yyn += yytoken;
-    if (yyn < 0 || YYLAST < yyn || yycheck[yyn] != yytoken)
-        goto yydefault;
-    yyn = yytable[yyn];
-    if (yyn <= 0)
-    {
-        if (yytable_value_is_error(yyn))
-            goto yyerrlab;
-        yyn = -yyn;
-        goto yyreduce;
+      yytoken = YYTRANSLATE (yychar);
+      YY_SYMBOL_PRINT ("Next token is", yytoken, &yylval, &yylloc);
     }
 
-    /* Count tokens shifted since error; after three, turn off error
-       status.  */
-    if (yyerrstatus)
-        yyerrstatus--;
-
-    /* Shift the lookahead token.  */
-    YY_SYMBOL_PRINT("Shifting", yytoken, &yylval, &yylloc);
-    yystate = yyn;
-    YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-        * ++yyvsp = yylval;
-    YY_IGNORE_MAYBE_UNINITIALIZED_END
-
-        /* Discard the shifted token.  */
-        yychar = YYEMPTY;
-    goto yynewstate;
-
-
-    /*-----------------------------------------------------------.
-    | yydefault -- do the default action for the current state.  |
-    `-----------------------------------------------------------*/
-yydefault:
-    yyn = yydefact[yystate];
-    if (yyn == 0)
+  /* If the proper action on seeing token YYTOKEN is to reduce or to
+     detect an error, take that action.  */
+  yyn += yytoken;
+  if (yyn < 0 || YYLAST < yyn || yycheck[yyn] != yytoken)
+    goto yydefault;
+  yyn = yytable[yyn];
+  if (yyn <= 0)
+    {
+      if (yytable_value_is_error (yyn))
         goto yyerrlab;
-    goto yyreduce;
+      yyn = -yyn;
+      goto yyreduce;
+    }
+
+  /* Count tokens shifted since error; after three, turn off error
+     status.  */
+  if (yyerrstatus)
+    yyerrstatus--;
+
+  /* Shift the lookahead token.  */
+  YY_SYMBOL_PRINT ("Shifting", yytoken, &yylval, &yylloc);
+  yystate = yyn;
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
+
+  /* Discard the shifted token.  */
+  yychar = YYEMPTY;
+  goto yynewstate;
 
 
-    /*-----------------------------.
-    | yyreduce -- do a reduction.  |
-    `-----------------------------*/
+/*-----------------------------------------------------------.
+| yydefault -- do the default action for the current state.  |
+`-----------------------------------------------------------*/
+yydefault:
+  yyn = yydefact[yystate];
+  if (yyn == 0)
+    goto yyerrlab;
+  goto yyreduce;
+
+
+/*-----------------------------.
+| yyreduce -- do a reduction.  |
+`-----------------------------*/
 yyreduce:
-    /* yyn is the number of a rule to reduce with.  */
-    yylen = yyr2[yyn];
+  /* yyn is the number of a rule to reduce with.  */
+  yylen = yyr2[yyn];
 
-    /* If YYLEN is nonzero, implement the default value of the action:
-       '$$ = $1'.
+  /* If YYLEN is nonzero, implement the default value of the action:
+     '$$ = $1'.
 
-       Otherwise, the following line sets YYVAL to garbage.
-       This behavior is undocumented and Bison
-       users should not rely upon it.  Assigning to YYVAL
-       unconditionally makes the parser a bit smaller, and it avoids a
-       GCC warning that YYVAL may be used uninitialized.  */
-    yyval = yyvsp[1 - yylen];
+     Otherwise, the following line sets YYVAL to garbage.
+     This behavior is undocumented and Bison
+     users should not rely upon it.  Assigning to YYVAL
+     unconditionally makes the parser a bit smaller, and it avoids a
+     GCC warning that YYVAL may be used uninitialized.  */
+  yyval = yyvsp[1-yylen];
 
 
-    YY_REDUCE_PRINT(yyn);
-    switch (yyn)
+  YY_REDUCE_PRINT (yyn);
+  switch (yyn)
     {
-    case 2: /* root: program_items_list  */
+  case 2: /* root: program_items_list  */
 #line 279 "parser.y"
-    {(yyval.programItemList) /*= root*/ = (yyvsp[0].programItemList); }
+                         {(yyval.programItemList) /*= root*/ = (yyvsp[0].programItemList);}
 #line 2091 "parser.tab.c"
     break;
 
-    case 3: /* program_items_list: %empty  */
+  case 3: /* program_items_list: %empty  */
 #line 282 "parser.y"
-    {(yyval.programItemList) = 0; }
+                    {(yyval.programItemList) = 0;}
 #line 2097 "parser.tab.c"
     break;
 
-    case 4: /* program_items_list: program_items_list_not_empty  */
+  case 4: /* program_items_list: program_items_list_not_empty  */
 #line 283 "parser.y"
-    {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty)); }
+                                                {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty));}
 #line 2103 "parser.tab.c"
     break;
 
-    case 5: /* program_items_list_not_empty: program_item  */
+  case 5: /* program_items_list_not_empty: program_item  */
 #line 286 "parser.y"
-    { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); }
+                                           { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); }
 #line 2109 "parser.tab.c"
     break;
 
-    case 6: /* program_items_list_not_empty: program_items_list_not_empty program_item  */
+  case 6: /* program_items_list_not_empty: program_items_list_not_empty program_item  */
 #line 287 "parser.y"
-    { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty), (yyvsp[0].programItem)); }
+                                                                        { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty),(yyvsp[0].programItem)); }
 #line 2115 "parser.tab.c"
     break;
 
-    case 7: /* program_item: module  */
+  case 7: /* program_item: module  */
 #line 290 "parser.y"
-    {(yyval.programItem) = createProgramItem((yyvsp[0].module), 0); }
+                     {(yyval.programItem) = createProgramItem((yyvsp[0].module),0);}
 #line 2121 "parser.tab.c"
     break;
 
-    case 8: /* program_item: IMPORTS IDENTIFIER stmt_ends  */
+  case 8: /* program_item: IMPORTS IDENTIFIER stmt_ends  */
 #line 291 "parser.y"
-    {(yyval.programItem) = createProgramItem(0, (yyvsp[-1].id_var_name)); }
+                                             {(yyval.programItem) =  createProgramItem(0,(yyvsp[-1].id_var_name));}
 #line 2127 "parser.tab.c"
     break;
 
-    case 9: /* module: MODULE IDENTIFIER stmt_ends END MODULE  */
+  case 9: /* module: MODULE IDENTIFIER stmt_ends END MODULE  */
 #line 295 "parser.y"
-    {(yyval.module) = createModule((yyvsp[-3].id_var_name), 0); }
+                                               {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
 #line 2133 "parser.tab.c"
     break;
 
-    case 10: /* module: MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
+  case 10: /* module: MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
 #line 296 "parser.y"
-    {(yyval.module) = createModule((yyvsp[-4].id_var_name), (yyvsp[-2].functionOrSubList)); }
+                                                                     {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
 #line 2139 "parser.tab.c"
     break;
 
-    case 11: /* module: access MODULE IDENTIFIER stmt_ends END MODULE  */
+  case 11: /* module: access MODULE IDENTIFIER stmt_ends END MODULE  */
 #line 297 "parser.y"
-    {(yyval.module) = createModule((yyvsp[-3].id_var_name), 0); }
+                                                      {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
 #line 2145 "parser.tab.c"
     break;
 
-    case 12: /* module: access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
+  case 12: /* module: access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
 #line 298 "parser.y"
-    {(yyval.module) = createModule((yyvsp[-4].id_var_name), (yyvsp[-2].functionOrSubList)); }
+                                                                            {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
 #line 2151 "parser.tab.c"
     break;
 
-    case 13: /* functions_or_sub_list: function_or_sub  */
+  case 13: /* functions_or_sub_list: function_or_sub  */
 #line 302 "parser.y"
-    {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub)); }
+                                       {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub));}
 #line 2157 "parser.tab.c"
     break;
 
-    case 14: /* functions_or_sub_list: functions_or_sub_list stmt_ends function_or_sub  */
+  case 14: /* functions_or_sub_list: functions_or_sub_list stmt_ends function_or_sub  */
 #line 303 "parser.y"
-    {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-2].functionOrSubList), (yyvsp[0].functionOrSub)); }
+                                                                       {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-2].functionOrSubList),(yyvsp[0].functionOrSub));}
 #line 2163 "parser.tab.c"
     break;
 
-    case 15: /* function_or_sub: function  */
+  case 15: /* function_or_sub: function  */
 #line 306 "parser.y"
-    {(yyval.functionOrSub) = createFunctionOrSub(0, (yyvsp[0].function)); }
+                          {(yyval.functionOrSub) = createFunctionOrSub(0,(yyvsp[0].function));}
 #line 2169 "parser.tab.c"
     break;
 
-    case 16: /* function_or_sub: sub_bloc  */
+  case 16: /* function_or_sub: sub_bloc  */
 #line 307 "parser.y"
-    {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc), 0); }
+                          {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc),0);}
 #line 2175 "parser.tab.c"
     break;
 
-    case 17: /* function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
+  case 17: /* function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
 #line 310 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-4].id_var_name), (yyvsp[-3].expressionList), 0, 0); }
+                                                               {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0);}
 #line 2181 "parser.tab.c"
     break;
 
-    case 18: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
+  case 18: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
 #line 311 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-7].id_var_name), (yyvsp[-6].expressionList), 0, (yyvsp[-3].expression)); }
+                                                                                                {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2187 "parser.tab.c"
     break;
 
-    case 19: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
+  case 19: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
 #line 312 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-7].id_var_name), (yyvsp[-6].expressionList), 0, (yyvsp[-3].expression)); }
+                                                                                               {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2193 "parser.tab.c"
     break;
 
-    case 20: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
+  case 20: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
 #line 313 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-5].id_var_name), (yyvsp[-4].expressionList), (yyvsp[-2].stmtList), 0); }
+                                                                         {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
 #line 2199 "parser.tab.c"
     break;
 
-    case 21: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
+  case 21: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
 #line 314 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-8].id_var_name), (yyvsp[-7].expressionList), (yyvsp[-5].stmtList), (yyvsp[-3].expression)); }
+                                                                                                          {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2205 "parser.tab.c"
     break;
 
-    case 22: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
+  case 22: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
 #line 315 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-8].id_var_name), (yyvsp[-7].expressionList), (yyvsp[-5].stmtList), (yyvsp[-3].expression)); }
+                                                                                                         {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2211 "parser.tab.c"
     break;
 
-    case 23: /* function: access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
+  case 23: /* function: access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
 #line 316 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-4].id_var_name), (yyvsp[-3].expressionList), 0, 0, 0); }
+                                                                      {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0,0);}
 #line 2217 "parser.tab.c"
     break;
 
-    case 24: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
+  case 24: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
 #line 317 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-7].id_var_name), (yyvsp[-6].expressionList), 0, (yyvsp[-3].expression)); }
+                                                                                                       {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2223 "parser.tab.c"
     break;
 
-    case 25: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
+  case 25: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
 #line 318 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-7].id_var_name), (yyvsp[-6].expressionList), 0, (yyvsp[-3].expression)); }
+                                                                                                      {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
 #line 2229 "parser.tab.c"
     break;
 
-    case 26: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
+  case 26: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
 #line 319 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-5].id_var_name), (yyvsp[-4].expressionList), (yyvsp[-2].stmtList), 0); }
+                                                                                {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
 #line 2235 "parser.tab.c"
     break;
 
-    case 27: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
+  case 27: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
 #line 320 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-8].id_var_name), (yyvsp[-7].expressionList), (yyvsp[-5].stmtList), (yyvsp[-3].expression)); }
+                                                                                                                 {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2241 "parser.tab.c"
     break;
 
-    case 28: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
+  case 28: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
 #line 321 "parser.y"
-    {(yyval.function) = createFunction((yyvsp[-8].id_var_name), (yyvsp[-7].expressionList), (yyvsp[-5].stmtList), (yyvsp[-3].expression)); }
+                                                                                                                {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
 #line 2247 "parser.tab.c"
     break;
 
-    case 29: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
+  case 29: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
 #line 325 "parser.y"
-    {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name), (yyvsp[-4].parameterListOrEmpty), 0); }
+                                                                        {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
 #line 2253 "parser.tab.c"
     break;
 
-    case 30: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
+  case 30: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
 #line 326 "parser.y"
-    {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name), (yyvsp[-5].parameterListOrEmpty), (yyvsp[-2].stmtList)); }
+                                                                                  {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
 #line 2259 "parser.tab.c"
     break;
 
-    case 31: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
+  case 31: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
 #line 327 "parser.y"
-    {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name), (yyvsp[-4].parameterListOrEmpty), 0); }
+                                                                               {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
 #line 2265 "parser.tab.c"
     break;
 
-    case 32: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
+  case 32: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
 #line 328 "parser.y"
-    {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name), (yyvsp[-5].parameterListOrEmpty), (yyvsp[-2].stmtList)); }
+                                                                                         {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
 #line 2271 "parser.tab.c"
     break;
 
-    case 33: /* parameterlist_or_empty: %empty  */
+  case 33: /* parameterlist_or_empty: %empty  */
 #line 331 "parser.y"
-    {(yyval.parameterListOrEmpty) = 0; }
+                         {(yyval.parameterListOrEmpty) = 0;}
 #line 2277 "parser.tab.c"
     break;
 
-    case 34: /* parameterlist_or_empty: parameterlist_with_type  */
+  case 34: /* parameterlist_or_empty: parameterlist_with_type  */
 #line 332 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0); }
+                                                {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
 #line 2283 "parser.tab.c"
     break;
 
-    case 35: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type END_OF_LINE  */
+  case 35: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type END_OF_LINE  */
 #line 333 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0); }
+                                                                        {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
 #line 2289 "parser.tab.c"
     break;
 
-    case 36: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type  */
+  case 36: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type  */
 #line 334 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0); }
+                                                            {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
 #line 2295 "parser.tab.c"
     break;
 
-    case 37: /* parameterlist_or_empty: parameterlist_with_type END_OF_LINE  */
+  case 37: /* parameterlist_or_empty: parameterlist_with_type END_OF_LINE  */
 #line 335 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0); }
+                                                            {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
 #line 2301 "parser.tab.c"
     break;
 
-    case 38: /* parameterlist_or_empty: parameterlist_without_type  */
+  case 38: /* parameterlist_or_empty: parameterlist_without_type  */
 #line 336 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType)); }
+                                                   {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
 #line 2307 "parser.tab.c"
     break;
 
-    case 39: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type END_OF_LINE  */
+  case 39: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type END_OF_LINE  */
 #line 337 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType)); }
+                                                                           {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
 #line 2313 "parser.tab.c"
     break;
 
-    case 40: /* parameterlist_or_empty: parameterlist_without_type END_OF_LINE  */
+  case 40: /* parameterlist_or_empty: parameterlist_without_type END_OF_LINE  */
 #line 338 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType)); }
+                                                               {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
 #line 2319 "parser.tab.c"
     break;
 
-    case 41: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type  */
+  case 41: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type  */
 #line 339 "parser.y"
-    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType)); }
+                                                               {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
 #line 2325 "parser.tab.c"
     break;
 
-    case 42: /* parameterlist_with_type: parameter_with_type  */
+  case 42: /* parameterlist_with_type: parameter_with_type  */
 #line 342 "parser.y"
-    {(yyval.parameterListWithType) = createParameterListWithType((yyvsp[0].parameterWithType)); }
+                                             {(yyval.parameterListWithType) = createParameterListWithType((yyvsp[0].parameterWithType));}
 #line 2331 "parser.tab.c"
     break;
 
-    case 43: /* parameterlist_with_type: parameterlist_with_type ',' parameter_with_type  */
+  case 43: /* parameterlist_with_type: parameterlist_with_type ',' parameter_with_type  */
 #line 343 "parser.y"
-    {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-2].parameterListWithType), (yyvsp[0].parameterWithType)); }
+                                                                         {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-2].parameterListWithType),(yyvsp[0].parameterWithType));}
 #line 2337 "parser.tab.c"
     break;
 
-    case 44: /* parameterlist_with_type: parameterlist_with_type ',' END_OF_LINE parameter_with_type  */
+  case 44: /* parameterlist_with_type: parameterlist_with_type ',' END_OF_LINE parameter_with_type  */
 #line 344 "parser.y"
-    {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-3].parameterListWithType), (yyvsp[0].parameterWithType)); }
+                                                                                     {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-3].parameterListWithType),(yyvsp[0].parameterWithType));}
 #line 2343 "parser.tab.c"
     break;
 
-    case 45: /* parameterlist_without_type: parameter_without_type  */
+  case 45: /* parameterlist_without_type: parameter_without_type  */
 #line 348 "parser.y"
-    {(yyval.parameterListWithoutType) = createParameterListWithoutType((yyvsp[0].parameterWithoutType)); }
+                                                   {(yyval.parameterListWithoutType) = createParameterListWithoutType((yyvsp[0].parameterWithoutType));}
 #line 2349 "parser.tab.c"
     break;
 
-    case 46: /* parameterlist_without_type: parameterlist_without_type ',' parameter_without_type  */
+  case 46: /* parameterlist_without_type: parameterlist_without_type ',' parameter_without_type  */
 #line 349 "parser.y"
-    {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-2].parameterListWithoutType), (yyvsp[0].parameterWithoutType)); }
+                                                                                  {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-2].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
 #line 2355 "parser.tab.c"
     break;
 
-    case 47: /* parameterlist_without_type: parameterlist_without_type ',' END_OF_LINE parameter_without_type  */
+  case 47: /* parameterlist_without_type: parameterlist_without_type ',' END_OF_LINE parameter_without_type  */
 #line 350 "parser.y"
-    {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-3].parameterListWithoutType), (yyvsp[0].parameterWithoutType)); }
+                                                                                              {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-3].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
 #line 2361 "parser.tab.c"
     break;
 
-    case 48: /* parameter_with_type: IDENTIFIER AS basic_literal  */
+  case 48: /* parameter_with_type: IDENTIFIER AS basic_literal  */
 #line 354 "parser.y"
-    {(yyval.parameterWithType) = createParameterWithType((yyvsp[-2].id_var_name), (yyvsp[0].basic_literal)); }
+                                                 {(yyval.parameterWithType) = createParameterWithType((yyvsp[-2].id_var_name),(yyvsp[0].basic_literal));}
 #line 2367 "parser.tab.c"
     break;
 
-    case 49: /* parameter_with_type: IDENTIFIER AS basic_literal '(' ')'  */
+  case 49: /* parameter_with_type: IDENTIFIER AS basic_literal '(' ')'  */
 #line 355 "parser.y"
-    {(yyval.parameterWithType) = createParameterWithType((yyvsp[-4].id_var_name), (yyvsp[-2].basic_literal)); }
+                                                          {(yyval.parameterWithType) = createParameterWithType((yyvsp[-4].id_var_name),(yyvsp[-2].basic_literal));}
 #line 2373 "parser.tab.c"
     break;
 
-    case 50: /* parameter_without_type: IDENTIFIER  */
+  case 50: /* parameter_without_type: IDENTIFIER  */
 #line 359 "parser.y"
-    {(yyval.parameterWithoutType) = createParameterWithoutType((yyvsp[0].id_var_name)); }
+                                   {(yyval.parameterWithoutType) = createParameterWithoutType((yyvsp[0].id_var_name));}
 #line 2379 "parser.tab.c"
     break;
 
-    case 51: /* stmt_list: stmt  */
+  case 51: /* stmt_list: stmt  */
 #line 365 "parser.y"
-    { (yyval.stmtList) = createStmtList((yyvsp[0].statement)); }
+                { (yyval.stmtList) = createStmtList((yyvsp[0].statement)); }
 #line 2385 "parser.tab.c"
     break;
 
-    case 52: /* stmt_list: stmt_list stmt  */
+  case 52: /* stmt_list: stmt_list stmt  */
 #line 366 "parser.y"
-    { (yyval.stmtList) = appendStmtList((yyvsp[-1].stmtList), (yyvsp[0].statement)); }
+                          { (yyval.stmtList) = appendStmtList((yyvsp[-1].stmtList),(yyvsp[0].statement)); }
 #line 2391 "parser.tab.c"
     break;
 
-    case 53: /* stmt: multi_line_stmt  */
+  case 53: /* stmt: multi_line_stmt  */
 #line 370 "parser.y"
-    {(yyval.statement) = createStatement(ST_MULTI, (StmtValue) { .statementMulti = (yyvsp[0].statementMulti) }); }
+                      {(yyval.statement) = createStatement(ST_MULTI, (StmtValue){.statementMulti=(yyvsp[0].statementMulti)});}
 #line 2397 "parser.tab.c"
     break;
 
-    case 54: /* stmt: single_line_stmt stmt_ends  */
+  case 54: /* stmt: single_line_stmt stmt_ends  */
 #line 371 "parser.y"
-    {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue) { .statementSingle = (yyvsp[-1].statementSingle) }); }
+                                 {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue){.statementSingle=(yyvsp[-1].statementSingle)});}
 #line 2403 "parser.tab.c"
     break;
 
-    case 55: /* single_line_stmt: if_stmt_single_line  */
+  case 55: /* single_line_stmt: if_stmt_single_line  */
 #line 375 "parser.y"
-    {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue) { .ifStmtSingle = (yyvsp[0].ifStmtSingle) }); }
+                                      {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue){.ifStmtSingle=(yyvsp[0].ifStmtSingle)});}
 #line 2409 "parser.tab.c"
     break;
 
-    case 56: /* single_line_stmt: decl_stmt_single_line  */
+  case 56: /* single_line_stmt: decl_stmt_single_line  */
 #line 376 "parser.y"
-    {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue) { .declStmtSingle = (yyvsp[0].declStmtSingle) }); }
+                                                        {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue){.declStmtSingle=(yyvsp[0].declStmtSingle)});}
 #line 2415 "parser.tab.c"
     break;
 
-    case 57: /* single_line_stmt: expr_singleline  */
+  case 57: /* single_line_stmt: expr_singleline  */
 #line 377 "parser.y"
-    {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtSingleValue) { .expression = (yyvsp[0].expression) }); }
+                                                  {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtSingleValue){.expression=(yyvsp[0].expression)});}
 #line 2421 "parser.tab.c"
     break;
 
-    case 58: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
+  case 58: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
 #line 380 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtMultiValue) { .ifStmtMulti = (yyvsp[-1].ifStmtMulti) }); }
+                                              {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtMultiValue){.ifStmtMulti=(yyvsp[-1].ifStmtMulti)});}
 #line 2427 "parser.tab.c"
     break;
 
-    case 59: /* multi_line_stmt: decl_stmt stmt_ends  */
+  case 59: /* multi_line_stmt: decl_stmt stmt_ends  */
 #line 381 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue) { .declStmtMulti = (yyvsp[-1].declStmtMulti) }); }
+                                     {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue){.declStmtMulti=(yyvsp[-1].declStmtMulti)});}
 #line 2433 "parser.tab.c"
     break;
 
-    case 60: /* multi_line_stmt: expr_multiline stmt_ends  */
+  case 60: /* multi_line_stmt: expr_multiline stmt_ends  */
 #line 382 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtMultiValue) { .expression = (yyvsp[-1].expression) }); }
+                                          {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtMultiValue){.expression=(yyvsp[-1].expression)});}
 #line 2439 "parser.tab.c"
     break;
 
-    case 61: /* multi_line_stmt: while_stmt stmt_ends  */
+  case 61: /* multi_line_stmt: while_stmt stmt_ends  */
 #line 383 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue) { .whileStmt = (yyvsp[-1].whileStmt) }); }
+                                      {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue){.whileStmt=(yyvsp[-1].whileStmt)});}
 #line 2445 "parser.tab.c"
     break;
 
-    case 62: /* multi_line_stmt: do_loop_stmt  */
+  case 62: /* multi_line_stmt: do_loop_stmt  */
 #line 384 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue) { .doLoopStmt = (yyvsp[0].doLoopStmt) }); }
+                                          {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue){.doLoopStmt=(yyvsp[0].doLoopStmt)});}
 #line 2451 "parser.tab.c"
     break;
 
-    case 63: /* multi_line_stmt: for_loop_stmt  */
+  case 63: /* multi_line_stmt: for_loop_stmt  */
 #line 385 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue) { .forLoopStmt = (yyvsp[0].forLoopStmt) }); }
+                                           {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue){.forLoopStmt=(yyvsp[0].forLoopStmt)});}
 #line 2457 "parser.tab.c"
     break;
 
-    case 64: /* multi_line_stmt: for_each_loop_stmt  */
+  case 64: /* multi_line_stmt: for_each_loop_stmt  */
 #line 386 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue) { .forEachLoopStmt = (yyvsp[0].forEachLoopStmt) }); }
+                                                {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue){.forEachLoopStmt=(yyvsp[0].forEachLoopStmt)});}
 #line 2463 "parser.tab.c"
     break;
 
-    case 65: /* multi_line_stmt: select_stmt stmt_ends  */
+  case 65: /* multi_line_stmt: select_stmt stmt_ends  */
 #line 387 "parser.y"
-    {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue) { .selectStmt = (yyvsp[-1].selectStmt) }); }
+                                       {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue){.selectStmt=(yyvsp[-1].selectStmt)});}
 #line 2469 "parser.tab.c"
     break;
 
-    case 66: /* stmt_ends: END_OF_LINE  */
+  case 66: /* stmt_ends: END_OF_LINE  */
 #line 392 "parser.y"
-    {(yyval.stmtEnds) = createStmtEnds(); }
+                       { }
 #line 2475 "parser.tab.c"
     break;
 
-    case 67: /* stmt_ends: stmt_ends END_OF_LINE  */
+  case 67: /* stmt_ends: stmt_ends END_OF_LINE  */
 #line 393 "parser.y"
-    {(yyval.stmtEnds) = createStmtEnds(); }
+                            { }
 #line 2481 "parser.tab.c"
     break;
 
-    case 68: /* decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
+  case 68: /* decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
 #line 399 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression)); }
+                                                                          {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
 #line 2487 "parser.tab.c"
     break;
 
-    case 69: /* decl_stmt: CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
+  case 69: /* decl_stmt: CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
 #line 400 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression)); }
+                                                                                     {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
 #line 2493 "parser.tab.c"
     break;
 
-    case 70: /* decl_stmt: DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
+  case 70: /* decl_stmt: DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
 #line 401 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression)); }
+                                                                        {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameMulti), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
 #line 2499 "parser.tab.c"
     break;
 
-    case 71: /* decl_stmt: DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
+  case 71: /* decl_stmt: DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
 #line 402 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression)); }
+                                                                                   {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameSingle), (yyvsp[-3].basic_literal), (yyvsp[0].expression));}
 #line 2505 "parser.tab.c"
     break;
 
-    case 72: /* decl_stmt: DIM var_name '=' END_OF_LINE expr_multiline  */
+  case 72: /* decl_stmt: DIM var_name '=' END_OF_LINE expr_multiline  */
 #line 403 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameMulti), 0, (yyvsp[0].expression)); }
+                                                       {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameMulti), 0, (yyvsp[0].expression));}
 #line 2511 "parser.tab.c"
     break;
 
-    case 73: /* decl_stmt: DIM var_name_singleline '=' END_OF_LINE expr_multiline  */
+  case 73: /* decl_stmt: DIM var_name_singleline '=' END_OF_LINE expr_multiline  */
 #line 404 "parser.y"
-    {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameSingle), 0, (yyvsp[0].expression)); }
+                                                                  {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameSingle), 0, (yyvsp[0].expression));}
 #line 2517 "parser.tab.c"
     break;
 
-    case 74: /* decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline  */
+  case 74: /* decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline  */
 #line 408 "parser.y"
-    {(yyval.declStmtSingle) = createDeclStmtSingle(1, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression)); }
+                                                                                      {(yyval.declStmtSingle) = createDeclStmtSingle(1, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression));}
 #line 2523 "parser.tab.c"
     break;
 
-    case 75: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal '=' expr_singleline  */
+  case 75: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal '=' expr_singleline  */
 #line 409 "parser.y"
-    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression)); }
+                                                                                                        {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-4].varNameSingle), (yyvsp[-2].basic_literal), (yyvsp[0].expression));}
 #line 2529 "parser.tab.c"
     break;
 
-    case 76: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal  */
+  case 76: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal  */
 #line 410 "parser.y"
-    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), (yyvsp[0].basic_literal), 0); }
+                                                                                    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), (yyvsp[0].basic_literal), 0);}
 #line 2535 "parser.tab.c"
     break;
 
-    case 77: /* decl_stmt_single_line: DIM var_name_singleline '=' expr_singleline  */
+  case 77: /* decl_stmt_single_line: DIM var_name_singleline '=' expr_singleline  */
 #line 411 "parser.y"
-    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), 0, (yyvsp[0].expression)); }
+                                                                                       {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), 0, (yyvsp[0].expression));}
 #line 2541 "parser.tab.c"
     break;
 
-    case 78: /* decl_stmt_single_line: DIM var_name_singleline  */
+  case 78: /* decl_stmt_single_line: DIM var_name_singleline  */
 #line 412 "parser.y"
-    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[0].varNameSingle), 0, 0); }
+                                                                   {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[0].varNameSingle), 0, 0);}
 #line 2547 "parser.tab.c"
     break;
 
-    case 79: /* decl_stmt_single_line: DIM var_name_singleline '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
+  case 79: /* decl_stmt_single_line: DIM var_name_singleline '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
 #line 413 "parser.y"
-    {}
+                                                                                             {}
 #line 2553 "parser.tab.c"
     break;
 
-    case 80: /* var_name: IDENTIFIER '(' expr_multiline ')'  */
+  case 80: /* var_name: IDENTIFIER '(' expr_multiline ')'  */
 #line 417 "parser.y"
-    {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); }
+                                           {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
 #line 2559 "parser.tab.c"
     break;
 
-    case 81: /* var_name_singleline: IDENTIFIER '(' expr_singleline ')'  */
+  case 81: /* var_name_singleline: IDENTIFIER '(' expr_singleline ')'  */
 #line 420 "parser.y"
-    {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); }
+                                                       {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
 #line 2565 "parser.tab.c"
     break;
 
-    case 82: /* var_name_singleline: IDENTIFIER  */
+  case 82: /* var_name_singleline: IDENTIFIER  */
 #line 421 "parser.y"
-    {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0); }
+                     {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0);}
 #line 2571 "parser.tab.c"
     break;
 
-    case 89: /* while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE  */
+  case 89: /* while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE  */
 #line 436 "parser.y"
-    {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList)); }
+                                                               {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2577 "parser.tab.c"
     break;
 
-    case 90: /* while_stmt: WHILE expr_singleline stmt_ends stmt_list END WHILE  */
+  case 90: /* while_stmt: WHILE expr_singleline stmt_ends stmt_list END WHILE  */
 #line 437 "parser.y"
-    {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList)); }
+                                                                {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2583 "parser.tab.c"
     break;
 
-    case 91: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP  */
+  case 91: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP  */
 #line 442 "parser.y"
-    {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-2].doLoopCondition), (yyvsp[-1].stmtList)); }
+                                                  {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-2].doLoopCondition), (yyvsp[-1].stmtList));}
 #line 2589 "parser.tab.c"
     break;
 
-    case 92: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
+  case 92: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
 #line 443 "parser.y"
-    {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList)); }
+                                                                        {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList));}
 #line 2595 "parser.tab.c"
     break;
 
-    case 93: /* do_loop_condition: UNTIL expr_singleline stmt_ends  */
+  case 93: /* do_loop_condition: UNTIL expr_singleline stmt_ends  */
 #line 446 "parser.y"
-    {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression)); }
+                                                   {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression));}
 #line 2601 "parser.tab.c"
     break;
 
-    case 94: /* do_loop_condition: WHILE expr_singleline stmt_ends  */
+  case 94: /* do_loop_condition: WHILE expr_singleline stmt_ends  */
 #line 447 "parser.y"
-    {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression)); }
+                                                                   {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression));}
 #line 2607 "parser.tab.c"
     break;
 
-    case 95: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT  */
+  case 95: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT  */
 #line 452 "parser.y"
-    {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-9].id_var_name), (yyvsp[-7].basic_literal), (yyvsp[-5].expression), (yyvsp[-3].expression), 0, (yyvsp[-1].stmtList)); }
+                                                                                                                       {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-9].id_var_name), (yyvsp[-7].basic_literal), (yyvsp[-5].expression), (yyvsp[-3].expression), 0, (yyvsp[-1].stmtList));}
 #line 2613 "parser.tab.c"
     break;
 
-    case 96: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT  */
+  case 96: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT  */
 #line 453 "parser.y"
-    {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-11].id_var_name), (yyvsp[-9].basic_literal), (yyvsp[-7].expression), (yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].stmtList)); }
+                                                                                                                                                            {(yyval.forLoopStmt) = createIfStmtMulti((yyvsp[-11].id_var_name), (yyvsp[-9].basic_literal), (yyvsp[-7].expression), (yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].stmtList));}
 #line 2619 "parser.tab.c"
     break;
 
-    case 97: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT  */
+  case 97: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT  */
 #line 458 "parser.y"
-    {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-7].id_var_name), (yyvsp[-5].basic_literal), (yyvsp[-3].id_var_name), (yyvsp[-1].stmtList)); }
+                                                                                                {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-7].id_var_name), (yyvsp[-5].basic_literal), (yyvsp[-3].id_var_name), (yyvsp[-1].stmtList));}
 #line 2625 "parser.tab.c"
     break;
 
-    case 98: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF  */
+  case 98: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF  */
 #line 463 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0); }
+                                                                      {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
 #line 2631 "parser.tab.c"
     break;
 
-    case 99: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list END IF  */
+  case 99: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list END IF  */
 #line 464 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0); }
+                                                                       {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
 #line 2637 "parser.tab.c"
     break;
 
-    case 100: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
+  case 100: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
 #line 465 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList)); }
+                                                                                                     {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
 #line 2643 "parser.tab.c"
     break;
 
-    case 101: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
+  case 101: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
 #line 466 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList)); }
+                                                                                                      {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
 #line 2649 "parser.tab.c"
     break;
 
-    case 102: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF  */
+  case 102: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF  */
 #line 467 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0); }
+                                                                                  {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
 #line 2655 "parser.tab.c"
     break;
 
-    case 103: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF  */
+  case 103: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF  */
 #line 468 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0); }
+                                                                                   {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
 #line 2661 "parser.tab.c"
     break;
 
-    case 104: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
+  case 104: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
 #line 469 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList)); }
+                                                                                                                 {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
 #line 2667 "parser.tab.c"
     break;
 
-    case 105: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
+  case 105: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
 #line 470 "parser.y"
-    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList)); }
+                                                                                                                  {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
 #line 2673 "parser.tab.c"
     break;
 
-    case 106: /* elseif_list: elseif  */
+  case 106: /* elseif_list: elseif  */
 #line 473 "parser.y"
-    {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf)); }
+                    {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf));}
 #line 2679 "parser.tab.c"
     break;
 
-    case 107: /* elseif_list: elseif_list elseif  */
+  case 107: /* elseif_list: elseif_list elseif  */
 #line 474 "parser.y"
-    {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf)); }
+                                {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf));}
 #line 2685 "parser.tab.c"
     break;
 
-    case 108: /* elseif: ELSEIF expr_multiline THEN stmt_list  */
+  case 108: /* elseif: ELSEIF expr_multiline THEN stmt_list  */
 #line 477 "parser.y"
-    {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                             {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2691 "parser.tab.c"
     break;
 
-    case 109: /* elseif: ELSEIF expr_singleline THEN stmt_list  */
+  case 109: /* elseif: ELSEIF expr_singleline THEN stmt_list  */
 #line 478 "parser.y"
-    {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                              {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2697 "parser.tab.c"
     break;
 
-    case 110: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt  */
+  case 110: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt  */
 #line 480 "parser.y"
-    {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0); }
+                                                               {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0);}
 #line 2703 "parser.tab.c"
     break;
 
-    case 111: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  */
+  case 111: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  */
 #line 481 "parser.y"
-    {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle)); }
+                                                                                     {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle));}
 #line 2709 "parser.tab.c"
     break;
 
-    case 112: /* select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT  */
+  case 112: /* select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT  */
 #line 486 "parser.y"
-    {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList)); }
+                                                                        {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
 #line 2715 "parser.tab.c"
     break;
 
-    case 113: /* select_stmt: SELECT CASE expr_multiline stmt_ends case_list END SELECT  */
+  case 113: /* select_stmt: SELECT CASE expr_multiline stmt_ends case_list END SELECT  */
 #line 487 "parser.y"
-    {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList)); }
+                                                                       {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
 #line 2721 "parser.tab.c"
     break;
 
-    case 114: /* case_list: case_stmt  */
+  case 114: /* case_list: case_stmt  */
 #line 490 "parser.y"
-    {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt)); }
+                     {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt));}
 #line 2727 "parser.tab.c"
     break;
 
-    case 115: /* case_list: case_list case_stmt  */
+  case 115: /* case_list: case_list case_stmt  */
 #line 491 "parser.y"
-    {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt)); }
+                                      {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt));}
 #line 2733 "parser.tab.c"
     break;
 
-    case 116: /* case_stmt: CASE expr_multiline stmt_ends stmt_list  */
+  case 116: /* case_stmt: CASE expr_multiline stmt_ends stmt_list  */
 #line 494 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList)); }
+                                                   {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2739 "parser.tab.c"
     break;
 
-    case 117: /* case_stmt: CASE expr_singleline stmt_ends stmt_list  */
+  case 117: /* case_stmt: CASE expr_singleline stmt_ends stmt_list  */
 #line 495 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList)); }
+                                                   {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2745 "parser.tab.c"
     break;
 
-    case 118: /* case_stmt: CASE IS expr_multiline stmt_ends stmt_list  */
+  case 118: /* case_stmt: CASE IS expr_multiline stmt_ends stmt_list  */
 #line 496 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList)); }
+                                                     {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2751 "parser.tab.c"
     break;
 
-    case 119: /* case_stmt: CASE IS expr_singleline stmt_ends stmt_list  */
+  case 119: /* case_stmt: CASE IS expr_singleline stmt_ends stmt_list  */
 #line 497 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList)); }
+                                                      {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
 #line 2757 "parser.tab.c"
     break;
 
-    case 120: /* case_stmt: CASE expr_multiline TO expr_multiline stmt_ends stmt_list  */
+  case 120: /* case_stmt: CASE expr_multiline TO expr_multiline stmt_ends stmt_list  */
 #line 498 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                                                    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2763 "parser.tab.c"
     break;
 
-    case 121: /* case_stmt: CASE expr_multiline TO expr_singleline stmt_ends stmt_list  */
+  case 121: /* case_stmt: CASE expr_multiline TO expr_singleline stmt_ends stmt_list  */
 #line 499 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                                                     {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2769 "parser.tab.c"
     break;
 
-    case 122: /* case_stmt: CASE expr_singleline TO expr_multiline stmt_ends stmt_list  */
+  case 122: /* case_stmt: CASE expr_singleline TO expr_multiline stmt_ends stmt_list  */
 #line 500 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                                                     {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2775 "parser.tab.c"
     break;
 
-    case 123: /* case_stmt: CASE expr_singleline TO expr_singleline stmt_ends stmt_list  */
+  case 123: /* case_stmt: CASE expr_singleline TO expr_singleline stmt_ends stmt_list  */
 #line 501 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList)); }
+                                                                      {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
 #line 2781 "parser.tab.c"
     break;
 
-    case 124: /* case_stmt: CASE ELSE stmt_ends stmt_list  */
+  case 124: /* case_stmt: CASE ELSE stmt_ends stmt_list  */
 #line 502 "parser.y"
-    {(yyval.caseStmt) = createCaseStmt(0, 0, 0, (yyvsp[0].stmtList)); }
+                                        {(yyval.caseStmt) = createCaseStmt(0, 0, 0, (yyvsp[0].stmtList));}
 #line 2787 "parser.tab.c"
     break;
 
-    case 125: /* expr_singleline: basic_literal_value  */
+  case 125: /* expr_singleline: basic_literal_value  */
 #line 508 "parser.y"
-    {(yyval.expression) = (yyvsp[0].expression); }
+                                     {(yyval.expression) = (yyvsp[0].expression);}
 #line 2793 "parser.tab.c"
     break;
 
-    case 126: /* expr_singleline: '-' expr_singleline  */
+  case 126: /* expr_singleline: '-' expr_singleline  */
 #line 509 "parser.y"
-    {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression)); }
+                                                  {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression));}
 #line 2799 "parser.tab.c"
     break;
 
-    case 127: /* expr_singleline: '+' expr_singleline  */
+  case 127: /* expr_singleline: '+' expr_singleline  */
 #line 510 "parser.y"
-    {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression)); }
+                                                 {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression));}
 #line 2805 "parser.tab.c"
     break;
 
-    case 128: /* expr_singleline: expr_singleline '+' expr_singleline  */
+  case 128: /* expr_singleline: expr_singleline '+' expr_singleline  */
 #line 511 "parser.y"
-    {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2811 "parser.tab.c"
     break;
 
-    case 129: /* expr_singleline: expr_singleline '-' expr_singleline  */
+  case 129: /* expr_singleline: expr_singleline '-' expr_singleline  */
 #line 512 "parser.y"
-    {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2817 "parser.tab.c"
     break;
 
-    case 130: /* expr_singleline: expr_singleline '*' expr_singleline  */
+  case 130: /* expr_singleline: expr_singleline '*' expr_singleline  */
 #line 513 "parser.y"
-    {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2823 "parser.tab.c"
     break;
 
-    case 131: /* expr_singleline: expr_singleline '/' expr_singleline  */
+  case 131: /* expr_singleline: expr_singleline '/' expr_singleline  */
 #line 514 "parser.y"
-    {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2829 "parser.tab.c"
     break;
 
-    case 132: /* expr_singleline: expr_singleline INT_DIV expr_singleline  */
+  case 132: /* expr_singleline: expr_singleline INT_DIV expr_singleline  */
 #line 515 "parser.y"
-    {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                              {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2835 "parser.tab.c"
     break;
 
-    case 133: /* expr_singleline: expr_singleline '=' expr_singleline  */
+  case 133: /* expr_singleline: expr_singleline '=' expr_singleline  */
 #line 516 "parser.y"
-    {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2841 "parser.tab.c"
     break;
 
-    case 134: /* expr_singleline: expr_singleline '<' expr_singleline  */
+  case 134: /* expr_singleline: expr_singleline '<' expr_singleline  */
 #line 517 "parser.y"
-    {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2847 "parser.tab.c"
     break;
 
-    case 135: /* expr_singleline: expr_singleline '>' expr_singleline  */
+  case 135: /* expr_singleline: expr_singleline '>' expr_singleline  */
 #line 518 "parser.y"
-    {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2853 "parser.tab.c"
     break;
 
-    case 136: /* expr_singleline: expr_singleline '^' expr_singleline  */
+  case 136: /* expr_singleline: expr_singleline '^' expr_singleline  */
 #line 519 "parser.y"
-    {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2859 "parser.tab.c"
     break;
 
-    case 137: /* expr_singleline: expr_singleline NOT_EQUAL expr_singleline  */
+  case 137: /* expr_singleline: expr_singleline NOT_EQUAL expr_singleline  */
 #line 520 "parser.y"
-    {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                                {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2865 "parser.tab.c"
     break;
 
-    case 138: /* expr_singleline: expr_singleline LESS_OR_EQUAL expr_singleline  */
+  case 138: /* expr_singleline: expr_singleline LESS_OR_EQUAL expr_singleline  */
 #line 521 "parser.y"
-    {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                                    {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2871 "parser.tab.c"
     break;
 
-    case 139: /* expr_singleline: expr_singleline MORE_OR_EQUAL expr_singleline  */
+  case 139: /* expr_singleline: expr_singleline MORE_OR_EQUAL expr_singleline  */
 #line 522 "parser.y"
-    {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                                    {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2877 "parser.tab.c"
     break;
 
-    case 140: /* expr_singleline: expr_singleline '&' expr_singleline  */
+  case 140: /* expr_singleline: expr_singleline '&' expr_singleline  */
 #line 523 "parser.y"
-    {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
+                                          {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-2].expression), (yyvsp[0].expression));}
 #line 2883 "parser.tab.c"
     break;
 
-    case 141: /* expr_singleline: '(' expr_singleline ')'  */
+  case 141: /* expr_singleline: '(' expr_singleline ')'  */
 #line 524 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression)); }
+                              {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2889 "parser.tab.c"
     break;
 
-    case 142: /* expr_singleline: IDENTIFIER  */
+  case 142: /* expr_singleline: IDENTIFIER  */
 #line 525 "parser.y"
-    {(yyval.expression) = createSimpleExpression(ET_ID, (Value) { .string_val = (yyvsp[0].id_var_name) }); }
+                 {(yyval.expression) = createSimpleExpression(ET_ID, (Value){.string_val=(yyvsp[0].id_var_name)});}
 #line 2895 "parser.tab.c"
     break;
 
-    case 143: /* expr_singleline: IDENTIFIER arguments_singleline  */
+  case 143: /* expr_singleline: IDENTIFIER arguments_singleline  */
 #line 526 "parser.y"
-    {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value) { .string_val = (yyvsp[-1].id_var_name) }, (yyvsp[0].expression)); }
+                                      {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
 #line 2901 "parser.tab.c"
     break;
 
-    case 144: /* expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline  */
+  case 144: /* expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline  */
 #line 529 "parser.y"
-    {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
 #line 2907 "parser.tab.c"
     break;
 
-    case 145: /* expr_multiline: expr_singleline '-' END_OF_LINE expr_singleline  */
+  case 145: /* expr_multiline: expr_singleline '-' END_OF_LINE expr_singleline  */
 #line 530 "parser.y"
-    {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
 #line 2913 "parser.tab.c"
     break;
 
-    case 146: /* expr_multiline: expr_singleline '*' END_OF_LINE expr_singleline  */
+  case 146: /* expr_multiline: expr_singleline '*' END_OF_LINE expr_singleline  */
 #line 531 "parser.y"
-    {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2919 "parser.tab.c"
     break;
 
-    case 147: /* expr_multiline: expr_singleline '/' END_OF_LINE expr_singleline  */
+  case 147: /* expr_multiline: expr_singleline '/' END_OF_LINE expr_singleline  */
 #line 532 "parser.y"
-    {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2925 "parser.tab.c"
     break;
 
-    case 148: /* expr_multiline: expr_singleline INT_DIV END_OF_LINE expr_singleline  */
+  case 148: /* expr_multiline: expr_singleline INT_DIV END_OF_LINE expr_singleline  */
 #line 533 "parser.y"
-    {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                    {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2931 "parser.tab.c"
     break;
 
-    case 149: /* expr_multiline: expr_singleline '=' END_OF_LINE expr_singleline  */
+  case 149: /* expr_multiline: expr_singleline '=' END_OF_LINE expr_singleline  */
 #line 534 "parser.y"
-    {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2937 "parser.tab.c"
     break;
 
-    case 150: /* expr_multiline: expr_singleline '<' END_OF_LINE expr_singleline  */
+  case 150: /* expr_multiline: expr_singleline '<' END_OF_LINE expr_singleline  */
 #line 535 "parser.y"
-    {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2943 "parser.tab.c"
     break;
 
-    case 151: /* expr_multiline: expr_singleline '>' END_OF_LINE expr_singleline  */
+  case 151: /* expr_multiline: expr_singleline '>' END_OF_LINE expr_singleline  */
 #line 536 "parser.y"
-    {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2949 "parser.tab.c"
     break;
 
-    case 152: /* expr_multiline: expr_singleline '^' END_OF_LINE expr_singleline  */
+  case 152: /* expr_multiline: expr_singleline '^' END_OF_LINE expr_singleline  */
 #line 537 "parser.y"
-    {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2955 "parser.tab.c"
     break;
 
-    case 153: /* expr_multiline: expr_singleline NOT_EQUAL END_OF_LINE expr_singleline  */
+  case 153: /* expr_multiline: expr_singleline NOT_EQUAL END_OF_LINE expr_singleline  */
 #line 538 "parser.y"
-    {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                      {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2961 "parser.tab.c"
     break;
 
-    case 154: /* expr_multiline: expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  */
+  case 154: /* expr_multiline: expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  */
 #line 539 "parser.y"
-    {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                           {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2967 "parser.tab.c"
     break;
 
-    case 155: /* expr_multiline: expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline  */
+  case 155: /* expr_multiline: expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline  */
 #line 540 "parser.y"
-    {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                          {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2973 "parser.tab.c"
     break;
 
-    case 156: /* expr_multiline: expr_singleline '&' END_OF_LINE expr_singleline  */
+  case 156: /* expr_multiline: expr_singleline '&' END_OF_LINE expr_singleline  */
 #line 541 "parser.y"
-    {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression)); }
+                                                                {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression));}
 #line 2979 "parser.tab.c"
     break;
 
-    case 157: /* expr_multiline: '(' END_OF_LINE expr_singleline ')'  */
+  case 157: /* expr_multiline: '(' END_OF_LINE expr_singleline ')'  */
 #line 542 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression)); }
+                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
 #line 2985 "parser.tab.c"
     break;
 
-    case 158: /* expr_multiline: '(' END_OF_LINE expr_singleline END_OF_LINE ')'  */
+  case 158: /* expr_multiline: '(' END_OF_LINE expr_singleline END_OF_LINE ')'  */
 #line 543 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression)); }
+                                                                {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2991 "parser.tab.c"
     break;
 
-    case 159: /* expr_multiline: '(' expr_singleline END_OF_LINE ')'  */
+  case 159: /* expr_multiline: '(' expr_singleline END_OF_LINE ')'  */
 #line 544 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression)); }
+                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
 #line 2997 "parser.tab.c"
     break;
 
-    case 160: /* expr_multiline: IDENTIFIER arguments_multiline  */
+  case 160: /* expr_multiline: IDENTIFIER arguments_multiline  */
 #line 545 "parser.y"
-    {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value) { .string_val = (yyvsp[-1].id_var_name) }, (yyvsp[0].expression)); }
+                                               {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
 #line 3003 "parser.tab.c"
     break;
 
-    case 161: /* basic_literal: INT  */
+  case 161: /* basic_literal: INT  */
 #line 549 "parser.y"
-    {(yyval.basic_literal) = VT_INTEGER; }
+                   {(yyval.basic_literal) = VT_INTEGER;}
 #line 3009 "parser.tab.c"
     break;
 
-    case 162: /* basic_literal: STRING  */
+  case 162: /* basic_literal: STRING  */
 #line 550 "parser.y"
-    {(yyval.basic_literal) = VT_STRING; }
+                     {(yyval.basic_literal) = VT_STRING;}
 #line 3015 "parser.tab.c"
     break;
 
-    case 163: /* basic_literal: BOOLEAN  */
+  case 163: /* basic_literal: BOOLEAN  */
 #line 551 "parser.y"
-    {(yyval.basic_literal) = VT_BOOLEAN; }
+                      {(yyval.basic_literal) = VT_BOOLEAN;}
 #line 3021 "parser.tab.c"
     break;
 
-    case 164: /* basic_literal: DOUBLE  */
+  case 164: /* basic_literal: DOUBLE  */
 #line 552 "parser.y"
-    {(yyval.basic_literal) = VT_DOUBLE; }
+                     {(yyval.basic_literal) = VT_DOUBLE;}
 #line 3027 "parser.tab.c"
     break;
 
-    case 165: /* basic_literal_value: INT_VALUE  */
+  case 165: /* basic_literal_value: INT_VALUE  */
 #line 555 "parser.y"
-    {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value) { .int_val = (yyvsp[0].int_val) }); }
+                               {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)});}
 #line 3033 "parser.tab.c"
     break;
 
-    case 166: /* basic_literal_value: STRING_VALUE  */
+  case 166: /* basic_literal_value: STRING_VALUE  */
 #line 556 "parser.y"
-    {(yyval.expression) = createSimpleExpression(VT_STRING, (Value) { .string_val = (yyvsp[0].str_val) }); }
+                                  {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)});}
 #line 3039 "parser.tab.c"
     break;
 
-    case 167: /* basic_literal_value: BOOLEAN_VALUE  */
+  case 167: /* basic_literal_value: BOOLEAN_VALUE  */
 #line 557 "parser.y"
-    {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value) { .int_val = (yyvsp[0].bool_val) }); }
+                                   {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)});}
 #line 3045 "parser.tab.c"
     break;
 
-    case 168: /* basic_literal_value: DOUBLE_VALUE  */
+  case 168: /* basic_literal_value: DOUBLE_VALUE  */
 #line 558 "parser.y"
-    {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value) { .double_val = (yyvsp[0].double_val) }); }
+                                  {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)});}
 #line 3051 "parser.tab.c"
     break;
 
-    case 169: /* arguments_multiline: '(' END_OF_LINE expr_list ')'  */
+  case 169: /* arguments_multiline: '(' END_OF_LINE expr_list ')'  */
 #line 563 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList)); }
+                                                   {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3057 "parser.tab.c"
     break;
 
-    case 170: /* arguments_multiline: '(' END_OF_LINE expr_list END_OF_LINE ')'  */
+  case 170: /* arguments_multiline: '(' END_OF_LINE expr_list END_OF_LINE ')'  */
 #line 564 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList)); }
+                                                               {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3063 "parser.tab.c"
     break;
 
-    case 171: /* arguments_multiline: '(' expr_list END_OF_LINE ')'  */
+  case 171: /* arguments_multiline: '(' expr_list END_OF_LINE ')'  */
 #line 565 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList)); }
+                                                   {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
 #line 3069 "parser.tab.c"
     break;
 
-    case 172: /* arguments_singleline: '(' expr_list ')'  */
+  case 172: /* arguments_singleline: '(' expr_list ')'  */
 #line 569 "parser.y"
-    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList)); }
+                                        {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
 #line 3075 "parser.tab.c"
     break;
 
-    case 173: /* arguments_singleline: '(' ')'  */
+  case 173: /* arguments_singleline: '(' ')'  */
 #line 570 "parser.y"
-    {(yyval.expression) = 0; }
+                              {(yyval.expression) = 0;}
 #line 3081 "parser.tab.c"
     break;
 
-    case 174: /* arguments: arguments_multiline  */
+  case 174: /* arguments: arguments_multiline  */
 #line 573 "parser.y"
-    {(yyval.expressionList) = createExpressionList((yyvsp[0].expression)); }
+                               {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3087 "parser.tab.c"
     break;
 
-    case 175: /* arguments: arguments_singleline  */
+  case 175: /* arguments: arguments_singleline  */
 #line 574 "parser.y"
-    {(yyval.expressionList) = createExpressionList((yyvsp[0].expression)); }
+                               {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3093 "parser.tab.c"
     break;
 
-    case 176: /* expr_list: expr_singleline  */
+  case 176: /* expr_list: expr_singleline  */
 #line 578 "parser.y"
-    {(yyval.expressionList) = createExpressionList((yyvsp[0].expression)); }
+                           {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
 #line 3099 "parser.tab.c"
     break;
 
-    case 177: /* expr_list: expr_list ',' expr_singleline  */
+  case 177: /* expr_list: expr_list ',' expr_singleline  */
 #line 579 "parser.y"
-    {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList), (yyvsp[0].expression)); }
+                                         {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList),(yyvsp[0].expression));}
 #line 3105 "parser.tab.c"
     break;
 
 
 #line 3109 "parser.tab.c"
 
-    default: break;
+      default: break;
     }
-    /* User semantic actions sometimes alter yychar, and that requires
-       that yytoken be updated with the new translation.  We take the
-       approach of translating immediately before every use of yytoken.
-       One alternative is translating here after every semantic action,
-       but that translation would be missed if the semantic action invokes
-       YYABORT, YYACCEPT, or YYERROR immediately after altering yychar or
-       if it invokes YYBACKUP.  In the case of YYABORT or YYACCEPT, an
-       incorrect destructor might then be invoked immediately.  In the
-       case of YYERROR or YYBACKUP, subsequent parser actions might lead
-       to an incorrect destructor call or verbose syntax error message
-       before the lookahead is translated.  */
-    YY_SYMBOL_PRINT("-> $$ =", YY_CAST(yysymbol_kind_t, yyr1[yyn]), &yyval, &yyloc);
+  /* User semantic actions sometimes alter yychar, and that requires
+     that yytoken be updated with the new translation.  We take the
+     approach of translating immediately before every use of yytoken.
+     One alternative is translating here after every semantic action,
+     but that translation would be missed if the semantic action invokes
+     YYABORT, YYACCEPT, or YYERROR immediately after altering yychar or
+     if it invokes YYBACKUP.  In the case of YYABORT or YYACCEPT, an
+     incorrect destructor might then be invoked immediately.  In the
+     case of YYERROR or YYBACKUP, subsequent parser actions might lead
+     to an incorrect destructor call or verbose syntax error message
+     before the lookahead is translated.  */
+  YY_SYMBOL_PRINT ("-> $$ =", YY_CAST (yysymbol_kind_t, yyr1[yyn]), &yyval, &yyloc);
 
-    YYPOPSTACK(yylen);
-    yylen = 0;
+  YYPOPSTACK (yylen);
+  yylen = 0;
 
-    *++yyvsp = yyval;
+  *++yyvsp = yyval;
 
-    /* Now 'shift' the result of the reduction.  Determine what state
-       that goes to, based on the state we popped back to and the rule
-       number reduced by.  */
-    {
-        const int yylhs = yyr1[yyn] - YYNTOKENS;
-        const int yyi = yypgoto[yylhs] + *yyssp;
-        yystate = (0 <= yyi && yyi <= YYLAST && yycheck[yyi] == *yyssp
-            ? yytable[yyi]
-            : yydefgoto[yylhs]);
-    }
+  /* Now 'shift' the result of the reduction.  Determine what state
+     that goes to, based on the state we popped back to and the rule
+     number reduced by.  */
+  {
+    const int yylhs = yyr1[yyn] - YYNTOKENS;
+    const int yyi = yypgoto[yylhs] + *yyssp;
+    yystate = (0 <= yyi && yyi <= YYLAST && yycheck[yyi] == *yyssp
+               ? yytable[yyi]
+               : yydefgoto[yylhs]);
+  }
 
-    goto yynewstate;
+  goto yynewstate;
 
 
-    /*--------------------------------------.
-    | yyerrlab -- here on detecting error.  |
-    `--------------------------------------*/
+/*--------------------------------------.
+| yyerrlab -- here on detecting error.  |
+`--------------------------------------*/
 yyerrlab:
-    /* Make sure we have latest lookahead translation.  See comments at
-       user semantic actions for why this is necessary.  */
-    yytoken = yychar == YYEMPTY ? YYSYMBOL_YYEMPTY : YYTRANSLATE(yychar);
-    /* If not already recovering from an error, report this error.  */
-    if (!yyerrstatus)
+  /* Make sure we have latest lookahead translation.  See comments at
+     user semantic actions for why this is necessary.  */
+  yytoken = yychar == YYEMPTY ? YYSYMBOL_YYEMPTY : YYTRANSLATE (yychar);
+  /* If not already recovering from an error, report this error.  */
+  if (!yyerrstatus)
     {
-        ++yynerrs;
-        {
-            yypcontext_t yyctx
-                = { yyssp, yytoken };
-            char const* yymsgp = YY_("syntax error");
-            int yysyntax_error_status;
-            yysyntax_error_status = yysyntax_error(&yymsg_alloc, &yymsg, &yyctx);
-            if (yysyntax_error_status == 0)
+      ++yynerrs;
+      {
+        yypcontext_t yyctx
+          = {yyssp, yytoken};
+        char const *yymsgp = YY_("syntax error");
+        int yysyntax_error_status;
+        yysyntax_error_status = yysyntax_error (&yymsg_alloc, &yymsg, &yyctx);
+        if (yysyntax_error_status == 0)
+          yymsgp = yymsg;
+        else if (yysyntax_error_status == -1)
+          {
+            if (yymsg != yymsgbuf)
+              YYSTACK_FREE (yymsg);
+            yymsg = YY_CAST (char *,
+                             YYSTACK_ALLOC (YY_CAST (YYSIZE_T, yymsg_alloc)));
+            if (yymsg)
+              {
+                yysyntax_error_status
+                  = yysyntax_error (&yymsg_alloc, &yymsg, &yyctx);
                 yymsgp = yymsg;
-            else if (yysyntax_error_status == -1)
-            {
-                if (yymsg != yymsgbuf)
-                    YYSTACK_FREE(yymsg);
-                yymsg = YY_CAST(char*,
-                    YYSTACK_ALLOC(YY_CAST(YYSIZE_T, yymsg_alloc)));
-                if (yymsg)
-                {
-                    yysyntax_error_status
-                        = yysyntax_error(&yymsg_alloc, &yymsg, &yyctx);
-                    yymsgp = yymsg;
-                }
-                else
-                {
-                    yymsg = yymsgbuf;
-                    yymsg_alloc = sizeof yymsgbuf;
-                    yysyntax_error_status = YYENOMEM;
-                }
-            }
-            yyerror(yymsgp);
-            if (yysyntax_error_status == YYENOMEM)
-                YYNOMEM;
-        }
+              }
+            else
+              {
+                yymsg = yymsgbuf;
+                yymsg_alloc = sizeof yymsgbuf;
+                yysyntax_error_status = YYENOMEM;
+              }
+          }
+        yyerror (yymsgp);
+        if (yysyntax_error_status == YYENOMEM)
+          YYNOMEM;
+      }
     }
 
-    if (yyerrstatus == 3)
+  if (yyerrstatus == 3)
     {
-        /* If just tried and failed to reuse lookahead token after an
-           error, discard it.  */
+      /* If just tried and failed to reuse lookahead token after an
+         error, discard it.  */
 
-        if (yychar <= YYEOF)
+      if (yychar <= YYEOF)
         {
-            /* Return failure if at end of input.  */
-            if (yychar == YYEOF)
-                YYABORT;
-        }
-        else
-        {
-            yydestruct("Error: discarding",
-                yytoken, &yylval);
-            yychar = YYEMPTY;
-        }
-    }
-
-    /* Else will try to reuse lookahead token after shifting the error
-       token.  */
-    goto yyerrlab1;
-
-
-    /*---------------------------------------------------.
-    | yyerrorlab -- error raised explicitly by YYERROR.  |
-    `---------------------------------------------------*/
-yyerrorlab:
-    /* Pacify compilers when the user code never invokes YYERROR and the
-       label yyerrorlab therefore never appears in user code.  */
-    if (0)
-        YYERROR;
-    ++yynerrs;
-
-    /* Do not reclaim the symbols of the rule whose action triggered
-       this YYERROR.  */
-    YYPOPSTACK(yylen);
-    yylen = 0;
-    YY_STACK_PRINT(yyss, yyssp);
-    yystate = *yyssp;
-    goto yyerrlab1;
-
-
-    /*-------------------------------------------------------------.
-    | yyerrlab1 -- common code for both syntax error and YYERROR.  |
-    `-------------------------------------------------------------*/
-yyerrlab1:
-    yyerrstatus = 3;      /* Each real token shifted decrements this.  */
-
-    /* Pop stack until we find a state that shifts the error token.  */
-    for (;;)
-    {
-        yyn = yypact[yystate];
-        if (!yypact_value_is_default(yyn))
-        {
-            yyn += YYSYMBOL_YYerror;
-            if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYSYMBOL_YYerror)
-            {
-                yyn = yytable[yyn];
-                if (0 < yyn)
-                    break;
-            }
-        }
-
-        /* Pop the current state because it cannot handle the error token.  */
-        if (yyssp == yyss)
+          /* Return failure if at end of input.  */
+          if (yychar == YYEOF)
             YYABORT;
-
-
-        yydestruct("Error: popping",
-            YY_ACCESSING_SYMBOL(yystate), yyvsp);
-        YYPOPSTACK(1);
-        yystate = *yyssp;
-        YY_STACK_PRINT(yyss, yyssp);
+        }
+      else
+        {
+          yydestruct ("Error: discarding",
+                      yytoken, &yylval);
+          yychar = YYEMPTY;
+        }
     }
 
-    YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-        * ++yyvsp = yylval;
-    YY_IGNORE_MAYBE_UNINITIALIZED_END
+  /* Else will try to reuse lookahead token after shifting the error
+     token.  */
+  goto yyerrlab1;
 
 
-        /* Shift the error token.  */
-        YY_SYMBOL_PRINT("Shifting", YY_ACCESSING_SYMBOL(yyn), yyvsp, yylsp);
+/*---------------------------------------------------.
+| yyerrorlab -- error raised explicitly by YYERROR.  |
+`---------------------------------------------------*/
+yyerrorlab:
+  /* Pacify compilers when the user code never invokes YYERROR and the
+     label yyerrorlab therefore never appears in user code.  */
+  if (0)
+    YYERROR;
+  ++yynerrs;
 
-    yystate = yyn;
-    goto yynewstate;
+  /* Do not reclaim the symbols of the rule whose action triggered
+     this YYERROR.  */
+  YYPOPSTACK (yylen);
+  yylen = 0;
+  YY_STACK_PRINT (yyss, yyssp);
+  yystate = *yyssp;
+  goto yyerrlab1;
 
 
-    /*-------------------------------------.
-    | yyacceptlab -- YYACCEPT comes here.  |
-    `-------------------------------------*/
+/*-------------------------------------------------------------.
+| yyerrlab1 -- common code for both syntax error and YYERROR.  |
+`-------------------------------------------------------------*/
+yyerrlab1:
+  yyerrstatus = 3;      /* Each real token shifted decrements this.  */
+
+  /* Pop stack until we find a state that shifts the error token.  */
+  for (;;)
+    {
+      yyn = yypact[yystate];
+      if (!yypact_value_is_default (yyn))
+        {
+          yyn += YYSYMBOL_YYerror;
+          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYSYMBOL_YYerror)
+            {
+              yyn = yytable[yyn];
+              if (0 < yyn)
+                break;
+            }
+        }
+
+      /* Pop the current state because it cannot handle the error token.  */
+      if (yyssp == yyss)
+        YYABORT;
+
+
+      yydestruct ("Error: popping",
+                  YY_ACCESSING_SYMBOL (yystate), yyvsp);
+      YYPOPSTACK (1);
+      yystate = *yyssp;
+      YY_STACK_PRINT (yyss, yyssp);
+    }
+
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
+
+
+  /* Shift the error token.  */
+  YY_SYMBOL_PRINT ("Shifting", YY_ACCESSING_SYMBOL (yyn), yyvsp, yylsp);
+
+  yystate = yyn;
+  goto yynewstate;
+
+
+/*-------------------------------------.
+| yyacceptlab -- YYACCEPT comes here.  |
+`-------------------------------------*/
 yyacceptlab:
-    yyresult = 0;
-    goto yyreturnlab;
+  yyresult = 0;
+  goto yyreturnlab;
 
 
-    /*-----------------------------------.
-    | yyabortlab -- YYABORT comes here.  |
-    `-----------------------------------*/
+/*-----------------------------------.
+| yyabortlab -- YYABORT comes here.  |
+`-----------------------------------*/
 yyabortlab:
-    yyresult = 1;
-    goto yyreturnlab;
+  yyresult = 1;
+  goto yyreturnlab;
 
 
-    /*-----------------------------------------------------------.
-    | yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
-    `-----------------------------------------------------------*/
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
-    yyerror(YY_("memory exhausted"));
-    yyresult = 2;
-    goto yyreturnlab;
+  yyerror (YY_("memory exhausted"));
+  yyresult = 2;
+  goto yyreturnlab;
 
 
-    /*----------------------------------------------------------.
-    | yyreturnlab -- parsing is finished, clean up and return.  |
-    `----------------------------------------------------------*/
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
 yyreturnlab:
-    if (yychar != YYEMPTY)
+  if (yychar != YYEMPTY)
     {
-        /* Make sure we have latest lookahead translation.  See comments at
-           user semantic actions for why this is necessary.  */
-        yytoken = YYTRANSLATE(yychar);
-        yydestruct("Cleanup: discarding lookahead",
-            yytoken, &yylval);
+      /* Make sure we have latest lookahead translation.  See comments at
+         user semantic actions for why this is necessary.  */
+      yytoken = YYTRANSLATE (yychar);
+      yydestruct ("Cleanup: discarding lookahead",
+                  yytoken, &yylval);
     }
-    /* Do not reclaim the symbols of the rule whose action triggered
-       this YYABORT or YYACCEPT.  */
-    YYPOPSTACK(yylen);
-    YY_STACK_PRINT(yyss, yyssp);
-    while (yyssp != yyss)
+  /* Do not reclaim the symbols of the rule whose action triggered
+     this YYABORT or YYACCEPT.  */
+  YYPOPSTACK (yylen);
+  YY_STACK_PRINT (yyss, yyssp);
+  while (yyssp != yyss)
     {
-        yydestruct("Cleanup: popping",
-            YY_ACCESSING_SYMBOL(+*yyssp), yyvsp);
-        YYPOPSTACK(1);
+      yydestruct ("Cleanup: popping",
+                  YY_ACCESSING_SYMBOL (+*yyssp), yyvsp);
+      YYPOPSTACK (1);
     }
 #ifndef yyoverflow
-    if (yyss != yyssa)
-        YYSTACK_FREE(yyss);
+  if (yyss != yyssa)
+    YYSTACK_FREE (yyss);
 #endif
-    if (yymsg != yymsgbuf)
-        YYSTACK_FREE(yymsg);
-    return yyresult;
+  if (yymsg != yymsgbuf)
+    YYSTACK_FREE (yymsg);
+  return yyresult;
 }
 
 #line 583 "parser.y"
 
 
 void yyerror(const char* s) {
-    fprintf(stderr, "Parse error: %s\n", s);
-    exit(1);
+	fprintf(stderr, "Parse error: %s\n", s);
+	exit(1);
 }
 
 int main(int argc, char** argv) {
@@ -3342,12 +3342,12 @@ int main(int argc, char** argv) {
         yyin = fopen(argv[1], "r");
         yyparse();
         fclose(yyin);
-        /*
+		/*
 
-        freopen("./gen_tree/tree_img.txt", "w", stdout);
-        printTree(root);
-        fclose(stdout);
-        fclose (yyin);*/
+		freopen("./gen_tree/tree_img.txt", "w", stdout);
+		printTree(root);
+		fclose(stdout);
+		fclose (yyin);*/
     }
     else {
         yyerror("not found file");
@@ -3355,489 +3355,489 @@ int main(int argc, char** argv) {
 }
 
 // ------------------------------  Expression ------------------------------
-Expression* createExpression(ExprType type, Expression* left, Expression* right)
+Expression *createExpression(ExprType type, Expression *left, Expression *right)
 {
-    Expression* result = (Expression*)malloc(sizeof(Expression));
+	Expression *result = (Expression *)malloc(sizeof(Expression));
 
-    result->type = type;
+	result->type = type;
 
-    result->left = left;
-    result->right = right;
+	result->left = left;
+	result->right = right;
 
-    result->exprList = 0;
-    result->nextInList = 0;
+	result->exprList = 0;
+	result->nextInList = 0;
 
-    return result;
+	return result;
 }
 
-Expression* createSimpleExpression(ExprType type, Value value)
+Expression *createSimpleExpression(ExprType type, Value value)
 {
-    Expression* result = (Expression*)malloc(sizeof(Expression));
+	Expression *result = (Expression *)malloc(sizeof(Expression));
 
-    result->isType = type != 0;
-    result->type = type;
-    result->value = value;
+	result->isType = type != 0;
+	result->type = type;
+	result->value = value;
 
-    result->exprList = 0;
-    result->right = 0;
-    result->left = 0;
-    result->nextInList = 0;
+	result->exprList = 0;
+	result->right = 0;
+	result->left = 0;
+	result->nextInList = 0;
 
-    return result;
+	return result;
 }
 
-ExpressionList* createExpressionList(Expression* expr)
+ExpressionList *createExpressionList(Expression *expr)
 {
-    ExpressionList* result = (ExpressionList*)malloc(sizeof(ExpressionList));
+	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
 
-    result->begin = expr;
-    result->end = expr;
+	result->begin = expr;
+	result->end = expr;
 
-    return result;
+	return result;
 }
 
-ExpressionList* appendExpressionToList(ExpressionList* list, Expression* expr)
+ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr)
 {
-    list->end->nextInList = expr;
-    list->end = expr;
+	list->end->nextInList = expr;
+	list->end = expr;
 
-    return list;
+	return list;
 }
 /*
 ExpressionList *createArgumentList(Expression *expr)
 {
-    ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
+	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
 
-    result->begin = expr;
-    result->end = expr;
+	result->begin = expr;
+	result->end = expr;
 
-    return result;
+	return result;
 }
 */
 
-ProgramItemList* createProgramItemsList(ProgramItemListNotEmpty* programItemListNotEmpty)
+ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty)
 {
-    ProgramItemList* result = (ProgramItemList*)malloc(sizeof(ProgramItemList));
+	ProgramItemList *result = (ProgramItemList *)malloc(sizeof(ProgramItemList));
 
-    result->begin = programItemListNotEmpty;
-    result->end = programItemListNotEmpty;
+	result->begin = programItemListNotEmpty;
+	result->end = programItemListNotEmpty;
 
-    return result;
+	return result;
 }
 
-ProgramItemListNotEmpty* createProgramListNotEmpty(ProgramItem* programItem)
+ProgramItemListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
 {
-    ProgramItemListNotEmpty* result = (ProgramItemListNotEmpty*)malloc(sizeof(ProgramItemListNotEmpty));
+	ProgramItemListNotEmpty *result = (ProgramItemListNotEmpty *)malloc(sizeof(ProgramItemListNotEmpty));
 
-    result->begin = programItem;
-    result->end = programItem;
+	result->begin = programItem;
+	result->end = programItem;
+	
+	result->nextInList = 0;
 
-    result->nextInList = 0;
-
-    return result;
+	return result;
 }
 
-ProgramItemListNotEmpty* appendProgramToListNotEmpty(ProgramItemListNotEmpty* list, ProgramItem* programItem)
+ProgramItemListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *list, ProgramItem *programItem)
 {
-    list->end->nextInList = list;
-    list->end = programItem;
+	list->end->nextInList = list;
+	list->end = programItem;
 
-    return list;
-}
-
-
-ProgramItem* createProgramItem(Module* module, char* id_var_name)
-{
-    ProgramItem* result = (ProgramItem*)malloc(sizeof(ProgramItem));
-
-    result->isImport = id_var_name != 0;
-    result->id_var_name = id_var_name;
-    result->module = module;
-
-    result->nextInList = 0;
-
-    return result;
+	return list;
 }
 
 
-Module* createModule(char* id_var_name, FunctionOrSubList* functionOrSubList)
+ProgramItem *createProgramItem(Module *module, char *id_var_name)
 {
-    Module* result = (Module*)malloc(sizeof(Module));
+	ProgramItem *result = (ProgramItem *)malloc(sizeof(ProgramItem));
 
-    result->id_var_name = id_var_name;
-    result->functionOrSubList = functionOrSubList;
+	result->isImport = id_var_name != 0;
+	result->id_var_name=id_var_name;
+	result->module = module;
+	
+	result->nextInList = 0;
 
-    return result;
-}
-
-FunctionOrSubList* createFunctionOrSubList(FunctionOrSub* functionOrSub)
-{
-    FunctionOrSubList* result = (FunctionOrSubList*)malloc(sizeof(FunctionOrSubList));
-
-    result->begin = functionOrSub;
-    result->end = functionOrSub;
-    return result;
+	return result;
 }
 
 
-FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList* list, FunctionOrSub* functionOrSub)
+Module *createModule(char *id_var_name, FunctionOrSubList *functionOrSubList)
 {
-    list->end->nextInList = functionOrSub;
-    list->end = functionOrSub;
-    return list;
+	Module *result = (Module *)malloc(sizeof(Module));
+
+	result->id_var_name = id_var_name;
+	result->functionOrSubList = functionOrSubList;
+
+	return result;
 }
 
-FunctionOrSub* createFunctionOrSub(SubBloc* subBloc, Function* function)
+FunctionOrSubList *createFunctionOrSubList(FunctionOrSub *functionOrSub)
 {
-    FunctionOrSub* result = (FunctionOrSub*)malloc(sizeof(FunctionOrSub));
+	FunctionOrSubList *result = (FunctionOrSubList *)malloc(sizeof(FunctionOrSubList));
 
-    result->subBloc = subBloc;
-    result->function = function;
-
-    result->nextInList = 0;
-
-    return result;
+	result->begin = functionOrSub;
+	result->end = functionOrSub;
+	return result;
 }
 
-Function* createFunction(char* id_var_name, ExpressionList* arguments, StmtList* stmtList, ExpressionList* exprList)
+
+FunctionOrSubList *appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub)
 {
-    Function* result = (Function*)malloc(sizeof(Function));
-
-    result->id_var_name = id_var_name;
-    result->arguments = arguments;
-    result->stmtList = stmtList;
-    result->exprList = exprList;
-
-    return result;
+	list->end->nextInList = functionOrSub;
+	list->end = functionOrSub;
+	return list;
 }
 
-SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty* arguments, StmtList* stmtList)
+FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 {
-    SubBloc* result = (SubBloc*)malloc(sizeof(SubBloc));
+	FunctionOrSub *result = (FunctionOrSub *)malloc(sizeof(FunctionOrSub));
 
-    result->id_var_name = id_var_name;
-    result->arguments = arguments;
-    result->stmtList = stmtList;
+	result->subBloc = subBloc;
+	result->function=function;
+	
+	result->nextInList = 0;
 
-    return result;
+	return result;
 }
 
-//WIP
-ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType* parameterListWithType, ParameterListWithoutType* parameterListWithoutType)
+Function *createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, ExpressionList *exprList)
 {
-    ParameterListOrEmpty* result = (ParameterListOrEmpty*)malloc(sizeof(ParameterListOrEmpty));
+	Function *result = (Function *)malloc(sizeof(Function));
 
-    result->parameterListWithType = parameterListWithType;
-    result->parameterListWithoutType = parameterListWithoutType;
+	result->id_var_name = id_var_name;
+	result->arguments = arguments;
+	result->stmtList = stmtList;
+	result->exprList = exprList;
 
-    return result;
+	return result;
 }
 
-ParameterListWithType* createParameterListWithType(ParameterWithType* parameterWithType)
+SubBloc *createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList)
 {
-    ParameterListWithType* result = (ParameterListWithType*)malloc(sizeof(ParameterListWithType));
+	SubBloc *result = (SubBloc *)malloc(sizeof(SubBloc));
 
-    result->begin = parameterWithType;
-    result->end = parameterWithType;
-    return result;
-}
+	result->id_var_name = id_var_name;
+	result->arguments = arguments;
+	result->stmtList = stmtList;
 
-ParameterListWithType* appendParameterListWithType(ParameterListWithType* list, ParameterWithType* parameterWithType)
-{
-    list->end->nextInList = parameterWithType;
-    list->end = parameterWithType;
-    return list;
-}
-
-ParameterListWithoutType* createParameterListWithoutType(ParameterWithoutType* parameterWithoutType)
-{
-    ParameterListWithoutType* result = (ParameterListWithoutType*)malloc(sizeof(ParameterListWithoutType));
-
-    result->begin = parameterWithoutType;
-    result->end = parameterWithoutType;
-    return result;
-}
-
-ParameterListWithoutType* appendParameterListWithoutType(ParameterListWithoutType* list, ParameterWithoutType* parameterWithoutType)
-{
-    list->end->nextInList = parameterWithoutType;
-    list->end = parameterWithoutType;
-    return list;
-}
-
-ParameterWithType* createParameterWithType(char* id_var_name, VarType basic_literal)
-{
-    ParameterWithType* result = (ParameterWithType*)malloc(sizeof(ParameterWithType));
-
-    result->id_var_name = id_var_name;
-    result->basic_literal = basic_literal;
-
-    result->nextInList = 0;
-
-    return result;
-}
-
-ParameterWithoutType* createParameterWithoutType(char* id_var_name)
-{
-    ParameterWithoutType* result = (ParameterWithoutType*)malloc(sizeof(ParameterWithoutType));
-
-    result->id_var_name = id_var_name;
-
-    result->nextInList = 0;
-
-    return result;
-}
-
-StmtList* createStmtList(Statement* statement)
-{
-    StmtList* result = (StmtList*)malloc(sizeof(StmtList));
-
-    result->begin = statement;
-    result->end = statement;
-
-    return result;
-}
-
-StmtList* appendStmtList(StmtList* list, Statement* statement)
-{
-    list->end->nextInList = statement;
-    list->end = statement;
-
-    return list;
-}
-
-Statement* createStatement(StmtType type, StmtValue value)
-{
-    Statement* result = (Statement*)malloc(sizeof(Statement));
-
-    result->type = type;
-    result->value = value;
-
-    result->nextInList = 0;
-
-    return result;
-}
-
-StatementSingle* createStatementSingle(StmtType type, StmtSingleValue value)
-{
-    StatementSingle* result = (StatementSingle*)malloc(sizeof(StatementSingle));
-
-    result->type = type;
-    result->value = value;
-
-    return result;
-}
-
-StatementMulti* createStatementMulti(StmtType type, StmtMultiValue value)
-{
-    StatementMulti* result = (StatementMulti*)malloc(sizeof(StatementMulti));
-
-    result->type = type;
-    result->value = value;
-
-    return result;
-}
-
-WhileStmt* createWhileStmt(Expression* expression, StmtList* stmtList)
-{
-    WhileStmt* result = (WhileStmt*)malloc(sizeof(WhileStmt));
-
-    result->expression = expression;
-    result->stmtList = stmtList;
-
-    return result;
-}
-
-DoLoopStmt* createDoLoopStmt(DoLoopCondition* condition, StmtList* stmtList)
-{
-    DoLoopStmt* result = (DoLoopStmt*)malloc(sizeof(DoLoopStmt));
-
-    result->condition = condition;
-    result->stmtList = stmtList;
-
-    return result;
+	return result;
 }
 
 //WIP
-DoLoopCondition* createDoLoopCondition(int* isUntil, Expression* expression)
+ParameterListOrEmpty *createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType)
 {
-    DoLoopCondition* result = (DoLoopCondition*)malloc(sizeof(DoLoopCondition));
+	ParameterListOrEmpty *result = (ParameterListOrEmpty *)malloc(sizeof(ParameterListOrEmpty));
 
-    result->isUntil = isUntil;
-    result->expression = expression;
+	result->parameterListWithType = parameterListWithType;
+	result->parameterListWithoutType = parameterListWithoutType;
 
-    return result;
+	return result;
 }
 
-ForLoopStmt* createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList* stmtList)
+ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType)
 {
-    ForLoopStmt* result = (ForLoopStmt*)malloc(sizeof(ForLoopStmt));
+	ParameterListWithType *result = (ParameterListWithType*)malloc(sizeof(ParameterListWithType));
 
-    result->counterVarName = counterVarName;
-    result->counterType = counterType;
-    result->fromValue = fromValue;
-    result->toValue = toValue;
-    result->stepValue = stepValue;
-    result->stmtList = stmtList;
-
-    return result;
+	result->begin = parameterWithType;
+	result->end = parameterWithType;
+	return result;
 }
 
-ForEachLoopStmt* createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList* stmtList)
+ParameterListWithType *appendParameterListWithType(ParameterListWithType *list, ParameterWithType *parameterWithType)
 {
-    ForEachLoopStmt* result = (ForEachLoopStmt*)malloc(sizeof(ForEachLoopStmt));
-
-    result->counterVarName = counterVarName;
-    result->counterType = counterType;
-    result->counterSourceName = counterSourceName;
-    result->stmtList = stmtList;
-
-    return result;
+	list->end->nextInList = parameterWithType;
+	list->end = parameterWithType;
+	return list;
 }
 
-IfStmtMulti* createIfStmtMulti(Expression* expression, StmtList* thenStmtList, ElseIfList* elseIfList, StmtList* elseStmtList)
+ParameterListWithoutType *createParameterListWithoutType(ParameterWithoutType *parameterWithoutType)
 {
-    IfStmtMulti* result = (IfStmtMulti*)malloc(sizeof(IfStmtMulti));
+	ParameterListWithoutType *result = (ParameterListWithoutType*)malloc(sizeof(ParameterListWithoutType));
 
-    result->expression = expression;
-    result->thenStmtList = thenStmtList;
-    result->elseIfList = elseIfList;
-    result->elseStmtList = elseStmtList;
-
-    return result;
+	result->begin = parameterWithoutType;
+	result->end = parameterWithoutType;
+	return result;
 }
 
-ElseIfList* createElseIfList(ElseIf* elseIf)
+ParameterListWithoutType *appendParameterListWithoutType(ParameterListWithoutType *list, ParameterWithoutType *parameterWithoutType)
 {
-    ElseIfList* result = (ElseIfList*)malloc(sizeof(ElseIfList));
-
-    result->begin = elseIf;
-    result->end = elseIf;
-
-    return result;
+	list->end->nextInList = parameterWithoutType;
+	list->end = parameterWithoutType;
+	return list;
 }
 
-ElseIfList* appendElseIfList(ElseIfList* list, ElseIf* elseIf)
+ParameterWithType *createParameterWithType(char* id_var_name, VarType basic_literal)
 {
-    list->end->nextInList = elseIf;
-    list->end = elseIf;
+	ParameterWithType *result = (ParameterWithType *)malloc(sizeof(ParameterWithType));
 
-    return list;
+	result->id_var_name = id_var_name;
+	result->basic_literal = basic_literal;
+	
+	result->nextInList = 0;
+
+	return result;
 }
 
-ElseIf* createElseIf(Expression* expression, StmtList* stmtList)
+ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 {
-    ElseIf* result = (ElseIf*)malloc(sizeof(ElseIf));
+	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
 
-    result->expression = expression;
-    result->stmtList = stmtList;
+	result->id_var_name = id_var_name;
+	
+	result->nextInList = 0;
 
-    result->nextInList = 0;
-
-    return result;
+	return result;
 }
 
-IfStmtSingle* createIfStmtSingle(Expression* expression, StmtList* thenStmtList, StmtList* elseStmtList)
+StmtList *createStmtList(Statement *statement)
 {
-    IfStmtSingle* result = (IfStmtSingle*)malloc(sizeof(IfStmtSingle));
+	StmtList *result = (StmtList *)malloc(sizeof(StmtList));
 
-    result->expression = expression;
-    result->thenStmtList = thenStmtList;
-    result->elseStmtList = elseStmtList;
+	result->begin = statement;
+	result->end = statement;
 
-    return result;
+	return result;
 }
 
-SelectStmt* createSelectStmt(Expression* expression, CaseList* caseList)
+StmtList *appendStmtList(StmtList *list, Statement *statement)
 {
-    SelectStmt* result = (SelectStmt*)malloc(sizeof(SelectStmt));
+	list->end->nextInList = statement;
+	list->end = statement;
 
-    result->expression = expression;
-    result->caseList = caseList;
-
-    return result;
+	return list;
 }
 
-CaseList* createCaseList(CaseStmt* caseStmt)
+Statement *createStatement(StmtType type, StmtValue value)
 {
-    CaseList* result = (CaseList*)malloc(sizeof(CaseList));
+	Statement *result = (Statement *)malloc(sizeof(Statement));
 
-    result->begin = caseStmt;
-    result->end = caseStmt;
+	result->type = type;
+	result->value = value;
+	
+	result->nextInList = 0;
 
-    return result;
+	return result;
 }
 
-CaseList* appendCaseList(CaseList* list, CaseStmt* caseStmt)
+StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value)
 {
-    list->end->nextInList = caseStmt;
-    list->end = caseStmt;
+	StatementSingle *result = (StatementSingle *)malloc(sizeof(StatementSingle));
 
-    return list;
+	result->type = type;
+	result->value = value;
+
+	return result;
 }
 
-CaseStmt* createCaseStmt(int* isIs, Expression* fromExpression, Expression* toExpression, StmtList* stmtList)
+StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value)
 {
-    CaseStmt* result = (CaseStmt*)malloc(sizeof(CaseStmt));
+	StatementMulti *result = (StatementMulti *)malloc(sizeof(StatementMulti));
 
-    result->isIs = isIs;
-    result->fromExpression = fromExpression;
-    result->toExpression = toExpression;
-    result->stmtList = stmtList;
+	result->type = type;
+	result->value = value;
 
-    result->nextInList = 0;
+	return result;
+}
 
-    return result;
+WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList)
+{
+	WhileStmt *result = (WhileStmt *)malloc(sizeof(WhileStmt));
+
+	result->expression = expression;
+	result->stmtList = stmtList;
+
+	return result;
+}
+
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList)
+{
+	DoLoopStmt *result = (DoLoopStmt *)malloc(sizeof(DoLoopStmt));
+
+	result->condition = condition;
+	result->stmtList = stmtList;
+
+	return result;
 }
 
 //WIP
-DeclStmtSingle* createDeclStmtSingle(int* isConst, char* id_var_name, VarType varType, Expression* expression)
+DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression)
 {
-    DeclStmtSingle* result = (DeclStmtSingle*)malloc(sizeof(DeclStmtSingle));
+	DoLoopCondition *result = (DoLoopCondition *)malloc(sizeof(DoLoopCondition));
 
-    result->isConst = isConst;
-    result->id_var_name = id_var_name;
-    result->varType = varType;
-    result->expression = expression;
+	result->isUntil = isUntil;
+	result->expression = expression;
 
-    return result;
+	return result;
 }
 
-DeclStmtMulti* createDeclStmtMulti(int* isConst, char* id_var_name, VarType varType, Expression* expression)
+ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList)
 {
-    DeclStmtMulti* result = (DeclStmtMulti*)malloc(sizeof(DeclStmtMulti));
+	ForLoopStmt *result = (ForLoopStmt *)malloc(sizeof(ForLoopStmt));
 
-    result->isConst = isConst;
-    result->id_var_name = id_var_name;
-    result->varType = varType;
-    result->expression = expression;
+	result->counterVarName = counterVarName;
+	result->counterType = counterType;
+	result->fromValue = fromValue;
+	result->toValue = toValue;
+	result->stepValue = stepValue;
+	result->stmtList = stmtList;
 
-    return result;
+	return result;
 }
 
-VarNameSingle* createVarNameSingle(char* id_var_name, Expression* expression)
+ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList)
 {
-    VarNameSingle* result = (VarNameSingle*)malloc(sizeof(VarNameSingle));
+	ForEachLoopStmt *result = (ForEachLoopStmt *)malloc(sizeof(ForEachLoopStmt));
 
-    result->id_var_name = id_var_name;
-    result->expression = expression;
+	result->counterVarName = counterVarName;
+	result->counterType = counterType;
+	result->counterSourceName = counterSourceName;
+	result->stmtList = stmtList;
 
-    return result;
+	return result;
 }
 
-VarNameMulti* createVarNameMulti(char* id_var_name, Expression* expression)
+IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList)
 {
-    VarNameMulti* result = (VarNameMulti*)malloc(sizeof(VarNameMulti));
+	IfStmtMulti *result = (IfStmtMulti *)malloc(sizeof(IfStmtMulti));
 
-    result->id_var_name = id_var_name;
-    result->expression = expression;
+	result->expression = expression;
+	result->thenStmtList = thenStmtList;
+	result->elseIfList = elseIfList;
+	result->elseStmtList = elseStmtList;
 
-    return result;
+	return result;
 }
 
-StmtEnds* createStmtEnds()
+ElseIfList *createElseIfList(ElseIf *elseIf)
 {
-    StmtEnds* result = (StmtEnds*)malloc(sizeof(StmtEnds));
+	ElseIfList *result = (ElseIfList *)malloc(sizeof(ElseIfList));
 
-    return result;
+	result->begin = elseIf;
+	result->end = elseIf;
+
+	return result;
 }
+
+ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf)
+{
+	list->end->nextInList = elseIf;
+	list->end = elseIf;
+
+	return list;
+}
+
+ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
+{
+	ElseIf *result = (ElseIf*)malloc(sizeof(ElseIf));
+
+	result->expression = expression;
+	result->stmtList = stmtList;
+	
+	result->nextInList = 0;
+
+	return result;
+}
+
+IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList)
+{
+	IfStmtSingle *result = (IfStmtSingle *)malloc(sizeof(IfStmtSingle));
+
+	result->expression = expression;
+	result->thenStmtList = thenStmtList;
+	result->elseStmtList = elseStmtList;
+
+	return result;
+}
+
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList)
+{
+	SelectStmt *result = (SelectStmt*)malloc(sizeof(SelectStmt));
+
+	result->expression = expression;
+	result->caseList = caseList;
+
+	return result;
+}
+
+CaseList *createCaseList(CaseStmt *caseStmt)
+{
+	CaseList *result = (CaseList *)malloc(sizeof(CaseList));
+
+	result->begin = caseStmt;
+	result->end = caseStmt;
+
+	return result;
+}
+
+CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
+{
+	list->end->nextInList = caseStmt;
+	list->end = caseStmt;
+
+	return list;
+}
+
+CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
+{
+	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
+
+	result->isIs = isIs;
+	result->fromExpression = fromExpression;
+	result->toExpression = toExpression;
+	result->stmtList = stmtList;
+	
+	result->nextInList = 0;
+
+	return result;
+}
+
+//WIP
+DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression)
+{
+	DeclStmtSingle *result = (DeclStmtSingle*)malloc(sizeof(DeclStmtSingle));
+
+	result->isConst = isConst;
+	result->id_var_name = id_var_name;
+	result->varType = varType;
+	result->expression = expression;
+
+	return result;
+}
+
+DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression)
+{
+	DeclStmtMulti *result = (DeclStmtMulti*)malloc(sizeof(DeclStmtMulti));
+
+	result->isConst = isConst;
+	result->id_var_name = id_var_name;
+	result->varType = varType;
+	result->expression = expression;
+
+	return result;
+}
+
+VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression)
+{
+	VarNameSingle *result = (VarNameSingle *)malloc(sizeof(VarNameSingle));
+
+	result->id_var_name = id_var_name;
+	result->expression = expression;
+
+	return result;
+}
+
+VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
+{
+	VarNameMulti *result = (VarNameMulti *)malloc(sizeof(VarNameMulti));
+
+	result->id_var_name = id_var_name;
+	result->expression = expression;
+
+	return result;
+}
+
+// StmtEnds *createStmtEnds()
+// {
+// 	StmtEnds *result = (StmtEnds *)malloc(sizeof(StmtEnds));
+//
+// 	return result;
+// }

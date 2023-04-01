@@ -35,7 +35,6 @@ typedef struct CaseList CaseList;
 typedef struct CaseStmt CaseStmt;
 typedef struct Expression Expression;
 typedef struct ExpressionList ExpressionList;
-typedef struct StmtEnds StmtEnds;
 
 
 
@@ -386,9 +385,4 @@ struct ExpressionList
 {
 	Expression* begin;
 	Expression* end;
-};
-
-struct StmtEnds
-{
-	int i;
 };
