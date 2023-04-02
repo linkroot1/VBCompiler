@@ -15,6 +15,8 @@ extern FILE* yyin;
 extern int yyparse();
 extern int yylex();
 
+void yyerror(const char* s);
+
 // ----- declarations -----
 Expression* createExpression(ExprType type, Expression *left, Expression *right);
 Expression* createSimpleExpression(ExprType type, Value value);
@@ -67,9 +69,8 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %union {
 	int bool_val;
 	int int_val;
-	//bin and hex
 	double double_val;
-	char* datetime_val;//time_t
+	char* datetime_val;
 	char* str_val;
 	char* id_var_name;
 	VarType vt;
@@ -597,6 +598,11 @@ int main(int argc, char** argv) {
     else {
         yyerror("not found file");
     }
+}
+
+void yyerror(const char* s) {
+	fprintf(stderr, "Parse error: %s\n", s);
+	exit(1);
 }
 
 // ------------------------------  Expression ------------------------------

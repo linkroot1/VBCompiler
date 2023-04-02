@@ -1,50 +1,80 @@
-﻿  lex.yy.c
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(75,2): error C2061: syntax error: identifier 'VarType'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(77,13): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(78,17): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(79,18): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(80,26): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(81,14): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(82,9): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(83,20): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(84,16): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(85,11): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(86,10): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(87,23): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(88,24): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(89,27): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(90,20): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(91,23): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(92,11): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(93,12): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(94,18): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(95,17): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(96,12): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(97,13): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(98,18): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(99,14): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(100,18): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(101,14): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(102,13): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(103,9): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(104,15): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(105,13): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(106,11): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(107,11): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(108,17): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(109,16): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(110,16): error C2143: syntax error: missing '{' before '*'
-Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(111,15): error C2143: syntax error: missing '{' before '*'
-parser.tab.h(174,1): error C2059: syntax error: '}'
-flexample.l(78,18): error C2037: left of 'str_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(78,71): error C2037: left of 'datetime_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(78,64): error C2198: 'strcpy': too few arguments for call
-flexample.l(86,20): error C2037: left of 'str_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(86,73): error C2037: left of 'str_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(86,66): error C2198: 'strcpy': too few arguments for call
-flexample.l(88,30): error C2037: left of 'int_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(91,2): error C2037: left of 'double_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(97,2): error C2037: left of 'bool_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(98,2): error C2037: left of 'bool_val' specifies undefined struct/union 'YYSTYPE'
-flexample.l(101,2): error C2037: left of 'id_name' specifies undefined struct/union 'YYSTYPE'
+﻿  parser.tab.c
+parser.tab.c(1669,36): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(311,195): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(312,194): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(314,224): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(315,223): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(316,161): warning C4020: 'createFunction': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(317,202): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(318,201): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(320,231): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(321,230): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(332,118): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(332,143): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(332,79): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(333,143): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(333,168): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(333,103): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(334,130): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(334,155): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(334,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(335,131): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(335,156): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(335,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(336,124): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(336,82): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(337,149): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(337,106): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(338,137): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(338,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(339,136): warning C4020: 'createParameterListWithType': too many actual parameters
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(339,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(399,121): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(399,120): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(399,133): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(400,132): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(400,131): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(400,144): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(401,131): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(402,142): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(403,114): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(404,125): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(408,135): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(408,134): warning C4024: 'createDeclStmtSingle': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(408,147): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(409,165): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(410,145): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(411,148): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(412,127): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(446,102): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(446,101): warning C4024: 'createDoLoopCondition': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(480,140): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(481,163): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(481,191): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(496,90): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(496,89): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(497,91): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(497,90): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(526,61): warning C4013: 'createExpressionWithList' undefined; assuming extern returning int
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(526,172): warning C4047: '=': 'Expression *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(545,181): warning C4047: '=': 'Expression *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(563,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(564,119): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(565,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(569,96): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.tab.c(1920,41): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(693,24): warning C4133: '=': incompatible types - from 'ProgramItemListNotEmpty *' to 'ProgramItem *'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(704,37): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+Q:/Uni/tfiaimt/VBCompiler/parser/parser.y(1061,27): warning C4047: '=': 'int' differs in levels of indirection from 'int *'
+  lex.yy.c
 flexample.l(127,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+parser.tab.obj : error LNK2019: unresolved external symbol createExpressionWithList referenced in function yyparse
+print_tree.obj : error LNK2019: unresolved external symbol parceFunctionOrSubList referenced in function parseModule
+print_tree.obj : error LNK2019: unresolved external symbol parseIfStatementSingle referenced in function parseStatementSingle
+print_tree.obj : error LNK2019: unresolved external symbol parseDeclarationStatementSingle referenced in function parseStatementSingle
+print_tree.obj : error LNK2019: unresolved external symbol parseExpressionSingle referenced in function parseStatementSingle
+print_tree.obj : error LNK2019: unresolved external symbol parseIfStatementMulti referenced in function parseStatementMulti
+print_tree.obj : error LNK2019: unresolved external symbol parseDeclarationStatementMulti referenced in function parseStatementMulti
+print_tree.obj : error LNK2019: unresolved external symbol parseExpressionMulti referenced in function parseStatementMulti
+Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe : fatal error LNK1120: 8 unresolved externals

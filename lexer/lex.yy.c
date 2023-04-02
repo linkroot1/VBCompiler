@@ -1182,7 +1182,7 @@ YY_RULE_SETUP
 case 54:
 YY_RULE_SETUP
 #line 101 "flexample.l"
-{yylval.id_name = yytext; return IDENTIFIER_VALUE;}
+{yylval.id_var_name = yytext; return IDENTIFIER_VALUE;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
