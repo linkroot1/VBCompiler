@@ -74,7 +74,7 @@ While {return WHILE;}
 
 # {BEGIN(DATETIME);}
 <DATETIME>[^#\n]+  { strcat(buf, yytext); }
-<DATETIME># {BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE;}
+<DATETIME># {BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE;}
 
 
 

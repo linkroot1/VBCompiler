@@ -1110,7 +1110,7 @@ YY_RULE_SETUP
 case 41:
 YY_RULE_SETUP
 #line 78 "flexample.l"
-{BEGIN(INITIAL); yylval.string_const=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE;}
+{BEGIN(INITIAL); yylval.str_val=(char *)malloc(strlen(buf)+1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
