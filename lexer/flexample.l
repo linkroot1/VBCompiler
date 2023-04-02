@@ -1,3 +1,4 @@
+%option nounistd
 %option noyywrap
 %option caseless
 %option never-interactive

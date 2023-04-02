@@ -111,7 +111,7 @@ Statement *createStatement(StmtType type, StmtValue value);
 StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value);
 StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
-DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList);
 DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
 ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList);
 ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
