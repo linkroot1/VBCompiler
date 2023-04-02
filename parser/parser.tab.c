@@ -111,9 +111,9 @@ Statement *createStatement(StmtType type, StmtValue value);
 StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value);
 StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
-DoLoopStmt *createDoLoopStmt(DoLoopCondition *doLoopCondition, Expression *expression);
+DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList);
 DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
-ForLoopStmt *createForLoopStmt(VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList);
+ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList);
 ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
 IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
 ElseIfList *createElseIfList(ElseIf *elseIf);
@@ -3332,10 +3332,6 @@ yyreturnlab:
 #line 582 "parser.y"
 
 
-// void yyerror(const char* s) {
-// 	fprintf(stderr, "Parse error: %s\n", s);
-// 	exit(1);
-// }
 
 int main(int argc, char** argv) {
     if (argc > 1) {
