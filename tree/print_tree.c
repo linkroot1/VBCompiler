@@ -217,7 +217,7 @@ void parseModule(Module* mod, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "Module", mod->id_var_name));
 		int currentIter = tree->end->num;
 
-		parceFunctionOrSubList(mod->functionOrSubList, tree, currentIter);
+		parseFunctionOrSubList(mod->functionOrSubList, tree, currentIter);
 	}
 }
 
@@ -397,13 +397,13 @@ void parseStatementSingle(StatementSingle* stmt, Tree* tree, int parentNum)
 		switch (stmt->type)
 		{
 		case ST_IF_SINGLE:
-			parseIfStatementSingle(stmt->value.ifStmtSingle, tree, currentIter);
+			parceIfStatementSingle(stmt->value.ifStmtSingle, tree, currentIter);
 			break;
 		case ST_DECL_SINGLE:
-			parseDeclarationStatementSingle(stmt->value.declStmtSingle, tree, currentIter);
+			parceDeclarationStatementSingle(stmt->value.declStmtSingle, tree, currentIter);
 			break;
 		case EXPR_SINGLE:
-			parseExpressionSingle(stmt->value.expression, tree, currentIter);
+			parseExpression(stmt->value.expression, tree, currentIter);
 			break;
 		}
 	}
@@ -419,13 +419,13 @@ void parseStatementMulti(StatementMulti* stmt, Tree* tree, int parentNum)
 		switch (stmt->type)
 		{
 		case ST_IF_MULTI:
-			parseIfStatementMulti(stmt->value.ifStmtMulti, tree, currentIter);
+			parceIfStatementMulti(stmt->value.ifStmtMulti, tree, currentIter);
 			break;
 		case ST_DECL_MULTI:
-			parseDeclarationStatementMulti(stmt->value.declStmtMulti, tree, currentIter);
+			parceDeclarationStatementMulti(stmt->value.declStmtMulti, tree, currentIter);
 			break;
 		case EXPR_MULTI:
-			parseExpressionMulti(stmt->value.expression, tree, currentIter);
+			parseExpression(stmt->value.expression, tree, currentIter);
 			break;
 		case ST_WHILE_MULTI:
 			parseWhileStatement(stmt->value.whileStmt, tree, currentIter);
