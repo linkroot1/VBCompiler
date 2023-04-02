@@ -8,7 +8,7 @@
 #include <string.h>
 #include "../parser/parser.tab.h"
 
-#define _CRT_SECURE_NO_WARNINGS 1
+#pragma warning(disable : 4996)
 #define YY_DECL int yylex()
 
 int val(char c);

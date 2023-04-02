@@ -3,6 +3,7 @@
 #include <string.h>
 #include "print_tree.h"
 
+#pragma warning(disable : 4996)
 
 TreeUnit *newTreeUnit(int parentNum, const char *label, const char *edgeLabel)
 {
@@ -333,6 +334,8 @@ void parceParameterWithType(ParameterWithType* parameterWithType, Tree* tree, in
 		case VT_DOUBLE:
 			type = "double";
 			break;
+		default:
+			type = "";
 		}
 
 		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterWithType", type + *(parameterWithType->id_var_name)));

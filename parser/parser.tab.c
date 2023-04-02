@@ -69,7 +69,7 @@
 /* First part of user prologue.  */
 #line 4 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
 
-#define _CRT_SECURE_NO_WARNINGS 1
+#pragma warning(disable : 4996)
 #include <stdio.h>
 #include <stdlib.h>
 #include "../tree/tree_nodes.h"
