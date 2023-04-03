@@ -74,7 +74,6 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 	char* datetime_val;
 	char* str_val;
 	char* id_var_name;
-	char* id_name;
 	VarType vt;
 
 	Expression *expression;
