@@ -95,9 +95,10 @@ While {return WHILE;}
 
 True {yylval.bool_val = 1; return BOOLEAN_VALUE;}
 False {yylval.bool_val = 0; return BOOLEAN_VALUE;}
-\n+  {return END_OF_LINE;}
 
 ([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_var_name = yytext; return IDENTIFIER;}
+
+\n+  {return END_OF_LINE;}
 %%
 
 int val(char c)

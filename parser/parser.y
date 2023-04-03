@@ -156,7 +156,6 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %token<double_val> DOUBLE_VALUE
 %token<str_val> STRING_VALUE
 %token<bool_val> BOOLEAN_VALUE
-%token<id_name> IDENTIFIER_VALUE
 %token<datetime_val> DATETIME_VALUE
 
 
