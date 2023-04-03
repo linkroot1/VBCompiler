@@ -1,0 +1,1 @@
+Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe
