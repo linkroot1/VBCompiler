@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 4 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 4 "parser.y"
 
 #pragma warning(disable : 4996)
 #include <stdio.h>
@@ -87,6 +87,7 @@ void yyerror(const char* s);
 // ----- declarations -----
 Expression* createExpression(ExprType type, Expression *left, Expression *right);
 Expression* createSimpleExpression(ExprType type, Value value);
+Expression *createExpressionWithList(ExprType type, Value val, ExpressionList *exprList);
 ExpressionList* createExpressionList(Expression *expr);
 ExpressionList* appendExpressionToList(ExpressionList *list, Expression *expr);
 ExpressionList* createArgumentList(Expression *expr);
@@ -132,7 +133,7 @@ VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
 
-#line 136 "parser.tab.c"
+#line 137 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -673,24 +674,24 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   279,   279,   282,   283,   286,   287,   290,   291,   295,
-     296,   297,   298,   302,   303,   306,   307,   310,   311,   312,
-     313,   314,   315,   316,   317,   318,   319,   320,   321,   325,
-     326,   327,   328,   331,   332,   333,   334,   335,   336,   337,
-     338,   339,   342,   343,   344,   348,   349,   350,   354,   355,
-     359,   365,   366,   370,   371,   375,   376,   377,   380,   381,
-     382,   383,   384,   385,   386,   387,   392,   393,   399,   400,
-     401,   402,   403,   404,   408,   409,   410,   411,   412,   413,
-     417,   420,   421,   425,   426,   427,   428,   429,   430,   436,
-     437,   442,   443,   446,   447,   452,   453,   458,   463,   464,
-     465,   466,   467,   468,   469,   470,   473,   474,   477,   478,
-     480,   481,   486,   487,   490,   491,   494,   495,   496,   497,
-     498,   499,   500,   501,   502,   508,   509,   510,   511,   512,
-     513,   514,   515,   516,   517,   518,   519,   520,   521,   522,
-     523,   524,   525,   526,   529,   530,   531,   532,   533,   534,
-     535,   536,   537,   538,   539,   540,   541,   542,   543,   544,
-     545,   549,   550,   551,   552,   555,   556,   557,   558,   563,
-     564,   565,   569,   570,   573,   574,   578,   579
+       0,   280,   280,   283,   284,   287,   288,   291,   292,   296,
+     297,   298,   299,   303,   304,   307,   308,   311,   312,   313,
+     314,   315,   316,   317,   318,   319,   320,   321,   322,   326,
+     327,   328,   329,   332,   333,   334,   335,   336,   337,   338,
+     339,   340,   343,   344,   345,   349,   350,   351,   355,   356,
+     360,   366,   367,   371,   372,   376,   377,   378,   381,   382,
+     383,   384,   385,   386,   387,   388,   393,   394,   400,   401,
+     402,   403,   404,   405,   409,   410,   411,   412,   413,   414,
+     418,   421,   422,   426,   427,   428,   429,   430,   431,   437,
+     438,   443,   444,   447,   448,   453,   454,   459,   464,   465,
+     466,   467,   468,   469,   470,   471,   474,   475,   478,   479,
+     481,   482,   487,   488,   491,   492,   495,   496,   497,   498,
+     499,   500,   501,   502,   503,   509,   510,   511,   512,   513,
+     514,   515,   516,   517,   518,   519,   520,   521,   522,   523,
+     524,   525,   526,   527,   530,   531,   532,   533,   534,   535,
+     536,   537,   538,   539,   540,   541,   542,   543,   544,   545,
+     546,   550,   551,   552,   553,   556,   557,   558,   559,   564,
+     565,   566,   570,   571,   574,   575,   579,   580
 };
 #endif
 
@@ -2087,1027 +2088,1027 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* root: program_items_list  */
-#line 279 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 280 "parser.y"
                          {(yyval.programItemList) /*= root*/ = (yyvsp[0].programItemList);}
-#line 2093 "parser.tab.c"
+#line 2094 "parser.tab.c"
     break;
 
   case 3: /* program_items_list: %empty  */
-#line 282 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 283 "parser.y"
                     {(yyval.programItemList) = 0;}
-#line 2099 "parser.tab.c"
+#line 2100 "parser.tab.c"
     break;
 
   case 4: /* program_items_list: program_items_list_not_empty  */
-#line 283 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 284 "parser.y"
                                                 {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty));}
-#line 2105 "parser.tab.c"
+#line 2106 "parser.tab.c"
     break;
 
   case 5: /* program_items_list_not_empty: program_item  */
-#line 286 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 287 "parser.y"
                                            { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); }
-#line 2111 "parser.tab.c"
+#line 2112 "parser.tab.c"
     break;
 
   case 6: /* program_items_list_not_empty: program_items_list_not_empty program_item  */
-#line 287 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 288 "parser.y"
                                                                         { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty),(yyvsp[0].programItem)); }
-#line 2117 "parser.tab.c"
+#line 2118 "parser.tab.c"
     break;
 
   case 7: /* program_item: module  */
-#line 290 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 291 "parser.y"
                      {(yyval.programItem) = createProgramItem((yyvsp[0].module),0);}
-#line 2123 "parser.tab.c"
+#line 2124 "parser.tab.c"
     break;
 
   case 8: /* program_item: IMPORTS IDENTIFIER stmt_ends  */
-#line 291 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 292 "parser.y"
                                              {(yyval.programItem) =  createProgramItem(0,(yyvsp[-1].id_var_name));}
-#line 2129 "parser.tab.c"
+#line 2130 "parser.tab.c"
     break;
 
   case 9: /* module: MODULE IDENTIFIER stmt_ends END MODULE  */
-#line 295 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 296 "parser.y"
                                                {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
-#line 2135 "parser.tab.c"
+#line 2136 "parser.tab.c"
     break;
 
   case 10: /* module: MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
-#line 296 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 297 "parser.y"
                                                                      {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
-#line 2141 "parser.tab.c"
+#line 2142 "parser.tab.c"
     break;
 
   case 11: /* module: access MODULE IDENTIFIER stmt_ends END MODULE  */
-#line 297 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 298 "parser.y"
                                                       {(yyval.module) = createModule((yyvsp[-3].id_var_name),0);}
-#line 2147 "parser.tab.c"
+#line 2148 "parser.tab.c"
     break;
 
   case 12: /* module: access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE  */
-#line 298 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 299 "parser.y"
                                                                             {(yyval.module) = createModule((yyvsp[-4].id_var_name),(yyvsp[-2].functionOrSubList));}
-#line 2153 "parser.tab.c"
+#line 2154 "parser.tab.c"
     break;
 
   case 13: /* functions_or_sub_list: function_or_sub  */
-#line 302 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 303 "parser.y"
                                        {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub));}
-#line 2159 "parser.tab.c"
+#line 2160 "parser.tab.c"
     break;
 
   case 14: /* functions_or_sub_list: functions_or_sub_list stmt_ends function_or_sub  */
-#line 303 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 304 "parser.y"
                                                                        {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-2].functionOrSubList),(yyvsp[0].functionOrSub));}
-#line 2165 "parser.tab.c"
+#line 2166 "parser.tab.c"
     break;
 
   case 15: /* function_or_sub: function  */
-#line 306 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 307 "parser.y"
                           {(yyval.functionOrSub) = createFunctionOrSub(0,(yyvsp[0].function));}
-#line 2171 "parser.tab.c"
+#line 2172 "parser.tab.c"
     break;
 
   case 16: /* function_or_sub: sub_bloc  */
-#line 307 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 308 "parser.y"
                           {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc),0);}
-#line 2177 "parser.tab.c"
+#line 2178 "parser.tab.c"
     break;
 
   case 17: /* function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
-#line 310 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 311 "parser.y"
                                                                {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0);}
-#line 2183 "parser.tab.c"
+#line 2184 "parser.tab.c"
     break;
 
   case 18: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 311 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 312 "parser.y"
                                                                                                 {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
-#line 2189 "parser.tab.c"
+#line 2190 "parser.tab.c"
     break;
 
   case 19: /* function: FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 312 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 313 "parser.y"
                                                                                                {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
-#line 2195 "parser.tab.c"
+#line 2196 "parser.tab.c"
     break;
 
   case 20: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
-#line 313 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 314 "parser.y"
                                                                          {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
-#line 2201 "parser.tab.c"
+#line 2202 "parser.tab.c"
     break;
 
   case 21: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 314 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 315 "parser.y"
                                                                                                           {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
-#line 2207 "parser.tab.c"
+#line 2208 "parser.tab.c"
     break;
 
   case 22: /* function: FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 315 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 316 "parser.y"
                                                                                                          {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
-#line 2213 "parser.tab.c"
+#line 2214 "parser.tab.c"
     break;
 
   case 23: /* function: access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION  */
-#line 316 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 317 "parser.y"
                                                                       {(yyval.function) = createFunction((yyvsp[-4].id_var_name),(yyvsp[-3].expressionList),0,0,0);}
-#line 2219 "parser.tab.c"
+#line 2220 "parser.tab.c"
     break;
 
   case 24: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 317 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 318 "parser.y"
                                                                                                        {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
-#line 2225 "parser.tab.c"
+#line 2226 "parser.tab.c"
     break;
 
   case 25: /* function: access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 318 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 319 "parser.y"
                                                                                                       {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-6].expressionList),0,(yyvsp[-3].expression));}
-#line 2231 "parser.tab.c"
+#line 2232 "parser.tab.c"
     break;
 
   case 26: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION  */
-#line 319 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 320 "parser.y"
                                                                                 {(yyval.function) = createFunction((yyvsp[-5].id_var_name),(yyvsp[-4].expressionList),(yyvsp[-2].stmtList),0);}
-#line 2237 "parser.tab.c"
+#line 2238 "parser.tab.c"
     break;
 
   case 27: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION  */
-#line 320 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 321 "parser.y"
                                                                                                                  {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
-#line 2243 "parser.tab.c"
+#line 2244 "parser.tab.c"
     break;
 
   case 28: /* function: access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION  */
-#line 321 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 322 "parser.y"
                                                                                                                 {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-7].expressionList),(yyvsp[-5].stmtList),(yyvsp[-3].expression));}
-#line 2249 "parser.tab.c"
+#line 2250 "parser.tab.c"
     break;
 
   case 29: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
-#line 325 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 326 "parser.y"
                                                                         {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
-#line 2255 "parser.tab.c"
+#line 2256 "parser.tab.c"
     break;
 
   case 30: /* sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
-#line 326 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 327 "parser.y"
                                                                                   {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
-#line 2261 "parser.tab.c"
+#line 2262 "parser.tab.c"
     break;
 
   case 31: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB  */
-#line 327 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 328 "parser.y"
                                                                                {(yyval.subBloc) = createSubBloc((yyvsp[-6].id_var_name),(yyvsp[-4].parameterListOrEmpty),0);}
-#line 2267 "parser.tab.c"
+#line 2268 "parser.tab.c"
     break;
 
   case 32: /* sub_bloc: access SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB  */
-#line 328 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 329 "parser.y"
                                                                                          {(yyval.subBloc) = createSubBloc((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),(yyvsp[-2].stmtList));}
-#line 2273 "parser.tab.c"
+#line 2274 "parser.tab.c"
     break;
 
   case 33: /* parameterlist_or_empty: %empty  */
-#line 331 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 332 "parser.y"
                          {(yyval.parameterListOrEmpty) = 0;}
-#line 2279 "parser.tab.c"
+#line 2280 "parser.tab.c"
     break;
 
   case 34: /* parameterlist_or_empty: parameterlist_with_type  */
-#line 332 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 333 "parser.y"
                                                 {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
-#line 2285 "parser.tab.c"
+#line 2286 "parser.tab.c"
     break;
 
   case 35: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type END_OF_LINE  */
-#line 333 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 334 "parser.y"
                                                                         {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
-#line 2291 "parser.tab.c"
+#line 2292 "parser.tab.c"
     break;
 
   case 36: /* parameterlist_or_empty: END_OF_LINE parameterlist_with_type  */
-#line 334 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 335 "parser.y"
                                                             {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[0].parameterListWithType), 0);}
-#line 2297 "parser.tab.c"
+#line 2298 "parser.tab.c"
     break;
 
   case 37: /* parameterlist_or_empty: parameterlist_with_type END_OF_LINE  */
-#line 335 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 336 "parser.y"
                                                             {(yyval.parameterListOrEmpty) = createParameterListWithType((yyvsp[-1].parameterListWithType), 0);}
-#line 2303 "parser.tab.c"
+#line 2304 "parser.tab.c"
     break;
 
   case 38: /* parameterlist_or_empty: parameterlist_without_type  */
-#line 336 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 337 "parser.y"
                                                    {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
-#line 2309 "parser.tab.c"
+#line 2310 "parser.tab.c"
     break;
 
   case 39: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type END_OF_LINE  */
-#line 337 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 338 "parser.y"
                                                                            {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
-#line 2315 "parser.tab.c"
+#line 2316 "parser.tab.c"
     break;
 
   case 40: /* parameterlist_or_empty: parameterlist_without_type END_OF_LINE  */
-#line 338 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 339 "parser.y"
                                                                {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[-1].parameterListWithoutType));}
-#line 2321 "parser.tab.c"
+#line 2322 "parser.tab.c"
     break;
 
   case 41: /* parameterlist_or_empty: END_OF_LINE parameterlist_without_type  */
-#line 339 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 340 "parser.y"
                                                                {(yyval.parameterListOrEmpty) = createParameterListWithType(0, (yyvsp[0].parameterListWithoutType));}
-#line 2327 "parser.tab.c"
+#line 2328 "parser.tab.c"
     break;
 
   case 42: /* parameterlist_with_type: parameter_with_type  */
-#line 342 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 343 "parser.y"
                                              {(yyval.parameterListWithType) = createParameterListWithType((yyvsp[0].parameterWithType));}
-#line 2333 "parser.tab.c"
+#line 2334 "parser.tab.c"
     break;
 
   case 43: /* parameterlist_with_type: parameterlist_with_type ',' parameter_with_type  */
-#line 343 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 344 "parser.y"
                                                                          {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-2].parameterListWithType),(yyvsp[0].parameterWithType));}
-#line 2339 "parser.tab.c"
+#line 2340 "parser.tab.c"
     break;
 
   case 44: /* parameterlist_with_type: parameterlist_with_type ',' END_OF_LINE parameter_with_type  */
-#line 344 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 345 "parser.y"
                                                                                      {(yyval.parameterListWithType) = appendParameterListWithType((yyvsp[-3].parameterListWithType),(yyvsp[0].parameterWithType));}
-#line 2345 "parser.tab.c"
+#line 2346 "parser.tab.c"
     break;
 
   case 45: /* parameterlist_without_type: parameter_without_type  */
-#line 348 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 349 "parser.y"
                                                    {(yyval.parameterListWithoutType) = createParameterListWithoutType((yyvsp[0].parameterWithoutType));}
-#line 2351 "parser.tab.c"
+#line 2352 "parser.tab.c"
     break;
 
   case 46: /* parameterlist_without_type: parameterlist_without_type ',' parameter_without_type  */
-#line 349 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 350 "parser.y"
                                                                                   {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-2].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
-#line 2357 "parser.tab.c"
+#line 2358 "parser.tab.c"
     break;
 
   case 47: /* parameterlist_without_type: parameterlist_without_type ',' END_OF_LINE parameter_without_type  */
-#line 350 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 351 "parser.y"
                                                                                               {(yyval.parameterListWithoutType) = appendParameterListWithoutType((yyvsp[-3].parameterListWithoutType),(yyvsp[0].parameterWithoutType));}
-#line 2363 "parser.tab.c"
+#line 2364 "parser.tab.c"
     break;
 
   case 48: /* parameter_with_type: IDENTIFIER AS basic_literal  */
-#line 354 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 355 "parser.y"
                                                  {(yyval.parameterWithType) = createParameterWithType((yyvsp[-2].id_var_name),(yyvsp[0].vt));}
-#line 2369 "parser.tab.c"
+#line 2370 "parser.tab.c"
     break;
 
   case 49: /* parameter_with_type: IDENTIFIER AS basic_literal '(' ')'  */
-#line 355 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 356 "parser.y"
                                                           {(yyval.parameterWithType) = createParameterWithType((yyvsp[-4].id_var_name),(yyvsp[-2].vt));}
-#line 2375 "parser.tab.c"
+#line 2376 "parser.tab.c"
     break;
 
   case 50: /* parameter_without_type: IDENTIFIER  */
-#line 359 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 360 "parser.y"
                                    {(yyval.parameterWithoutType) = createParameterWithoutType((yyvsp[0].id_var_name));}
-#line 2381 "parser.tab.c"
+#line 2382 "parser.tab.c"
     break;
 
   case 51: /* stmt_list: stmt  */
-#line 365 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 366 "parser.y"
                 { (yyval.stmtList) = createStmtList((yyvsp[0].statement)); }
-#line 2387 "parser.tab.c"
+#line 2388 "parser.tab.c"
     break;
 
   case 52: /* stmt_list: stmt_list stmt  */
-#line 366 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 367 "parser.y"
                           { (yyval.stmtList) = appendStmtList((yyvsp[-1].stmtList),(yyvsp[0].statement)); }
-#line 2393 "parser.tab.c"
+#line 2394 "parser.tab.c"
     break;
 
   case 53: /* stmt: multi_line_stmt  */
-#line 370 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 371 "parser.y"
                       {(yyval.statement) = createStatement(ST_MULTI, (StmtValue){.statementMulti=(yyvsp[0].statementMulti)});}
-#line 2399 "parser.tab.c"
+#line 2400 "parser.tab.c"
     break;
 
   case 54: /* stmt: single_line_stmt stmt_ends  */
-#line 371 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 372 "parser.y"
                                  {(yyval.statement) = createStatement(ST_SINGLE, (StmtValue){.statementSingle=(yyvsp[-1].statementSingle)});}
-#line 2405 "parser.tab.c"
+#line 2406 "parser.tab.c"
     break;
 
   case 55: /* single_line_stmt: if_stmt_single_line  */
-#line 375 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 376 "parser.y"
                                       {(yyval.statementSingle) = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue){.ifStmtSingle=(yyvsp[0].ifStmtSingle)});}
-#line 2411 "parser.tab.c"
+#line 2412 "parser.tab.c"
     break;
 
   case 56: /* single_line_stmt: decl_stmt_single_line  */
-#line 376 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 377 "parser.y"
                                                         {(yyval.statementSingle) = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue){.declStmtSingle=(yyvsp[0].declStmtSingle)});}
-#line 2417 "parser.tab.c"
+#line 2418 "parser.tab.c"
     break;
 
   case 57: /* single_line_stmt: expr_singleline  */
-#line 377 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 378 "parser.y"
                                                   {(yyval.statementSingle) = createStatementSingle(EXPR_SINGLE, (StmtSingleValue){.expression=(yyvsp[0].expression)});}
-#line 2423 "parser.tab.c"
+#line 2424 "parser.tab.c"
     break;
 
   case 58: /* multi_line_stmt: if_stmt_multi_line stmt_ends  */
-#line 380 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 381 "parser.y"
                                               {(yyval.statementMulti) = createStatementMulti(ST_IF_MULTI, (StmtMultiValue){.ifStmtMulti=(yyvsp[-1].ifStmtMulti)});}
-#line 2429 "parser.tab.c"
+#line 2430 "parser.tab.c"
     break;
 
   case 59: /* multi_line_stmt: decl_stmt stmt_ends  */
-#line 381 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 382 "parser.y"
                                      {(yyval.statementMulti) = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue){.declStmtMulti=(yyvsp[-1].declStmtMulti)});}
-#line 2435 "parser.tab.c"
+#line 2436 "parser.tab.c"
     break;
 
   case 60: /* multi_line_stmt: expr_multiline stmt_ends  */
-#line 382 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 383 "parser.y"
                                           {(yyval.statementMulti) = createStatementMulti(EXPR_MULTI, (StmtMultiValue){.expression=(yyvsp[-1].expression)});}
-#line 2441 "parser.tab.c"
+#line 2442 "parser.tab.c"
     break;
 
   case 61: /* multi_line_stmt: while_stmt stmt_ends  */
-#line 383 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 384 "parser.y"
                                       {(yyval.statementMulti) = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue){.whileStmt=(yyvsp[-1].whileStmt)});}
-#line 2447 "parser.tab.c"
+#line 2448 "parser.tab.c"
     break;
 
   case 62: /* multi_line_stmt: do_loop_stmt  */
-#line 384 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 385 "parser.y"
                                           {(yyval.statementMulti) = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue){.doLoopStmt=(yyvsp[0].doLoopStmt)});}
-#line 2453 "parser.tab.c"
+#line 2454 "parser.tab.c"
     break;
 
   case 63: /* multi_line_stmt: for_loop_stmt  */
-#line 385 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 386 "parser.y"
                                            {(yyval.statementMulti) = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue){.forLoopStmt=(yyvsp[0].forLoopStmt)});}
-#line 2459 "parser.tab.c"
+#line 2460 "parser.tab.c"
     break;
 
   case 64: /* multi_line_stmt: for_each_loop_stmt  */
-#line 386 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 387 "parser.y"
                                                 {(yyval.statementMulti) = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue){.forEachLoopStmt=(yyvsp[0].forEachLoopStmt)});}
-#line 2465 "parser.tab.c"
+#line 2466 "parser.tab.c"
     break;
 
   case 65: /* multi_line_stmt: select_stmt stmt_ends  */
-#line 387 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 388 "parser.y"
                                        {(yyval.statementMulti) = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue){.selectStmt=(yyvsp[-1].selectStmt)});}
-#line 2471 "parser.tab.c"
+#line 2472 "parser.tab.c"
     break;
 
   case 66: /* stmt_ends: END_OF_LINE  */
-#line 392 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 393 "parser.y"
                        { }
-#line 2477 "parser.tab.c"
+#line 2478 "parser.tab.c"
     break;
 
   case 67: /* stmt_ends: stmt_ends END_OF_LINE  */
-#line 393 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 394 "parser.y"
                             { }
-#line 2483 "parser.tab.c"
+#line 2484 "parser.tab.c"
     break;
 
   case 68: /* decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 399 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 400 "parser.y"
                                                                           {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameMulti), (yyvsp[-3].vt), (yyvsp[0].expression));}
-#line 2489 "parser.tab.c"
+#line 2490 "parser.tab.c"
     break;
 
   case 69: /* decl_stmt: CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 400 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 401 "parser.y"
                                                                                      {(yyval.declStmtMulti) = createDeclStmtMulti(1, (yyvsp[-5].varNameSingle), (yyvsp[-3].vt), (yyvsp[0].expression));}
-#line 2495 "parser.tab.c"
+#line 2496 "parser.tab.c"
     break;
 
   case 70: /* decl_stmt: DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 401 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 402 "parser.y"
                                                                         {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameMulti), (yyvsp[-3].vt), (yyvsp[0].expression));}
-#line 2501 "parser.tab.c"
+#line 2502 "parser.tab.c"
     break;
 
   case 71: /* decl_stmt: DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline  */
-#line 402 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 403 "parser.y"
                                                                                    {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-5].varNameSingle), (yyvsp[-3].vt), (yyvsp[0].expression));}
-#line 2507 "parser.tab.c"
+#line 2508 "parser.tab.c"
     break;
 
   case 72: /* decl_stmt: DIM var_name '=' END_OF_LINE expr_multiline  */
-#line 403 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 404 "parser.y"
                                                        {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameMulti), 0, (yyvsp[0].expression));}
-#line 2513 "parser.tab.c"
+#line 2514 "parser.tab.c"
     break;
 
   case 73: /* decl_stmt: DIM var_name_singleline '=' END_OF_LINE expr_multiline  */
-#line 404 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 405 "parser.y"
                                                                   {(yyval.declStmtMulti) = createDeclStmtMulti(0, (yyvsp[-3].varNameSingle), 0, (yyvsp[0].expression));}
-#line 2519 "parser.tab.c"
+#line 2520 "parser.tab.c"
     break;
 
   case 74: /* decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline  */
-#line 408 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 409 "parser.y"
                                                                                       {(yyval.declStmtSingle) = createDeclStmtSingle(1, (yyvsp[-4].varNameSingle), (yyvsp[-2].vt), (yyvsp[0].expression));}
-#line 2525 "parser.tab.c"
+#line 2526 "parser.tab.c"
     break;
 
   case 75: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal '=' expr_singleline  */
-#line 409 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 410 "parser.y"
                                                                                                         {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-4].varNameSingle), (yyvsp[-2].vt), (yyvsp[0].expression));}
-#line 2531 "parser.tab.c"
+#line 2532 "parser.tab.c"
     break;
 
   case 76: /* decl_stmt_single_line: DIM var_name_singleline AS basic_literal  */
-#line 410 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 411 "parser.y"
                                                                                     {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), (yyvsp[0].vt), 0);}
-#line 2537 "parser.tab.c"
+#line 2538 "parser.tab.c"
     break;
 
   case 77: /* decl_stmt_single_line: DIM var_name_singleline '=' expr_singleline  */
-#line 411 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 412 "parser.y"
                                                                                        {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[-2].varNameSingle), 0, (yyvsp[0].expression));}
-#line 2543 "parser.tab.c"
+#line 2544 "parser.tab.c"
     break;
 
   case 78: /* decl_stmt_single_line: DIM var_name_singleline  */
-#line 412 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 413 "parser.y"
                                                                    {(yyval.declStmtSingle) = createDeclStmtSingle(0, (yyvsp[0].varNameSingle), 0, 0);}
-#line 2549 "parser.tab.c"
+#line 2550 "parser.tab.c"
     break;
 
   case 79: /* decl_stmt_single_line: DIM var_name_singleline '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
-#line 413 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 414 "parser.y"
                                                                                              {}
-#line 2555 "parser.tab.c"
+#line 2556 "parser.tab.c"
     break;
 
   case 80: /* var_name: IDENTIFIER '(' expr_multiline ')'  */
-#line 417 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 418 "parser.y"
                                            {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
-#line 2561 "parser.tab.c"
+#line 2562 "parser.tab.c"
     break;
 
   case 81: /* var_name_singleline: IDENTIFIER '(' expr_singleline ')'  */
-#line 420 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 421 "parser.y"
                                                        {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
-#line 2567 "parser.tab.c"
+#line 2568 "parser.tab.c"
     break;
 
   case 82: /* var_name_singleline: IDENTIFIER  */
-#line 421 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 422 "parser.y"
                      {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0);}
-#line 2573 "parser.tab.c"
+#line 2574 "parser.tab.c"
     break;
 
   case 89: /* while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE  */
-#line 436 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 437 "parser.y"
                                                                {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
-#line 2579 "parser.tab.c"
+#line 2580 "parser.tab.c"
     break;
 
   case 90: /* while_stmt: WHILE expr_singleline stmt_ends stmt_list END WHILE  */
-#line 437 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 438 "parser.y"
                                                                 {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
-#line 2585 "parser.tab.c"
+#line 2586 "parser.tab.c"
     break;
 
   case 91: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP  */
-#line 442 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 443 "parser.y"
                                                   {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-2].doLoopCondition), (yyvsp[-1].stmtList));}
-#line 2591 "parser.tab.c"
+#line 2592 "parser.tab.c"
     break;
 
   case 92: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
-#line 443 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 444 "parser.y"
                                                                         {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList));}
-#line 2597 "parser.tab.c"
+#line 2598 "parser.tab.c"
     break;
 
   case 93: /* do_loop_condition: UNTIL expr_singleline stmt_ends  */
-#line 446 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 447 "parser.y"
                                                    {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression));}
-#line 2603 "parser.tab.c"
+#line 2604 "parser.tab.c"
     break;
 
   case 94: /* do_loop_condition: WHILE expr_singleline stmt_ends  */
-#line 447 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 448 "parser.y"
                                                                    {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression));}
-#line 2609 "parser.tab.c"
+#line 2610 "parser.tab.c"
     break;
 
   case 95: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT  */
-#line 452 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 453 "parser.y"
                                                                                                                        {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-9].id_var_name), (yyvsp[-7].vt), (yyvsp[-5].expression), (yyvsp[-3].expression), 0, (yyvsp[-1].stmtList));}
-#line 2615 "parser.tab.c"
+#line 2616 "parser.tab.c"
     break;
 
   case 96: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT  */
-#line 453 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 454 "parser.y"
                                                                                                                                                             {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-11].id_var_name), (yyvsp[-9].vt), (yyvsp[-7].expression), (yyvsp[-5].expression), (yyvsp[-3].expression), (yyvsp[-1].stmtList));}
-#line 2621 "parser.tab.c"
+#line 2622 "parser.tab.c"
     break;
 
   case 97: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT  */
-#line 458 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 459 "parser.y"
                                                                                                 {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-7].id_var_name), (yyvsp[-5].vt), (yyvsp[-3].id_var_name), (yyvsp[-1].stmtList));}
-#line 2627 "parser.tab.c"
+#line 2628 "parser.tab.c"
     break;
 
   case 98: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF  */
-#line 463 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 464 "parser.y"
                                                                       {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
-#line 2633 "parser.tab.c"
+#line 2634 "parser.tab.c"
     break;
 
   case 99: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list END IF  */
-#line 464 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 465 "parser.y"
                                                                        {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0);}
-#line 2639 "parser.tab.c"
+#line 2640 "parser.tab.c"
     break;
 
   case 100: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
-#line 465 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 466 "parser.y"
                                                                                                      {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
-#line 2645 "parser.tab.c"
+#line 2646 "parser.tab.c"
     break;
 
   case 101: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_list END IF  */
-#line 466 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 467 "parser.y"
                                                                                                       {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-7].expression), (yyvsp[-4].stmtList), 0, (yyvsp[-2].stmtList));}
-#line 2651 "parser.tab.c"
+#line 2652 "parser.tab.c"
     break;
 
   case 102: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF  */
-#line 467 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 468 "parser.y"
                                                                                   {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
-#line 2657 "parser.tab.c"
+#line 2658 "parser.tab.c"
     break;
 
   case 103: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF  */
-#line 468 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 469 "parser.y"
                                                                                    {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0);}
-#line 2663 "parser.tab.c"
+#line 2664 "parser.tab.c"
     break;
 
   case 104: /* if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
-#line 469 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 470 "parser.y"
                                                                                                                  {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
-#line 2669 "parser.tab.c"
+#line 2670 "parser.tab.c"
     break;
 
   case 105: /* if_stmt_multi_line: IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_list END IF  */
-#line 470 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 471 "parser.y"
                                                                                                                   {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), (yyvsp[-4].elseIfList), (yyvsp[-2].stmtList));}
-#line 2675 "parser.tab.c"
+#line 2676 "parser.tab.c"
     break;
 
   case 106: /* elseif_list: elseif  */
-#line 473 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 474 "parser.y"
                     {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf));}
-#line 2681 "parser.tab.c"
+#line 2682 "parser.tab.c"
     break;
 
   case 107: /* elseif_list: elseif_list elseif  */
-#line 474 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 475 "parser.y"
                                 {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf));}
-#line 2687 "parser.tab.c"
+#line 2688 "parser.tab.c"
     break;
 
   case 108: /* elseif: ELSEIF expr_multiline THEN stmt_list  */
-#line 477 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 478 "parser.y"
                                              {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2693 "parser.tab.c"
+#line 2694 "parser.tab.c"
     break;
 
   case 109: /* elseif: ELSEIF expr_singleline THEN stmt_list  */
-#line 478 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 479 "parser.y"
                                               {(yyval.elseIf) = createElseIf((yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2699 "parser.tab.c"
+#line 2700 "parser.tab.c"
     break;
 
   case 110: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt  */
-#line 480 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 481 "parser.y"
                                                                {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0);}
-#line 2705 "parser.tab.c"
+#line 2706 "parser.tab.c"
     break;
 
   case 111: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  */
-#line 481 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 482 "parser.y"
                                                                                      {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle));}
-#line 2711 "parser.tab.c"
+#line 2712 "parser.tab.c"
     break;
 
   case 112: /* select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT  */
-#line 486 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 487 "parser.y"
                                                                         {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
-#line 2717 "parser.tab.c"
+#line 2718 "parser.tab.c"
     break;
 
   case 113: /* select_stmt: SELECT CASE expr_multiline stmt_ends case_list END SELECT  */
-#line 487 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 488 "parser.y"
                                                                        {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList));}
-#line 2723 "parser.tab.c"
+#line 2724 "parser.tab.c"
     break;
 
   case 114: /* case_list: case_stmt  */
-#line 490 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 491 "parser.y"
                      {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt));}
-#line 2729 "parser.tab.c"
+#line 2730 "parser.tab.c"
     break;
 
   case 115: /* case_list: case_list case_stmt  */
-#line 491 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 492 "parser.y"
                                       {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt));}
-#line 2735 "parser.tab.c"
+#line 2736 "parser.tab.c"
     break;
 
   case 116: /* case_stmt: CASE expr_multiline stmt_ends stmt_list  */
-#line 494 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 495 "parser.y"
                                                    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
-#line 2741 "parser.tab.c"
+#line 2742 "parser.tab.c"
     break;
 
   case 117: /* case_stmt: CASE expr_singleline stmt_ends stmt_list  */
-#line 495 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 496 "parser.y"
                                                    {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
-#line 2747 "parser.tab.c"
+#line 2748 "parser.tab.c"
     break;
 
   case 118: /* case_stmt: CASE IS expr_multiline stmt_ends stmt_list  */
-#line 496 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 497 "parser.y"
                                                      {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
-#line 2753 "parser.tab.c"
+#line 2754 "parser.tab.c"
     break;
 
   case 119: /* case_stmt: CASE IS expr_singleline stmt_ends stmt_list  */
-#line 497 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 498 "parser.y"
                                                       {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), 0, (yyvsp[0].stmtList));}
-#line 2759 "parser.tab.c"
+#line 2760 "parser.tab.c"
     break;
 
   case 120: /* case_stmt: CASE expr_multiline TO expr_multiline stmt_ends stmt_list  */
-#line 498 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 499 "parser.y"
                                                                     {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2765 "parser.tab.c"
+#line 2766 "parser.tab.c"
     break;
 
   case 121: /* case_stmt: CASE expr_multiline TO expr_singleline stmt_ends stmt_list  */
-#line 499 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 500 "parser.y"
                                                                      {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2771 "parser.tab.c"
+#line 2772 "parser.tab.c"
     break;
 
   case 122: /* case_stmt: CASE expr_singleline TO expr_multiline stmt_ends stmt_list  */
-#line 500 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 501 "parser.y"
                                                                      {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2777 "parser.tab.c"
+#line 2778 "parser.tab.c"
     break;
 
   case 123: /* case_stmt: CASE expr_singleline TO expr_singleline stmt_ends stmt_list  */
-#line 501 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 502 "parser.y"
                                                                       {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-4].expression), (yyvsp[-2].expression), (yyvsp[0].stmtList));}
-#line 2783 "parser.tab.c"
+#line 2784 "parser.tab.c"
     break;
 
   case 124: /* case_stmt: CASE ELSE stmt_ends stmt_list  */
-#line 502 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 503 "parser.y"
                                         {(yyval.caseStmt) = createCaseStmt(0, 0, 0, (yyvsp[0].stmtList));}
-#line 2789 "parser.tab.c"
+#line 2790 "parser.tab.c"
     break;
 
   case 125: /* expr_singleline: basic_literal_value  */
-#line 508 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 509 "parser.y"
                                      {(yyval.expression) = (yyvsp[0].expression);}
-#line 2795 "parser.tab.c"
+#line 2796 "parser.tab.c"
     break;
 
   case 126: /* expr_singleline: '-' expr_singleline  */
-#line 509 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 510 "parser.y"
                                                   {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression));}
-#line 2801 "parser.tab.c"
+#line 2802 "parser.tab.c"
     break;
 
   case 127: /* expr_singleline: '+' expr_singleline  */
-#line 510 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 511 "parser.y"
                                                  {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression));}
-#line 2807 "parser.tab.c"
+#line 2808 "parser.tab.c"
     break;
 
   case 128: /* expr_singleline: expr_singleline '+' expr_singleline  */
-#line 511 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 512 "parser.y"
                                           {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2813 "parser.tab.c"
+#line 2814 "parser.tab.c"
     break;
 
   case 129: /* expr_singleline: expr_singleline '-' expr_singleline  */
-#line 512 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 513 "parser.y"
                                           {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2819 "parser.tab.c"
+#line 2820 "parser.tab.c"
     break;
 
   case 130: /* expr_singleline: expr_singleline '*' expr_singleline  */
-#line 513 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 514 "parser.y"
                                           {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2825 "parser.tab.c"
+#line 2826 "parser.tab.c"
     break;
 
   case 131: /* expr_singleline: expr_singleline '/' expr_singleline  */
-#line 514 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 515 "parser.y"
                                           {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2831 "parser.tab.c"
+#line 2832 "parser.tab.c"
     break;
 
   case 132: /* expr_singleline: expr_singleline INT_DIV expr_singleline  */
-#line 515 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 516 "parser.y"
                                               {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2837 "parser.tab.c"
+#line 2838 "parser.tab.c"
     break;
 
   case 133: /* expr_singleline: expr_singleline '=' expr_singleline  */
-#line 516 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 517 "parser.y"
                                           {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2843 "parser.tab.c"
+#line 2844 "parser.tab.c"
     break;
 
   case 134: /* expr_singleline: expr_singleline '<' expr_singleline  */
-#line 517 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 518 "parser.y"
                                           {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2849 "parser.tab.c"
+#line 2850 "parser.tab.c"
     break;
 
   case 135: /* expr_singleline: expr_singleline '>' expr_singleline  */
-#line 518 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 519 "parser.y"
                                           {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2855 "parser.tab.c"
+#line 2856 "parser.tab.c"
     break;
 
   case 136: /* expr_singleline: expr_singleline '^' expr_singleline  */
-#line 519 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 520 "parser.y"
                                           {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2861 "parser.tab.c"
+#line 2862 "parser.tab.c"
     break;
 
   case 137: /* expr_singleline: expr_singleline NOT_EQUAL expr_singleline  */
-#line 520 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 521 "parser.y"
                                                 {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2867 "parser.tab.c"
+#line 2868 "parser.tab.c"
     break;
 
   case 138: /* expr_singleline: expr_singleline LESS_OR_EQUAL expr_singleline  */
-#line 521 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 522 "parser.y"
                                                     {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2873 "parser.tab.c"
+#line 2874 "parser.tab.c"
     break;
 
   case 139: /* expr_singleline: expr_singleline MORE_OR_EQUAL expr_singleline  */
-#line 522 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 523 "parser.y"
                                                     {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2879 "parser.tab.c"
+#line 2880 "parser.tab.c"
     break;
 
   case 140: /* expr_singleline: expr_singleline '&' expr_singleline  */
-#line 523 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 524 "parser.y"
                                           {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-2].expression), (yyvsp[0].expression));}
-#line 2885 "parser.tab.c"
+#line 2886 "parser.tab.c"
     break;
 
   case 141: /* expr_singleline: '(' expr_singleline ')'  */
-#line 524 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 525 "parser.y"
                               {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
-#line 2891 "parser.tab.c"
+#line 2892 "parser.tab.c"
     break;
 
   case 142: /* expr_singleline: IDENTIFIER  */
-#line 525 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 526 "parser.y"
                  {(yyval.expression) = createSimpleExpression(ET_ID, (Value){.string_val=(yyvsp[0].id_var_name)});}
-#line 2897 "parser.tab.c"
+#line 2898 "parser.tab.c"
     break;
 
   case 143: /* expr_singleline: IDENTIFIER arguments_singleline  */
-#line 526 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 527 "parser.y"
                                       {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
-#line 2903 "parser.tab.c"
+#line 2904 "parser.tab.c"
     break;
 
   case 144: /* expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline  */
-#line 529 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 530 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
-#line 2909 "parser.tab.c"
+#line 2910 "parser.tab.c"
     break;
 
   case 145: /* expr_multiline: expr_singleline '-' END_OF_LINE expr_singleline  */
-#line 530 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 531 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression)); }
-#line 2915 "parser.tab.c"
+#line 2916 "parser.tab.c"
     break;
 
   case 146: /* expr_multiline: expr_singleline '*' END_OF_LINE expr_singleline  */
-#line 531 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 532 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2921 "parser.tab.c"
+#line 2922 "parser.tab.c"
     break;
 
   case 147: /* expr_multiline: expr_singleline '/' END_OF_LINE expr_singleline  */
-#line 532 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 533 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2927 "parser.tab.c"
+#line 2928 "parser.tab.c"
     break;
 
   case 148: /* expr_multiline: expr_singleline INT_DIV END_OF_LINE expr_singleline  */
-#line 533 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 534 "parser.y"
                                                                     {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2933 "parser.tab.c"
+#line 2934 "parser.tab.c"
     break;
 
   case 149: /* expr_multiline: expr_singleline '=' END_OF_LINE expr_singleline  */
-#line 534 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 535 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2939 "parser.tab.c"
+#line 2940 "parser.tab.c"
     break;
 
   case 150: /* expr_multiline: expr_singleline '<' END_OF_LINE expr_singleline  */
-#line 535 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 536 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2945 "parser.tab.c"
+#line 2946 "parser.tab.c"
     break;
 
   case 151: /* expr_multiline: expr_singleline '>' END_OF_LINE expr_singleline  */
-#line 536 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 537 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2951 "parser.tab.c"
+#line 2952 "parser.tab.c"
     break;
 
   case 152: /* expr_multiline: expr_singleline '^' END_OF_LINE expr_singleline  */
-#line 537 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 538 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2957 "parser.tab.c"
+#line 2958 "parser.tab.c"
     break;
 
   case 153: /* expr_multiline: expr_singleline NOT_EQUAL END_OF_LINE expr_singleline  */
-#line 538 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 539 "parser.y"
                                                                       {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2963 "parser.tab.c"
+#line 2964 "parser.tab.c"
     break;
 
   case 154: /* expr_multiline: expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  */
-#line 539 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 540 "parser.y"
                                                                            {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2969 "parser.tab.c"
+#line 2970 "parser.tab.c"
     break;
 
   case 155: /* expr_multiline: expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline  */
-#line 540 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 541 "parser.y"
                                                                           {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2975 "parser.tab.c"
+#line 2976 "parser.tab.c"
     break;
 
   case 156: /* expr_multiline: expr_singleline '&' END_OF_LINE expr_singleline  */
-#line 541 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 542 "parser.y"
                                                                 {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression));}
-#line 2981 "parser.tab.c"
+#line 2982 "parser.tab.c"
     break;
 
   case 157: /* expr_multiline: '(' END_OF_LINE expr_singleline ')'  */
-#line 542 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 543 "parser.y"
                                                     {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expression));}
-#line 2987 "parser.tab.c"
+#line 2988 "parser.tab.c"
     break;
 
   case 158: /* expr_multiline: '(' END_OF_LINE expr_singleline END_OF_LINE ')'  */
-#line 543 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 544 "parser.y"
                                                                 {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
-#line 2993 "parser.tab.c"
+#line 2994 "parser.tab.c"
     break;
 
   case 159: /* expr_multiline: '(' expr_singleline END_OF_LINE ')'  */
-#line 544 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 545 "parser.y"
                                                     {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expression));}
-#line 2999 "parser.tab.c"
+#line 3000 "parser.tab.c"
     break;
 
   case 160: /* expr_multiline: IDENTIFIER arguments_multiline  */
-#line 545 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 546 "parser.y"
                                                {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expression));}
-#line 3005 "parser.tab.c"
+#line 3006 "parser.tab.c"
     break;
 
   case 161: /* basic_literal: INT  */
-#line 549 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 550 "parser.y"
                    {(yyval.vt) = VT_INTEGER;}
-#line 3011 "parser.tab.c"
+#line 3012 "parser.tab.c"
     break;
 
   case 162: /* basic_literal: STRING  */
-#line 550 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 551 "parser.y"
                      {(yyval.vt) = VT_STRING;}
-#line 3017 "parser.tab.c"
+#line 3018 "parser.tab.c"
     break;
 
   case 163: /* basic_literal: BOOLEAN  */
-#line 551 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 552 "parser.y"
                       {(yyval.vt) = VT_BOOLEAN;}
-#line 3023 "parser.tab.c"
+#line 3024 "parser.tab.c"
     break;
 
   case 164: /* basic_literal: DOUBLE  */
-#line 552 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 553 "parser.y"
                      {(yyval.vt) = VT_DOUBLE;}
-#line 3029 "parser.tab.c"
+#line 3030 "parser.tab.c"
     break;
 
   case 165: /* basic_literal_value: INT_VALUE  */
-#line 555 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 556 "parser.y"
                                {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)});}
-#line 3035 "parser.tab.c"
+#line 3036 "parser.tab.c"
     break;
 
   case 166: /* basic_literal_value: STRING_VALUE  */
-#line 556 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 557 "parser.y"
                                   {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)});}
-#line 3041 "parser.tab.c"
+#line 3042 "parser.tab.c"
     break;
 
   case 167: /* basic_literal_value: BOOLEAN_VALUE  */
-#line 557 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 558 "parser.y"
                                    {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)});}
-#line 3047 "parser.tab.c"
+#line 3048 "parser.tab.c"
     break;
 
   case 168: /* basic_literal_value: DOUBLE_VALUE  */
-#line 558 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 559 "parser.y"
                                   {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)});}
-#line 3053 "parser.tab.c"
+#line 3054 "parser.tab.c"
     break;
 
   case 169: /* arguments_multiline: '(' END_OF_LINE expr_list ')'  */
-#line 563 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 564 "parser.y"
                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
-#line 3059 "parser.tab.c"
+#line 3060 "parser.tab.c"
     break;
 
   case 170: /* arguments_multiline: '(' END_OF_LINE expr_list END_OF_LINE ')'  */
-#line 564 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 565 "parser.y"
                                                                {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
-#line 3065 "parser.tab.c"
+#line 3066 "parser.tab.c"
     break;
 
   case 171: /* arguments_multiline: '(' expr_list END_OF_LINE ')'  */
-#line 565 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 566 "parser.y"
                                                    {(yyval.expression) = createExpression(0, 0, (yyvsp[-2].expressionList));}
-#line 3071 "parser.tab.c"
+#line 3072 "parser.tab.c"
     break;
 
   case 172: /* arguments_singleline: '(' expr_list ')'  */
-#line 569 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 570 "parser.y"
                                         {(yyval.expression) = createExpression(0, 0, (yyvsp[-1].expressionList));}
-#line 3077 "parser.tab.c"
+#line 3078 "parser.tab.c"
     break;
 
   case 173: /* arguments_singleline: '(' ')'  */
-#line 570 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 571 "parser.y"
                               {(yyval.expression) = 0;}
-#line 3083 "parser.tab.c"
+#line 3084 "parser.tab.c"
     break;
 
   case 174: /* arguments: arguments_multiline  */
-#line 573 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 574 "parser.y"
                                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
-#line 3089 "parser.tab.c"
+#line 3090 "parser.tab.c"
     break;
 
   case 175: /* arguments: arguments_singleline  */
-#line 574 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 575 "parser.y"
                                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
-#line 3095 "parser.tab.c"
+#line 3096 "parser.tab.c"
     break;
 
   case 176: /* expr_list: expr_singleline  */
-#line 578 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 579 "parser.y"
                            {(yyval.expressionList) = createExpressionList((yyvsp[0].expression));}
-#line 3101 "parser.tab.c"
+#line 3102 "parser.tab.c"
     break;
 
   case 177: /* expr_list: expr_list ',' expr_singleline  */
-#line 579 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 580 "parser.y"
                                          {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList),(yyvsp[0].expression));}
-#line 3107 "parser.tab.c"
+#line 3108 "parser.tab.c"
     break;
 
 
-#line 3111 "parser.tab.c"
+#line 3112 "parser.tab.c"
 
       default: break;
     }
@@ -3331,7 +3332,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 583 "Q:/Uni/tfiaimt/VBCompiler/parser/parser.y"
+#line 584 "parser.y"
 
 
 
@@ -3834,6 +3835,21 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 
 	result->id_var_name = id_var_name;
 	result->expression = expression;
+
+	return result;
+}
+
+Expression *createExpressionWithList(ExprType type, Value value, ExpressionList *exprList)
+{
+	Expression *result = (Expression *)malloc(sizeof(Expression));
+
+	result->type = type;
+	result->value = value;
+	result->exprList = exprList;
+
+	result->right = 0;
+	result->left = 0;
+	result->nextInList = 0;
 
 	return result;
 }

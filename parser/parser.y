@@ -20,6 +20,7 @@ void yyerror(const char* s);
 // ----- declarations -----
 Expression* createExpression(ExprType type, Expression *left, Expression *right);
 Expression* createSimpleExpression(ExprType type, Value value);
+Expression *createExpressionWithList(ExprType type, Value val, ExpressionList *exprList);
 ExpressionList* createExpressionList(Expression *expr);
 ExpressionList* appendExpressionToList(ExpressionList *list, Expression *expr);
 ExpressionList* createArgumentList(Expression *expr);
@@ -1082,6 +1083,21 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
 
 	result->id_var_name = id_var_name;
 	result->expression = expression;
+
+	return result;
+}
+
+Expression *createExpressionWithList(ExprType type, Value value, ExpressionList *exprList)
+{
+	Expression *result = (Expression *)malloc(sizeof(Expression));
+
+	result->type = type;
+	result->value = value;
+	result->exprList = exprList;
+
+	result->right = 0;
+	result->left = 0;
+	result->nextInList = 0;
 
 	return result;
 }
