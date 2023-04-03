@@ -228,50 +228,6 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %precedence ELSE
 %precedence IDENTIFIER
 
-/*
-%type access
-%type program_items_list
-%type program_items_list_not_empty
-%type program_item
-%type stmt_ends
-%type stmt
-%type single_line_stmt
-%type multi_line_stmt
-%type decl_stmt
-%type var_name
-%type var_name_singleline
-%type while_stmt
-%type if_stmt_multi_line
-%type if_stmt_single_line
-%type elseif_list
-%type select_stmt
-%type case_stmt
-%type expr_singleline
-%type basic_literal
-%type arguments
-%type expr_list
-%type module
-%type stmt_list
-%type functions_or_sub_list
-%type function_or_sub
-%type function
-%type sub_bloc
-%type parameterlist_or_empty
-%type parameterlist_with_type
-%type parameterlist_without_type
-%type parameter_with_type
-%type parameter_without_type
-%type arguments_singleline
-%type arguments_multiline
-%type do_loop_stmt
-%type do_loop_condition
-%type for_loop_stmt
-%type for_each_loop_stmt
-%type decl_stmt_single_line
-%type basic_literal_value
-%type expr_multiline
-*/
-
 %start root
 
 %%
