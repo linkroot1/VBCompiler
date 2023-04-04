@@ -65,6 +65,7 @@ DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varT
 VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
+ProgramItemList *root;
 %}
 
 %union {
@@ -232,7 +233,7 @@ VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 %%
 
 //------------------programm Start-----------------------------
-root: program_items_list {$$ /*= root*/ = $1;}
+root: program_items_list {$$ = root = $1;}
     ;
 
 program_items_list: {$$ = 0;}
@@ -544,16 +545,18 @@ int main(int argc, char** argv) {
         yyin = fopen(argv[1], "r");
         yyparse();
         fclose(yyin);
-		/*
+		
 
-		freopen("./gen_tree/tree_img.txt", "w", stdout);
+		freopen("../gen_tree/tree_img.txt", "w", stdout);
 		printTree(root);
 		fclose(stdout);
-		fclose (yyin);*/
+		fclose (yyin);
     }
     else {
         yyerror("not found file");
     }
+	
+	//return 0;
 }
 
 void yyerror(const char* s) {
