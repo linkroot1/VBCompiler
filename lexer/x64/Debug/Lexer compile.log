@@ -1,70 +1,70 @@
 ﻿  parser.tab.c
-parser.tab.c(1671,36): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
-parser.y(268,195): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(269,194): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(271,224): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(272,223): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(273,161): warning C4020: 'createFunction': too many actual parameters
-parser.y(274,202): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(275,201): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(277,231): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(278,230): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(289,118): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
-parser.y(289,143): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(289,79): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(290,143): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
-parser.y(290,168): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(290,103): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(291,130): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
-parser.y(291,155): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(291,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(292,131): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
-parser.y(292,156): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(292,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(293,124): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(293,82): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(294,149): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(294,106): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(295,137): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(295,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(296,136): warning C4020: 'createParameterListWithType': too many actual parameters
-parser.y(296,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
-parser.y(356,121): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(356,120): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
-parser.y(356,133): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
-parser.y(357,132): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(357,131): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
-parser.y(357,144): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(358,131): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
-parser.y(359,142): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(360,114): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
-parser.y(361,125): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(365,135): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(365,134): warning C4024: 'createDeclStmtSingle': different types for formal and actual parameter 1
-parser.y(365,147): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(366,165): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(367,145): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(368,148): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(369,127): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
-parser.y(403,102): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(403,101): warning C4024: 'createDoLoopCondition': different types for formal and actual parameter 1
-parser.y(437,140): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
-parser.y(438,163): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
-parser.y(438,191): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
-parser.y(453,90): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(453,89): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
-parser.y(454,91): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
-parser.y(454,90): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
-parser.y(483,159): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(502,168): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
-parser.y(520,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
-parser.y(521,119): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
-parser.y(522,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
-parser.y(526,96): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
-parser.tab.c(1922,41): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
-parser.y(652,24): warning C4133: '=': incompatible types - from 'ProgramItemListNotEmpty *' to 'ProgramItem *'
-parser.y(663,37): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
-parser.y(1020,27): warning C4047: '=': 'int' differs in levels of indirection from 'int *'
+parser.tab.c(1648,36): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
+parser.y(263,195): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(264,194): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(266,224): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(267,223): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(268,161): warning C4020: 'createFunction': too many actual parameters
+parser.y(269,202): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(270,201): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(272,231): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(273,230): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(284,118): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(284,143): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(284,79): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(285,143): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(285,168): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(285,103): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(286,130): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(286,155): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(286,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(287,131): warning C4133: 'function': incompatible types - from 'ParameterListWithType *' to 'ParameterWithType *'
+parser.y(287,156): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(287,91): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(288,124): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(288,82): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(289,149): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(289,106): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(290,137): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(290,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(291,136): warning C4020: 'createParameterListWithType': too many actual parameters
+parser.y(291,94): warning C4133: '=': incompatible types - from 'ParameterListWithType *' to 'ParameterListOrEmpty *'
+parser.y(351,121): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(351,120): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+parser.y(351,133): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(352,132): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(352,131): warning C4024: 'createDeclStmtMulti': different types for formal and actual parameter 1
+parser.y(352,144): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(353,131): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(354,142): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(355,114): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'char *'
+parser.y(356,125): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(360,135): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(360,134): warning C4024: 'createDeclStmtSingle': different types for formal and actual parameter 1
+parser.y(360,147): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(361,165): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(362,145): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(363,148): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(364,127): warning C4133: 'function': incompatible types - from 'VarNameSingle *' to 'char *'
+parser.y(398,102): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(398,101): warning C4024: 'createDoLoopCondition': different types for formal and actual parameter 1
+parser.y(432,140): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(433,163): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(433,191): warning C4133: 'function': incompatible types - from 'StatementSingle *' to 'StmtList *'
+parser.y(448,90): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(448,89): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+parser.y(449,91): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+parser.y(449,90): warning C4024: 'createCaseStmt': different types for formal and actual parameter 1
+parser.y(478,159): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(497,168): warning C4133: 'function': incompatible types - from 'Expression *' to 'ExpressionList *'
+parser.y(515,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(516,119): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(517,107): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.y(521,96): warning C4133: 'function': incompatible types - from 'ExpressionList *' to 'Expression *'
+parser.tab.c(1899,41): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+parser.y(647,24): warning C4133: '=': incompatible types - from 'ProgramItemListNotEmpty *' to 'ProgramItem *'
+parser.y(658,37): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+parser.y(1015,27): warning C4047: '=': 'int' differs in levels of indirection from 'int *'
   lex.yy.c
 flexample.l(128,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...

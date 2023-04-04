@@ -1,6 +1,4 @@
 %define parse.error verbose
-
-
 %{
 #pragma warning(disable : 4996)
 #include <stdio.h>
@@ -164,9 +162,6 @@ ProgramItemList *root;
 %token<str_val> STRING
 %token<bool_val> BOOLEAN
 %token<id_var_name> IDENTIFIER
-
-
-%token ENDL
 
 %token SUB
 %token END
