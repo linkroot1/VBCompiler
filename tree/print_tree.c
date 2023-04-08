@@ -56,7 +56,7 @@ void printTree(ProgramItemList *pr)
 {
     if(pr!=NULL)
     {
-        Tree *tree = (Tree *)malloc(sizeof(Tree));
+        Tree* tree = (Tree*)malloc(sizeof(Tree));
         tree->begin = NULL;
         tree->end = NULL;
 
@@ -95,6 +95,8 @@ void printTree(ProgramItemList *pr)
 
 		printf("\n}");
     }
+	else
+		printf("Tree error: null input");
 }
 
 //ToDO: Дописать
@@ -255,9 +257,9 @@ void parseFunction(Function* func, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "Function", func->id_var_name));
 		int currentIter = tree->end->num;
 
-		parceParameterListOrEmpty(func->arguments, tree, currentIter);
+		parseExpressionList(func->arguments, tree, currentIter);
 		parseStatementList(func->stmtList, tree, currentIter);
-		parseExpressionList(func->exprList, tree, currentIter);
+		parseExpression(func->expression, tree, currentIter);
 	}
 }
 
@@ -451,9 +453,9 @@ void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, in
 	if (declStmtMulti != NULL)
 	{
 		if (declStmtMulti->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", "const" + declStmtMulti->varType + *(declStmtMulti->id_var_name)));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", "const" + declStmtMulti->varType + *(declStmtMulti->varName->id_var_name)));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varType + declStmtMulti->id_var_name));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varType + declStmtMulti->varName));
 
 		int currentIter = tree->end->num;
 
@@ -466,12 +468,13 @@ void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree,
 	if (declStmtSingle != NULL)
 	{
 		if (declStmtSingle->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", "const" + declStmtSingle->varType + *(declStmtSingle->id_var_name)));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", "const" + declStmtSingle->varType + *(declStmtSingle->varName->id_var_name)));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varType + declStmtSingle->id_var_name));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varType + declStmtSingle->varName));
 
 		int currentIter = tree->end->num;
 
+		parseExpression(declStmtSingle->expression, tree, currentIter);
 		parseExpression(declStmtSingle->expression, tree, currentIter);
 	}
 }
@@ -616,8 +619,8 @@ void parceIfStatementSingle(IfStmtSingle* ifStmtSingle, Tree* tree, int parentNu
 		int currentIter = tree->end->num;
 
 		parseExpression(ifStmtSingle->expression, tree, currentIter);
-		parseStatementList(ifStmtSingle->thenStmtList, tree, currentIter);
-		parseStatementList(ifStmtSingle->elseStmtList, tree, currentIter);
+		parseStatementSingle(ifStmtSingle->thenStmt, tree, currentIter);
+		parseStatementSingle(ifStmtSingle->elseStmt, tree, currentIter);
 	}
 }
 

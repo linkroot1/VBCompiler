@@ -30,7 +30,7 @@ Module* createModule(char *id_var_name, FunctionOrSubList *functionsAndSubList);
 FunctionOrSubList* createFunctionOrSubList(FunctionOrSub *functionOrSub);
 FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
 FunctionOrSub* createFunctionOrSub(SubBloc *subBloc, Function *function);
-Function* createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, ExpressionList *exprList);
+Function* createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, Expression *exprList);
 SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
 ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
 ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType);
@@ -46,20 +46,20 @@ StatementSingle *createStatementSingle(StmtType type, StmtSingleValue value);
 StatementMulti *createStatementMulti(StmtType type, StmtMultiValue value);
 WhileStmt *createWhileStmt(Expression *expression, StmtList *stmtList);
 DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList);
-DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression);
+DoLoopCondition *createDoLoopCondition(int isUntil, Expression *expression);
 ForLoopStmt *createForLoopStmt(char* counterVarName, VarType counterType, Expression* fromValue, Expression* toValue, Expression* stepValue, StmtList *stmtList);
 ForEachLoopStmt *createForEachLoopStmt(char* counterVarName, VarType counterType, char* counterSourceName, StmtList *stmtList);
 IfStmtMulti *createIfStmtMulti(Expression *expression, StmtList *thenStmtList, ElseIfList *elseIfList, StmtList *elseStmtList);
 ElseIfList *createElseIfList(ElseIf *elseIf);
 ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
 ElseIf *createElseIf(Expression *expression, StmtList *stmtList);
-IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList);
+IfStmtSingle *createIfStmtSingle(Expression *expression, StatementSingle *thenStmt, StatementSingle *elseStmt);
 SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
-CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
-DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression);
-DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression);
+CaseStmt *createCaseStmt(int isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
+DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
+DeclStmtMulti *createDeclStmtMulti(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
 VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
 VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
 
@@ -112,8 +112,8 @@ ProgramItemList *root;
 	VarNameMulti *varNameMulti;
 }
 
-%type <expression> expr_singleline expr_multiline basic_literal_value arguments_singleline arguments_multiline;
-%type <expressionList> expr_list arguments;
+%type <expression> expr_singleline expr_multiline basic_literal_value;
+%type <expressionList> expr_list arguments arguments_singleline arguments_multiline;
 %type <programItemList> program_items_list root;
 %type <programListNotEmpty> program_items_list_not_empty;
 %type <programItem> program_item;
@@ -244,10 +244,10 @@ program_item: module {$$ = createProgramItem($1,0);}
              ;
 
 
-module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0);}
-      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($2,$4);}
-      | access MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($3,0);}
-      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($3,$5);}
+module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($2,0);}
+      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($2,$4);}
+      | access MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($3,0);}
+      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($3,$5);}
       ;
 
 
@@ -265,7 +265,7 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$3,$5,0);}
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,0,0);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,0);}
         | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
         | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
         | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$4,$6,0);}
@@ -281,14 +281,14 @@ sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = cr
         ;
 
 parameterlist_or_empty:  {$$ = 0;}
-                      | parameterlist_with_type {$$ = createParameterListWithType($1, 0);}
-                      | END_OF_LINE parameterlist_with_type END_OF_LINE {$$ = createParameterListWithType($2, 0);}
-                      | END_OF_LINE parameterlist_with_type {$$ = createParameterListWithType($2, 0);}
-                      | parameterlist_with_type END_OF_LINE {$$ = createParameterListWithType($1, 0);}
-                      | parameterlist_without_type {$$ = createParameterListWithType(0, $1);}
-                      | END_OF_LINE parameterlist_without_type END_OF_LINE {$$ = createParameterListWithType(0, $2);}
-                      | parameterlist_without_type END_OF_LINE {$$ = createParameterListWithType(0, $1);}
-                      | END_OF_LINE parameterlist_without_type {$$ = createParameterListWithType(0, $2);}
+                      | parameterlist_with_type {$$ = createParameterListOrEmpty($1, 0);}
+                      | END_OF_LINE parameterlist_with_type END_OF_LINE {$$ = createParameterListOrEmpty($2, 0);}
+                      | END_OF_LINE parameterlist_with_type {$$ = createParameterListOrEmpty($2, 0);}
+                      | parameterlist_with_type END_OF_LINE {$$ = createParameterListOrEmpty($1, 0);}
+                      | parameterlist_without_type {$$ = createParameterListOrEmpty(0, $1);}
+                      | END_OF_LINE parameterlist_without_type END_OF_LINE {$$ = createParameterListOrEmpty(0, $2);}
+                      | parameterlist_without_type END_OF_LINE {$$ = createParameterListOrEmpty(0, $1);}
+                      | END_OF_LINE parameterlist_without_type {$$ = createParameterListOrEmpty(0, $2);}
                       ;
 
 parameterlist_with_type: parameter_with_type {$$ = createParameterListWithType($1);}
@@ -512,19 +512,19 @@ basic_literal_value: INT_VALUE {$$ = createSimpleExpression(VT_INTEGER, (Value){
 
 
 
-arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = createExpression(0, 0, $3);}
-                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = createExpression(0, 0, $3);}
-                   | '(' expr_list END_OF_LINE ')' {$$ = createExpression(0, 0, $2);}
+arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = $3;}
+                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = $3;}
+                   | '(' expr_list END_OF_LINE ')' {$$ = $2;}
                    ;
 
 
-arguments_singleline: '(' expr_list ')' {$$ = createExpression(0, 0, $2);}
+arguments_singleline: '(' expr_list ')' {$$ = $2;}
                     | '(' ')' {$$ = 0;}
                     ;
 
-arguments: arguments_multiline {$$ = createExpressionList($1);}
-        | arguments_singleline {$$ = createExpressionList($1);}
-        ;
+arguments: arguments_multiline {$$ = $1;}
+         | arguments_singleline {$$ = $1;}
+         ;
 
 
 expr_list: expr_singleline {$$ = createExpressionList($1);}
@@ -538,11 +538,9 @@ expr_list: expr_singleline {$$ = createExpressionList($1);}
 int main(int argc, char** argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
-        yyparse();
-        fclose(yyin);
-		
+        yyparse();	
 
-		freopen("../gen_tree/tree_img.txt", "w", stdout);
+		freopen("../tree/tree_img.txt", "w", stdout);
 		printTree(root);
 		fclose(stdout);
 		fclose (yyin);
@@ -644,7 +642,7 @@ ProgramItemListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
 
 ProgramItemListNotEmpty *appendProgramToListNotEmpty(ProgramItemListNotEmpty *list, ProgramItem *programItem)
 {
-	list->end->nextInList = list;
+	list->end->nextInList = programItem;
 	list->end = programItem;
 
 	return list;
@@ -656,7 +654,7 @@ ProgramItem *createProgramItem(Module *module, char *id_var_name)
 	ProgramItem *result = (ProgramItem *)malloc(sizeof(ProgramItem));
 
 	result->isImport = id_var_name != 0;
-	result->id_var_name=id_var_name;
+	result->id_var_name = id_var_name;
 	result->module = module;
 	
 	result->nextInList = 0;
@@ -704,14 +702,14 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 	return result;
 }
 
-Function *createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, ExpressionList *exprList)
+Function *createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, Expression *expression)
 {
 	Function *result = (Function *)malloc(sizeof(Function));
 
 	result->id_var_name = id_var_name;
 	result->arguments = arguments;
 	result->stmtList = stmtList;
-	result->exprList = exprList;
+	result->expression = expression;
 
 	return result;
 }
@@ -864,11 +862,14 @@ DoLoopStmt *createDoLoopStmt(DoLoopCondition *condition, StmtList *stmtList)
 }
 
 //WIP
-DoLoopCondition *createDoLoopCondition(int *isUntil, Expression *expression)
+DoLoopCondition *createDoLoopCondition(int isUntil, Expression *expression)
 {
 	DoLoopCondition *result = (DoLoopCondition *)malloc(sizeof(DoLoopCondition));
 
-	result->isUntil = isUntil;
+	if (isUntil)
+		result->isUntil = 1;
+	else
+		result->isUntil = 0;
 	result->expression = expression;
 
 	return result;
@@ -942,13 +943,13 @@ ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
 	return result;
 }
 
-IfStmtSingle *createIfStmtSingle(Expression *expression, StmtList *thenStmtList, StmtList *elseStmtList)
+IfStmtSingle *createIfStmtSingle(Expression *expression, StatementSingle *thenStmt, StatementSingle *elseStmt)
 {
 	IfStmtSingle *result = (IfStmtSingle *)malloc(sizeof(IfStmtSingle));
 
 	result->expression = expression;
-	result->thenStmtList = thenStmtList;
-	result->elseStmtList = elseStmtList;
+	result->thenStmt = thenStmt;
+	result->elseStmt = elseStmt;
 
 	return result;
 }
@@ -981,11 +982,14 @@ CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
 	return list;
 }
 
-CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
+CaseStmt *createCaseStmt(int isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
 {
 	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
 
-	result->isIs = isIs;
+	if (isIs)
+		result->isIs = 1;
+	else
+		result->isIs = 0;
 	result->fromExpression = fromExpression;
 	result->toExpression = toExpression;
 	result->stmtList = stmtList;
@@ -996,24 +1000,30 @@ CaseStmt *createCaseStmt(int *isIs, Expression *fromExpression, Expression *toEx
 }
 
 //WIP
-DeclStmtSingle *createDeclStmtSingle(int *isConst, char* id_var_name, VarType varType, Expression *expression)
+DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* varName, VarType varType, Expression *expression)
 {
 	DeclStmtSingle *result = (DeclStmtSingle*)malloc(sizeof(DeclStmtSingle));
 
-	result->isConst = isConst;
-	result->id_var_name = id_var_name;
+	if (isConst)
+		result->isConst = 1;
+	else
+		result->isConst = 0;
+	result->varName = varName;
 	result->varType = varType;
 	result->expression = expression;
 
 	return result;
 }
 
-DeclStmtMulti *createDeclStmtMulti(int *isConst, char* id_var_name, VarType varType, Expression *expression)
+DeclStmtMulti *createDeclStmtMulti(int isConst, VarNameSingle* varName, VarType varType, Expression *expression)
 {
 	DeclStmtMulti *result = (DeclStmtMulti*)malloc(sizeof(DeclStmtMulti));
 
-	result->isConst = isConst;
-	result->id_var_name = id_var_name;
+	if (isConst)
+		result->isConst = 1;
+	else
+		result->isConst = 0;
+	result->varName = varName;
 	result->varType = varType;
 	result->expression = expression;
 

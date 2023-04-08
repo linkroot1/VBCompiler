@@ -1,6 +1,6 @@
 %option nounistd
 %option noyywrap
-%option caseless
+%option case-insensitive
 %option never-interactive
 %{
 #include <stdio.h>
@@ -16,7 +16,7 @@ void remove_substr(char* str, const char* substr);
 int HextoDeci(char *str);
 int BintoDeci(char *str);
 
-int result = 111;
+int result = 0;
 
 %}
 %x STRING_LITERAL
@@ -30,6 +30,7 @@ int result = 111;
 	memset(buf, '\0', 100000);
 %}
 
+Imports {return IMPORTS;}
 As {return AS;}
 Boolean {return BOOLEAN;}
 Case {return CASE;}
@@ -99,6 +100,8 @@ False {yylval.bool_val = 0; return BOOLEAN_VALUE;}
 ([a-zA-Z_])([a-zA-Z_0-9])+ {yylval.id_var_name = yytext; return IDENTIFIER;}
 
 \n+  {return END_OF_LINE;}
+
+<<EOF>> { static int once = 0; return once++ ? 0 : END_OF_LINE;}
 %%
 
 int val(char c)

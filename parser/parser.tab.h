@@ -65,55 +65,54 @@ extern int yydebug;
     STRING = 265,                  /* STRING  */
     BOOLEAN = 266,                 /* BOOLEAN  */
     IDENTIFIER = 267,              /* IDENTIFIER  */
-    ENDL = 268,                    /* ENDL  */
-    SUB = 269,                     /* SUB  */
-    END = 270,                     /* END  */
-    CONST = 271,                   /* CONST  */
-    DIM = 272,                     /* DIM  */
-    AS = 273,                      /* AS  */
-    WHILE = 274,                   /* WHILE  */
-    IF = 275,                      /* IF  */
-    NEW = 276,                     /* NEW  */
-    ELSEIF = 277,                  /* ELSEIF  */
-    SELECT = 278,                  /* SELECT  */
-    CASE = 279,                    /* CASE  */
-    IS = 280,                      /* IS  */
-    TO = 281,                      /* TO  */
-    IMPORTS = 282,                 /* IMPORTS  */
-    MODULE = 283,                  /* MODULE  */
-    FUNCTION = 284,                /* FUNCTION  */
-    RETURN = 285,                  /* RETURN  */
-    DO = 286,                      /* DO  */
-    LOOP = 287,                    /* LOOP  */
-    UNTIL = 288,                   /* UNTIL  */
-    FOR = 289,                     /* FOR  */
-    NEXT = 290,                    /* NEXT  */
-    STEP = 291,                    /* STEP  */
-    OF = 292,                      /* OF  */
-    IN = 293,                      /* IN  */
-    EACH = 294,                    /* EACH  */
-    END_OF_LINE = 295,             /* END_OF_LINE  */
-    ASSIGN_CONSTRUCT = 296,        /* ASSIGN_CONSTRUCT  */
-    ASSIGN_MULT = 297,             /* ASSIGN_MULT  */
-    ASSIGN_ORD_DIV = 298,          /* ASSIGN_ORD_DIV  */
-    ASSIGN_INT_DIV = 299,          /* ASSIGN_INT_DIV  */
-    ASSIGN_ADD = 300,              /* ASSIGN_ADD  */
-    ASSIGN_SUB = 301,              /* ASSIGN_SUB  */
-    ASSIGN_LSHIFT = 302,           /* ASSIGN_LSHIFT  */
-    ASSIGN_RSHIFT = 303,           /* ASSIGN_RSHIFT  */
-    ASSIGN_CONCAT = 304,           /* ASSIGN_CONCAT  */
-    PRIVATE = 305,                 /* PRIVATE  */
-    PROTECTED = 306,               /* PROTECTED  */
-    PUBLIC = 307,                  /* PUBLIC  */
-    FRIEND = 308,                  /* FRIEND  */
-    INT_DIV = 309,                 /* INT_DIV  */
-    UNARY_MINUS = 310,             /* UNARY_MINUS  */
-    UNARY_PLUS = 311,              /* UNARY_PLUS  */
-    NOT_EQUAL = 312,               /* NOT_EQUAL  */
-    LESS_OR_EQUAL = 313,           /* LESS_OR_EQUAL  */
-    MORE_OR_EQUAL = 314,           /* MORE_OR_EQUAL  */
-    THEN = 315,                    /* THEN  */
-    ELSE = 316                     /* ELSE  */
+    SUB = 268,                     /* SUB  */
+    END = 269,                     /* END  */
+    CONST = 270,                   /* CONST  */
+    DIM = 271,                     /* DIM  */
+    AS = 272,                      /* AS  */
+    WHILE = 273,                   /* WHILE  */
+    IF = 274,                      /* IF  */
+    NEW = 275,                     /* NEW  */
+    ELSEIF = 276,                  /* ELSEIF  */
+    SELECT = 277,                  /* SELECT  */
+    CASE = 278,                    /* CASE  */
+    IS = 279,                      /* IS  */
+    TO = 280,                      /* TO  */
+    IMPORTS = 281,                 /* IMPORTS  */
+    MODULE = 282,                  /* MODULE  */
+    FUNCTION = 283,                /* FUNCTION  */
+    RETURN = 284,                  /* RETURN  */
+    DO = 285,                      /* DO  */
+    LOOP = 286,                    /* LOOP  */
+    UNTIL = 287,                   /* UNTIL  */
+    FOR = 288,                     /* FOR  */
+    NEXT = 289,                    /* NEXT  */
+    STEP = 290,                    /* STEP  */
+    OF = 291,                      /* OF  */
+    IN = 292,                      /* IN  */
+    EACH = 293,                    /* EACH  */
+    END_OF_LINE = 294,             /* END_OF_LINE  */
+    ASSIGN_CONSTRUCT = 295,        /* ASSIGN_CONSTRUCT  */
+    ASSIGN_MULT = 296,             /* ASSIGN_MULT  */
+    ASSIGN_ORD_DIV = 297,          /* ASSIGN_ORD_DIV  */
+    ASSIGN_INT_DIV = 298,          /* ASSIGN_INT_DIV  */
+    ASSIGN_ADD = 299,              /* ASSIGN_ADD  */
+    ASSIGN_SUB = 300,              /* ASSIGN_SUB  */
+    ASSIGN_LSHIFT = 301,           /* ASSIGN_LSHIFT  */
+    ASSIGN_RSHIFT = 302,           /* ASSIGN_RSHIFT  */
+    ASSIGN_CONCAT = 303,           /* ASSIGN_CONCAT  */
+    PRIVATE = 304,                 /* PRIVATE  */
+    PROTECTED = 305,               /* PROTECTED  */
+    PUBLIC = 306,                  /* PUBLIC  */
+    FRIEND = 307,                  /* FRIEND  */
+    INT_DIV = 308,                 /* INT_DIV  */
+    UNARY_MINUS = 309,             /* UNARY_MINUS  */
+    UNARY_PLUS = 310,              /* UNARY_PLUS  */
+    NOT_EQUAL = 311,               /* NOT_EQUAL  */
+    LESS_OR_EQUAL = 312,           /* LESS_OR_EQUAL  */
+    MORE_OR_EQUAL = 313,           /* MORE_OR_EQUAL  */
+    THEN = 314,                    /* THEN  */
+    ELSE = 315                     /* ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -122,7 +121,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 70 "parser.y"
+#line 69 "parser.y"
 
 	int bool_val;
 	int int_val;
@@ -168,7 +167,7 @@ union YYSTYPE
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
 
-#line 171 "parser.tab.h"
+#line 170 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

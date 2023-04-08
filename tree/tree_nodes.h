@@ -181,7 +181,7 @@ struct Function
 	char* id_var_name;
 	ExpressionList* arguments;
 	StmtList* stmtList;
-	ExpressionList* exprList;
+	Expression* expression;
 };
 
 struct SubBloc
@@ -190,7 +190,7 @@ struct SubBloc
 	ParameterListOrEmpty* arguments;
 	StmtList* stmtList;
 };
-//ToDo: Доделать
+
 struct ParameterListOrEmpty
 {
 	ParameterListWithType* parameterListWithType;
@@ -253,7 +253,7 @@ struct StatementMulti
 struct DeclStmtMulti
 {
 	int isConst;
-	char* id_var_name;
+	VarNameSingle* varName; //problem
 	enum VarType varType;
 	Expression* expression;
 };
@@ -261,7 +261,7 @@ struct DeclStmtMulti
 struct DeclStmtSingle
 {
 	int* isConst;
-	char* id_var_name;
+	VarNameSingle* varName;
 	enum VarType varType;
 	Expression* expression;
 };
@@ -340,8 +340,8 @@ struct ElseIf
 struct IfStmtSingle
 {
 	Expression* expression;
-	StmtList* thenStmtList;
-	StmtList* elseStmtList;
+	StatementSingle* thenStmt;
+	StatementSingle* elseStmt;
 };
 
 struct SelectStmt
