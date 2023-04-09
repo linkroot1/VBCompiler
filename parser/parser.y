@@ -217,7 +217,7 @@ ProgramItemList *root;
 %right UNARY_MINUS UNARY_PLUS
 %left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
 %left '&'
-%nonassoc '(' ')'
+%nonassoc '(' ')' '{' '}'
 
 %precedence THEN
 %precedence ELSE
