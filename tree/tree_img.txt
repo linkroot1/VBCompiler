@@ -11,6 +11,7 @@ digraph Program {
 10  [label="ParameterListOrEmpty"];
 11  [label="ParameterListWithType"];
 12  [label="ParameterWithType"];
+13  [label="ParameterWithType"];
 
 1->2[label=""];
 2->3[label=""];
@@ -18,14 +19,14 @@ digraph Program {
 3->5[label=""];
 5->6[label="Program
 
-    Function Main(test1 As Integer)
+    Function Main(test1 As Integer, test2 As Double)
 	
     End Function
 	
 End Module"];
 6->7[label=""];
 7->8[label=""];
-8->9[label="Main(test1 As Integer)
+8->9[label="Main(test1 As Integer, test2 As Double)
 	
     End Function
 	
@@ -33,5 +34,6 @@ End Module"];
 9->10[label=""];
 10->11[label=""];
 11->12[label=""];
+11->13[label=""];
 
 }

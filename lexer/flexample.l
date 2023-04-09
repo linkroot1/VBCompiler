@@ -79,6 +79,8 @@ While {return WHILE;}
 "^"                 { return '^'; }
 "&"                 { return '&'; }
 
+","                 { return ','; }
+
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+
 <COMMENT>\n {BEGIN(INITIAL);}

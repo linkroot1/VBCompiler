@@ -1,0 +1,1 @@
+"%~dp0/Graphviz/bin/dot.exe" -Tpng -O "%~dp0/tree_img.txt"
