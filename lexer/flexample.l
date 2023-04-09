@@ -73,6 +73,7 @@ While {return WHILE;}
 "-"                 { return '-'; }
 "*"                 { return '*'; }
 "/"                 { return '/'; }
+"="                 { return '='; }
 
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+
