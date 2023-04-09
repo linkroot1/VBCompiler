@@ -179,7 +179,7 @@ struct FunctionOrSub
 struct Function
 {
 	char* id_var_name;
-	ExpressionList* arguments;
+	ParameterListOrEmpty* arguments;
 	StmtList* stmtList;
 	Expression* expression;
 };

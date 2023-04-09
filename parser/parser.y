@@ -30,7 +30,7 @@ Module* createModule(char *id_var_name, FunctionOrSubList *functionsAndSubList);
 FunctionOrSubList* createFunctionOrSubList(FunctionOrSub *functionOrSub);
 FunctionOrSubList* appendFunctionOrSubList(FunctionOrSubList *list, FunctionOrSub *functionOrSub);
 FunctionOrSub* createFunctionOrSub(SubBloc *subBloc, Function *function);
-Function* createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, Expression *exprList);
+Function* createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList, Expression *exprList);
 SubBloc* createSubBloc(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList);
 ParameterListOrEmpty* createParameterListOrEmpty(ParameterListWithType *parameterListWithType, ParameterListWithoutType *parameterListWithoutType);
 ParameterListWithType *createParameterListWithType(ParameterWithType *parameterWithType);
@@ -113,7 +113,7 @@ ProgramItemList *root;
 }
 
 %type <expression> expr_singleline expr_multiline basic_literal_value;
-%type <expressionList> expr_list arguments arguments_singleline arguments_multiline;
+%type <expressionList> expr_list arguments_singleline arguments_multiline;
 %type <programItemList> program_items_list root;
 %type <programListNotEmpty> program_items_list_not_empty;
 %type <programItem> program_item;
@@ -259,18 +259,18 @@ function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
                | sub_bloc {$$ = createFunctionOrSub($1,0);}
                ;
 
-function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,0);}
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,$6);}
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,$6);}
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$3,$5,0);}
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,$5,$7);}
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,$5,$7);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,0);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,0,$7);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,0,$7);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$4,$6,0);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,$6,$8);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,$6,$8);}
+function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,0);}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8);}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8);}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$4,$7,0);}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9);}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION {$$ = createFunction($3,$5,0,0);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$5,$8,0);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10);}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10);}
         ;
 
 
@@ -522,10 +522,6 @@ arguments_singleline: '(' expr_list ')' {$$ = $2;}
                     | '(' ')' {$$ = 0;}
                     ;
 
-arguments: arguments_multiline {$$ = $1;}
-         | arguments_singleline {$$ = $1;}
-         ;
-
 
 expr_list: expr_singleline {$$ = createExpressionList($1);}
          | expr_list ',' expr_singleline {$$ = appendExpressionToList($1,$3);}
@@ -702,7 +698,7 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 	return result;
 }
 
-Function *createFunction(char* id_var_name, ExpressionList *arguments, StmtList *stmtList, Expression *expression)
+Function *createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList, Expression *expression)
 {
 	Function *result = (Function *)malloc(sizeof(Function));
 

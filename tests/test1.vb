@@ -2,7 +2,7 @@ Imports System
 
 Module Program
 
-    Function Main()
+    Function Main(test1 As Integer)
 	
     End Function
 	

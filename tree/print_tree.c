@@ -257,7 +257,7 @@ void parseFunction(Function* func, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "Function", func->id_var_name));
 		int currentIter = tree->end->num;
 
-		parseExpressionList(func->arguments, tree, currentIter);
+		parceParameterListOrEmpty(func->arguments, tree, currentIter);
 		parseStatementList(func->stmtList, tree, currentIter);
 		parseExpression(func->expression, tree, currentIter);
 	}
