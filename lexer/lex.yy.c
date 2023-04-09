@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error(const char* msg);
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 63
-#define YY_END_OF_BUFFER 64
+#define YY_NUM_RULES 67
+#define YY_END_OF_BUFFER 68
  /* This struct is not used in this scanner,
 	but its presence is necessary. */
 struct yy_trans_info
@@ -365,27 +365,27 @@ struct yy_trans_info
 };
 static const flex_int16_t yy_accept[200] =
 { 0,
-	0,    0,   52,   52,    0,    0,    0,    0,   64,   63,
-   62,   50,   47,   63,   44,   37,   38,   41,   39,   40,
-   63,   42,   54,   63,   43,   63,   63,   63,   63,   63,
-   63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
-   63,   63,   51,   53,   45,   46,   48,   49,   62,    0,
-   58,   36,    0,    0,   29,    0,    0,   54,   32,   33,
-   57,   30,   57,   54,    0,   54,    0,   26,   27,   25,
-	0,   61,    2,   61,   61,   61,   61,    7,   61,   61,
-   61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
-   61,   61,   61,   61,   61,   31,   28,   51,   45,   48,
+	0,    0,   56,   56,    0,    0,    0,    0,   68,   67,
+   66,   54,   51,   47,   48,   37,   38,   41,   39,   40,
+   67,   42,   58,   44,   43,   45,   67,   67,   67,   67,
+   67,   67,   67,   67,   67,   67,   67,   67,   67,   67,
+   67,   46,   55,   57,   49,   50,   52,   53,   66,    0,
+   62,   36,    0,    0,   29,    0,    0,   58,   32,   33,
+   61,   30,   61,   58,    0,   58,    0,   26,   27,   25,
+	0,   65,    2,   65,   65,   65,   65,    7,   65,   65,
+   65,   65,   65,   65,   65,   65,   65,   65,   65,   65,
+   65,   65,   65,   65,   65,   31,   28,   55,   49,   52,
 
-   56,   55,    0,   57,    0,   57,   35,   34,   61,   61,
-   61,    6,   61,   61,   11,   61,   12,   61,   61,   61,
-   61,   61,   61,   61,   61,   61,   61,   22,   61,   61,
-   61,   56,    0,   55,    0,    0,   54,   61,    4,   61,
-   61,    9,   61,   61,   61,   61,   61,   61,   61,   61,
-   61,   61,   61,   23,   59,   61,   56,   56,   55,   55,
-   61,    5,   61,   61,   60,   61,   61,   61,   61,   61,
-   61,   61,   61,   61,   61,   24,   61,    8,   10,   13,
-   61,   61,   61,   16,   61,   61,   19,   20,   21,    3,
-   61,    1,   15,   17,   61,   14,   61,   18,    0
+   60,   59,    0,   61,    0,   61,   35,   34,   65,   65,
+   65,    6,   65,   65,   11,   65,   12,   65,   65,   65,
+   65,   65,   65,   65,   65,   65,   65,   22,   65,   65,
+   65,   60,    0,   59,    0,    0,   58,   65,    4,   65,
+   65,    9,   65,   65,   65,   65,   65,   65,   65,   65,
+   65,   65,   65,   23,   63,   65,   60,   60,   59,   59,
+   65,    5,   65,   65,   64,   65,   65,   65,   65,   65,
+   65,   65,   65,   65,   65,   24,   65,    8,   10,   13,
+   65,   65,   65,   16,   65,   65,   19,   20,   21,    3,
+   65,    1,   15,   17,   65,   14,   65,   18,    0
 
 };
 
@@ -1127,122 +1127,142 @@ do_action:	/* This label is used only to access EOF actions. */
 		YY_BREAK
 	case 44:
 	YY_RULE_SETUP
-	#line 79 "flexample.l"
-	{BEGIN(COMMENT); }
+	#line 78 "flexample.l"
+	{ return '<'; }
 		YY_BREAK
 	case 45:
 	YY_RULE_SETUP
-	#line 80 "flexample.l"
-
+	#line 79 "flexample.l"
+	{ return '>'; }
 		YY_BREAK
 	case 46:
-		/* rule 46 can match eol */
+	YY_RULE_SETUP
+	#line 80 "flexample.l"
+	{ return '^'; }
+		YY_BREAK
+	case 47:
+	YY_RULE_SETUP
+	#line 81 "flexample.l"
+	{ return '&'; }
+		YY_BREAK
+	case 48:
+	YY_RULE_SETUP
+	#line 83 "flexample.l"
+	{BEGIN(COMMENT); }
+		YY_BREAK
+	case 49:
+	YY_RULE_SETUP
+	#line 84 "flexample.l"
+
+		YY_BREAK
+	case 50:
+		/* rule 50 can match eol */
 		YY_RULE_SETUP
-		#line 81 "flexample.l"
+		#line 85 "flexample.l"
 		{BEGIN(INITIAL); }
 			YY_BREAK
 		case YY_STATE_EOF(COMMENT):
-		#line 82 "flexample.l"
+		#line 86 "flexample.l"
 		{BEGIN(INITIAL); }
 			YY_BREAK
-		case 47:
+		case 51:
 		YY_RULE_SETUP
-		#line 84 "flexample.l"
+		#line 88 "flexample.l"
 		{BEGIN(DATETIME); }
 			YY_BREAK
-		case 48:
+		case 52:
 		YY_RULE_SETUP
-		#line 85 "flexample.l"
+		#line 89 "flexample.l"
 		{ strcat(buf, yytext); }
 			YY_BREAK
-		case 49:
-		YY_RULE_SETUP
-		#line 86 "flexample.l"
-		{BEGIN(INITIAL); yylval.str_val = (char*)malloc(strlen(buf) + 1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE; }
-			YY_BREAK
-		case 50:
+		case 53:
 		YY_RULE_SETUP
 		#line 90 "flexample.l"
+		{BEGIN(INITIAL); yylval.str_val = (char*)malloc(strlen(buf) + 1); strcpy(yylval.datetime_val, buf); return DATETIME_VALUE; }
+			YY_BREAK
+		case 54:
+		YY_RULE_SETUP
+		#line 94 "flexample.l"
 		{ buf[0] = 0; BEGIN(STRING_LITERAL); }
 			YY_BREAK
-		case 51:
-			/* rule 51 can match eol */
+		case 55:
+			/* rule 55 can match eol */
 			YY_RULE_SETUP
-			#line 91 "flexample.l"
+			#line 95 "flexample.l"
 			{ strcat(buf, yytext); }
-				YY_BREAK
-			case 52:
-			YY_RULE_SETUP
-			#line 92 "flexample.l"
-			{ strcat(buf, "\""); }
-				YY_BREAK
-			case YY_STATE_EOF(STRING_LITERAL):
-			#line 93 "flexample.l"
-			{  printf("\nError: unterminated string literal\n"); yyterminate(); }
-				YY_BREAK
-			case 53:
-			YY_RULE_SETUP
-			#line 94 "flexample.l"
-			{  BEGIN(INITIAL); yylval.str_val = (char*)malloc(strlen(buf) + 1); strcpy(yylval.str_val, buf); return STRING_VALUE; }
-				YY_BREAK
-			case 54:
-			YY_RULE_SETUP
-			#line 96 "flexample.l"
-			{remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return INT_VALUE; }
-				YY_BREAK
-			case 55:
-			YY_RULE_SETUP
-			#line 97 "flexample.l"
-			{remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return INT_VALUE; }
 				YY_BREAK
 			case 56:
 			YY_RULE_SETUP
-			#line 98 "flexample.l"
-			{remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return INT_VALUE; }
+			#line 96 "flexample.l"
+			{ strcat(buf, "\""); }
+				YY_BREAK
+			case YY_STATE_EOF(STRING_LITERAL):
+			#line 97 "flexample.l"
+			{  printf("\nError: unterminated string literal\n"); yyterminate(); }
 				YY_BREAK
 			case 57:
 			YY_RULE_SETUP
-			#line 99 "flexample.l"
-			{yylval.double_val = atof(yytext); return DOUBLE_VALUE; }
+			#line 98 "flexample.l"
+			{  BEGIN(INITIAL); yylval.str_val = (char*)malloc(strlen(buf) + 1); strcpy(yylval.str_val, buf); return STRING_VALUE; }
 				YY_BREAK
 			case 58:
-				/* rule 58 can match eol */
-				YY_RULE_SETUP
-				#line 101 "flexample.l"
-				{printf("\nString const: %s\n", yytext); }
-					YY_BREAK
-				case 59:
+			YY_RULE_SETUP
+			#line 100 "flexample.l"
+			{remove_substr(yytext, "_"); yylval.int_val = atoi(yytext); return INT_VALUE; }
+				YY_BREAK
+			case 59:
+			YY_RULE_SETUP
+			#line 101 "flexample.l"
+			{remove_substr(yytext, "_"); remove_substr(yytext, "&H");  result = HextoDeci(yytext); return INT_VALUE; }
+				YY_BREAK
+			case 60:
+			YY_RULE_SETUP
+			#line 102 "flexample.l"
+			{remove_substr(yytext, "_"); remove_substr(yytext, "&B"); result = BintoDeci(yytext); return INT_VALUE; }
+				YY_BREAK
+			case 61:
+			YY_RULE_SETUP
+			#line 103 "flexample.l"
+			{yylval.double_val = atof(yytext); return DOUBLE_VALUE; }
+				YY_BREAK
+			case 62:
+				/* rule 62 can match eol */
 				YY_RULE_SETUP
 				#line 105 "flexample.l"
+				{printf("\nString const: %s\n", yytext); }
+					YY_BREAK
+				case 63:
+				YY_RULE_SETUP
+				#line 109 "flexample.l"
 				{yylval.bool_val = 1; return BOOLEAN_VALUE; }
 					YY_BREAK
-				case 60:
+				case 64:
 				YY_RULE_SETUP
-				#line 106 "flexample.l"
+				#line 110 "flexample.l"
 				{yylval.bool_val = 0; return BOOLEAN_VALUE; }
 					YY_BREAK
-				case 61:
+				case 65:
 				YY_RULE_SETUP
-				#line 108 "flexample.l"
+				#line 112 "flexample.l"
 				{yylval.id_var_name = yytext; return IDENTIFIER; }
 					YY_BREAK
-				case 62:
-					/* rule 62 can match eol */
+				case 66:
+					/* rule 66 can match eol */
 					YY_RULE_SETUP
-					#line 110 "flexample.l"
+					#line 114 "flexample.l"
 					{return END_OF_LINE; }
 						YY_BREAK
 					case YY_STATE_EOF(INITIAL):
 					case YY_STATE_EOF(DATETIME):
-					#line 112 "flexample.l"
+					#line 116 "flexample.l"
 					{ static int once = 0; return once++ ? 0 : END_OF_LINE; }
 						YY_BREAK
-					case 63:
+					case 67:
 					YY_RULE_SETUP
-					#line 113 "flexample.l"
+					#line 117 "flexample.l"
 					ECHO;
 						YY_BREAK
-					#line 1246 "lex.yy.c"
+					#line 1266 "lex.yy.c"
 
 						case YY_END_OF_BUFFER:
 							{
@@ -2246,7 +2266,7 @@ void yyfree(void* ptr)
 
 #define YYTABLES_NAME "yytables"
 
-#line 113 "flexample.l"
+#line 117 "flexample.l"
 
 
 int val(char c)
