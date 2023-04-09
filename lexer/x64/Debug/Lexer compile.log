@@ -9,7 +9,7 @@ parser.y(866,22): warning C4047: '=': 'int *' differs in levels of indirection f
 parser.y(986,19): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
 parser.y(1004,22): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
   lex.yy.c
-flexample.l(138,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+flexample.l(142,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
   LINK : Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe not found or not built by the last incremental link; performing full link
   Lexer compile.vcxproj -> Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe
