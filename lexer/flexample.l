@@ -69,6 +69,10 @@ While {return WHILE;}
 \&\= {return ASSIGN_CONCAT;}
 "(" { return '('; }
 ")" { return ')'; }
+
+"{" { return '{'; }
+"}" { return '}'; }
+
 "+"                 { return '+'; }
 "-"                 { return '-'; }
 "*"                 { return '*'; }
