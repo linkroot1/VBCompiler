@@ -67,6 +67,12 @@ While {return WHILE;}
 \>\>= {return ASSIGN_LSHIFT;}
 \<\<= {return ASSIGN_RSHIFT;}
 \&\= {return ASSIGN_CONCAT;}
+"(" { return '('; }
+")" { return ')'; }
+"+"                 { return '+'; }
+"-"                 { return '-'; }
+"*"                 { return '*'; }
+"/"                 { return '/'; }
 
 \' {BEGIN(COMMENT);}
 <COMMENT>[^\n]+

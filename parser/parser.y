@@ -274,8 +274,8 @@ function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunct
         ;
 
 
-sub_bloc: SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($2,$4,0);}
-        | SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$7);}
+sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB {$$ = createSubBloc($2,$4,0);}
+        | SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$7);}
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$5,0);}
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$8);}
         ;
