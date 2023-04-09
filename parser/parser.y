@@ -252,32 +252,32 @@ module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($2,0
 
 
 functions_or_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
-                     | functions_or_sub_list stmt_ends function_or_sub {$$ = appendFunctionOrSubList($1,$3);}
+                     | functions_or_sub_list function_or_sub {$$ = appendFunctionOrSubList($1,$2);}
                      ;
 
 function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
                | sub_bloc {$$ = createFunctionOrSub($1,0);}
                ;
 
-function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,0);}
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,$6);}
-        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($2,$3,0,$6);}
+function: FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,0);}
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,$6);}
+        | FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,0,$6);}
         | FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$3,$5,0);}
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
-        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($2,$3,$5,$7);}
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,$5,$7);}
+        | FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$3,$5,$7);}
         | access FUNCTION IDENTIFIER arguments stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,0);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($3,$4,0,$7);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,0,$7);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,0,$7);}
         | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$4,$6,0);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION {$$ = createFunction($3,$4,$6,$8);}
-        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION {$$ = createFunction($3,$4,$6,$8);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,$6,$8);}
+        | access FUNCTION IDENTIFIER arguments stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$4,$6,$8);}
         ;
 
 
-sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB {$$ = createSubBloc($2,$4,0);}
-        | SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB {$$ = createSubBloc($2,$4,$7);}
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB {$$ = createSubBloc($3,$5,0);}
-        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB {$$ = createSubBloc($3,$5,$8);}
+sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($2,$4,0);}
+        | SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB stmt_ends {$$ = createSubBloc($2,$4,$7);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($3,$5,0);}
+        | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends stmt_list END SUB stmt_ends {$$ = createSubBloc($3,$5,$8);}
         ;
 
 parameterlist_or_empty:  {$$ = 0;}

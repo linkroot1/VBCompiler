@@ -2,8 +2,8 @@ Imports System
 
 Module Program
 
-    Sub Main()
+    Function Main()
 	
-    End Sub
+    End Function
 	
 End Module
