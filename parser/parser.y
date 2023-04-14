@@ -370,8 +370,8 @@ var_name: IDENTIFIER'(' expr_multiline ')' {$$ = createVarNameMulti($1, $3);}
 		;
 
 var_name_singleline: IDENTIFIER'(' expr_singleline ')' {$$ = createVarNameSingle($1, $3);}
-        | IDENTIFIER {$$ = createVarNameSingle($1, 0);}
-		;
+				   | IDENTIFIER {$$ = createVarNameSingle($1, 0);}
+				   ;
 
 //WIP
 access: PUBLIC
