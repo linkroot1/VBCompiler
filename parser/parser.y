@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../tree/tree_nodes.h"
 #include "../tree/print_tree.h"
+//#define PRINT_RULE
 
 
 extern int yylineno;
@@ -110,6 +111,7 @@ ProgramItemList *root;
 	DeclStmtMulti *declStmtMulti;
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
+	StmtEnds *stmtEnds;
 }
 
 %type <expression> expr_singleline expr_multiline basic_literal_value;
@@ -551,6 +553,13 @@ int main(int argc, char** argv) {
 void yyerror(const char* s) {
 	fprintf(stderr, "Parse error: %s\n", s);
 	exit(1);
+}
+
+void printRule(char* ruleString){
+
+	#ifdef PRINT_RULE
+    printf("\n %s \n", ruleString);
+    #endif
 }
 
 // ------------------------------  Expression ------------------------------
