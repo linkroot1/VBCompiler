@@ -61,6 +61,7 @@ void parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum);
 void parseExpression(Expression* expr, Tree* tree, int parentNum);
 //void parceBasicLiteralValue(*, Tree* tree, int parentNum);
 void parseExpressionList(ExpressionList* exprList, Tree* tree, int parentNum);
+void parseReturnStmt(ReturnStmt* ret, Tree* tree, int parentNum);
 
 //void parseModuleList(ModuleList *modl, Tree *tree, int parentNum);
 //void parseImports(Imports *import, Tree *tree, int parentNum);

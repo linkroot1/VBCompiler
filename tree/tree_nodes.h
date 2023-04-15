@@ -35,7 +35,7 @@ typedef struct CaseList CaseList;
 typedef struct CaseStmt CaseStmt;
 typedef struct Expression Expression;
 typedef struct ExpressionList ExpressionList;
-
+typedef struct ReturnStmt ReturnStmt;
 
 
 typedef enum StmtType StmtType;
@@ -68,6 +68,7 @@ union StmtSingleValue
 	IfStmtSingle* ifStmtSingle;
 	DeclStmtSingle* declStmtSingle;
 	Expression* expression;
+	ReturnStmt* returnStmt;
 };
 
 union StmtMultiValue
@@ -98,7 +99,8 @@ enum StmtType
 	ST_FORLOOP_MULTI,
 	ST_FOREACHLOOP_MULTI,
 	ST_SELECT_MULTI,
-	ST_IF_MULTI
+	ST_IF_MULTI,
+	ST_RETURN
 };
 
 
@@ -127,7 +129,11 @@ enum ExprType
 	ET_INTDIV,
 	ET_EXP,
 	ET_ID,
-	ET_ARRAY_OR_FUNC
+	ET_ARRAY_OR_FUNC,
+	ET_AND,
+	ET_OR,
+	ET_XOR,
+	ET_NOT
 };
 
 
@@ -181,7 +187,6 @@ struct Function
 	char* id_var_name;
 	ParameterListOrEmpty* arguments;
 	StmtList* stmtList;
-	Expression* expression;
 };
 
 struct SubBloc
@@ -385,4 +390,9 @@ struct ExpressionList
 {
 	Expression* begin;
 	Expression* end;
+};
+
+struct ReturnStmt
+{
+	Expression* expression;
 };

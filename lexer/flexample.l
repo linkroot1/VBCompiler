@@ -55,6 +55,10 @@ Select {return SELECT;}
 Sub {return SUB;}
 Then {return THEN;}
 While {return WHILE;}
+Or {return OR;}
+And {return AND;}
+Xor {return XOR;}
+Not {return NOT;}
 
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}

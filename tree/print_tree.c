@@ -259,7 +259,6 @@ void parseFunction(Function* func, Tree* tree, int parentNum)
 
 		parceParameterListOrEmpty(func->arguments, tree, currentIter);
 		parseStatementList(func->stmtList, tree, currentIter);
-		parseExpression(func->expression, tree, currentIter);
 	}
 }
 
@@ -406,6 +405,9 @@ void parseStatementSingle(StatementSingle* stmt, Tree* tree, int parentNum)
 			break;
 		case EXPR_SINGLE:
 			parseExpression(stmt->value.expression, tree, currentIter);
+			break;
+		case ST_RETURN:
+			parseReturnStmt(stmt->value.returnStmt, tree, currentIter);
 			break;
 		}
 	}
@@ -750,5 +752,16 @@ void parseExpressionList(ExpressionList* exprList, Tree* tree, int parentNum)
 		{
 			parseExpression(ds, tree, currentIter);
 		}
+	}
+}
+
+void parseReturnStmt(ReturnStmt* ret, Tree* tree, int parentNum)
+{
+	if (ret != NULL)
+	{
+		addTreeUnit(tree, newTreeUnit(parentNum, "return", ""));
+		int currentIter = tree->end->num;
+
+		parseExpression(ret->expression, tree, currentIter);
 	}
 }

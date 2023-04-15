@@ -35,7 +35,6 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 #include "../tree/tree_nodes.h"
-
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -105,14 +104,18 @@ extern int yydebug;
     PROTECTED = 305,               /* PROTECTED  */
     PUBLIC = 306,                  /* PUBLIC  */
     FRIEND = 307,                  /* FRIEND  */
-    INT_DIV = 308,                 /* INT_DIV  */
-    UNARY_MINUS = 309,             /* UNARY_MINUS  */
-    UNARY_PLUS = 310,              /* UNARY_PLUS  */
-    NOT_EQUAL = 311,               /* NOT_EQUAL  */
-    LESS_OR_EQUAL = 312,           /* LESS_OR_EQUAL  */
-    MORE_OR_EQUAL = 313,           /* MORE_OR_EQUAL  */
-    THEN = 314,                    /* THEN  */
-    ELSE = 315                     /* ELSE  */
+    AND = 308,                     /* AND  */
+    OR = 309,                      /* OR  */
+    XOR = 310,                     /* XOR  */
+    NOT = 311,                     /* NOT  */
+    INT_DIV = 312,                 /* INT_DIV  */
+    UNARY_MINUS = 313,             /* UNARY_MINUS  */
+    UNARY_PLUS = 314,              /* UNARY_PLUS  */
+    NOT_EQUAL = 315,               /* NOT_EQUAL  */
+    LESS_OR_EQUAL = 316,           /* LESS_OR_EQUAL  */
+    MORE_OR_EQUAL = 317,           /* MORE_OR_EQUAL  */
+    THEN = 318,                    /* THEN  */
+    ELSE = 319                     /* ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -121,7 +124,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 70 "parser.y"
+#line 71 "parser.y"
 
 	int bool_val;
 	int int_val;
@@ -166,8 +169,9 @@ union YYSTYPE
 	DeclStmtMulti *declStmtMulti;
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
+	ReturnStmt *returnStmt;
 
-#line 170 "parser.tab.h"
+#line 175 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

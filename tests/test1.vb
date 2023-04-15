@@ -6,7 +6,21 @@ Module Program
 	
 		Dim A = 3
 		
-		'If A > 10 Then A = 9
+		If dayW = Wednesday Then
+			If hour = 14 Or hour = 15 Then
+				Return True
+			Else
+				Return False
+			End If
+		ElseIf dayW = Thursday Then
+			If hour = 12 Then
+				Return True
+			Else
+				Return False
+			End If
+		Else
+			Return False
+		End If
 	
     End Function
 	
