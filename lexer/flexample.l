@@ -59,6 +59,7 @@ Or {return OR;}
 And {return AND;}
 Xor {return XOR;}
 Not {return NOT;}
+ByVal {return BYVAL;}
 
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}

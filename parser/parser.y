@@ -212,6 +212,7 @@ ProgramItemList *root;
 %token PROTECTED
 %token PUBLIC
 %token FRIEND
+%token BYVAL
 
 %left AND
 %left OR XOR
@@ -300,9 +301,11 @@ parameterlist_without_type: parameter_without_type {$$ = createParameterListWith
                           | parameterlist_without_type ',' END_OF_LINE parameter_without_type {$$ = appendParameterListWithoutType($1,$4);}
                           ;
 
-//WIP
+
 parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($1,$3);}
                    | IDENTIFIER AS basic_literal '(' ')'  {$$ = createParameterWithType($1,$3);}
+                   | BYVAL IDENTIFIER AS basic_literal {$$ = createParameterWithType($2,$4);}
+                   | BYVAL IDENTIFIER AS basic_literal '(' ')' {$$ = createParameterWithType($2,$4);}
                    ;
 
 

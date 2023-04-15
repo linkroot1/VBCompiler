@@ -34,10 +34,11 @@
 /* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
-#include "../tree/tree_nodes.h"
+
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
+#include "../tree/tree_nodes.h"
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
@@ -104,18 +105,19 @@ extern int yydebug;
     PROTECTED = 305,               /* PROTECTED  */
     PUBLIC = 306,                  /* PUBLIC  */
     FRIEND = 307,                  /* FRIEND  */
-    AND = 308,                     /* AND  */
-    OR = 309,                      /* OR  */
-    XOR = 310,                     /* XOR  */
-    NOT = 311,                     /* NOT  */
-    INT_DIV = 312,                 /* INT_DIV  */
-    UNARY_MINUS = 313,             /* UNARY_MINUS  */
-    UNARY_PLUS = 314,              /* UNARY_PLUS  */
-    NOT_EQUAL = 315,               /* NOT_EQUAL  */
-    LESS_OR_EQUAL = 316,           /* LESS_OR_EQUAL  */
-    MORE_OR_EQUAL = 317,           /* MORE_OR_EQUAL  */
-    THEN = 318,                    /* THEN  */
-    ELSE = 319                     /* ELSE  */
+    BYVAL = 308,                   /* BYVAL  */
+    AND = 309,                     /* AND  */
+    OR = 310,                      /* OR  */
+    XOR = 311,                     /* XOR  */
+    NOT = 312,                     /* NOT  */
+    INT_DIV = 313,                 /* INT_DIV  */
+    UNARY_MINUS = 314,             /* UNARY_MINUS  */
+    UNARY_PLUS = 315,              /* UNARY_PLUS  */
+    NOT_EQUAL = 316,               /* NOT_EQUAL  */
+    LESS_OR_EQUAL = 317,           /* LESS_OR_EQUAL  */
+    MORE_OR_EQUAL = 318,           /* MORE_OR_EQUAL  */
+    THEN = 319,                    /* THEN  */
+    ELSE = 320                     /* ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -171,7 +173,7 @@ union YYSTYPE
 	VarNameMulti *varNameMulti;
 	ReturnStmt *returnStmt;
 
-#line 175 "parser.tab.h"
+#line 176 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
