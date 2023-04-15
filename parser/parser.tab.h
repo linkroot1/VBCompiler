@@ -38,13 +38,14 @@
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
-#include "../tree/tree_nodes.h"
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
 #endif
+
+#include "../tree/tree_nodes.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE

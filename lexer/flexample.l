@@ -61,6 +61,10 @@ Xor {return XOR;}
 Not {return NOT;}
 ByVal {return BYVAL;}
 Loop {return LOOP;}
+Each {return EACH;}
+Next {return NEXT;}
+In {return IN;}
+
 
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}

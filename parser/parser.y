@@ -410,7 +410,7 @@ for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_
 
 
 //-------------------------FOR EACH LOOP stmt
-for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT {$$ = createForEachLoopStmt($3, $5, $7, $9);}
+for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT stmt_ends {$$ = createForEachLoopStmt($3, $5, $7, $9);}
 
 
 //-------------------------IF/ELSE stmt
