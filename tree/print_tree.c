@@ -373,7 +373,7 @@ void parseStatement(Statement* stmt, Tree* tree, int parentNum)
 {
 	if (stmt != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, stmt_type_str(stmt->type), "Statement"));
+		addTreeUnit(tree, newTreeUnit(parentNum, "Statement", stmt_type_str(stmt->type)));
 		int currentIter = tree->end->num;
 
 		switch (stmt->type)
@@ -393,7 +393,7 @@ void parseStatementSingle(StatementSingle* stmt, Tree* tree, int parentNum)
 {
 	if (stmt != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, stmt_type_str(stmt->type), "StatementSingle"));
+		addTreeUnit(tree, newTreeUnit(parentNum, "StatementSingle", stmt_type_str(stmt->type)));
 		int currentIter = tree->end->num;
 
 		switch (stmt->type)
@@ -415,7 +415,7 @@ void parseStatementMulti(StatementMulti* stmt, Tree* tree, int parentNum)
 {
 	if (stmt != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, stmt_type_str(stmt->type), "StatementMulti"));
+		addTreeUnit(tree, newTreeUnit(parentNum, "StatementMulti", stmt_type_str(stmt->type)));
 		int currentIter = tree->end->num;
 
 		switch (stmt->type)
@@ -459,6 +459,7 @@ void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, in
 
 		int currentIter = tree->end->num;
 
+		parceVarNameSingle(declStmtMulti->varName, tree, currentIter);
 		parseExpression(declStmtMulti->expression, tree, currentIter);
 	}
 }
@@ -474,7 +475,7 @@ void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree,
 
 		int currentIter = tree->end->num;
 
-		parseExpression(declStmtSingle->expression, tree, currentIter);
+		parceVarNameSingle(declStmtSingle->varName, tree, currentIter);
 		parseExpression(declStmtSingle->expression, tree, currentIter);
 	}
 }

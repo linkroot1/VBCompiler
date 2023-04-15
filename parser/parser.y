@@ -229,35 +229,35 @@ ProgramItemList *root;
 %%
 
 //------------------programm Start-----------------------------
-root: program_items_list {$$ = root = $1;}
+root: program_items_list {$$ = root = $1; printf("root 1\n");}
     ;
 
-program_items_list: {$$ = 0;}
-                  |program_items_list_not_empty {$$ = createProgramItemsList($1);}
+program_items_list: {$$ = 0; printf("program_items_list 1\n");}
+                  |program_items_list_not_empty {$$ = createProgramItemsList($1); printf("program_items_list 2\n");}
                   ;
 
-program_items_list_not_empty: program_item { $$ = createProgramListNotEmpty($1); }
-                            | program_items_list_not_empty program_item { $$ = appendProgramToListNotEmpty($1,$2); }
+program_items_list_not_empty: program_item { $$ = createProgramListNotEmpty($1); printf("program_items_list_not_empty 1\n");}
+                            | program_items_list_not_empty program_item { $$ = appendProgramToListNotEmpty($1,$2); printf("program_items_list_not_empty 2\n");}
                             ;
 
-program_item: module {$$ = createProgramItem($1,0);}
-             | IMPORTS IDENTIFIER stmt_ends  {$$ =  createProgramItem(0,$2);}
+program_item: module {$$ = createProgramItem($1,0); printf("program_item 1\n");}
+             | IMPORTS IDENTIFIER stmt_ends  {$$ =  createProgramItem(0,$2); printf("program_item 2\n");}
              ;
 
 
-module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($2,0);}
-      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($2,$4);}
-      | access MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($3,0);}
-      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($3,$5);}
+module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($2,0); printf("module 1\n");}
+      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($2,$4); printf("module 2\n");}
+      | access MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($3,0); printf("module 3\n");}
+      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($3,$5); printf("module 4\n");}
       ;
 
 
-functions_or_sub_list: function_or_sub {$$ = createFunctionOrSubList($1);}
-                     | functions_or_sub_list function_or_sub {$$ = appendFunctionOrSubList($1,$2);}
+functions_or_sub_list: function_or_sub {$$ = createFunctionOrSubList($1); printf("functions_or_sub_list 1\n");}
+                     | functions_or_sub_list function_or_sub {$$ = appendFunctionOrSubList($1,$2); printf("functions_or_sub_list 2\n");}
                      ;
 
-function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
-               | sub_bloc {$$ = createFunctionOrSub($1,0);}
+function_or_sub: function {$$ = createFunctionOrSub(0,$1); printf("function_or_sub 1\n");}
+               | sub_bloc {$$ = createFunctionOrSub($1,0); printf("function_or_sub 2\n");}
                ;
 
 function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,0); printf("function 1\n");}
@@ -367,11 +367,11 @@ decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singl
 					 ;
 
 
-var_name: IDENTIFIER'(' expr_multiline ')' {$$ = createVarNameMulti($1, $3);}
+var_name: IDENTIFIER'(' expr_multiline ')' {$$ = createVarNameMulti($1, $3); printf("var_name_multi 1\n");}
 		;
 
-var_name_singleline: IDENTIFIER'(' expr_singleline ')' {$$ = createVarNameSingle($1, $3);}
-				   | IDENTIFIER {$$ = createVarNameSingle($1, 0);}
+var_name_singleline: IDENTIFIER'(' expr_singleline ')' {$$ = createVarNameSingle($1, $3); printf("var_name_single 1\n");}
+				   | IDENTIFIER {$$ = createVarNameSingle($1, 0); printf("var_name_single 1\n");}
 				   ;
 
 //WIP
@@ -430,8 +430,8 @@ elseif_list: elseif {$$ = createElseIfList($1);}
 elseif: ELSEIF expr_multiline THEN stmt_list {$$ = createElseIf($2, $4);}
       | ELSEIF expr_singleline THEN stmt_list {$$ = createElseIf($2, $4);}
 
-if_stmt_single_line: IF expr_singleline THEN single_line_stmt  {$$ = createIfStmtSingle($2, $4, 0);}
-                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  {$$ = createIfStmtSingle($2, $4, $6);}
+if_stmt_single_line: IF expr_singleline THEN single_line_stmt  {$$ = createIfStmtSingle($2, $4, 0); printf("if_stmt_single 1\n");}
+                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  {$$ = createIfStmtSingle($2, $4, $6); printf("if_stmt_single 2\n");}
                    ;
 
 

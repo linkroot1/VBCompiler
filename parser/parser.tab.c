@@ -2093,91 +2093,91 @@ yyreduce:
     {
   case 2: /* root: program_items_list  */
 #line 232 "parser.y"
-                         {(yyval.programItemList) = root = (yyvsp[0].programItemList);}
+                         {(yyval.programItemList) = root = (yyvsp[0].programItemList); printf("root 1\n");}
 #line 2098 "parser.tab.c"
     break;
 
   case 3: /* program_items_list: %empty  */
 #line 235 "parser.y"
-                    {(yyval.programItemList) = 0;}
+                    {(yyval.programItemList) = 0; printf("program_items_list 1\n");}
 #line 2104 "parser.tab.c"
     break;
 
   case 4: /* program_items_list: program_items_list_not_empty  */
 #line 236 "parser.y"
-                                                {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty));}
+                                                {(yyval.programItemList) = createProgramItemsList((yyvsp[0].programListNotEmpty)); printf("program_items_list 2\n");}
 #line 2110 "parser.tab.c"
     break;
 
   case 5: /* program_items_list_not_empty: program_item  */
 #line 239 "parser.y"
-                                           { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); }
+                                           { (yyval.programListNotEmpty) = createProgramListNotEmpty((yyvsp[0].programItem)); printf("program_items_list_not_empty 1\n");}
 #line 2116 "parser.tab.c"
     break;
 
   case 6: /* program_items_list_not_empty: program_items_list_not_empty program_item  */
 #line 240 "parser.y"
-                                                                        { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty),(yyvsp[0].programItem)); }
+                                                                        { (yyval.programListNotEmpty) = appendProgramToListNotEmpty((yyvsp[-1].programListNotEmpty),(yyvsp[0].programItem)); printf("program_items_list_not_empty 2\n");}
 #line 2122 "parser.tab.c"
     break;
 
   case 7: /* program_item: module  */
 #line 243 "parser.y"
-                     {(yyval.programItem) = createProgramItem((yyvsp[0].module),0);}
+                     {(yyval.programItem) = createProgramItem((yyvsp[0].module),0); printf("program_item 1\n");}
 #line 2128 "parser.tab.c"
     break;
 
   case 8: /* program_item: IMPORTS IDENTIFIER stmt_ends  */
 #line 244 "parser.y"
-                                             {(yyval.programItem) =  createProgramItem(0,(yyvsp[-1].id_var_name));}
+                                             {(yyval.programItem) =  createProgramItem(0,(yyvsp[-1].id_var_name)); printf("program_item 2\n");}
 #line 2134 "parser.tab.c"
     break;
 
   case 9: /* module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends  */
 #line 248 "parser.y"
-                                                         {(yyval.module) = createModule((yyvsp[-4].id_var_name),0);}
+                                                         {(yyval.module) = createModule((yyvsp[-4].id_var_name),0); printf("module 1\n");}
 #line 2140 "parser.tab.c"
     break;
 
   case 10: /* module: MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends  */
 #line 249 "parser.y"
-                                                                               {(yyval.module) = createModule((yyvsp[-5].id_var_name),(yyvsp[-3].functionOrSubList));}
+                                                                               {(yyval.module) = createModule((yyvsp[-5].id_var_name),(yyvsp[-3].functionOrSubList)); printf("module 2\n");}
 #line 2146 "parser.tab.c"
     break;
 
   case 11: /* module: access MODULE IDENTIFIER stmt_ends END MODULE stmt_ends  */
 #line 250 "parser.y"
-                                                                {(yyval.module) = createModule((yyvsp[-4].id_var_name),0);}
+                                                                {(yyval.module) = createModule((yyvsp[-4].id_var_name),0); printf("module 3\n");}
 #line 2152 "parser.tab.c"
     break;
 
   case 12: /* module: access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends  */
 #line 251 "parser.y"
-                                                                                      {(yyval.module) = createModule((yyvsp[-5].id_var_name),(yyvsp[-3].functionOrSubList));}
+                                                                                      {(yyval.module) = createModule((yyvsp[-5].id_var_name),(yyvsp[-3].functionOrSubList)); printf("module 4\n");}
 #line 2158 "parser.tab.c"
     break;
 
   case 13: /* functions_or_sub_list: function_or_sub  */
 #line 255 "parser.y"
-                                       {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub));}
+                                       {(yyval.functionOrSubList) = createFunctionOrSubList((yyvsp[0].functionOrSub)); printf("functions_or_sub_list 1\n");}
 #line 2164 "parser.tab.c"
     break;
 
   case 14: /* functions_or_sub_list: functions_or_sub_list function_or_sub  */
 #line 256 "parser.y"
-                                                             {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-1].functionOrSubList),(yyvsp[0].functionOrSub));}
+                                                             {(yyval.functionOrSubList) = appendFunctionOrSubList((yyvsp[-1].functionOrSubList),(yyvsp[0].functionOrSub)); printf("functions_or_sub_list 2\n");}
 #line 2170 "parser.tab.c"
     break;
 
   case 15: /* function_or_sub: function  */
 #line 259 "parser.y"
-                          {(yyval.functionOrSub) = createFunctionOrSub(0,(yyvsp[0].function));}
+                          {(yyval.functionOrSub) = createFunctionOrSub(0,(yyvsp[0].function)); printf("function_or_sub 1\n");}
 #line 2176 "parser.tab.c"
     break;
 
   case 16: /* function_or_sub: sub_bloc  */
 #line 260 "parser.y"
-                          {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc),0);}
+                          {(yyval.functionOrSub) = createFunctionOrSub((yyvsp[0].subBloc),0); printf("function_or_sub 2\n");}
 #line 2182 "parser.tab.c"
     break;
 
@@ -2561,19 +2561,19 @@ yyreduce:
 
   case 80: /* var_name: IDENTIFIER '(' expr_multiline ')'  */
 #line 370 "parser.y"
-                                           {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
+                                           {(yyval.varNameMulti) = createVarNameMulti((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); printf("var_name_multi 1\n");}
 #line 2566 "parser.tab.c"
     break;
 
   case 81: /* var_name_singleline: IDENTIFIER '(' expr_singleline ')'  */
 #line 373 "parser.y"
-                                                       {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression));}
+                                                       {(yyval.varNameSingle) = createVarNameSingle((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); printf("var_name_single 1\n");}
 #line 2572 "parser.tab.c"
     break;
 
   case 82: /* var_name_singleline: IDENTIFIER  */
 #line 374 "parser.y"
-                                                {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0);}
+                                                {(yyval.varNameSingle) = createVarNameSingle((yyvsp[0].id_var_name), 0); printf("var_name_single 1\n");}
 #line 2578 "parser.tab.c"
     break;
 
@@ -2705,13 +2705,13 @@ yyreduce:
 
   case 110: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt  */
 #line 433 "parser.y"
-                                                               {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0);}
+                                                               {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0); printf("if_stmt_single 1\n");}
 #line 2710 "parser.tab.c"
     break;
 
   case 111: /* if_stmt_single_line: IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  */
 #line 434 "parser.y"
-                                                                                     {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle));}
+                                                                                     {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle)); printf("if_stmt_single 2\n");}
 #line 2716 "parser.tab.c"
     break;
 

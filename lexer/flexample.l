@@ -38,6 +38,7 @@ Const {return CONST;}
 Dim {return DIM;}
 Do {return DO;}
 Double {return DOUBLE;}
+If {return IF;}
 Else {return ELSE;}
 ElseIf {return ELSEIF;}
 End {return END;}

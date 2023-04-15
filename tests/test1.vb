@@ -4,7 +4,7 @@ Module Program
 
     Function Main(test1 As Integer, test2 As Double)
 	
-		Dim A = 3
+		Const A as Integer = 3
 	
     End Function
 	

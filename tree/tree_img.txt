@@ -13,13 +13,12 @@ digraph Program {
 12  [label="ParameterWithType"];
 13  [label="ParameterWithType"];
 14  [label="StmtList"];
-15  [label=""];
-16  [label="ST_DECL_SINGLE"];
+15  [label="Statement"];
+16  [label="StatementSingle"];
 17  [label="DeclStmtSingle"];
-18  [label="="];
-19  [label="3"];
-20  [label="="];
-21  [label="3"];
+18  [label="VarNameSingle"];
+19  [label="="];
+20  [label="3"];
 
 1->2[label=""];
 2->3[label=""];
@@ -29,7 +28,7 @@ digraph Program {
 
     Function Main(test1 As Integer, test2 As Double)
 	
-		Dim A = 3
+		Const A as Integer = 3
 	
     End Function
 	
@@ -38,7 +37,7 @@ End Module"];
 7->8[label=""];
 8->9[label="Main(test1 As Integer, test2 As Double)
 	
-		Dim A = 3
+		Const A as Integer = 3
 	
     End Function
 	
@@ -48,12 +47,15 @@ End Module"];
 10->11[label=""];
 11->12[label=""];
 11->13[label=""];
-14->15[label="Statement"];
-15->16[label="StatementSingle"];
-16->17[label="]ž2ì"];
-17->18[label="Expression"];
-17->20[label="Expression"];
-18->19[label="="];
-20->21[label="="];
+14->15[label=""];
+15->16[label="ST_DECL_SINGLE"];
+16->17[label=""];
+17->18[label="A as Integer = 3
+	
+    End Function
+	
+End Module"];
+17->19[label="Expression"];
+19->20[label="="];
 
 }
