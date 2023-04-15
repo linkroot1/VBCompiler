@@ -17,45 +17,27 @@ digraph Program {
 16  [label="StatementSingle"];
 17  [label="DeclStmtSingle"];
 18  [label="VarNameSingle"];
-19  [label="="];
+19  [label="Expression"];
 20  [label="3"];
 
 1->2[label=""];
 2->3[label=""];
-3->4[label="n"];
+3->4[label="System"];
 3->5[label=""];
-5->6[label="Program
-
-    Function Main(test1 As Integer, test2 As Double)
-	
-		Const A as Integer = 3
-	
-    End Function
-	
-End Module"];
+5->6[label=""];
 6->7[label=""];
 7->8[label=""];
-8->9[label="Main(test1 As Integer, test2 As Double)
-	
-		Const A as Integer = 3
-	
-    End Function
-	
-End Module"];
+8->9[label="Main"];
 9->10[label=""];
 9->14[label=""];
 10->11[label=""];
-11->12[label=""];
-11->13[label=""];
+11->12[label="test1"];
+11->13[label="test2"];
 14->15[label=""];
 15->16[label="ST_DECL_SINGLE"];
-16->17[label=""];
-17->18[label="A as Integer = 3
-	
-    End Function
-	
-End Module"];
-17->19[label="Expression"];
+16->17[label="A"];
+17->18[label="A"];
+17->19[label="="];
 19->20[label="="];
 
 }

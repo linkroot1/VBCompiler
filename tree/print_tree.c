@@ -5,7 +5,7 @@
 
 #pragma warning(disable : 4996)
 
-TreeUnit *newTreeUnit(int parentNum, const char *label, const char *edgeLabel)
+TreeUnit *newTreeUnit(int parentNum, const char *label, char *edgeLabel)
 {
     if(label!=NULL && edgeLabel!=NULL && parentNum>=0)
     {
@@ -200,7 +200,7 @@ void programItemParse(ProgramItem* prog, Tree* tree, int parentNum)
 	{
 		if (prog->isImport)
 		{
-			addTreeUnit(tree, newTreeUnit(parentNum, "ProgramItem", "IMPORT" + *(prog->id_var_name)));
+			addTreeUnit(tree, newTreeUnit(parentNum, "ProgramItem", prog->id_var_name));
 			int currentIter = tree->end->num;
 		}
 		else
@@ -216,7 +216,7 @@ void parseModule(Module* mod, Tree* tree, int parentNum)
 {
 	if (mod != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "Module", mod->id_var_name));
+		addTreeUnit(tree, newTreeUnit(parentNum, "Module", ""));
 		int currentIter = tree->end->num;
 
 		parseFunctionOrSubList(mod->functionOrSubList, tree, currentIter);
@@ -321,7 +321,7 @@ void parceParameterWithType(ParameterWithType* parameterWithType, Tree* tree, in
 {
 	if (parameterWithType != NULL)
 	{
-		char* type;
+		/*char* type;
 		switch (parameterWithType->basic_literal)
 		{
 		case VT_INTEGER:
@@ -338,9 +338,9 @@ void parceParameterWithType(ParameterWithType* parameterWithType, Tree* tree, in
 			break;
 		default:
 			type = "";
-		}
+		}*/
 
-		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterWithType", type + *(parameterWithType->id_var_name)));
+		addTreeUnit(tree, newTreeUnit(parentNum, "ParameterWithType", parameterWithType->id_var_name));
 		int currentIter = tree->end->num;
 	}
 }
@@ -453,9 +453,9 @@ void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, in
 	if (declStmtMulti != NULL)
 	{
 		if (declStmtMulti->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", "const" + declStmtMulti->varType + *(declStmtMulti->varName->id_var_name)));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varName->id_var_name));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varType + declStmtMulti->varName));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varName->id_var_name));
 
 		int currentIter = tree->end->num;
 
@@ -469,9 +469,9 @@ void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree,
 	if (declStmtSingle != NULL)
 	{
 		if (declStmtSingle->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", "const" + declStmtSingle->varType + *(declStmtSingle->varName->id_var_name)));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varName->id_var_name));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varType + declStmtSingle->varName));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varName->id_var_name));
 
 		int currentIter = tree->end->num;
 
@@ -669,7 +669,7 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 {
 	if (expr != NULL)
 	{
-		addTreeUnit(tree, newTreeUnit(parentNum, expr_type_str(expr->type), "Expression"));
+		addTreeUnit(tree, newTreeUnit(parentNum, "Expression", expr_type_str(expr->type)));
 		int currentIter = tree->end->num;
 
 		char buf[51];
@@ -687,7 +687,7 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 
 			sprintf(buf, "%f", expr->value.double_val);
 
-			addTreeUnit(tree, newTreeUnit(currentIter, buf, "float"));
+			addTreeUnit(tree, newTreeUnit(currentIter, buf, "double"));
 			break;
 
 		case VT_STRING:

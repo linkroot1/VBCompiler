@@ -1,7 +1,7 @@
 %option nounistd
 %option noyywrap
 %option case-insensitive
-%option never-interactive
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -115,7 +115,7 @@ While {return WHILE;}
 True {yylval.bool_val = 1; return BOOLEAN_VALUE;}
 False {yylval.bool_val = 0; return BOOLEAN_VALUE;}
 
-([a-zA-Z_])([a-zA-Z_0-9])?+ {yylval.id_var_name = yytext; return IDENTIFIER;}
+([a-zA-Z_])([a-zA-Z_0-9])* {yylval.id_var_name = (char *) malloc(strlen(yytext)+1); strcpy(yylval.id_var_name, yytext); return IDENTIFIER;}
 
 \n+  {return END_OF_LINE;}
 
