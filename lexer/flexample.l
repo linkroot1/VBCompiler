@@ -60,6 +60,7 @@ And {return AND;}
 Xor {return XOR;}
 Not {return NOT;}
 ByVal {return BYVAL;}
+Loop {return LOOP;}
 
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}

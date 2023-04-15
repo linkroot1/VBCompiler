@@ -4,15 +4,13 @@ Module Program
 
 	Function Main(test1 As Integer, test2 As Double)
 
-		Dim A = 3
+        Do While param >= 0
+            param = param - 1
+        Loop
 
 
 
-	End Function
+    End Function
 
-	Function summator(ByVal x As Integer, ByVal y As Integer)
-
-		Return x + y
-	End Function
 
 End Module

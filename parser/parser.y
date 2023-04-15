@@ -394,12 +394,12 @@ while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE {$$ = createWhile
 
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
-do_loop_stmt: DO do_loop_condition stmt_list LOOP {$$ = createDoLoopStmt($2, $3);}
-			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);}
+do_loop_stmt: DO do_loop_condition stmt_list LOOP stmt_ends{$$ = createDoLoopStmt($2, $3); printf("do_loop_stmt 1\n"); }
+			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);printf("do_loop_stmt 2\n"); }
 			;
 
-do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1, $2);} //How do distinguish?
-				 | WHILE expr_singleline stmt_ends {$$ = createDoLoopCondition(0, $2);}
+do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1, $2); printf("do_loop_condition UNTIL\n");} //How do distinguish?
+				 | WHILE expr_singleline stmt_ends {$$ = createDoLoopCondition(0, $2); printf("do_loop_condition WHILE\n");}
 				 ;
 
 
