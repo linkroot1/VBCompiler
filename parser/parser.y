@@ -111,7 +111,6 @@ ProgramItemList *root;
 	DeclStmtMulti *declStmtMulti;
 	VarNameSingle *varNameSingle;
 	VarNameMulti *varNameMulti;
-	StmtEnds *stmtEnds;
 }
 
 %type <expression> expr_singleline expr_multiline basic_literal_value;
@@ -149,7 +148,7 @@ ProgramItemList *root;
 %type <declStmtMulti> decl_stmt;
 %type <varNameSingle> var_name_singleline;
 %type <varNameMulti> var_name;
-%type <stmtEnds> stmt_ends;
+%type stmt_ends;
 %type <vt> basic_literal;
 
 %token<int_val> INT_VALUE
@@ -261,18 +260,18 @@ function_or_sub: function {$$ = createFunctionOrSub(0,$1);}
                | sub_bloc {$$ = createFunctionOrSub($1,0);}
                ;
 
-function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,0);}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8);}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8);}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION {$$ = createFunction($2,$4,$7,0);}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9);}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION {$$ = createFunction($3,$5,0,0);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION {$$ = createFunction($3,$5,$8,0);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10);}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10);}
+function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,0); printf("function 1\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8); printf("function 2\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$8); printf("function 3\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,0); printf("function 4\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9); printf("function 5\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,$9); printf("function 6\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,0); printf("function 7\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9); ("function 8\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$9); printf("function 9\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,0); printf("function 10\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_singleline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10); printf("function 11\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list RETURN expr_multiline stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,$10); printf("function 12\n");}
         ;
 
 
@@ -350,21 +349,21 @@ stmt_ends: END_OF_LINE { }
 
 
 //-------------------------Declaration stmt
-decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7);}
-         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7);}
-         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7);}
-         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7);}
-         | DIM var_name '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5);}
-         | DIM var_name_singleline '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5);}
+decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7); printf("decl_stmt_multi 1\n");}
+         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7); printf("decl_stmt_multi 2\n");}
+         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7); printf("decl_stmt_multi 3\n");}
+         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7); printf("decl_stmt_multi 4\n");}
+         | DIM var_name '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5); printf("decl_stmt_multi 5\n");}
+         | DIM var_name_singleline '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5); printf("decl_stmt_multi 6\n");}
          ;
 
 
-decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(1, $2, $4, $6);}
-					 | DIM var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, $4, $6);}
-					 | DIM var_name_singleline AS basic_literal {$$ = createDeclStmtSingle(0, $2, $4, 0);}
-				 	 | DIM var_name_singleline '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, 0, $4);}
-					 | DIM var_name_singleline {$$ = createDeclStmtSingle(0, $2, 0, 0);}
-                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}' {}//How to make an array
+decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(1, $2, $4, $6); printf("decl_stmt_single 1\n");}
+					 | DIM var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, $4, $6); printf("decl_stmt_single 2\n");}
+					 | DIM var_name_singleline AS basic_literal {$$ = createDeclStmtSingle(0, $2, $4, 0); printf("decl_stmt_single 3\n");}
+				 	 | DIM var_name_singleline '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, 0, $4); printf("decl_stmt_single 4\n");}
+					 | DIM var_name_singleline {$$ = createDeclStmtSingle(0, $2, 0, 0); printf("decl_stmt_single 5\n");}
+                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}' { printf("decl_stmt_single 6 (bad) \n");}//How to make an array
 					 ;
 
 
@@ -459,25 +458,25 @@ case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0
 
 
 //---------------------------EXPRession
-expr_singleline: basic_literal_value {$$ = $1;}
-    | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2);}
-    | '+' expr_singleline	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2);}
-    | expr_singleline '+' expr_singleline {$$ = createExpression(ET_PLUS, $1, $3); }
-    | expr_singleline '-' expr_singleline {$$ = createExpression(ET_MINUS, $1, $3); }
-    | expr_singleline '*' expr_singleline {$$ = createExpression(ET_MULT, $1, $3);}
-    | expr_singleline '/' expr_singleline {$$ = createExpression(ET_DIV, $1, $3);}
-    | expr_singleline INT_DIV expr_singleline {$$ = createExpression(ET_INTDIV, $1, $3);}
-    | expr_singleline '=' expr_singleline {$$ = createExpression(ET_EQUAL, $1, $3);}
-    | expr_singleline '<' expr_singleline {$$ = createExpression(ET_LESSER, $1, $3);}
-    | expr_singleline '>' expr_singleline {$$ = createExpression(ET_GREATER, $1, $3);}
-    | expr_singleline '^' expr_singleline {$$ = createExpression(ET_EXP, $1, $3);}
-    | expr_singleline NOT_EQUAL expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $3);}
-    | expr_singleline LESS_OR_EQUAL expr_singleline {$$ = createExpression(ET_LESSER_EQUAL, $1, $3);}
-    | expr_singleline MORE_OR_EQUAL expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $3);}
-    | expr_singleline '&' expr_singleline {$$ = createExpression(ET_CONCAT, $1, $3);}
-    | '(' expr_singleline ')' {$$ = createExpression(0, 0, $2);}
-    | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1});}
-    | IDENTIFIER arguments_singleline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
+expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 1\n");}
+    | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2); printf("expr_single 1\n");}
+    | '+' expr_singleline	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2); printf("expr_single 2\n");}
+    | expr_singleline '+' expr_singleline {$$ = createExpression(ET_PLUS, $1, $3);  printf("expr_single 3\n");}
+    | expr_singleline '-' expr_singleline {$$ = createExpression(ET_MINUS, $1, $3);  printf("expr_single 4\n");}
+    | expr_singleline '*' expr_singleline {$$ = createExpression(ET_MULT, $1, $3); printf("expr_single 5\n");}
+    | expr_singleline '/' expr_singleline {$$ = createExpression(ET_DIV, $1, $3); printf("expr_single 6\n");}
+    | expr_singleline INT_DIV expr_singleline {$$ = createExpression(ET_INTDIV, $1, $3); printf("expr_single 7\n");}
+    | expr_singleline '=' expr_singleline {$$ = createExpression(ET_EQUAL, $1, $3); printf("expr_single 8\n");}
+    | expr_singleline '<' expr_singleline {$$ = createExpression(ET_LESSER, $1, $3); printf("expr_single 9\n");}
+    | expr_singleline '>' expr_singleline {$$ = createExpression(ET_GREATER, $1, $3); printf("expr_single 10\n");}
+    | expr_singleline '^' expr_singleline {$$ = createExpression(ET_EXP, $1, $3); printf("expr_single 11\n");}
+    | expr_singleline NOT_EQUAL expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $3); printf("expr_single 12\n");}
+    | expr_singleline LESS_OR_EQUAL expr_singleline {$$ = createExpression(ET_LESSER_EQUAL, $1, $3); printf("expr_single 13\n");}
+    | expr_singleline MORE_OR_EQUAL expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $3); printf("expr_single 14\n");}
+    | expr_singleline '&' expr_singleline {$$ = createExpression(ET_CONCAT, $1, $3); printf("expr_single 15\n");}
+    | '(' expr_singleline ')' {$$ = createExpression(0, 0, $2); printf("expr_single 16\n");}
+    | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1}); printf("expr_single 17\n");}
+    | IDENTIFIER arguments_singleline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2); printf("expr_single 18\n");}
     ;
 
 expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); }
@@ -555,12 +554,12 @@ void yyerror(const char* s) {
 	exit(1);
 }
 
-void printRule(char* ruleString){
+/*void printRule(char* ruleString){
 
 	#ifdef PRINT_RULE
-    printf("\n %s \n", ruleString);
+    fprintf("\n %s \n", ruleString);
     #endif
-}
+}*/
 
 // ------------------------------  Expression ------------------------------
 Expression *createExpression(ExprType type, Expression *left, Expression *right)
