@@ -64,6 +64,7 @@ Loop {return LOOP;}
 Each {return EACH;}
 Next {return NEXT;}
 In {return IN;}
+To {return TO;}
 
 
 \>\= {return LESS_OR_EQUAL;}
