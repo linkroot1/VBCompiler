@@ -2,7 +2,7 @@ Imports System
 
 Module Program
 
-	Function Main(test1 As Integer, test2 As Double)
+    Function Main(test1 As Integer, test2 As Double)
 
         Dim param1 As Integer
         Dim param2 As Double
@@ -11,7 +11,6 @@ Module Program
 
         Dim array(4) As Integer
         array(1) = 1
-
 
 
     End Function

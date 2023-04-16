@@ -52,6 +52,7 @@ Protected {return PROTECTED;}
 Public {return PUBLIC;}
 Return {return RETURN;}
 Select {return SELECT;}
+String {return STRING;}
 Sub {return SUB;}
 Then {return THEN;}
 While {return WHILE;}
