@@ -216,14 +216,15 @@ ProgramItemList *root;
 
 %left AND
 %left OR XOR
-%left '^'
+%left '='
+%left NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<' TO
+%left '+' '-'
+%left '&'
+%right UNARY_MINUS UNARY_PLUS
 %left '*' '/'
+%left '^'
 %right NOT
 %left INT_DIV
-%left '+' '-'
-%right UNARY_MINUS UNARY_PLUS
-%left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
-%left '&' TO
 %nonassoc '(' ')' '{' '}'
 
 %precedence THEN
@@ -457,7 +458,7 @@ case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $
 
 
 //---------------------------EXPRession
-expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 1\n");}
+expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 0\n");}
     | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2); printf("expr_single 1\n");}
     | '+' expr_singleline	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2); printf("expr_single 2\n");}
     | expr_singleline '+' expr_singleline {$$ = createExpression(ET_PLUS, $1, $3);  printf("expr_single 3\n");}

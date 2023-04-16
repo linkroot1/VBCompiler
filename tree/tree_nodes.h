@@ -115,6 +115,10 @@ enum VarType
 
 enum ExprType
 {
+	DUD0,
+	DUD1,
+	DUD2,
+	DUD3,
 	ET_EQUAL,
 	ET_NOT_EQUAL,
 	ET_LESSER,

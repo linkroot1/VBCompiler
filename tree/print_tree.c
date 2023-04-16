@@ -671,7 +671,39 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "Expression", expr_type_str(expr->type)));
 		int currentIter = tree->end->num;
 
-		char buf[51];
+		char buf[100];
+
+		/*if ((variable_type_str(expr->type) == "INTEGER") || (variable_type_str(expr->type) == "BOOLEAN"))
+		{
+			sprintf(buf, "%d", expr->value.int_val);
+			addTreeUnit(tree, newTreeUnit(currentIter, buf, expr_type_str(expr->type)));
+		}
+		else if (variable_type_str(expr->type) == "DOUBLE")
+		{
+			sprintf(buf, "%f", expr->value.double_val);
+			addTreeUnit(tree, newTreeUnit(currentIter, buf, "double"));
+		}
+		else if ((variable_type_str(expr->type) == "STRING") || (expr_type_str(expr->type) == "ET_ID"))
+		{
+			addTreeUnit(tree, newTreeUnit(currentIter, expr->value.string_val, expr_type_str(expr->type)));
+		}
+		else if (expr_type_str(expr->type) == "ET_ARRAY_OR_FUNC")
+		{
+			addTreeUnit(tree, newTreeUnit(currentIter, expr->value.string_val, expr_type_str(expr->type)));
+			parseExpressionList(expr->exprList, tree, currentIter);
+		}
+		else
+		{
+			if (expr->left != NULL) 
+			{
+				parseExpression(expr->left, tree, currentIter);
+			}
+
+			if (expr->right != NULL) 
+			{
+				parseExpression(expr->right, tree, currentIter);
+			}
+		}*/
 		switch (expr->type)
 		{
 		case VT_INTEGER:
@@ -693,8 +725,7 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 		case ET_ID:
 			//case ET_LENGTH_ARR_ATTR:
 
-			addTreeUnit(tree,
-				newTreeUnit(currentIter, expr->value.string_val, expr_type_str(expr->type)));
+			addTreeUnit(tree, newTreeUnit(currentIter, expr->value.string_val, expr_type_str(expr->type)));
 			break;
 
 		case ET_ARRAY_OR_FUNC:
@@ -702,11 +733,6 @@ void parseExpression(Expression* expr, Tree* tree, int parentNum)
 			parseExpressionList(expr->exprList, tree, currentIter);
 
 			break;
-
-			/*case ET_CHARACTER:
-				buf[0] = expr->value.char_val; buf[1] = '\0';
-				addTreeUnit(tree, newTreeUnit(currentIter, buf, "character"));
-				break;*/
 
 		default:
 

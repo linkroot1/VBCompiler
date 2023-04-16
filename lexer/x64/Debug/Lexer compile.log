@@ -1,4 +1,8 @@
 ﻿  print_tree.c
 Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(382,35): warning C4133: 'function': incompatible types - from 'StatementMulti *' to 'StatementSingle *'
 Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(413,42): warning C4028: formal parameter 1 different from declaration
+  lex.yy.c
+lex.yy.c(1954,33): warning C4013: 'isatty' undefined; assuming extern returning int
+flexample.l(161,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   Lexer compile.vcxproj -> Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe

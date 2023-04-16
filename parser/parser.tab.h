@@ -35,6 +35,7 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 #include "../tree/tree_nodes.h"
+
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -108,13 +109,13 @@ extern int yydebug;
     AND = 309,                     /* AND  */
     OR = 310,                      /* OR  */
     XOR = 311,                     /* XOR  */
-    NOT = 312,                     /* NOT  */
-    INT_DIV = 313,                 /* INT_DIV  */
-    UNARY_MINUS = 314,             /* UNARY_MINUS  */
-    UNARY_PLUS = 315,              /* UNARY_PLUS  */
-    NOT_EQUAL = 316,               /* NOT_EQUAL  */
-    LESS_OR_EQUAL = 317,           /* LESS_OR_EQUAL  */
-    MORE_OR_EQUAL = 318,           /* MORE_OR_EQUAL  */
+    NOT_EQUAL = 312,               /* NOT_EQUAL  */
+    LESS_OR_EQUAL = 313,           /* LESS_OR_EQUAL  */
+    MORE_OR_EQUAL = 314,           /* MORE_OR_EQUAL  */
+    UNARY_MINUS = 315,             /* UNARY_MINUS  */
+    UNARY_PLUS = 316,              /* UNARY_PLUS  */
+    NOT = 317,                     /* NOT  */
+    INT_DIV = 318,                 /* INT_DIV  */
     THEN = 319,                    /* THEN  */
     ELSE = 320                     /* ELSE  */
   };
