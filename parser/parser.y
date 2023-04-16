@@ -404,8 +404,8 @@ do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1
 
 
 //-------------------------FOR LOOP stmt
-for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT {$$ = createForLoopStmt($2, $4, $6, $8, 0, $10);}
-			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT {$$ = createForLoopStmt($2, $4, $6, $8, $10, $12);}
+for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, 0, $10);}
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, $10, $12);}
 			 ;
 
 
