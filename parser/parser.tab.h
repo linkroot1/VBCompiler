@@ -34,6 +34,7 @@
 /* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
+#include "../tree/tree_nodes.h"
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -44,8 +45,6 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
-
-#include "../tree/tree_nodes.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE

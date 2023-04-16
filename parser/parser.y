@@ -55,10 +55,10 @@ ElseIfList *createElseIfList(ElseIf *elseIf);
 ElseIfList *appendElseIfList(ElseIfList *list, ElseIf *elseIf);
 ElseIf *createElseIf(Expression *expression, StmtList *stmtList);
 IfStmtSingle *createIfStmtSingle(Expression *expression, StatementSingle *thenStmt, StatementSingle *elseStmt);
-SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList);
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList, StmtList * elseStmt);
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
-CaseStmt *createCaseStmt(int isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList);
+CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList);
 DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
 DeclStmtMulti *createDeclStmtMulti(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
 VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
@@ -223,7 +223,7 @@ ProgramItemList *root;
 %left '+' '-'
 %right UNARY_MINUS UNARY_PLUS
 %left '=' NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
-%left '&'
+%left '&' TO
 %nonassoc '(' ')' '{' '}'
 
 %precedence THEN
@@ -438,24 +438,21 @@ if_stmt_single_line: IF expr_singleline THEN single_line_stmt  {$$ = createIfStm
 
 
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5);}
-           | SELECT CASE expr_multiline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5);}
+select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5, 0); printf("select_stmt 1\n");}
+           | SELECT CASE expr_multiline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5, 0); printf("select_stmt 2\n");}
+		   | SELECT CASE expr_singleline stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT {$$ = createSelectStmt($3, $5, $9); printf("select_stmt 3\n");}
+           | SELECT CASE expr_multiline stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT {$$ = createSelectStmt($3, $5, $9); printf("select_stmt 4\n");}
            ;
 
-case_list: case_stmt {$$ = createCaseList($1);}
-		| case_list case_stmt {$$ = appendCaseList($1, $2);}
+case_list: case_stmt {$$ = createCaseList($1); printf("case_list 1\n");}
+		| case_list case_stmt {$$ = appendCaseList($1, $2); printf("case_list 2\n");}
 		;
 
-case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0, $4);}
-        | CASE expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, 0, $4);}
-        | CASE IS expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, 0, $5);}
-        | CASE IS expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, 0, $5);}
-        | CASE expr_multiline TO expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
-        | CASE expr_multiline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
-        | CASE expr_singleline TO expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
-        | CASE expr_singleline TO expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4, $6);}
-        | CASE ELSE stmt_ends stmt_list {$$ = createCaseStmt(0, 0, 0, $4);}
-        ;
+case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 1\n");}
+		 | CASE expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 2\n");}
+         | CASE IS expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 3\n");}
+         | CASE IS expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 4\n");}
+         ;
 
 
 
@@ -483,6 +480,7 @@ expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 1\n");}
     | expr_singleline OR expr_singleline {$$ = createExpression(ET_OR, $1, $3); printf("expr_single 20\n");}
     | expr_singleline XOR expr_singleline {$$ = createExpression(ET_XOR, $1, $3); printf("expr_single 21\n");}
     | NOT expr_singleline {$$ = createExpression(ET_NOT, 0, $2); printf("expr_single 22\n");}
+	| expr_singleline TO expr_singleline {$$ = createExpression(ET_TO, $1, $3); printf("expr_single 23\n");}
     ;
 
 expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); }
@@ -505,6 +503,7 @@ expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpr
 			  | expr_singleline AND END_OF_LINE expr_singleline {$$ = createExpression(ET_AND, $1, $4);}
 			  | expr_singleline OR END_OF_LINE expr_singleline {$$ = createExpression(ET_OR, $1, $4);}
 			  | expr_singleline XOR END_OF_LINE expr_singleline {$$ = createExpression(ET_XOR, $1, $4);}
+			  | expr_singleline TO END_OF_LINE expr_singleline {$$ = createExpression(ET_TO, $1, $4);}
               ;
 
 
@@ -966,12 +965,13 @@ IfStmtSingle *createIfStmtSingle(Expression *expression, StatementSingle *thenSt
 	return result;
 }
 
-SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList)
+SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList, StmtList * elseStmt)
 {
 	SelectStmt *result = (SelectStmt*)malloc(sizeof(SelectStmt));
 
 	result->expression = expression;
 	result->caseList = caseList;
+	result->elseStmt = elseStmt;
 
 	return result;
 }
@@ -994,7 +994,7 @@ CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
 	return list;
 }
 
-CaseStmt *createCaseStmt(int isIs, Expression *fromExpression, Expression *toExpression, StmtList *stmtList)
+CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList)
 {
 	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
 
@@ -1002,8 +1002,7 @@ CaseStmt *createCaseStmt(int isIs, Expression *fromExpression, Expression *toExp
 		result->isIs = 1;
 	else
 		result->isIs = 0;
-	result->fromExpression = fromExpression;
-	result->toExpression = toExpression;
+	result->expression = expression;
 	result->stmtList = stmtList;
 	
 	result->nextInList = 0;

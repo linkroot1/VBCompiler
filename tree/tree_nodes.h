@@ -133,7 +133,8 @@ enum ExprType
 	ET_AND,
 	ET_OR,
 	ET_XOR,
-	ET_NOT
+	ET_NOT,
+	ET_TO
 };
 
 
@@ -353,6 +354,7 @@ struct SelectStmt
 {
 	Expression* expression;
 	CaseList* caseList;
+	StmtList* elseStmt;
 };
 
 struct CaseList
@@ -364,8 +366,7 @@ struct CaseList
 struct CaseStmt
 {
 	int* isIs;
-	Expression* fromExpression;
-	Expression* toExpression;
+	Expression* expression;
 	StmtList* stmtList;
 
 	CaseStmt* nextInList;

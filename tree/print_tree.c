@@ -114,6 +114,7 @@ char* stmt_type_str(StmtType et)
 	if (et == ST_SELECT_MULTI) return "ST_SELECT_MULTI";
 	if (et == ST_IF_MULTI) return "ST_IF_MULTI";
 	if (et == EXPR_MULTI) return "EXPR_MULTI";
+	if (et == ST_RETURN) return "ST_RETURN";
 	return "";
 }
 
@@ -135,16 +136,12 @@ char* expr_type_str(ExprType et)
 
 	if (et == ET_ID) return "ET_ID";
 	if (et == ET_ARRAY_OR_FUNC) return "ET_ARRAY_OR_FUNC";
-	/*
-	if (et == ET_FLOAT) return "ET_FLOAT";
-	if (et == ET_STRING) return "ET_STRING";
-	if (et == ET_CHARACTER) return "ET_CHARACTER";
-	if (et == ET_BOOL) return "ET_BOOL";
-	if (et == ET_CONCAT) return "&";
-	if (et == ET_LOGIC_OR) return "OR";
-	if (et == ET_LOGIC_AND) return "AND";
-	if (et == ET_ASSIGN) return ":=";
-	if (et == ET_NOT) return "NOT";*/
+
+	if (et == ET_AND) return "AND";
+	if (et == ET_OR) return "OR";
+	if (et == ET_XOR) return "XOR";
+	if (et == ET_NOT) return "NOT";
+	if (et == ET_TO) return "TO";
 	return "";
 }
 
@@ -635,7 +632,8 @@ void parseSelectStatement(SelectStmt* selectStmt, Tree* tree, int parentNum)
 		int currentIter = tree->end->num;
 
 		parseExpression(selectStmt->expression, tree, currentIter);
-		parseCaseStatement(selectStmt->caseList, tree, currentIter);
+		parseCaseList(selectStmt->caseList, tree, currentIter);
+		parseStatementList(selectStmt->elseStmt, tree, currentIter);
 	}
 }
 
@@ -661,8 +659,7 @@ void parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "CaseStatement", ""));
 		int currentIter = tree->end->num;
 
-		parseExpression(caseStmt->fromExpression, tree, currentIter);
-		parseExpression(caseStmt->toExpression, tree, currentIter);
+		parseExpression(caseStmt->expression, tree, currentIter);
 		parseStatementList(caseStmt->stmtList, tree, currentIter);
 	}
 }
