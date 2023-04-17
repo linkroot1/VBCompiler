@@ -30,6 +30,32 @@ Module Program
             param = param + 1
         Next
 
+        Select Case number
+
+            Case 1 To 5
+
+                number = number + 1
+
+            Case 5 To 7
+                number = number + 2
+
+            Case 7 To 9
+                number = number + 3
+
+            Case Else
+
+                number = number + 4
+
+        End Select
+
+        If param1 = 1 Then
+            param1 = param1 + 1
+        ElseIf param1 = 2 Then
+            param1 = param1 + 2
+        Else
+            param1 = param1 + 3
+        End If
+
 
         Return param4
 
