@@ -56,6 +56,19 @@ Module Program
             param1 = param1 + 3
         End If
 
+        Do While param1 = 1
+            If param1 = 1 Then
+                param1 = param1 + 1
+            ElseIf param1 = 2 Then
+                param1 = param1 + 2
+            Else
+                For Each param As Integer In list
+                    param = param + 1
+                Next
+            End If
+
+        Loop
+
 
         Return param4
 

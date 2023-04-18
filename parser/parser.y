@@ -239,8 +239,7 @@ ProgramItemList *root;
 root: program_items_list {$$ = root = $1; printf("root 1\n");}
     ;
 
-program_items_list: {$$ = 0; printf("program_items_list 1\n");}
-                  |program_items_list_not_empty {$$ = createProgramItemsList($1); printf("program_items_list 2\n");}
+program_items_list: program_items_list_not_empty {$$ = createProgramItemsList($1); printf("program_items_list 2\n");}
                   ;
 
 program_items_list_not_empty: program_item { $$ = createProgramListNotEmpty($1); printf("program_items_list_not_empty 1\n");}
@@ -248,14 +247,15 @@ program_items_list_not_empty: program_item { $$ = createProgramListNotEmpty($1);
                             ;
 
 program_item: module {$$ = createProgramItem($1,0); printf("program_item 1\n");}
-             | IMPORTS IDENTIFIER stmt_ends  {$$ =  createProgramItem(0,$2); printf("program_item 2\n");}
+             | IMPORTS IDENTIFIER {$$ =  createProgramItem(0,$2); printf("program_item 2\n");}
+             | END_OF_LINE {$$ =  createProgramItem(0,0); printf("program_item 3\n");}
              ;
 
 
-module: MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($2,0); printf("module 1\n");}
-      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($2,$4); printf("module 2\n");}
-      | access MODULE IDENTIFIER stmt_ends END MODULE stmt_ends {$$ = createModule($3,0); printf("module 3\n");}
-      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE stmt_ends {$$ = createModule($3,$5); printf("module 4\n");}
+module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0); printf("module 1\n");}
+      | MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($2,$4); printf("module 2\n");}
+      | access MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($3,0); printf("module 3\n");}
+      | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($3,$5); printf("module 4\n");}
       ;
 
 
@@ -544,7 +544,7 @@ expr_list: expr_singleline {$$ = createExpressionList($1); printf("expr_list 1\n
 int main(int argc, char** argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
-        yyparse();	
+        yyparse();
 
 		freopen("../tree/tree_img.txt", "w", stdout);
 		printTree(root);
@@ -554,7 +554,7 @@ int main(int argc, char** argv) {
     else {
         yyerror("not found file");
     }
-	
+
 	//return 0;
 }
 
@@ -647,7 +647,7 @@ ProgramItemListNotEmpty *createProgramListNotEmpty(ProgramItem *programItem)
 
 	result->begin = programItem;
 	result->end = programItem;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -669,7 +669,7 @@ ProgramItem *createProgramItem(Module *module, char *id_var_name)
 	result->isImport = id_var_name != 0;
 	result->id_var_name = id_var_name;
 	result->module = module;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -709,7 +709,7 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 
 	result->subBloc = subBloc;
 	result->function=function;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -786,7 +786,7 @@ ParameterWithType *createParameterWithType(char* id_var_name, VarType basic_lite
 
 	result->id_var_name = id_var_name;
 	result->basic_literal = basic_literal;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -797,7 +797,7 @@ ParameterWithoutType *createParameterWithoutType(char* id_var_name)
 	ParameterWithoutType *result = (ParameterWithoutType *)malloc(sizeof(ParameterWithoutType));
 
 	result->id_var_name = id_var_name;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -827,7 +827,7 @@ Statement *createStatement(StmtType type, StmtValue value)
 
 	result->type = type;
 	result->value = value;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -949,7 +949,7 @@ ElseIf *createElseIf(Expression *expression, StmtList *stmtList)
 
 	result->expression = expression;
 	result->stmtList = stmtList;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -1005,7 +1005,7 @@ CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList)
 		result->isIs = 0;
 	result->expression = expression;
 	result->stmtList = stmtList;
-	
+
 	result->nextInList = 0;
 
 	return result;
@@ -1080,7 +1080,7 @@ Expression *createExpressionWithList(ExprType type, Value value, ExpressionList 
 ReturnStmt *createReturnStmt(Expression *expression)
 {
 	ReturnStmt *result = (ReturnStmt *)malloc(sizeof(ReturnStmt));
-	
+
 	result->expression = expression;
 
 	return result;
