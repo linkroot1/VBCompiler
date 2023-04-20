@@ -142,6 +142,9 @@ char* expr_type_str(ExprType et)
 	if (et == ET_XOR) return "XOR";
 	if (et == ET_NOT) return "NOT";
 	if (et == ET_TO) return "TO";
+	if (et == ET_MOD) return "MOD";
+	if (et == ET_SHIFT_L) return "<<";
+	if (et == ET_SHIFT_R) return ">>";
 	return "";
 }
 

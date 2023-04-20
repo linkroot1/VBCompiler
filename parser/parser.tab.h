@@ -35,6 +35,7 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 #include "../tree/tree_nodes.h"
+
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -105,18 +106,21 @@ extern int yydebug;
     PUBLIC = 306,                  /* PUBLIC  */
     FRIEND = 307,                  /* FRIEND  */
     BYVAL = 308,                   /* BYVAL  */
-    AND = 309,                     /* AND  */
+    XOR = 309,                     /* XOR  */
     OR = 310,                      /* OR  */
-    XOR = 311,                     /* XOR  */
-    NOT_EQUAL = 312,               /* NOT_EQUAL  */
-    LESS_OR_EQUAL = 313,           /* LESS_OR_EQUAL  */
-    MORE_OR_EQUAL = 314,           /* MORE_OR_EQUAL  */
-    UNARY_MINUS = 315,             /* UNARY_MINUS  */
-    UNARY_PLUS = 316,              /* UNARY_PLUS  */
-    NOT = 317,                     /* NOT  */
-    INT_DIV = 318,                 /* INT_DIV  */
-    THEN = 319,                    /* THEN  */
-    ELSE = 320                     /* ELSE  */
+    AND = 311,                     /* AND  */
+    NOT = 312,                     /* NOT  */
+    NOT_EQUAL = 313,               /* NOT_EQUAL  */
+    LESS_OR_EQUAL = 314,           /* LESS_OR_EQUAL  */
+    MORE_OR_EQUAL = 315,           /* MORE_OR_EQUAL  */
+    SHIFT_LEFT = 316,              /* SHIFT_LEFT  */
+    SHIFT_RIGHT = 317,             /* SHIFT_RIGHT  */
+    MOD = 318,                     /* MOD  */
+    INT_DIV = 319,                 /* INT_DIV  */
+    UNARY_MINUS = 320,             /* UNARY_MINUS  */
+    UNARY_PLUS = 321,              /* UNARY_PLUS  */
+    THEN = 322,                    /* THEN  */
+    ELSE = 323                     /* ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -172,7 +176,7 @@ union YYSTYPE
 	VarNameMulti *varNameMulti;
 	ReturnStmt *returnStmt;
 
-#line 176 "parser.tab.h"
+#line 179 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

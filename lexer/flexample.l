@@ -66,6 +66,7 @@ Each {return EACH;}
 Next {return NEXT;}
 In {return IN;}
 To {return TO;}
+Mod {return MOD;}
 
 
 \>\= {return LESS_OR_EQUAL;}
@@ -80,6 +81,9 @@ To {return TO;}
 \>\>= {return ASSIGN_LSHIFT;}
 \<\<= {return ASSIGN_RSHIFT;}
 \&\= {return ASSIGN_CONCAT;}
+\<\<  {return SHIFT_LEFT;}
+\>\>  {return SHIFT_RIGHT;}
+
 "(" { return '('; }
 ")" { return ')'; }
 

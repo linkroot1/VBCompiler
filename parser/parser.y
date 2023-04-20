@@ -214,18 +214,29 @@ ProgramItemList *root;
 %token FRIEND
 %token BYVAL
 
+
+%left XOR
+%left OR
 %left AND
-%left OR XOR
-%left '='
-%left NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<' TO
-%left '+' '-'
-%left '&'
-%right UNARY_MINUS UNARY_PLUS
-%left '*' '/'
-%left '^'
 %right NOT
+
+%left '='
+%left NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
+
+%left TO
+
+%left SHIFT_LEFT SHIFT_RIGHT
+%left '&'
+
+%left '+' '-'
+%left MOD
 %left INT_DIV
+%left '*' '/'
+%right UNARY_MINUS UNARY_PLUS
+%left '^'
+
 %nonassoc '(' ')' '{' '}'
+
 
 %precedence THEN
 %precedence ELSE
@@ -345,8 +356,8 @@ multi_line_stmt: if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_M
 return_stmt: RETURN expr_singleline {$$ = createReturnStmt($2); printf("return_stmt 1\n");}
 		   ;
 
-stmt_ends: END_OF_LINE { }
-    | stmt_ends END_OF_LINE { }
+stmt_ends: END_OF_LINE {printf("stmt_ends 1\n");}
+    | stmt_ends END_OF_LINE {printf("stmt_ends 2\n");}
     ;
 
 
@@ -482,29 +493,35 @@ expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 0\n");}
     | expr_singleline XOR expr_singleline {$$ = createExpression(ET_XOR, $1, $3); printf("expr_single 21\n");}
     | NOT expr_singleline {$$ = createExpression(ET_NOT, 0, $2); printf("expr_single 22\n");}
 	| expr_singleline TO expr_singleline {$$ = createExpression(ET_TO, $1, $3); printf("expr_single 23\n");}
+	| expr_singleline MOD expr_singleline {$$ = createExpression(ET_MOD, $1, $3); printf("expr_single 24\n");}
+	| expr_singleline SHIFT_LEFT expr_singleline {$$ = createExpression(ET_SHIFT_L, $1, $3); printf("expr_single 25\n");}
+	| expr_singleline SHIFT_RIGHT expr_singleline {$$ = createExpression(ET_SHIFT_R, $1, $3); printf("expr_single 26\n");}
     ;
 
-expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); }
-              | expr_singleline '-' END_OF_LINE expr_singleline {$$ = createExpression(ET_MINUS, $1, $4); }
-              | expr_singleline '*' END_OF_LINE expr_singleline {$$ = createExpression(ET_MULT, $1, $4);}
-              | expr_singleline '/' END_OF_LINE expr_singleline {$$ = createExpression(ET_DIV, $1, $4);}
-              | expr_singleline INT_DIV END_OF_LINE expr_singleline {$$ = createExpression(ET_INTDIV, $1, $4);}
-              | expr_singleline '=' END_OF_LINE expr_singleline {$$ = createExpression(ET_EQUAL, $1, $4);}
-              | expr_singleline '<' END_OF_LINE expr_singleline {$$ = createExpression(ET_LESSER, $1, $4);}
-              | expr_singleline '>' END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER, $1, $4);}
-              | expr_singleline '^' END_OF_LINE expr_singleline {$$ = createExpression(ET_EXP, $1, $4);}
-              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $4);}
-              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  {$$ = createExpression(ET_LESSER_EQUAL, $1, $4);}
-              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $4);}
-              | expr_singleline '&' END_OF_LINE expr_singleline {$$ = createExpression(ET_CONCAT, $1, $4);}
-              | '(' END_OF_LINE expr_singleline ')' {$$ = createExpression(0, 0, $3);}
-              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $3);}
-              | '(' expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $2);}
-              | IDENTIFIER arguments_multiline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2);}
-			  | expr_singleline AND END_OF_LINE expr_singleline {$$ = createExpression(ET_AND, $1, $4);}
-			  | expr_singleline OR END_OF_LINE expr_singleline {$$ = createExpression(ET_OR, $1, $4);}
-			  | expr_singleline XOR END_OF_LINE expr_singleline {$$ = createExpression(ET_XOR, $1, $4);}
-			  | expr_singleline TO END_OF_LINE expr_singleline {$$ = createExpression(ET_TO, $1, $4);}
+expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); printf("expr_multi 1\n");}
+              | expr_singleline '-' END_OF_LINE expr_singleline {$$ = createExpression(ET_MINUS, $1, $4); printf("expr_multi 2\n");}
+              | expr_singleline '*' END_OF_LINE expr_singleline {$$ = createExpression(ET_MULT, $1, $4); printf("expr_multi 3\n");}
+              | expr_singleline '/' END_OF_LINE expr_singleline {$$ = createExpression(ET_DIV, $1, $4); printf("expr_multi 4\n");}
+              | expr_singleline INT_DIV END_OF_LINE expr_singleline {$$ = createExpression(ET_INTDIV, $1, $4); printf("expr_multi 5\n");}
+              | expr_singleline '=' END_OF_LINE expr_singleline {$$ = createExpression(ET_EQUAL, $1, $4); printf("expr_multi 6\n");}
+              | expr_singleline '<' END_OF_LINE expr_singleline {$$ = createExpression(ET_LESSER, $1, $4); printf("expr_multi 7\n");}
+              | expr_singleline '>' END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER, $1, $4); printf("expr_multi 8\n");}
+              | expr_singleline '^' END_OF_LINE expr_singleline {$$ = createExpression(ET_EXP, $1, $4); printf("expr_multi 9\n");}
+              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $4); printf("expr_multi 10\n");}
+              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  {$$ = createExpression(ET_LESSER_EQUAL, $1, $4); printf("expr_multi 11\n");}
+              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $4); printf("expr_multi 12\n");}
+              | expr_singleline '&' END_OF_LINE expr_singleline {$$ = createExpression(ET_CONCAT, $1, $4); printf("expr_multi 13\n");}
+              | '(' END_OF_LINE expr_singleline ')' {$$ = createExpression(0, 0, $3); printf("expr_multi 14\n");}
+              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $3); printf("expr_multi 15\n");}
+              | '(' expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $2); printf("expr_multi 16\n");}
+              | IDENTIFIER arguments_multiline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2); printf("expr_multi 17\n");}
+			  | expr_singleline AND END_OF_LINE expr_singleline {$$ = createExpression(ET_AND, $1, $4); printf("expr_multi 18\n");}
+			  | expr_singleline OR END_OF_LINE expr_singleline {$$ = createExpression(ET_OR, $1, $4); printf("expr_multi 19\n");}
+			  | expr_singleline XOR END_OF_LINE expr_singleline {$$ = createExpression(ET_XOR, $1, $4); printf("expr_multi 20\n");}
+			  | expr_singleline TO END_OF_LINE expr_singleline {$$ = createExpression(ET_TO, $1, $4); printf("expr_multi 21\n");}
+			  | expr_singleline MOD END_OF_LINE expr_singleline {$$ = createExpression(ET_MOD, $1, $4); printf("expr_multi 22\n");}
+			  | expr_singleline SHIFT_LEFT END_OF_LINE expr_singleline {$$ = createExpression(ET_SHIFT_L, $1, $4); printf("expr_single 23\n");}
+			  | expr_singleline SHIFT_RIGHT END_OF_LINE expr_singleline {$$ = createExpression(ET_SHIFT_R, $1, $4); printf("expr_single 24\n");}
               ;
 
 

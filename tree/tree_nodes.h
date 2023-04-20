@@ -138,7 +138,10 @@ enum ExprType
 	ET_OR,
 	ET_XOR,
 	ET_NOT,
-	ET_TO
+	ET_TO,
+	ET_MOD,
+	ET_SHIFT_L,
+	ET_SHIFT_R
 };
 
 

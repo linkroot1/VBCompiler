@@ -1,8 +1,15 @@
-﻿  print_tree.c
-Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(382,35): warning C4133: 'function': incompatible types - from 'StatementMulti *' to 'StatementSingle *'
-Q:\Uni\tfiaimt\VBCompiler\tree\print_tree.c(413,42): warning C4028: formal parameter 1 different from declaration
+﻿  parser.tab.c
+parser.tab.c(1805,36): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
+parser.y(366,133): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'VarNameSingle *'
+parser.y(368,131): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'VarNameSingle *'
+parser.y(370,114): warning C4133: 'function': incompatible types - from 'VarNameMulti *' to 'VarNameSingle *'
+parser.tab.c(2056,41): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+parser.y(686,37): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+parser.y(899,22): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+parser.y(1020,19): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
+parser.y(1037,22): warning C4047: '=': 'int *' differs in levels of indirection from 'int'
   lex.yy.c
-lex.yy.c(1954,33): warning C4013: 'isatty' undefined; assuming extern returning int
-flexample.l(161,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+lex.yy.c(1969,40): warning C4013: 'isatty' undefined; assuming extern returning int
+flexample.l(165,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
   Lexer compile.vcxproj -> Q:\Uni\tfiaimt\VBCompiler\lexer\x64\Debug\Lexer compile.exe
