@@ -212,7 +212,7 @@ ProgramItemList *root;
 %left AND
 %right NOT
 
-%left '='
+%left '=' ASSIGN_ADD ASSIGN_SUB ASSIGN_CONSTRUCT ASSIGN_MULT ASSIGN_ORD_DIV ASSIGN_INT_DIV ASSIGN_LSHIFT ASSIGN_RSHIFT ASSIGN_CONCAT
 %left NOT_EQUAL LESS_OR_EQUAL MORE_OR_EQUAL '>' '<'
 
 %left TO
@@ -268,9 +268,13 @@ function_or_sub: function {$$ = createFunctionOrSub(0,$1); printf("function_or_s
                ;
 
 function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0); printf("function 1\n");}
+		| FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0); printf("function 1,5\n");}
         | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7); printf("function 4\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$9); printf("function 4,5\n");}
         | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0); printf("function 7\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0); printf("function 7,5\n");}
         | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8); printf("function 10\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$10); printf("function 10,5\n");}
         ;
 
 sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($2,$4,0);}
@@ -437,7 +441,17 @@ expr: basic_literal_value {$$ = $1; printf("expr 0\n");}
 	| expr MOD optEoL expr {$$ = createExpression(ET_MOD, $1, $4); printf("expr 24\n");}
 	| expr SHIFT_LEFT optEoL expr {$$ = createExpression(ET_SHIFT_L, $1, $4); printf("expr 25\n");}
 	| expr SHIFT_RIGHT optEoL expr {$$ = createExpression(ET_SHIFT_R, $1, $4); printf("expr 26\n");}
+	| expr ASSIGN_SUB optEoL expr {$$ = createExpression(ET_ASSIGN_SUB, $1, $4); printf("expr 27\n");}
+	| expr ASSIGN_ADD optEoL expr {$$ = createExpression(ET_ASSIGN_ADD, $1, $4); printf("expr 28\n");}
+	| expr ASSIGN_CONSTRUCT optEoL expr {$$ = createExpression(ET_ASSIGN_CONSTRUCT, $1, $4); printf("expr 29\n");}
+	| expr ASSIGN_MULT optEoL expr {$$ = createExpression(ET_ASSIGN_MULT, $1, $4); printf("expr 30\n");}
+	| expr ASSIGN_ORD_DIV optEoL expr {$$ = createExpression(ET_ASSIGN_ORD_DIV, $1, $4); printf("expr 31\n");}
+	| expr ASSIGN_INT_DIV optEoL expr {$$ = createExpression(ET_ASSIGN_INT_DIV, $1, $4); printf("expr 32\n");}
+	| expr ASSIGN_LSHIFT optEoL expr {$$ = createExpression(ET_ASSIGN_LSHIFT, $1, $4); printf("expr 33\n");}
+	| expr ASSIGN_RSHIFT optEoL expr {$$ = createExpression(ET_ASSIGN_RSHIFT, $1, $4); printf("expr 34\n");}
+	| expr ASSIGN_CONCAT optEoL expr {$$ = createExpression(ET_ASSIGN_CONCAT, $1, $4); printf("expr 35\n");}
     ;
+
 
 basic_literal: INT {$$ = VT_INTEGER; printf("basic_literal int\n");}
             | STRING {$$ = VT_STRING; printf("basic_literal str\n");}

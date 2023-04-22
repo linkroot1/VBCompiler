@@ -143,6 +143,16 @@ char* expr_type_str(ExprType et)
 	if (et == ET_MOD) return "MOD";
 	if (et == ET_SHIFT_L) return "<<";
 	if (et == ET_SHIFT_R) return ">>";
+	if (et == ET_ASSIGN_SUB) return "-=";
+	if (et == ET_ASSIGN_ADD) return "+=";
+	if (et == ET_ASSIGN_CONSTRUCT) return "^=";
+	if (et == ET_ASSIGN_MULT) return "*=";
+	if (et == ET_ASSIGN_ORD_DIV) return "/=";
+	if (et == ET_ASSIGN_INT_DIV) return "\\=";
+	if (et == ET_ASSIGN_LSHIFT) return ">>=";
+	if (et == ET_ASSIGN_RSHIFT) return "<<=";
+	if (et == ET_ASSIGN_CONCAT) return "&=";
+
 	if (et == ET_PARENTHESIS) return "()";
 	return "";
 }
