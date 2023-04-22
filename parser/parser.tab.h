@@ -129,7 +129,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 71 "parser.y"
+#line 70 "parser.y"
 
 	int bool_val;
 	int int_val;
@@ -170,13 +170,11 @@ union YYSTYPE
 	SelectStmt *selectStmt;
 	CaseList *caseList;
 	CaseStmt *caseStmt;
-	DeclStmtSingle *declStmtSingle;
-	DeclStmtMulti *declStmtMulti;
-	VarNameSingle *varNameSingle;
-	VarNameMulti *varNameMulti;
+	DeclStmt *declStmt;
+	VarName *varName;
 	ReturnStmt *returnStmt;
 
-#line 179 "parser.tab.h"
+#line 177 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

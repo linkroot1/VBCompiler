@@ -104,16 +104,14 @@ void printTree(ProgramItemList *pr)
 char* stmt_type_str(StmtType et)
 {
 	if (et == ST_IF_SINGLE) return "ST_IF_SINGLE";
-	if (et == ST_DECL_SINGLE) return "ST_DECL_SINGLE";
-	if (et == EXPR_SINGLE) return "EXPR_SINGLE";
-	if (et == ST_DECL_MULTI) return "ST_DECL_MULTI";
-	if (et == ST_WHILE_MULTI) return "ST_WHILE_MULTI";
-	if (et == ST_DOLOOP_MULTI) return "ST_DOLOOP_MULTI";
-	if (et == ST_FORLOOP_MULTI) return "ST_FORLOOP_MULTI";
-	if (et == ST_FOREACHLOOP_MULTI) return "ST_FOREACHLOOP_MULTI";
-	if (et == ST_SELECT_MULTI) return "ST_SELECT_MULTI";
-	if (et == ST_IF_MULTI) return "ST_IF_MULTI";
-	if (et == EXPR_MULTI) return "EXPR_MULTI";
+	if (et == ST_IF_MULTI) return "ST_IF";
+	if (et == ST_DECL) return "ST_DECL";
+	if (et == EXPR) return "EXPR";
+	if (et == ST_WHILE) return "ST_WHILE";
+	if (et == ST_DOLOOP) return "ST_DOLOOP";
+	if (et == ST_FORLOOP) return "ST_FORLOOP";
+	if (et == ST_FOREACHLOOP) return "ST_FOREACHLOOP";
+	if (et == ST_SELECT) return "ST_SELECT";
 	if (et == ST_RETURN) return "ST_RETURN";
 	return "";
 }
@@ -145,6 +143,7 @@ char* expr_type_str(ExprType et)
 	if (et == ET_MOD) return "MOD";
 	if (et == ET_SHIFT_L) return "<<";
 	if (et == ET_SHIFT_R) return ">>";
+	if (et == ET_PARENTHESIS) return "()";
 	return "";
 }
 
@@ -400,10 +399,10 @@ void parseStatementSingle(StatementSingle* stmt, Tree* tree, int parentNum)
 		case ST_IF_SINGLE:
 			parceIfStatementSingle(stmt->value.ifStmtSingle, tree, currentIter);
 			break;
-		case ST_DECL_SINGLE:
-			parceDeclarationStatementSingle(stmt->value.declStmtSingle, tree, currentIter);
+		case ST_DECL:
+			parceDeclarationStatement(stmt->value.declStmtSingle, tree, currentIter);
 			break;
-		case EXPR_SINGLE:
+		case EXPR:
 			parseExpression(stmt->value.expression, tree, currentIter);
 			break;
 		case ST_RETURN:
@@ -425,82 +424,49 @@ void parseStatementMulti(StatementMulti* stmt, Tree* tree, int parentNum)
 		case ST_IF_MULTI:
 			parceIfStatementMulti(stmt->value.ifStmtMulti, tree, currentIter);
 			break;
-		case ST_DECL_MULTI:
-			parceDeclarationStatementMulti(stmt->value.declStmtMulti, tree, currentIter);
-			break;
-		case EXPR_MULTI:
-			parseExpression(stmt->value.expression, tree, currentIter);
-			break;
-		case ST_WHILE_MULTI:
+		case ST_WHILE:
 			parseWhileStatement(stmt->value.whileStmt, tree, currentIter);
 			break;
-		case ST_DOLOOP_MULTI:
+		case ST_DOLOOP:
 			parseDoLoopStatement(stmt->value.doLoopStmt, tree, currentIter);
 			break;
-		case ST_FORLOOP_MULTI:
+		case ST_FORLOOP:
 			parseForLoopStatement(stmt->value.forLoopStmt, tree, currentIter);
 			break;
-		case ST_FOREACHLOOP_MULTI:
+		case ST_FOREACHLOOP:
 			parseForEachLoopStatement(stmt->value.forEachLoopStmt, tree, currentIter);
 			break;
-		case ST_SELECT_MULTI:
+		case ST_SELECT:
 			parseSelectStatement(stmt->value.selectStmt, tree, currentIter);
 			break;
 		}
 	}
 }
 
-void parceDeclarationStatementMulti(DeclStmtMulti* declStmtMulti, Tree* tree, int parentNum)
+void parceDeclarationStatement(DeclStmt* declStmt, Tree* tree, int parentNum)
 {
-	if (declStmtMulti != NULL)
+	if (declStmt != NULL)
 	{
-		if (declStmtMulti->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varName->id_var_name));
+		if (declStmt->isConst)
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmt->varName->id_var_name));
 		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtMulti", declStmtMulti->varName->id_var_name));
+			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmt->varName->id_var_name));
 
 		int currentIter = tree->end->num;
 
-		parceVarNameSingle(declStmtMulti->varName, tree, currentIter);
-		parseExpression(declStmtMulti->expression, tree, currentIter);
+		parceVarName(declStmt->varName, tree, currentIter);
+		parseExpression(declStmt->expression, tree, currentIter);
 	}
 }
 
-void parceDeclarationStatementSingle(DeclStmtSingle* declStmtSingle, Tree* tree, int parentNum)
+void parceVarName(VarName* varName, Tree* tree, int parentNum)
 {
-	if (declStmtSingle != NULL)
+	if (varName != NULL)
 	{
-		if (declStmtSingle->isConst)
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varName->id_var_name));
-		else
-			addTreeUnit(tree, newTreeUnit(parentNum, "DeclStmtSingle", declStmtSingle->varName->id_var_name));
-
+		addTreeUnit(tree, newTreeUnit(parentNum, "VarNameSingle", varName->id_var_name));
 		int currentIter = tree->end->num;
 
-		parceVarNameSingle(declStmtSingle->varName, tree, currentIter);
-		parseExpression(declStmtSingle->expression, tree, currentIter);
-	}
-}
-
-void parceVarNameMulti(VarNameMulti* varNameMulti, Tree* tree, int parentNum)
-{
-	if (varNameMulti != NULL)
-	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "VarNameMulti", varNameMulti->id_var_name));
-		int currentIter = tree->end->num;
-
-		parseExpression(varNameMulti->expression, tree, currentIter);
-	}
-}
-
-void parceVarNameSingle(VarNameSingle* varNameSingle, Tree* tree, int parentNum)
-{
-	if (varNameSingle != NULL)
-	{
-		addTreeUnit(tree, newTreeUnit(parentNum, "VarNameSingle", varNameSingle->id_var_name));
-		int currentIter = tree->end->num;
-
-		parseExpression(varNameSingle->expression, tree, currentIter);
+		parseExpression(varName->expression, tree, currentIter);
 	}
 }
 /*

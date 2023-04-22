@@ -17,10 +17,8 @@ typedef struct StmtList StmtList;
 typedef struct Statement Statement;
 typedef struct StatementSingle StatementSingle;
 typedef struct StatementMulti StatementMulti;
-typedef struct DeclStmtMulti DeclStmtMulti;
-typedef struct DeclStmtSingle DeclStmtSingle;
-typedef struct VarNameMulti VarNameMulti;
-typedef struct VarNameSingle VarNameSingle;
+typedef struct DeclStmt DeclStmt;
+typedef struct VarName VarName;
 typedef struct WhileStmt WhileStmt;
 typedef struct DoLoopStmt DoLoopStmt;
 typedef struct DoLoopCondition DoLoopCondition;
@@ -66,7 +64,7 @@ union Value
 union StmtSingleValue
 {
 	IfStmtSingle* ifStmtSingle;
-	DeclStmtSingle* declStmtSingle;
+	DeclStmt* declStmtSingle;
 	Expression* expression;
 	ReturnStmt* returnStmt;
 };
@@ -74,7 +72,7 @@ union StmtSingleValue
 union StmtMultiValue
 {
 	IfStmtMulti* ifStmtMulti;
-	DeclStmtMulti* declStmtMulti;
+	DeclStmt* declStmtMulti;
 	Expression* expression;
 	WhileStmt* whileStmt;
 	DoLoopStmt* doLoopStmt;
@@ -90,16 +88,14 @@ enum StmtType
 	ST_MULTI,
 	ST_SINGLE,
 	ST_IF_SINGLE,
-	ST_DECL_SINGLE,
-	EXPR_SINGLE,
-	EXPR_MULTI,
-	ST_DECL_MULTI,
-	ST_WHILE_MULTI,
-	ST_DOLOOP_MULTI,
-	ST_FORLOOP_MULTI,
-	ST_FOREACHLOOP_MULTI,
-	ST_SELECT_MULTI,
 	ST_IF_MULTI,
+	ST_DECL,
+	EXPR,
+	ST_WHILE,
+	ST_DOLOOP,
+	ST_FORLOOP,
+	ST_FOREACHLOOP,
+	ST_SELECT,
 	ST_RETURN
 };
 
@@ -141,7 +137,8 @@ enum ExprType
 	ET_TO,
 	ET_MOD,
 	ET_SHIFT_L,
-	ET_SHIFT_R
+	ET_SHIFT_R,
+	ET_PARENTHESIS
 };
 
 
@@ -263,29 +260,15 @@ struct StatementMulti
 	union StmtMultiValue value;
 };
 
-struct DeclStmtMulti
-{
-	int isConst;
-	VarNameSingle* varName; //problem
-	enum VarType varType;
-	Expression* expression;
-};
-
-struct DeclStmtSingle
+struct DeclStmt
 {
 	int* isConst;
-	VarNameSingle* varName;
+	VarName* varName;
 	enum VarType varType;
 	Expression* expression;
 };
 
-struct VarNameMulti
-{
-	char* id_var_name;
-	Expression* expression;
-};
-
-struct VarNameSingle
+struct VarName
 {
 	char* id_var_name;
 	Expression* expression;

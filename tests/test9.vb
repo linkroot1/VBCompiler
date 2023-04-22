@@ -10,8 +10,8 @@ Module VBModule
 
     Function Main2(test1 As Integer, test2 As Double)
 
-        test1 = (test1 + 
-			1)
+        test1 = test1 + 
+			1
 
     End Function
     

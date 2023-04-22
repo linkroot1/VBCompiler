@@ -59,10 +59,9 @@ SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList, StmtLis
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
 CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList);
-DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
-DeclStmtMulti *createDeclStmtMulti(int isConst, VarNameSingle* id_var_name, VarType varType, Expression *expression);
-VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression);
-VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression);
+DeclStmt *createDeclStmt(int isConst, VarName* id_var_name, VarType varType, Expression *expression);
+VarName *createVarName(char* id_var_name, Expression *expression);
+VarName *createVarName(char* id_var_name, Expression *expression);
 ReturnStmt *createReturnStmt(Expression *expression);
 
 ProgramItemList *root;
@@ -108,15 +107,13 @@ ProgramItemList *root;
 	SelectStmt *selectStmt;
 	CaseList *caseList;
 	CaseStmt *caseStmt;
-	DeclStmtSingle *declStmtSingle;
-	DeclStmtMulti *declStmtMulti;
-	VarNameSingle *varNameSingle;
-	VarNameMulti *varNameMulti;
+	DeclStmt *declStmt;
+	VarName *varName;
 	ReturnStmt *returnStmt;
 }
 
-%type <expression> expr_singleline expr_multiline basic_literal_value;
-%type <expressionList> expr_list arguments_singleline arguments_multiline;
+%type <expression> expr basic_literal_value;
+%type <expressionList> expr_list arguments;
 %type <programItemList> program_items_list root;
 %type <programListNotEmpty> program_items_list_not_empty;
 %type <programItem> program_item;
@@ -146,11 +143,9 @@ ProgramItemList *root;
 %type <selectStmt> select_stmt;
 %type <caseList> case_list;
 %type <caseStmt> case_stmt;
-%type <declStmtSingle> decl_stmt_single_line;
-%type <declStmtMulti> decl_stmt;
-%type <varNameSingle> var_name_singleline;
-%type <varNameMulti> var_name;
-%type stmt_ends;
+%type <declStmt> decl_stmt;
+%type <varName> var_name;
+%type stmt_ends optEoL;
 %type <vt> basic_literal;
 %type <returnStmt> return_stmt;
 
@@ -159,7 +154,6 @@ ProgramItemList *root;
 %token<str_val> STRING_VALUE
 %token<bool_val> BOOLEAN_VALUE
 %token<datetime_val> DATETIME_VALUE
-
 
 %token<int_val> INT
 %token<double_val> DOUBLE
@@ -197,7 +191,6 @@ ProgramItemList *root;
 
 %token END_OF_LINE
 
-
 %token ASSIGN_CONSTRUCT
 %token ASSIGN_MULT
 %token ASSIGN_ORD_DIV
@@ -213,7 +206,6 @@ ProgramItemList *root;
 %token PUBLIC
 %token FRIEND
 %token BYVAL
-
 
 %left XOR
 %left OR
@@ -237,7 +229,6 @@ ProgramItemList *root;
 
 %nonassoc '(' ')' '{' '}'
 
-
 %precedence THEN
 %precedence ELSE
 %precedence IDENTIFIER
@@ -245,7 +236,6 @@ ProgramItemList *root;
 %start root
 
 %%
-
 //------------------programm Start-----------------------------
 root: program_items_list {$$ = root = $1; printf("root 1\n");}
     ;
@@ -269,7 +259,6 @@ module: MODULE IDENTIFIER stmt_ends END MODULE {$$ = createModule($2,0); printf(
       | access MODULE IDENTIFIER stmt_ends functions_or_sub_list END MODULE {$$ = createModule($3,$5); printf("module 4\n");}
       ;
 
-
 functions_or_sub_list: function_or_sub {$$ = createFunctionOrSubList($1); printf("functions_or_sub_list 1\n");}
                      | functions_or_sub_list function_or_sub {$$ = appendFunctionOrSubList($1,$2); printf("functions_or_sub_list 2\n");}
                      ;
@@ -284,7 +273,6 @@ function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCT
         | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8); printf("function 10\n");}
         ;
 
-
 sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($2,$4,0);}
         | SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END SUB stmt_ends {$$ = createSubBloc($2,$4,$7);}
         | access SUB IDENTIFIER '('parameterlist_or_empty')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($3,$5,0);}
@@ -292,27 +280,17 @@ sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB stmt_e
         ;
 
 parameterlist_or_empty:  {$$ = 0;}
-                      | parameterlist_with_type {$$ = createParameterListOrEmpty($1, 0);}
-                      | END_OF_LINE parameterlist_with_type END_OF_LINE {$$ = createParameterListOrEmpty($2, 0);}
-                      | END_OF_LINE parameterlist_with_type {$$ = createParameterListOrEmpty($2, 0);}
-                      | parameterlist_with_type END_OF_LINE {$$ = createParameterListOrEmpty($1, 0);}
-                      | parameterlist_without_type {$$ = createParameterListOrEmpty(0, $1);}
-                      | END_OF_LINE parameterlist_without_type END_OF_LINE {$$ = createParameterListOrEmpty(0, $2);}
-                      | parameterlist_without_type END_OF_LINE {$$ = createParameterListOrEmpty(0, $1);}
-                      | END_OF_LINE parameterlist_without_type {$$ = createParameterListOrEmpty(0, $2);}
+                      | optEoL parameterlist_with_type optEoL {$$ = createParameterListOrEmpty($2, 0);}
+                      | optEoL parameterlist_without_type optEoL {$$ = createParameterListOrEmpty(0, $2);}
                       ;
 
 parameterlist_with_type: parameter_with_type {$$ = createParameterListWithType($1);}
-                       | parameterlist_with_type ',' parameter_with_type {$$ = appendParameterListWithType($1,$3);}
-                       | parameterlist_with_type ',' END_OF_LINE parameter_with_type {$$ = appendParameterListWithType($1,$4);}
+                       | parameterlist_with_type ',' optEoL parameter_with_type {$$ = appendParameterListWithType($1,$4);}
                        ;
 
-
 parameterlist_without_type: parameter_without_type {$$ = createParameterListWithoutType($1);}
-                          | parameterlist_without_type ',' parameter_without_type {$$ = appendParameterListWithoutType($1,$3);}
-                          | parameterlist_without_type ',' END_OF_LINE parameter_without_type {$$ = appendParameterListWithoutType($1,$4);}
+                          | parameterlist_without_type ',' optEoL parameter_without_type {$$ = appendParameterListWithoutType($1,$4);}
                           ;
-
 
 parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($1,$3);}
                    | IDENTIFIER AS basic_literal '(' ')'  {$$ = createParameterWithType($1,$3);}
@@ -320,75 +298,57 @@ parameter_with_type: IDENTIFIER AS basic_literal {$$ = createParameterWithType($
                    | BYVAL IDENTIFIER AS basic_literal '(' ')' {$$ = createParameterWithType($2,$4);}
                    ;
 
-
 parameter_without_type: IDENTIFIER {$$ = createParameterWithoutType($1);}
                       ;
 
-
-/* -------------------------------- Statements ------------------------------------------------------------------------------------------------------------------------ */
+/* -------------------------------- Statements ----------------------------------------- */
 
 stmt_list: stmt { $$ = createStmtList($1); printf("stmt_list 1\n");}
          | stmt_list stmt { $$ = appendStmtList($1,$2); printf("stmt_list 2\n");}
          ;
 
-
 stmt: multi_line_stmt {$$ = createStatement(ST_MULTI, (StmtValue){.statementMulti=$1}); printf("stmt 1\n");}
     | single_line_stmt stmt_ends {$$ = createStatement(ST_SINGLE, (StmtValue){.statementSingle=$1}); printf("stmt 2\n");}
     ;
 
-
 single_line_stmt: if_stmt_single_line {$$ = createStatementSingle(ST_IF_SINGLE, (StmtSingleValue){.ifStmtSingle=$1}); printf("single_line_stmt 1\n");}
-				| decl_stmt_single_line {$$ = createStatementSingle(ST_DECL_SINGLE, (StmtSingleValue){.declStmtSingle=$1}); printf("single_line_stmt 2\n");}
-				| expr_singleline {$$ = createStatementSingle(EXPR_SINGLE, (StmtSingleValue){.expression=$1}); printf("single_line_stmt 3\n");}
+				| decl_stmt {$$ = createStatementSingle(ST_DECL, (StmtSingleValue){.declStmtSingle=$1}); printf("single_line_stmt 2\n");}
+				| expr {$$ = createStatementSingle(EXPR, (StmtSingleValue){.expression=$1}); printf("single_line_stmt 3\n");}
 				| return_stmt {$$ = createStatementSingle(ST_RETURN, (StmtSingleValue){.returnStmt=$1}); printf("single_line_stmt 4\n");}
                 ;
 
 multi_line_stmt: if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_MULTI, (StmtMultiValue){.ifStmtMulti=$1}); printf("multi_line_stmt 1\n");}
-               | decl_stmt stmt_ends {$$ = createStatementMulti(ST_DECL_MULTI, (StmtMultiValue){.declStmtMulti=$1}); printf("multi_line_stmt 2\n");}
-               | expr_multiline stmt_ends {$$ = createStatementMulti(EXPR_MULTI, (StmtMultiValue){.expression=$1}); printf("multi_line_stmt 3\n");}
-               | while_stmt stmt_ends {$$ = createStatementMulti(ST_WHILE_MULTI, (StmtMultiValue){.whileStmt=$1}); printf("multi_line_stmt 4\n");}
-			   | do_loop_stmt {$$ = createStatementMulti(ST_DOLOOP_MULTI, (StmtMultiValue){.doLoopStmt=$1}); printf("multi_line_stmt 5\n");}
-			   | for_loop_stmt {$$ = createStatementMulti(ST_FORLOOP_MULTI, (StmtMultiValue){.forLoopStmt=$1}); printf("multi_line_stmt 6\n");}
-			   | for_each_loop_stmt {$$ = createStatementMulti(ST_FOREACHLOOP_MULTI, (StmtMultiValue){.forEachLoopStmt=$1}); printf("multi_line_stmt 7\n");}
-               | select_stmt stmt_ends {$$ = createStatementMulti(ST_SELECT_MULTI, (StmtMultiValue){.selectStmt=$1}); printf("multi_line_stmt 8\n");}
+               | while_stmt stmt_ends {$$ = createStatementMulti(ST_WHILE, (StmtMultiValue){.whileStmt=$1}); printf("multi_line_stmt 4\n");}
+			   | do_loop_stmt {$$ = createStatementMulti(ST_DOLOOP, (StmtMultiValue){.doLoopStmt=$1}); printf("multi_line_stmt 5\n");}
+			   | for_loop_stmt {$$ = createStatementMulti(ST_FORLOOP, (StmtMultiValue){.forLoopStmt=$1}); printf("multi_line_stmt 6\n");}
+			   | for_each_loop_stmt {$$ = createStatementMulti(ST_FOREACHLOOP, (StmtMultiValue){.forEachLoopStmt=$1}); printf("multi_line_stmt 7\n");}
+               | select_stmt stmt_ends {$$ = createStatementMulti(ST_SELECT, (StmtMultiValue){.selectStmt=$1}); printf("multi_line_stmt 8\n");}
                ;
 
-return_stmt: RETURN expr_singleline {$$ = createReturnStmt($2); printf("return_stmt 1\n");}
+return_stmt: RETURN expr {$$ = createReturnStmt($2); printf("return_stmt 1\n");}
 		   ;
 
 stmt_ends: END_OF_LINE {printf("stmt_ends 1\n");}
     | stmt_ends END_OF_LINE {printf("stmt_ends 2\n");}
     ;
-
-
-
+	
+optEoL: /*empty*/
+	  | END_OF_LINE {printf("optEoL 1\n");}
+	  ;
+	  
 //-------------------------Declaration stmt
-decl_stmt: CONST var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7); printf("decl_stmt_multi 1\n");}
-         | CONST var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(1, $2, $4, $7); printf("decl_stmt_multi 2\n");}
-         | DIM var_name AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7); printf("decl_stmt_multi 3\n");}
-         | DIM var_name_singleline AS basic_literal '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, $4, $7); printf("decl_stmt_multi 4\n");}
-         | DIM var_name '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5); printf("decl_stmt_multi 5\n");}
-         | DIM var_name_singleline '=' END_OF_LINE expr_multiline {$$ = createDeclStmtMulti(0, $2, 0, $5); printf("decl_stmt_multi 6\n");}
-         ;
+decl_stmt: CONST var_name AS basic_literal '=' optEoL expr {$$ = createDeclStmt(1, $2, $4, $7); printf("decl_stmt 1\n");}
+         | DIM var_name AS basic_literal '=' optEoL expr {$$ = createDeclStmt(0, $2, $4, $7); printf("decl_stmt 2\n");}
+		 | DIM var_name AS basic_literal {$$ = createDeclStmt(0, $2, $4, 0); printf("decl_stmt 3\n");}
+         | DIM var_name '=' optEoL expr {$$ = createDeclStmt(0, $2, 0, $5); printf("decl_stmt 4\n");}
+         | DIM var_name {$$ = createDeclStmt(0, $2, 0, 0); printf("decl_stmt 5\n");}
+         | DIM var_name '=' NEW basic_literal'('')' '{' expr_list '}' { printf("decl_stmt 6 (bad) \n");}
+		 ;
 
-
-decl_stmt_single_line: CONST var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(1, $2, $4, $6); printf("decl_stmt_single 1\n");}
-					 | DIM var_name_singleline AS basic_literal '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, $4, $6); printf("decl_stmt_single 2\n");}
-					 | DIM var_name_singleline AS basic_literal {$$ = createDeclStmtSingle(0, $2, $4, 0); printf("decl_stmt_single 3\n");}
-				 	 | DIM var_name_singleline '=' expr_singleline {$$ = createDeclStmtSingle(0, $2, 0, $4); printf("decl_stmt_single 4\n");}
-					 | DIM var_name_singleline {$$ = createDeclStmtSingle(0, $2, 0, 0); printf("decl_stmt_single 5\n");}
-                     | DIM var_name_singleline '=' NEW basic_literal'('')' '{' expr_list '}' { printf("decl_stmt_single 6 (bad) \n");}//How to make an array
-					 ;
-
-
-var_name: IDENTIFIER'(' expr_multiline ')' {$$ = createVarNameMulti($1, $3); printf("var_name_multi 1\n");}
+var_name: IDENTIFIER'(' expr ')' {$$ = createVarName($1, $3); printf("var_name 1\n");}
+		| IDENTIFIER {$$ = createVarName($1, 0); printf("var_name 2\n");}
 		;
-
-var_name_singleline: IDENTIFIER'(' expr_singleline ')' {$$ = createVarNameSingle($1, $3); printf("var_name_single 1\n");}
-				   | IDENTIFIER {$$ = createVarNameSingle($1, 0); printf("var_name_single 1\n");}
-				   ;
-
-//WIP
+		
 access: PUBLIC
 	  | PROTECTED
 	  | FRIEND
@@ -397,133 +357,87 @@ access: PUBLIC
 	  | PRIVATE FRIEND
 	  ;
 
-
-
 //-------------------------WHILE stmt
-while_stmt: WHILE expr_multiline stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
-          | WHILE expr_singleline stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
+while_stmt: WHILE expr stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
          ;
-
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
 do_loop_stmt: DO do_loop_condition stmt_list LOOP stmt_ends{$$ = createDoLoopStmt($2, $3); printf("do_loop_stmt 1\n"); }
 			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);printf("do_loop_stmt 2\n"); }
 			;
 
-do_loop_condition: UNTIL expr_singleline stmt_ends {$$ = createDoLoopCondition(1, $2); printf("do_loop_condition UNTIL\n");} //How do distinguish?
-				 | WHILE expr_singleline stmt_ends {$$ = createDoLoopCondition(0, $2); printf("do_loop_condition WHILE\n");}
+do_loop_condition: UNTIL expr stmt_ends {$$ = createDoLoopCondition(1, $2); printf("do_loop_condition UNTIL\n");}
+				 | WHILE expr stmt_ends {$$ = createDoLoopCondition(0, $2); printf("do_loop_condition WHILE\n");}
 				 ;
-
 
 //-------------------------FOR LOOP stmt
 for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, 0, $10);}
 			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, $10, $12);}
 			 ;
 
-
 //-------------------------FOR EACH LOOP stmt
 for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT stmt_ends {$$ = createForEachLoopStmt($3, $5, $7, $9);}
 
-
 //-------------------------IF/ELSE stmt
-
-if_stmt_multi_line: IF expr_multiline THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0); printf("if_stmt_multi 1\n");}
-                  | IF expr_singleline THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0); printf("if_stmt_multi 2\n");}
-				  | IF expr_multiline THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $8); printf("if_stmt_multi 3\n");}
-				  | IF expr_singleline THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $8); printf("if_stmt_multi 4\n");}
-                  | IF expr_multiline THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0); printf("if_stmt_multi 5\n");}
-                  | IF expr_singleline THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0); printf("if_stmt_multi 6\n");}
-				  | IF expr_multiline THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $9); printf("if_stmt_multi 7\n");}
-				  | IF expr_singleline THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $9); printf("if_stmt_multi 8\n");}
+if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0); printf("if_stmt_multi 1\n");}
+				  | IF expr THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $8); printf("if_stmt_multi 2\n");}
+                  | IF expr THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0); printf("if_stmt_multi 3\n");}
+				  | IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $9); printf("if_stmt_multi 4\n");}
                   ;
 
 elseif_list: elseif {$$ = createElseIfList($1); printf("elseif_list 1\n");}
            | elseif_list elseif {$$ = appendElseIfList($1, $2); printf("elseif_list 2\n");}
            ;
 
-elseif: ELSEIF expr_multiline THEN stmt_ends stmt_list {$$ = createElseIf($2, $5); printf("elseif 1\n");}
-      | ELSEIF expr_singleline THEN stmt_ends stmt_list {$$ = createElseIf($2, $5); printf("elseif 2\n");}
+elseif: ELSEIF expr THEN stmt_ends stmt_list {$$ = createElseIf($2, $5); printf("elseif 1\n");}
+      ;
 
-if_stmt_single_line: IF expr_singleline THEN single_line_stmt  {$$ = createIfStmtSingle($2, $4, 0); printf("if_stmt_single 1\n");}
-                   | IF expr_singleline THEN single_line_stmt ELSE single_line_stmt  {$$ = createIfStmtSingle($2, $4, $6); printf("if_stmt_single 2\n");}
+if_stmt_single_line: IF expr THEN single_line_stmt  {$$ = createIfStmtSingle($2, $4, 0); printf("if_stmt_single 1\n");}
+                   | IF expr THEN single_line_stmt ELSE single_line_stmt  {$$ = createIfStmtSingle($2, $4, $6); printf("if_stmt_single 2\n");}
                    ;
 
-
 //--------------------------SELECT stmt
-select_stmt: SELECT CASE expr_singleline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5, 0); printf("select_stmt 1\n");}
-           | SELECT CASE expr_multiline stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5, 0); printf("select_stmt 2\n");}
-		   | SELECT CASE expr_singleline stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT {$$ = createSelectStmt($3, $5, $9); printf("select_stmt 3\n");}
-           | SELECT CASE expr_multiline stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT {$$ = createSelectStmt($3, $5, $9); printf("select_stmt 4\n");}
+select_stmt: SELECT CASE expr stmt_ends case_list END SELECT {$$ = createSelectStmt($3, $5, 0); printf("select_stmt 2\n");}
+		   | SELECT CASE expr stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT {$$ = createSelectStmt($3, $5, $9); printf("select_stmt 4\n");}
            ;
 
 case_list: case_stmt {$$ = createCaseList($1); printf("case_list 1\n");}
 		| case_list case_stmt {$$ = appendCaseList($1, $2); printf("case_list 2\n");}
 		;
 
-case_stmt: CASE expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 1\n");}
-		 | CASE expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 2\n");}
-         | CASE IS expr_multiline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 3\n");}
-         | CASE IS expr_singleline stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 4\n");}
+case_stmt: CASE expr stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 2\n");}
+         | CASE IS expr stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 4\n");}
          ;
 
-
-
 //---------------------------EXPRession
-expr_singleline: basic_literal_value {$$ = $1; printf("expr_single 0\n");}
-    | '-' expr_singleline	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2); printf("expr_single 1\n");}
-    | '+' expr_singleline	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2); printf("expr_single 2\n");}
-    | expr_singleline '+' expr_singleline {$$ = createExpression(ET_PLUS, $1, $3);  printf("expr_single 3\n");}
-    | expr_singleline '-' expr_singleline {$$ = createExpression(ET_MINUS, $1, $3);  printf("expr_single 4\n");}
-    | expr_singleline '*' expr_singleline {$$ = createExpression(ET_MULT, $1, $3); printf("expr_single 5\n");}
-    | expr_singleline '/' expr_singleline {$$ = createExpression(ET_DIV, $1, $3); printf("expr_single 6\n");}
-    | expr_singleline INT_DIV expr_singleline {$$ = createExpression(ET_INTDIV, $1, $3); printf("expr_single 7\n");}
-    | expr_singleline '=' expr_singleline {$$ = createExpression(ET_EQUAL, $1, $3); printf("expr_single 8\n");}
-    | expr_singleline '<' expr_singleline {$$ = createExpression(ET_LESSER, $1, $3); printf("expr_single 9\n");}
-    | expr_singleline '>' expr_singleline {$$ = createExpression(ET_GREATER, $1, $3); printf("expr_single 10\n");}
-    | expr_singleline '^' expr_singleline {$$ = createExpression(ET_EXP, $1, $3); printf("expr_single 11\n");}
-    | expr_singleline NOT_EQUAL expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $3); printf("expr_single 12\n");}
-    | expr_singleline LESS_OR_EQUAL expr_singleline {$$ = createExpression(ET_LESSER_EQUAL, $1, $3); printf("expr_single 13\n");}
-    | expr_singleline MORE_OR_EQUAL expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $3); printf("expr_single 14\n");}
-    | expr_singleline '&' expr_singleline {$$ = createExpression(ET_CONCAT, $1, $3); printf("expr_single 15\n");}
-    | '(' expr_singleline ')' {$$ = createExpression(0, 0, $2); printf("expr_single 16\n");}
-    | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1}); printf("expr_single 17\n");}
-    | IDENTIFIER arguments_singleline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2); printf("expr_single 18\n");}
-    | expr_singleline AND expr_singleline {$$ = createExpression(ET_AND, $1, $3); printf("expr_single 19\n");}
-    | expr_singleline OR expr_singleline {$$ = createExpression(ET_OR, $1, $3); printf("expr_single 20\n");}
-    | expr_singleline XOR expr_singleline {$$ = createExpression(ET_XOR, $1, $3); printf("expr_single 21\n");}
-    | NOT expr_singleline {$$ = createExpression(ET_NOT, 0, $2); printf("expr_single 22\n");}
-	| expr_singleline TO expr_singleline {$$ = createExpression(ET_TO, $1, $3); printf("expr_single 23\n");}
-	| expr_singleline MOD expr_singleline {$$ = createExpression(ET_MOD, $1, $3); printf("expr_single 24\n");}
-	| expr_singleline SHIFT_LEFT expr_singleline {$$ = createExpression(ET_SHIFT_L, $1, $3); printf("expr_single 25\n");}
-	| expr_singleline SHIFT_RIGHT expr_singleline {$$ = createExpression(ET_SHIFT_R, $1, $3); printf("expr_single 26\n");}
+expr: basic_literal_value {$$ = $1; printf("expr 0\n");}
+    | '-' expr	%prec UNARY_MINUS {$$ = createExpression(ET_MINUS, 0, $2); printf("expr 1\n");}
+    | '+' expr	%prec UNARY_PLUS {$$ = createExpression(ET_PLUS, 0, $2); printf("expr 2\n");}
+    | expr '+' optEoL expr {$$ = createExpression(ET_PLUS, $1, $4);  printf("expr 3\n");}
+    | expr '-' optEoL expr {$$ = createExpression(ET_MINUS, $1, $4);  printf("expr 4\n");}
+    | expr '*' optEoL expr {$$ = createExpression(ET_MULT, $1, $4); printf("expr 5\n");}
+    | expr '/' optEoL expr {$$ = createExpression(ET_DIV, $1, $4); printf("expr 6\n");}
+    | expr INT_DIV optEoL expr {$$ = createExpression(ET_INTDIV, $1, $4); printf("expr 7\n");}
+    | expr '=' optEoL expr {$$ = createExpression(ET_EQUAL, $1, $4); printf("expr 8\n");}
+    | expr '<' optEoL expr {$$ = createExpression(ET_LESSER, $1, $4); printf("expr 9\n");}
+    | expr '>' optEoL expr {$$ = createExpression(ET_GREATER, $1, $4); printf("expr 10\n");}
+    | expr '^' optEoL expr {$$ = createExpression(ET_EXP, $1, $4); printf("expr 11\n");}
+    | expr NOT_EQUAL optEoL expr {$$ = createExpression(ET_NOT_EQUAL, $1, $4); printf("expr 12\n");}
+    | expr LESS_OR_EQUAL optEoL expr {$$ = createExpression(ET_LESSER_EQUAL, $1, $4); printf("expr 13\n");}
+    | expr MORE_OR_EQUAL optEoL expr {$$ = createExpression(ET_GREATER_EQUAL, $1, $4); printf("expr 14\n");}
+    | expr '&' optEoL expr {$$ = createExpression(ET_CONCAT, $1, $4); printf("expr 15\n");}
+    | '(' optEoL expr optEoL ')' {$$ = createExpression(ET_PARENTHESIS, 0, $3); printf("expr 16\n");}
+    | IDENTIFIER {$$ = createSimpleExpression(ET_ID, (Value){.string_val=$1}); printf("expr 17\n");}
+    | IDENTIFIER arguments {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2); printf("expr 18\n");}
+    | expr AND optEoL expr {$$ = createExpression(ET_AND, $1, $4); printf("expr 19\n");}
+    | expr OR optEoL expr {$$ = createExpression(ET_OR, $1, $4); printf("expr 20\n");}
+    | expr XOR optEoL expr {$$ = createExpression(ET_XOR, $1, $4); printf("expr 21\n");}
+    | NOT expr {$$ = createExpression(ET_NOT, 0, $2); printf("expr 22\n");}
+	| expr TO optEoL expr {$$ = createExpression(ET_TO, $1, $4); printf("expr 23\n");}
+	| expr MOD optEoL expr {$$ = createExpression(ET_MOD, $1, $4); printf("expr 24\n");}
+	| expr SHIFT_LEFT optEoL expr {$$ = createExpression(ET_SHIFT_L, $1, $4); printf("expr 25\n");}
+	| expr SHIFT_RIGHT optEoL expr {$$ = createExpression(ET_SHIFT_R, $1, $4); printf("expr 26\n");}
     ;
-
-expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline {$$ = createExpression(ET_PLUS, $1, $4); printf("expr_multi 1\n");}
-              | expr_singleline '-' END_OF_LINE expr_singleline {$$ = createExpression(ET_MINUS, $1, $4); printf("expr_multi 2\n");}
-              | expr_singleline '*' END_OF_LINE expr_singleline {$$ = createExpression(ET_MULT, $1, $4); printf("expr_multi 3\n");}
-              | expr_singleline '/' END_OF_LINE expr_singleline {$$ = createExpression(ET_DIV, $1, $4); printf("expr_multi 4\n");}
-              | expr_singleline INT_DIV END_OF_LINE expr_singleline {$$ = createExpression(ET_INTDIV, $1, $4); printf("expr_multi 5\n");}
-              | expr_singleline '=' END_OF_LINE expr_singleline {$$ = createExpression(ET_EQUAL, $1, $4); printf("expr_multi 6\n");}
-              | expr_singleline '<' END_OF_LINE expr_singleline {$$ = createExpression(ET_LESSER, $1, $4); printf("expr_multi 7\n");}
-              | expr_singleline '>' END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER, $1, $4); printf("expr_multi 8\n");}
-              | expr_singleline '^' END_OF_LINE expr_singleline {$$ = createExpression(ET_EXP, $1, $4); printf("expr_multi 9\n");}
-              | expr_singleline NOT_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_NOT_EQUAL, $1, $4); printf("expr_multi 10\n");}
-              | expr_singleline LESS_OR_EQUAL END_OF_LINE expr_singleline  {$$ = createExpression(ET_LESSER_EQUAL, $1, $4); printf("expr_multi 11\n");}
-              | expr_singleline MORE_OR_EQUAL END_OF_LINE expr_singleline {$$ = createExpression(ET_GREATER_EQUAL, $1, $4); printf("expr_multi 12\n");}
-              | expr_singleline '&' END_OF_LINE expr_singleline {$$ = createExpression(ET_CONCAT, $1, $4); printf("expr_multi 13\n");}
-              | '(' END_OF_LINE expr_singleline ')' {$$ = createExpression(0, 0, $3); printf("expr_multi 14\n");}
-              | '(' END_OF_LINE expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $3); printf("expr_multi 15\n");}
-              | '(' expr_singleline END_OF_LINE ')' {$$ = createExpression(0, 0, $2); printf("expr_multi 16\n");}
-              | IDENTIFIER arguments_multiline {$$ = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=$1}, $2); printf("expr_multi 17\n");}
-			  | expr_singleline AND END_OF_LINE expr_singleline {$$ = createExpression(ET_AND, $1, $4); printf("expr_multi 18\n");}
-			  | expr_singleline OR END_OF_LINE expr_singleline {$$ = createExpression(ET_OR, $1, $4); printf("expr_multi 19\n");}
-			  | expr_singleline XOR END_OF_LINE expr_singleline {$$ = createExpression(ET_XOR, $1, $4); printf("expr_multi 20\n");}
-			  | expr_singleline TO END_OF_LINE expr_singleline {$$ = createExpression(ET_TO, $1, $4); printf("expr_multi 21\n");}
-			  | expr_singleline MOD END_OF_LINE expr_singleline {$$ = createExpression(ET_MOD, $1, $4); printf("expr_multi 22\n");}
-			  | expr_singleline SHIFT_LEFT END_OF_LINE expr_singleline {$$ = createExpression(ET_SHIFT_L, $1, $4); printf("expr_single 23\n");}
-			  | expr_singleline SHIFT_RIGHT END_OF_LINE expr_singleline {$$ = createExpression(ET_SHIFT_R, $1, $4); printf("expr_single 24\n");}
-              ;
-
 
 basic_literal: INT {$$ = VT_INTEGER; printf("basic_literal int\n");}
             | STRING {$$ = VT_STRING; printf("basic_literal str\n");}
@@ -537,26 +451,15 @@ basic_literal_value: INT_VALUE {$$ = createSimpleExpression(VT_INTEGER, (Value){
                    | DOUBLE_VALUE {$$ = createSimpleExpression(VT_DOUBLE, (Value){.double_val=$1}); printf("basic_literal_value double\n");}
                    ;
 
-
-
-arguments_multiline: '(' END_OF_LINE expr_list ')' {$$ = $3;}
-                   | '(' END_OF_LINE expr_list END_OF_LINE ')' {$$ = $3;}
-                   | '(' expr_list END_OF_LINE ')' {$$ = $2;}
-                   ;
-
-
-arguments_singleline: '(' expr_list ')' {$$ = $2;}
+arguments: '(' optEoL expr_list optEoL ')' {$$ = $3;}
                     | '(' ')' {$$ = 0;}
                     ;
 
-
-expr_list: expr_singleline {$$ = createExpressionList($1); printf("expr_list 1\n");}
-         | expr_list ',' expr_singleline {$$ = appendExpressionToList($1,$3); printf("expr_list 2\n");}
+expr_list: expr {$$ = createExpressionList($1); printf("expr_list 1\n");}
+         | expr_list ',' expr {$$ = appendExpressionToList($1,$3); printf("expr_list 2\n");}
          ;
 
-
 %%
-
 
 int main(int argc, char** argv) {
     if (argc > 1) {
@@ -571,21 +474,12 @@ int main(int argc, char** argv) {
     else {
         yyerror("not found file");
     }
-
-	//return 0;
 }
 
 void yyerror(const char* s) {
 	fprintf(stderr, "Parse error: %s\n", s);
 	exit(1);
 }
-
-/*void printRule(char* ruleString){
-
-	#ifdef PRINT_RULE
-    fprintf("\n %s \n", ruleString);
-    #endif
-}*/
 
 // ------------------------------  Expression ------------------------------
 Expression *createExpression(ExprType type, Expression *left, Expression *right)
@@ -636,17 +530,6 @@ ExpressionList *appendExpressionToList(ExpressionList *list, Expression *expr)
 
 	return list;
 }
-/*
-ExpressionList *createArgumentList(Expression *expr)
-{
-	ExpressionList *result = (ExpressionList *)malloc(sizeof(ExpressionList));
-
-	result->begin = expr;
-	result->end = expr;
-
-	return result;
-}
-*/
 
 ProgramItemList *createProgramItemsList(ProgramItemListNotEmpty *programItemListNotEmpty)
 {
@@ -1028,10 +911,9 @@ CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList)
 	return result;
 }
 
-//WIP
-DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* varName, VarType varType, Expression *expression)
+DeclStmt *createDeclStmt(int isConst, VarName* varName, VarType varType, Expression *expression)
 {
-	DeclStmtSingle *result = (DeclStmtSingle*)malloc(sizeof(DeclStmtSingle));
+	DeclStmt *result = (DeclStmt*)malloc(sizeof(DeclStmt));
 
 	if (isConst)
 		result->isConst = 1;
@@ -1044,34 +926,9 @@ DeclStmtSingle *createDeclStmtSingle(int isConst, VarNameSingle* varName, VarTyp
 	return result;
 }
 
-DeclStmtMulti *createDeclStmtMulti(int isConst, VarNameSingle* varName, VarType varType, Expression *expression)
+VarName *createVarName(char* id_var_name, Expression *expression)
 {
-	DeclStmtMulti *result = (DeclStmtMulti*)malloc(sizeof(DeclStmtMulti));
-
-	if (isConst)
-		result->isConst = 1;
-	else
-		result->isConst = 0;
-	result->varName = varName;
-	result->varType = varType;
-	result->expression = expression;
-
-	return result;
-}
-
-VarNameSingle *createVarNameSingle(char* id_var_name, Expression *expression)
-{
-	VarNameSingle *result = (VarNameSingle *)malloc(sizeof(VarNameSingle));
-
-	result->id_var_name = id_var_name;
-	result->expression = expression;
-
-	return result;
-}
-
-VarNameMulti *createVarNameMulti(char* id_var_name, Expression *expression)
-{
-	VarNameMulti *result = (VarNameMulti *)malloc(sizeof(VarNameMulti));
+	VarName *result = (VarName *)malloc(sizeof(VarName));
 
 	result->id_var_name = id_var_name;
 	result->expression = expression;

@@ -1,3 +1,7 @@
 ﻿  lex.yy.c
 lex.yy.c(1404,40): warning C4013: 'isatty' undefined; assuming extern returning int
+  parcer-mini.tab.c
+parcer-mini.tab.c(954,36): warning C4244: 'return': conversion from '__int64' to 'long', possible loss of data
+parcer-mini.tab.c(1205,41): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+  Generating Code...
   mini_parser.vcxproj -> Q:\Uni\tfiaimt\VBCompiler\mini\x64\Debug\mini_parser.exe

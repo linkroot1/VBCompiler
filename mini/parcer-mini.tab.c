@@ -129,8 +129,8 @@ enum yysymbol_kind_t
   YYSYMBOL_root = 17,                      /* root  */
   YYSYMBOL_stmt = 18,                      /* stmt  */
   YYSYMBOL_stmt_ends = 19,                 /* stmt_ends  */
-  YYSYMBOL_expr_singleline = 20,           /* expr_singleline  */
-  YYSYMBOL_expr_multiline = 21,            /* expr_multiline  */
+  YYSYMBOL_optEoL = 20,                    /* optEoL  */
+  YYSYMBOL_expr_singleline = 21,           /* expr_singleline  */
   YYSYMBOL_basic_literal_value = 22        /* basic_literal_value  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
@@ -457,18 +457,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  12
+#define YYFINAL  11
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   124
+#define YYLAST   50
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  16
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  27
+#define YYNRULES  20
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  57
+#define YYNSTATES  40
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   262
@@ -518,9 +518,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    45,    45,    48,    49,    52,    53,    56,    57,    58,
-      59,    60,    61,    62,    63,    64,    65,    66,    67,    70,
-      71,    72,    73,    74,    75,    76,    77,    80
+       0,    45,    45,    48,    51,    52,    55,    56,    59,    60,
+      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
+      73
 };
 #endif
 
@@ -539,7 +539,7 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "INT_VALUE",
   "IDENTIFIER", "END_OF_LINE", "'='", "'>'", "'<'", "'+'", "'-'", "'*'",
   "'/'", "UNARY_MINUS", "UNARY_PLUS", "'^'", "$accept", "root", "stmt",
-  "stmt_ends", "expr_singleline", "expr_multiline", "basic_literal_value", YY_NULLPTR
+  "stmt_ends", "optEoL", "expr_singleline", "basic_literal_value", YY_NULLPTR
 };
 
 static const char *
@@ -563,12 +563,10 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     108,    -4,    -4,   108,   108,     1,    -4,    42,    -3,    -4,
-      -2,    -2,    -4,    -4,    64,    67,    75,    78,    86,    89,
-      97,   100,     7,     7,   108,   108,   108,   108,   108,   108,
-     108,   108,   108,    51,   108,   104,   108,   104,   108,   109,
-     108,   109,   108,    -2,   108,    -2,   108,    -4,    -4,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1
+       8,    -4,    -4,     8,     8,     2,    -4,    -2,    -4,    -1,
+      -1,    -4,    -4,    29,    29,    29,    29,    29,    29,    29,
+      29,    30,    -4,     8,     8,     8,     8,     8,     8,     8,
+       8,    -4,    21,    35,    35,     4,     4,    -1,    -1,    -4
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -576,24 +574,22 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    27,    18,     0,     0,     0,     2,     0,     0,     7,
-       9,     8,     1,     5,     0,     0,     0,     0,     0,     0,
-       0,     0,     4,     3,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    14,     0,    16,     0,    15,     0,    10,
-       0,    11,     0,    12,     0,    13,     0,    17,     6,    23,
-      25,    24,    19,    20,    21,    22,    26
+       0,    20,    19,     0,     0,     0,     2,     0,     8,    10,
+       9,     1,     4,     6,     6,     6,     6,     6,     6,     6,
+       6,     3,     7,     0,     0,     0,     0,     0,     0,     0,
+       0,     5,    15,    17,    16,    11,    12,    13,    14,    18
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4,    -4,    14,     0,    -4,    -4
+      -4,    -4,    -4,    -4,    23,    -3,    -4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     5,     6,    22,    33,     8,     9
+       0,     5,     6,    21,    23,     7,     8
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -601,64 +597,48 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       7,    12,    13,    10,    11,    24,    25,    26,    27,    28,
-      29,    30,    48,    31,    31,    35,    37,    39,    41,    43,
-      45,    47,    23,     0,     0,    35,    37,    39,    41,    43,
-      45,    47,    49,     0,    50,     0,    51,     0,    52,     0,
-      53,     0,    54,     0,    55,     0,    56,    13,    14,    15,
-      16,    17,    18,    19,    20,     0,     0,    21,    25,    26,
-      27,    28,    29,    30,     0,     0,    31,     1,     2,    32,
-       1,     2,    34,     3,     4,     0,     3,     4,     1,     2,
-      36,     1,     2,    38,     3,     4,     0,     3,     4,     1,
-       2,    40,     1,     2,    42,     3,     4,     0,     3,     4,
-       1,     2,    44,     1,     2,    46,     3,     4,     0,     3,
-       4,     1,     2,    27,    28,    29,    30,     3,     4,    31,
-      29,    30,     0,     0,    31
+       9,    10,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,     1,     2,    20,    20,    18,    19,     3,     4,    20,
+      32,    33,    34,    35,    36,    37,    38,    39,    14,    15,
+      16,    17,    18,    19,    22,    31,    20,    24,    25,    26,
+      27,    28,    29,    30,    16,    17,    18,    19,     0,     0,
+      20
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     0,     5,     3,     4,     6,     7,     8,     9,    10,
-      11,    12,     5,    15,    15,    15,    16,    17,    18,    19,
-      20,    21,     8,    -1,    -1,    25,    26,    27,    28,    29,
-      30,    31,    32,    -1,    34,    -1,    36,    -1,    38,    -1,
-      40,    -1,    42,    -1,    44,    -1,    46,     5,     6,     7,
-       8,     9,    10,    11,    12,    -1,    -1,    15,     7,     8,
-       9,    10,    11,    12,    -1,    -1,    15,     3,     4,     5,
-       3,     4,     5,     9,    10,    -1,     9,    10,     3,     4,
-       5,     3,     4,     5,     9,    10,    -1,     9,    10,     3,
-       4,     5,     3,     4,     5,     9,    10,    -1,     9,    10,
-       3,     4,     5,     3,     4,     5,     9,    10,    -1,     9,
-      10,     3,     4,     9,    10,    11,    12,     9,    10,    15,
-      11,    12,    -1,    -1,    15
+       3,     4,     0,     5,     6,     7,     8,     9,    10,    11,
+      12,     3,     4,    15,    15,    11,    12,     9,    10,    15,
+      23,    24,    25,    26,    27,    28,    29,    30,     7,     8,
+       9,    10,    11,    12,     5,     5,    15,    14,    15,    16,
+      17,    18,    19,    20,     9,    10,    11,    12,    -1,    -1,
+      15
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     9,    10,    17,    18,    20,    21,    22,
-      20,    20,     0,     5,     6,     7,     8,     9,    10,    11,
-      12,    15,    19,    19,     6,     7,     8,     9,    10,    11,
-      12,    15,     5,    20,     5,    20,     5,    20,     5,    20,
-       5,    20,     5,    20,     5,    20,     5,    20,     5,    20,
-      20,    20,    20,    20,    20,    20,    20
+       0,     3,     4,     9,    10,    17,    18,    21,    22,    21,
+      21,     0,     5,     6,     7,     8,     9,    10,    11,    12,
+      15,    19,     5,    20,    20,    20,    20,    20,    20,    20,
+      20,     5,    21,    21,    21,    21,    21,    21,    21,    21
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    16,    17,    18,    18,    19,    19,    20,    20,    20,
-      20,    20,    20,    20,    20,    20,    20,    20,    20,    21,
-      21,    21,    21,    21,    21,    21,    21,    22
+       0,    16,    17,    18,    19,    19,    20,    20,    21,    21,
+      21,    21,    21,    21,    21,    21,    21,    21,    21,    21,
+      22
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     2,     1,     2,     1,     2,     2,
-       3,     3,     3,     3,     3,     3,     3,     3,     1,     4,
-       4,     4,     4,     4,     4,     4,     4,     1
+       0,     2,     1,     2,     1,     2,     0,     1,     1,     2,
+       2,     4,     4,     4,     4,     4,     4,     4,     4,     1,
+       1
 };
 
 
@@ -1394,161 +1374,113 @@ yyreduce:
   case 2: /* root: stmt  */
 #line 45 "parcer-mini.y"
            {printf("root 1\n");}
-#line 1398 "parcer-mini.tab.c"
+#line 1378 "parcer-mini.tab.c"
     break;
 
-  case 3: /* stmt: expr_multiline stmt_ends  */
+  case 3: /* stmt: expr_singleline stmt_ends  */
 #line 48 "parcer-mini.y"
-                               {printf("stmt 1\n");}
-#line 1404 "parcer-mini.tab.c"
-    break;
-
-  case 4: /* stmt: expr_singleline stmt_ends  */
-#line 49 "parcer-mini.y"
                                 {printf("stmt 2\n");}
-#line 1410 "parcer-mini.tab.c"
+#line 1384 "parcer-mini.tab.c"
     break;
 
-  case 5: /* stmt_ends: END_OF_LINE  */
-#line 52 "parcer-mini.y"
+  case 4: /* stmt_ends: END_OF_LINE  */
+#line 51 "parcer-mini.y"
                        {printf("stmt_ends 1\n");}
-#line 1416 "parcer-mini.tab.c"
+#line 1390 "parcer-mini.tab.c"
     break;
 
-  case 6: /* stmt_ends: stmt_ends END_OF_LINE  */
-#line 53 "parcer-mini.y"
+  case 5: /* stmt_ends: stmt_ends END_OF_LINE  */
+#line 52 "parcer-mini.y"
                             {printf("stmt_ends 2\n");}
-#line 1422 "parcer-mini.tab.c"
+#line 1396 "parcer-mini.tab.c"
     break;
 
-  case 7: /* expr_singleline: basic_literal_value  */
+  case 7: /* optEoL: END_OF_LINE  */
 #line 56 "parcer-mini.y"
-                                     {printf("expr_single 0\n");}
-#line 1428 "parcer-mini.tab.c"
+                        {printf("optEoL 1\n");}
+#line 1402 "parcer-mini.tab.c"
     break;
 
-  case 8: /* expr_singleline: '-' expr_singleline  */
-#line 57 "parcer-mini.y"
-                                                  {printf("expr_single 1\n");}
-#line 1434 "parcer-mini.tab.c"
-    break;
-
-  case 9: /* expr_singleline: '+' expr_singleline  */
-#line 58 "parcer-mini.y"
-                                                 {printf("expr_single 2\n");}
-#line 1440 "parcer-mini.tab.c"
-    break;
-
-  case 10: /* expr_singleline: expr_singleline '+' expr_singleline  */
+  case 8: /* expr_singleline: basic_literal_value  */
 #line 59 "parcer-mini.y"
-                                          {printf("expr_single 3\n");}
-#line 1446 "parcer-mini.tab.c"
+                                     {printf("expr_single 0\n");}
+#line 1408 "parcer-mini.tab.c"
     break;
 
-  case 11: /* expr_singleline: expr_singleline '-' expr_singleline  */
+  case 9: /* expr_singleline: '-' expr_singleline  */
 #line 60 "parcer-mini.y"
-                                          {printf("expr_single 4\n");}
-#line 1452 "parcer-mini.tab.c"
+                                                  {printf("expr_single 1\n");}
+#line 1414 "parcer-mini.tab.c"
     break;
 
-  case 12: /* expr_singleline: expr_singleline '*' expr_singleline  */
+  case 10: /* expr_singleline: '+' expr_singleline  */
 #line 61 "parcer-mini.y"
-                                          {printf("expr_single 5\n");}
-#line 1458 "parcer-mini.tab.c"
+                                                 {printf("expr_single 2\n");}
+#line 1420 "parcer-mini.tab.c"
     break;
 
-  case 13: /* expr_singleline: expr_singleline '/' expr_singleline  */
+  case 11: /* expr_singleline: expr_singleline '+' optEoL expr_singleline  */
 #line 62 "parcer-mini.y"
-                                          {printf("expr_single 6\n");}
-#line 1464 "parcer-mini.tab.c"
+                                                 {printf("expr_single 3\n");}
+#line 1426 "parcer-mini.tab.c"
     break;
 
-  case 14: /* expr_singleline: expr_singleline '=' expr_singleline  */
+  case 12: /* expr_singleline: expr_singleline '-' optEoL expr_singleline  */
 #line 63 "parcer-mini.y"
-                                          {printf("expr_single 8\n");}
-#line 1470 "parcer-mini.tab.c"
+                                                 {printf("expr_single 4\n");}
+#line 1432 "parcer-mini.tab.c"
     break;
 
-  case 15: /* expr_singleline: expr_singleline '<' expr_singleline  */
+  case 13: /* expr_singleline: expr_singleline '*' optEoL expr_singleline  */
 #line 64 "parcer-mini.y"
-                                          {printf("expr_single 9\n");}
-#line 1476 "parcer-mini.tab.c"
+                                                 {printf("expr_single 5\n");}
+#line 1438 "parcer-mini.tab.c"
     break;
 
-  case 16: /* expr_singleline: expr_singleline '>' expr_singleline  */
+  case 14: /* expr_singleline: expr_singleline '/' optEoL expr_singleline  */
 #line 65 "parcer-mini.y"
-                                          {printf("expr_single 10\n");}
-#line 1482 "parcer-mini.tab.c"
+                                                 {printf("expr_single 6\n");}
+#line 1444 "parcer-mini.tab.c"
     break;
 
-  case 17: /* expr_singleline: expr_singleline '^' expr_singleline  */
+  case 15: /* expr_singleline: expr_singleline '=' optEoL expr_singleline  */
 #line 66 "parcer-mini.y"
-                                          {printf("expr_single 11\n");}
-#line 1488 "parcer-mini.tab.c"
+                                                 {printf("expr_single 8\n");}
+#line 1450 "parcer-mini.tab.c"
     break;
 
-  case 18: /* expr_singleline: IDENTIFIER  */
+  case 16: /* expr_singleline: expr_singleline '<' optEoL expr_singleline  */
 #line 67 "parcer-mini.y"
-                 {printf("expr_single 17\n");}
-#line 1494 "parcer-mini.tab.c"
+                                                 {printf("expr_single 9\n");}
+#line 1456 "parcer-mini.tab.c"
     break;
 
-  case 19: /* expr_multiline: expr_singleline '+' END_OF_LINE expr_singleline  */
+  case 17: /* expr_singleline: expr_singleline '>' optEoL expr_singleline  */
+#line 68 "parcer-mini.y"
+                                                 {printf("expr_single 10\n");}
+#line 1462 "parcer-mini.tab.c"
+    break;
+
+  case 18: /* expr_singleline: expr_singleline '^' optEoL expr_singleline  */
+#line 69 "parcer-mini.y"
+                                                 {printf("expr_single 11\n");}
+#line 1468 "parcer-mini.tab.c"
+    break;
+
+  case 19: /* expr_singleline: IDENTIFIER  */
 #line 70 "parcer-mini.y"
-                                                                {printf("expr_multi 1\n");}
-#line 1500 "parcer-mini.tab.c"
+                 {printf("expr_single 17\n");}
+#line 1474 "parcer-mini.tab.c"
     break;
 
-  case 20: /* expr_multiline: expr_singleline '-' END_OF_LINE expr_singleline  */
-#line 71 "parcer-mini.y"
-                                                                {printf("expr_multi 2\n");}
-#line 1506 "parcer-mini.tab.c"
-    break;
-
-  case 21: /* expr_multiline: expr_singleline '*' END_OF_LINE expr_singleline  */
-#line 72 "parcer-mini.y"
-                                                                {printf("expr_multi 3\n");}
-#line 1512 "parcer-mini.tab.c"
-    break;
-
-  case 22: /* expr_multiline: expr_singleline '/' END_OF_LINE expr_singleline  */
+  case 20: /* basic_literal_value: INT_VALUE  */
 #line 73 "parcer-mini.y"
-                                                                {printf("expr_multi 4\n");}
-#line 1518 "parcer-mini.tab.c"
-    break;
-
-  case 23: /* expr_multiline: expr_singleline '=' END_OF_LINE expr_singleline  */
-#line 74 "parcer-mini.y"
-                                                                {printf("expr_multi 6\n");}
-#line 1524 "parcer-mini.tab.c"
-    break;
-
-  case 24: /* expr_multiline: expr_singleline '<' END_OF_LINE expr_singleline  */
-#line 75 "parcer-mini.y"
-                                                                {printf("expr_multi 7\n");}
-#line 1530 "parcer-mini.tab.c"
-    break;
-
-  case 25: /* expr_multiline: expr_singleline '>' END_OF_LINE expr_singleline  */
-#line 76 "parcer-mini.y"
-                                                                {printf("expr_multi 8\n");}
-#line 1536 "parcer-mini.tab.c"
-    break;
-
-  case 26: /* expr_multiline: expr_singleline '^' END_OF_LINE expr_singleline  */
-#line 77 "parcer-mini.y"
-                                                                {printf("expr_multi 9\n");}
-#line 1542 "parcer-mini.tab.c"
-    break;
-
-  case 27: /* basic_literal_value: INT_VALUE  */
-#line 80 "parcer-mini.y"
                                {printf("basic_literal_value int\n");}
-#line 1548 "parcer-mini.tab.c"
+#line 1480 "parcer-mini.tab.c"
     break;
 
 
-#line 1552 "parcer-mini.tab.c"
+#line 1484 "parcer-mini.tab.c"
 
       default: break;
     }
@@ -1772,7 +1704,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 82 "parcer-mini.y"
+#line 75 "parcer-mini.y"
 
 int main(int argc, char** argv) {
     if (argc > 1) {
