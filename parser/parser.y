@@ -364,6 +364,7 @@ access: PUBLIC
 
 //-------------------------WHILE stmt
 while_stmt: WHILE expr stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $4);}
+		  | WHILE expr stmt_ends END WHILE {$$ = createWhileStmt($2, 0);}
          ;
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
