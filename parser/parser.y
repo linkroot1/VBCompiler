@@ -369,7 +369,9 @@ while_stmt: WHILE expr stmt_ends stmt_list END WHILE {$$ = createWhileStmt($2, $
 
 //-------------------------DO stmt (можно ввести сюда и мультилайновые случаи)
 do_loop_stmt: DO do_loop_condition stmt_list LOOP stmt_ends{$$ = createDoLoopStmt($2, $3); printf("do_loop_stmt 1\n"); }
-			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);printf("do_loop_stmt 2\n"); }
+			| DO do_loop_condition LOOP stmt_ends{$$ = createDoLoopStmt($2, 0); printf("do_loop_stmt 2\n"); }
+			| DO stmt_ends stmt_list LOOP do_loop_condition {$$ = createDoLoopStmt($5, $3);printf("do_loop_stmt 3\n"); }
+			| DO stmt_ends LOOP do_loop_condition {$$ = createDoLoopStmt($4, 0);printf("do_loop_stmt 4\n"); }
 			;
 
 do_loop_condition: UNTIL expr stmt_ends {$$ = createDoLoopCondition(1, $2); printf("do_loop_condition UNTIL\n");}
@@ -378,17 +380,24 @@ do_loop_condition: UNTIL expr stmt_ends {$$ = createDoLoopCondition(1, $2); prin
 
 //-------------------------FOR LOOP stmt
 for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, 0, $10);}
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, 0, 0);}
 			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, $10, $12);}
+			 | FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends NEXT stmt_ends {$$ = createForLoopStmt($2, $4, $6, $8, $10, 0);}
 			 ;
 
 //-------------------------FOR EACH LOOP stmt
 for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT stmt_ends {$$ = createForEachLoopStmt($3, $5, $7, $9);}
+				  | FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends NEXT stmt_ends {$$ = createForEachLoopStmt($3, $5, $7, 0);}
 
 //-------------------------IF/ELSE stmt
 if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, 0); printf("if_stmt_multi 1\n");}
+				  | IF expr THEN stmt_ends END IF {$$ = createIfStmtMulti($2, 0, 0, 0); printf("if_stmt_multi 1,5\n");}
 				  | IF expr THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, 0, $8); printf("if_stmt_multi 2\n");}
+				  | IF expr THEN stmt_ends ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, 0, 0, $7); printf("if_stmt_multi 2,5\n");}
                   | IF expr THEN stmt_ends stmt_list elseif_list END IF {$$ = createIfStmtMulti($2, $5, $6, 0); printf("if_stmt_multi 3\n");}
+                  | IF expr THEN stmt_ends elseif_list END IF {$$ = createIfStmtMulti($2, 0, $5, 0); printf("if_stmt_multi 3,5\n");}
 				  | IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, $5, $6, $9); printf("if_stmt_multi 4\n");}
+				  | IF expr THEN stmt_ends elseif_list ELSE stmt_ends stmt_list END IF {$$ = createIfStmtMulti($2, 0, $5, $8); printf("if_stmt_multi 4\n");}
                   ;
 
 elseif_list: elseif {$$ = createElseIfList($1); printf("elseif_list 1\n");}
