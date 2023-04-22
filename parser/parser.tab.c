@@ -622,7 +622,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  42
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  144
+#define YYNRULES  145
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  411
 
@@ -685,16 +685,16 @@ static const yytype_int16 yyrline[] =
      273,   274,   275,   276,   277,   280,   281,   282,   283,   286,
      287,   288,   291,   292,   295,   296,   299,   300,   301,   302,
      305,   310,   311,   314,   315,   318,   319,   320,   321,   324,
-     325,   326,   327,   328,   329,   332,   335,   336,   339,   340,
-     344,   345,   346,   347,   348,   349,   352,   353,   356,   357,
-     358,   359,   360,   361,   365,   369,   370,   373,   374,   378,
-     379,   383,   386,   387,   388,   389,   392,   393,   396,   399,
-     400,   404,   405,   408,   409,   412,   413,   417,   418,   419,
+     325,   326,   327,   328,   329,   332,   333,   336,   337,   340,
+     341,   345,   346,   347,   348,   349,   350,   353,   354,   357,
+     358,   359,   360,   361,   362,   366,   370,   371,   374,   375,
+     379,   380,   384,   387,   388,   389,   390,   393,   394,   397,
+     400,   401,   405,   406,   409,   410,   413,   414,   418,   419,
      420,   421,   422,   423,   424,   425,   426,   427,   428,   429,
      430,   431,   432,   433,   434,   435,   436,   437,   438,   439,
      440,   441,   442,   443,   444,   445,   446,   447,   448,   449,
-     450,   451,   452,   456,   457,   458,   459,   462,   463,   464,
-     465,   468,   469,   472,   473
+     450,   451,   452,   453,   457,   458,   459,   460,   463,   464,
+     465,   466,   469,   470,   473,   474
 };
 #endif
 
@@ -806,48 +806,48 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     8,    71,    69,    68,    70,     0,     2,
-       3,     4,     6,     0,     7,     0,    73,    72,     1,     5,
-       0,    56,     0,     0,     0,     0,     0,    57,     0,    13,
+       0,     0,     0,     8,    72,    70,    69,    71,     0,     2,
+       3,     4,     6,     0,     7,     0,    74,    73,     1,     5,
+       0,    57,     0,     0,     0,     0,     0,    58,     0,    13,
       15,    16,     0,     0,     0,     9,     0,     0,    14,     0,
-       0,     0,     0,    58,    58,    10,     0,     0,    11,     0,
-      59,     0,     0,     0,    58,    58,    12,     0,    40,     0,
-      58,    58,    32,    34,     0,     0,     0,     0,     0,     0,
-      58,    30,    58,    31,     0,     0,     0,     0,   137,   140,
-     138,   139,   114,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    58,     0,    41,     0,    43,
+       0,     0,     0,    59,    59,    10,     0,     0,    11,     0,
+      60,     0,     0,     0,    59,    59,    12,     0,    40,     0,
+      59,    59,    32,    34,     0,     0,     0,     0,     0,     0,
+      59,    30,    59,    31,     0,     0,     0,     0,   138,   141,
+     139,   140,   115,     0,     0,     0,     0,     0,     0,    56,
+       0,     0,     0,     0,     0,    59,     0,    41,     0,    43,
       48,    46,     0,    51,    52,    53,     0,    45,     0,    47,
-      97,   133,   136,   134,   135,    36,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    58,   115,     0,    67,     0,
-      64,     0,     0,     0,    55,     0,     0,     0,     0,     0,
-       0,   119,    99,    98,     0,     0,    42,    44,    50,    49,
-      54,    58,    58,    58,    58,    58,    58,    58,    58,    58,
-      58,    58,    58,    58,    58,    58,    58,    58,    58,    58,
-      58,    58,    58,    58,    58,    58,    58,    58,    58,    58,
+      98,   134,   137,   135,   136,    36,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    59,   116,     0,    68,     0,
+      65,     0,     0,     0,    55,     0,     0,     0,     0,     0,
+       0,   120,   100,    99,     0,     0,    42,    44,    50,    49,
+      54,    59,    59,    59,    59,    59,    59,    59,    59,    59,
+      59,    59,    59,    59,    59,    59,    59,    59,    59,    59,
+      59,    59,    59,    59,    59,    59,    59,    59,    59,    59,
        0,    38,     0,    33,    40,    35,     0,     0,     0,     0,
-       0,     0,     0,     0,   142,     0,    25,     0,     0,     0,
-      58,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      58,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   143,     0,    25,     0,     0,     0,
+      59,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      59,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,    37,     0,     0,     0,    17,     0,     0,     0,     0,
-       0,     0,   143,    58,     0,     0,    62,     0,     0,     0,
-       0,    89,     0,     0,    78,    77,     0,     0,     0,     0,
-       0,    26,   120,   126,   127,   128,   129,   125,   124,   130,
-     131,   132,   118,   117,   116,   105,   109,   110,   111,   107,
-     106,   122,   123,   112,   100,   101,   121,   104,   102,   103,
-     108,    39,     0,     0,    19,    27,     0,     0,     0,    21,
-       0,     0,     0,    66,    58,    58,     0,    63,     0,     0,
-       0,     0,     0,     0,    93,    76,    75,     0,     0,   113,
-      18,     0,    28,     0,     0,    23,   144,   141,     0,     0,
-       0,    74,     0,    90,     0,     0,     0,     0,    86,     0,
-       0,     0,     0,    94,     0,     0,    20,    22,     0,    60,
-      61,     0,    82,     0,     0,     0,     0,    87,     0,     0,
-      91,     0,     0,     0,    24,     0,     0,     0,    84,     0,
-       0,    95,     0,     0,     0,     0,     0,     0,     0,    96,
-       0,     0,     0,     0,    65,    88,    83,     0,     0,     0,
-       0,     0,    85,    92,     0,     0,    81,     0,    79,     0,
-      80
+       0,     0,   144,    59,     0,     0,    63,     0,     0,     0,
+       0,    90,     0,     0,    79,    78,     0,     0,     0,     0,
+       0,    26,   121,   127,   128,   129,   130,   126,   125,   131,
+     132,   133,   119,   118,   117,   106,   110,   111,   112,   108,
+     107,   123,   124,   113,   101,   102,   122,   105,   103,   104,
+     109,    39,     0,     0,    19,    27,     0,     0,     0,    21,
+       0,     0,     0,    67,    59,    59,     0,    64,     0,     0,
+       0,     0,     0,     0,    94,    77,    76,     0,     0,   114,
+      18,     0,    28,     0,     0,    23,   145,   142,     0,     0,
+       0,    75,     0,    91,     0,     0,     0,     0,    87,     0,
+       0,     0,     0,    95,     0,     0,    20,    22,     0,    61,
+      62,     0,    83,     0,     0,     0,     0,    88,     0,     0,
+      92,     0,     0,     0,    24,     0,     0,     0,    85,     0,
+       0,    96,     0,     0,     0,     0,     0,     0,     0,    97,
+       0,     0,     0,     0,    66,    89,    84,     0,     0,     0,
+       0,     0,    86,    93,     0,     0,    82,     0,    80,     0,
+      81
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -1277,16 +1277,16 @@ static const yytype_int8 yyr1[] =
       91,    91,    91,    91,    91,    92,    92,    92,    92,    93,
       93,    93,    94,    94,    95,    95,    96,    96,    96,    96,
       97,    98,    98,    99,    99,   100,   100,   100,   100,   101,
-     101,   101,   101,   101,   101,   102,   103,   103,   104,   104,
-     105,   105,   105,   105,   105,   105,   106,   106,   107,   107,
-     107,   107,   107,   107,   108,   109,   109,   110,   110,   111,
-     111,   112,   113,   113,   113,   113,   114,   114,   115,   116,
-     116,   117,   117,   118,   118,   119,   119,   120,   120,   120,
+     101,   101,   101,   101,   101,   102,   102,   103,   103,   104,
+     104,   105,   105,   105,   105,   105,   105,   106,   106,   107,
+     107,   107,   107,   107,   107,   108,   109,   109,   110,   110,
+     111,   111,   112,   113,   113,   113,   113,   114,   114,   115,
+     116,   116,   117,   117,   118,   118,   119,   119,   120,   120,
      120,   120,   120,   120,   120,   120,   120,   120,   120,   120,
      120,   120,   120,   120,   120,   120,   120,   120,   120,   120,
      120,   120,   120,   120,   120,   120,   120,   120,   120,   120,
-     120,   120,   120,   121,   121,   121,   121,   122,   122,   122,
-     122,   123,   123,   124,   124
+     120,   120,   120,   120,   121,   121,   121,   121,   122,   122,
+     122,   122,   123,   123,   124,   124
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1297,16 +1297,16 @@ static const yytype_int8 yyr2[] =
       12,    10,    12,    11,    13,     9,    10,    10,    11,     0,
        3,     3,     1,     4,     1,     4,     3,     5,     4,     6,
        1,     1,     2,     1,     2,     1,     1,     1,     1,     2,
-       2,     1,     1,     1,     2,     2,     1,     2,     0,     1,
-       7,     7,     4,     5,     2,    10,     4,     1,     1,     1,
-       1,     1,     2,     2,     6,     5,     5,     3,     3,    12,
-      14,    11,     7,    10,     8,    11,     1,     2,     5,     4,
-       6,     7,    11,     1,     2,     4,     5,     1,     2,     2,
-       4,     4,     4,     4,     4,     4,     4,     4,     4,     4,
-       4,     4,     4,     5,     1,     2,     4,     4,     4,     2,
-       4,     4,     4,     4,     4,     4,     4,     4,     4,     4,
-       4,     4,     4,     1,     1,     1,     1,     1,     1,     1,
-       1,     5,     2,     1,     3
+       2,     1,     1,     1,     2,     2,     1,     1,     2,     0,
+       1,     7,     7,     4,     5,     2,    10,     4,     1,     1,
+       1,     1,     1,     2,     2,     6,     5,     5,     3,     3,
+      12,    14,    11,     7,    10,     8,    11,     1,     2,     5,
+       4,     6,     7,    11,     1,     2,     4,     5,     1,     2,
+       2,     4,     4,     4,     4,     4,     4,     4,     4,     4,
+       4,     4,     4,     4,     5,     1,     2,     4,     4,     4,
+       2,     4,     4,     4,     4,     4,     4,     4,     4,     4,
+       4,     4,     4,     4,     1,     1,     1,     1,     1,     1,
+       1,     1,     5,     2,     1,     3
 };
 
 
@@ -2131,49 +2131,49 @@ yyreduce:
 
   case 17: /* function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends  */
 #line 270 "parser.y"
-                                                                                              {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),0); printf("function 1\n");}
+                                                                                              {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),0,0); printf("function 1\n");}
 #line 2136 "parser.tab.c"
     break;
 
   case 18: /* function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends  */
 #line 271 "parser.y"
-                                                                                                                       {(yyval.function) = createFunction((yyvsp[-9].id_var_name),(yyvsp[-7].parameterListOrEmpty),0); printf("function 1,5\n");}
+                                                                                                                       {(yyval.function) = createFunction((yyvsp[-9].id_var_name),(yyvsp[-7].parameterListOrEmpty),0,(yyvsp[-4].vt)); printf("function 1,5\n");}
 #line 2142 "parser.tab.c"
     break;
 
   case 19: /* function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends  */
 #line 272 "parser.y"
-                                                                                                        {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-6].parameterListOrEmpty),(yyvsp[-3].stmtList)); printf("function 4\n");}
+                                                                                                        {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-6].parameterListOrEmpty),(yyvsp[-3].stmtList),0); printf("function 4\n");}
 #line 2148 "parser.tab.c"
     break;
 
   case 20: /* function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends  */
 #line 273 "parser.y"
-                                                                                                                         {(yyval.function) = createFunction((yyvsp[-10].id_var_name),(yyvsp[-8].parameterListOrEmpty),(yyvsp[-3].stmtList)); printf("function 4,5\n");}
+                                                                                                                         {(yyval.function) = createFunction((yyvsp[-10].id_var_name),(yyvsp[-8].parameterListOrEmpty),(yyvsp[-3].stmtList),(yyvsp[-5].vt)); printf("function 4,5\n");}
 #line 2154 "parser.tab.c"
     break;
 
   case 21: /* function: access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends  */
 #line 274 "parser.y"
-                                                                                                     {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),0); printf("function 7\n");}
+                                                                                                     {(yyval.function) = createFunction((yyvsp[-7].id_var_name),(yyvsp[-5].parameterListOrEmpty),0,0); printf("function 7\n");}
 #line 2160 "parser.tab.c"
     break;
 
   case 22: /* function: access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends  */
 #line 275 "parser.y"
-                                                                                                                      {(yyval.function) = createFunction((yyvsp[-9].id_var_name),(yyvsp[-7].parameterListOrEmpty),0); printf("function 7,5\n");}
+                                                                                                                      {(yyval.function) = createFunction((yyvsp[-9].id_var_name),(yyvsp[-7].parameterListOrEmpty),0,(yyvsp[-4].vt)); printf("function 7,5\n");}
 #line 2166 "parser.tab.c"
     break;
 
   case 23: /* function: access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends  */
 #line 276 "parser.y"
-                                                                                                               {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-6].parameterListOrEmpty),(yyvsp[-3].stmtList)); printf("function 10\n");}
+                                                                                                               {(yyval.function) = createFunction((yyvsp[-8].id_var_name),(yyvsp[-6].parameterListOrEmpty),(yyvsp[-3].stmtList),0); printf("function 10\n");}
 #line 2172 "parser.tab.c"
     break;
 
   case 24: /* function: access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends  */
 #line 277 "parser.y"
-                                                                                                                                {(yyval.function) = createFunction((yyvsp[-10].id_var_name),(yyvsp[-8].parameterListOrEmpty),(yyvsp[-3].stmtList)); printf("function 10,5\n");}
+                                                                                                                                {(yyval.function) = createFunction((yyvsp[-10].id_var_name),(yyvsp[-8].parameterListOrEmpty),(yyvsp[-3].stmtList),(yyvsp[-5].vt)); printf("function 10,5\n");}
 #line 2178 "parser.tab.c"
     break;
 
@@ -2363,500 +2363,506 @@ yyreduce:
 #line 2364 "parser.tab.c"
     break;
 
-  case 56: /* stmt_ends: END_OF_LINE  */
-#line 335 "parser.y"
-                       {printf("stmt_ends 1\n");}
+  case 56: /* return_stmt: RETURN  */
+#line 333 "parser.y"
+                            {(yyval.returnStmt) = createReturnStmt(0); printf("return_stmt 2\n");}
 #line 2370 "parser.tab.c"
     break;
 
-  case 57: /* stmt_ends: stmt_ends END_OF_LINE  */
+  case 57: /* stmt_ends: END_OF_LINE  */
 #line 336 "parser.y"
-                            {printf("stmt_ends 2\n");}
+                       {printf("stmt_ends 1\n");}
 #line 2376 "parser.tab.c"
     break;
 
-  case 59: /* optEoL: END_OF_LINE  */
-#line 340 "parser.y"
-                        {printf("optEoL 1\n");}
+  case 58: /* stmt_ends: stmt_ends END_OF_LINE  */
+#line 337 "parser.y"
+                            {printf("stmt_ends 2\n");}
 #line 2382 "parser.tab.c"
     break;
 
-  case 60: /* decl_stmt: CONST var_name AS basic_literal '=' optEoL expr  */
-#line 344 "parser.y"
-                                                           {(yyval.declStmt) = createDeclStmt(1, (yyvsp[-5].varName), (yyvsp[-3].vt), (yyvsp[0].expression)); printf("decl_stmt 1\n");}
+  case 60: /* optEoL: END_OF_LINE  */
+#line 341 "parser.y"
+                        {printf("optEoL 1\n");}
 #line 2388 "parser.tab.c"
     break;
 
-  case 61: /* decl_stmt: DIM var_name AS basic_literal '=' optEoL expr  */
+  case 61: /* decl_stmt: CONST var_name AS basic_literal '=' optEoL expr  */
 #line 345 "parser.y"
-                                                         {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-5].varName), (yyvsp[-3].vt), (yyvsp[0].expression)); printf("decl_stmt 2\n");}
+                                                           {(yyval.declStmt) = createDeclStmt(1, (yyvsp[-5].varName), (yyvsp[-3].vt), (yyvsp[0].expression)); printf("decl_stmt 1\n");}
 #line 2394 "parser.tab.c"
     break;
 
-  case 62: /* decl_stmt: DIM var_name AS basic_literal  */
+  case 62: /* decl_stmt: DIM var_name AS basic_literal '=' optEoL expr  */
 #line 346 "parser.y"
-                                                 {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-2].varName), (yyvsp[0].vt), 0); printf("decl_stmt 3\n");}
+                                                         {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-5].varName), (yyvsp[-3].vt), (yyvsp[0].expression)); printf("decl_stmt 2\n");}
 #line 2400 "parser.tab.c"
     break;
 
-  case 63: /* decl_stmt: DIM var_name '=' optEoL expr  */
+  case 63: /* decl_stmt: DIM var_name AS basic_literal  */
 #line 347 "parser.y"
-                                        {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-3].varName), 0, (yyvsp[0].expression)); printf("decl_stmt 4\n");}
+                                                 {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-2].varName), (yyvsp[0].vt), 0); printf("decl_stmt 3\n");}
 #line 2406 "parser.tab.c"
     break;
 
-  case 64: /* decl_stmt: DIM var_name  */
+  case 64: /* decl_stmt: DIM var_name '=' optEoL expr  */
 #line 348 "parser.y"
-                        {(yyval.declStmt) = createDeclStmt(0, (yyvsp[0].varName), 0, 0); printf("decl_stmt 5\n");}
+                                        {(yyval.declStmt) = createDeclStmt(0, (yyvsp[-3].varName), 0, (yyvsp[0].expression)); printf("decl_stmt 4\n");}
 #line 2412 "parser.tab.c"
     break;
 
-  case 65: /* decl_stmt: DIM var_name '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
+  case 65: /* decl_stmt: DIM var_name  */
 #line 349 "parser.y"
-                                                                      { printf("decl_stmt 6 (bad) \n");}
+                        {(yyval.declStmt) = createDeclStmt(0, (yyvsp[0].varName), 0, 0); printf("decl_stmt 5\n");}
 #line 2418 "parser.tab.c"
     break;
 
-  case 66: /* var_name: IDENTIFIER '(' expr ')'  */
-#line 352 "parser.y"
-                                 {(yyval.varName) = createVarName((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); printf("var_name 1\n");}
+  case 66: /* decl_stmt: DIM var_name '=' NEW basic_literal '(' ')' '{' expr_list '}'  */
+#line 350 "parser.y"
+                                                                      { printf("decl_stmt 6 (bad) \n");}
 #line 2424 "parser.tab.c"
     break;
 
-  case 67: /* var_name: IDENTIFIER  */
+  case 67: /* var_name: IDENTIFIER '(' expr ')'  */
 #line 353 "parser.y"
-                             {(yyval.varName) = createVarName((yyvsp[0].id_var_name), 0); printf("var_name 2\n");}
+                                 {(yyval.varName) = createVarName((yyvsp[-3].id_var_name), (yyvsp[-1].expression)); printf("var_name 1\n");}
 #line 2430 "parser.tab.c"
     break;
 
-  case 74: /* while_stmt: WHILE expr stmt_ends stmt_list END WHILE  */
-#line 365 "parser.y"
-                                                     {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
+  case 68: /* var_name: IDENTIFIER  */
+#line 354 "parser.y"
+                             {(yyval.varName) = createVarName((yyvsp[0].id_var_name), 0); printf("var_name 2\n");}
 #line 2436 "parser.tab.c"
     break;
 
-  case 75: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP stmt_ends  */
-#line 369 "parser.y"
-                                                           {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-3].doLoopCondition), (yyvsp[-2].stmtList)); printf("do_loop_stmt 1\n"); }
+  case 75: /* while_stmt: WHILE expr stmt_ends stmt_list END WHILE  */
+#line 366 "parser.y"
+                                                     {(yyval.whileStmt) = createWhileStmt((yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2442 "parser.tab.c"
     break;
 
-  case 76: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
+  case 76: /* do_loop_stmt: DO do_loop_condition stmt_list LOOP stmt_ends  */
 #line 370 "parser.y"
-                                                                        {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList));printf("do_loop_stmt 2\n"); }
+                                                           {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[-3].doLoopCondition), (yyvsp[-2].stmtList)); printf("do_loop_stmt 1\n"); }
 #line 2448 "parser.tab.c"
     break;
 
-  case 77: /* do_loop_condition: UNTIL expr stmt_ends  */
-#line 373 "parser.y"
-                                        {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression)); printf("do_loop_condition UNTIL\n");}
+  case 77: /* do_loop_stmt: DO stmt_ends stmt_list LOOP do_loop_condition  */
+#line 371 "parser.y"
+                                                                        {(yyval.doLoopStmt) = createDoLoopStmt((yyvsp[0].doLoopCondition), (yyvsp[-2].stmtList));printf("do_loop_stmt 2\n"); }
 #line 2454 "parser.tab.c"
     break;
 
-  case 78: /* do_loop_condition: WHILE expr stmt_ends  */
+  case 78: /* do_loop_condition: UNTIL expr stmt_ends  */
 #line 374 "parser.y"
-                                                        {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression)); printf("do_loop_condition WHILE\n");}
+                                        {(yyval.doLoopCondition) = createDoLoopCondition(1, (yyvsp[-1].expression)); printf("do_loop_condition UNTIL\n");}
 #line 2460 "parser.tab.c"
     break;
 
-  case 79: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT stmt_ends  */
-#line 378 "parser.y"
-                                                                                                                                 {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-10].id_var_name), (yyvsp[-8].vt), (yyvsp[-6].expression), (yyvsp[-4].expression), 0, (yyvsp[-2].stmtList));}
+  case 79: /* do_loop_condition: WHILE expr stmt_ends  */
+#line 375 "parser.y"
+                                                        {(yyval.doLoopCondition) = createDoLoopCondition(0, (yyvsp[-1].expression)); printf("do_loop_condition WHILE\n");}
 #line 2466 "parser.tab.c"
     break;
 
-  case 80: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT stmt_ends  */
+  case 80: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value stmt_ends stmt_list NEXT stmt_ends  */
 #line 379 "parser.y"
-                                                                                                                                                                      {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-12].id_var_name), (yyvsp[-10].vt), (yyvsp[-8].expression), (yyvsp[-6].expression), (yyvsp[-4].expression), (yyvsp[-2].stmtList));}
+                                                                                                                                 {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-10].id_var_name), (yyvsp[-8].vt), (yyvsp[-6].expression), (yyvsp[-4].expression), 0, (yyvsp[-2].stmtList));}
 #line 2472 "parser.tab.c"
     break;
 
-  case 81: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT stmt_ends  */
-#line 383 "parser.y"
-                                                                                                          {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-8].id_var_name), (yyvsp[-6].vt), (yyvsp[-4].id_var_name), (yyvsp[-2].stmtList));}
+  case 81: /* for_loop_stmt: FOR IDENTIFIER AS basic_literal '=' basic_literal_value TO basic_literal_value STEP basic_literal_value stmt_ends stmt_list NEXT stmt_ends  */
+#line 380 "parser.y"
+                                                                                                                                                                      {(yyval.forLoopStmt) = createForLoopStmt((yyvsp[-12].id_var_name), (yyvsp[-10].vt), (yyvsp[-8].expression), (yyvsp[-6].expression), (yyvsp[-4].expression), (yyvsp[-2].stmtList));}
 #line 2478 "parser.tab.c"
     break;
 
-  case 82: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF  */
-#line 386 "parser.y"
-                                                            {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0); printf("if_stmt_multi 1\n");}
+  case 82: /* for_each_loop_stmt: FOR EACH IDENTIFIER AS basic_literal IN IDENTIFIER stmt_ends stmt_list NEXT stmt_ends  */
+#line 384 "parser.y"
+                                                                                                          {(yyval.forEachLoopStmt) = createForEachLoopStmt((yyvsp[-8].id_var_name), (yyvsp[-6].vt), (yyvsp[-4].id_var_name), (yyvsp[-2].stmtList));}
 #line 2484 "parser.tab.c"
     break;
 
-  case 83: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF  */
+  case 83: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list END IF  */
 #line 387 "parser.y"
-                                                                                                     {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), 0, (yyvsp[-2].stmtList)); printf("if_stmt_multi 2\n");}
+                                                            {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-5].expression), (yyvsp[-2].stmtList), 0, 0); printf("if_stmt_multi 1\n");}
 #line 2490 "parser.tab.c"
     break;
 
-  case 84: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list elseif_list END IF  */
+  case 84: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list ELSE stmt_ends stmt_list END IF  */
 #line 388 "parser.y"
-                                                                        {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0); printf("if_stmt_multi 3\n");}
+                                                                                                     {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-8].expression), (yyvsp[-5].stmtList), 0, (yyvsp[-2].stmtList)); printf("if_stmt_multi 2\n");}
 #line 2496 "parser.tab.c"
     break;
 
-  case 85: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF  */
+  case 85: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list elseif_list END IF  */
 #line 389 "parser.y"
-                                                                                                                 {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-9].expression), (yyvsp[-6].stmtList), (yyvsp[-5].elseIfList), (yyvsp[-2].stmtList)); printf("if_stmt_multi 4\n");}
+                                                                        {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-6].expression), (yyvsp[-3].stmtList), (yyvsp[-2].elseIfList), 0); printf("if_stmt_multi 3\n");}
 #line 2502 "parser.tab.c"
     break;
 
-  case 86: /* elseif_list: elseif  */
-#line 392 "parser.y"
-                    {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf)); printf("elseif_list 1\n");}
+  case 86: /* if_stmt_multi_line: IF expr THEN stmt_ends stmt_list elseif_list ELSE stmt_ends stmt_list END IF  */
+#line 390 "parser.y"
+                                                                                                                 {(yyval.ifStmtMulti) = createIfStmtMulti((yyvsp[-9].expression), (yyvsp[-6].stmtList), (yyvsp[-5].elseIfList), (yyvsp[-2].stmtList)); printf("if_stmt_multi 4\n");}
 #line 2508 "parser.tab.c"
     break;
 
-  case 87: /* elseif_list: elseif_list elseif  */
+  case 87: /* elseif_list: elseif  */
 #line 393 "parser.y"
-                                {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf)); printf("elseif_list 2\n");}
+                    {(yyval.elseIfList) = createElseIfList((yyvsp[0].elseIf)); printf("elseif_list 1\n");}
 #line 2514 "parser.tab.c"
     break;
 
-  case 88: /* elseif: ELSEIF expr THEN stmt_ends stmt_list  */
-#line 396 "parser.y"
-                                             {(yyval.elseIf) = createElseIf((yyvsp[-3].expression), (yyvsp[0].stmtList)); printf("elseif 1\n");}
+  case 88: /* elseif_list: elseif_list elseif  */
+#line 394 "parser.y"
+                                {(yyval.elseIfList) = appendElseIfList((yyvsp[-1].elseIfList), (yyvsp[0].elseIf)); printf("elseif_list 2\n");}
 #line 2520 "parser.tab.c"
     break;
 
-  case 89: /* if_stmt_single_line: IF expr THEN single_line_stmt  */
-#line 399 "parser.y"
-                                                    {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0); printf("if_stmt_single 1\n");}
+  case 89: /* elseif: ELSEIF expr THEN stmt_ends stmt_list  */
+#line 397 "parser.y"
+                                             {(yyval.elseIf) = createElseIf((yyvsp[-3].expression), (yyvsp[0].stmtList)); printf("elseif 1\n");}
 #line 2526 "parser.tab.c"
     break;
 
-  case 90: /* if_stmt_single_line: IF expr THEN single_line_stmt ELSE single_line_stmt  */
+  case 90: /* if_stmt_single_line: IF expr THEN single_line_stmt  */
 #line 400 "parser.y"
-                                                                          {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle)); printf("if_stmt_single 2\n");}
+                                                    {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-2].expression), (yyvsp[0].statementSingle), 0); printf("if_stmt_single 1\n");}
 #line 2532 "parser.tab.c"
     break;
 
-  case 91: /* select_stmt: SELECT CASE expr stmt_ends case_list END SELECT  */
-#line 404 "parser.y"
-                                                             {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList), 0); printf("select_stmt 2\n");}
+  case 91: /* if_stmt_single_line: IF expr THEN single_line_stmt ELSE single_line_stmt  */
+#line 401 "parser.y"
+                                                                          {(yyval.ifStmtSingle) = createIfStmtSingle((yyvsp[-4].expression), (yyvsp[-2].statementSingle), (yyvsp[0].statementSingle)); printf("if_stmt_single 2\n");}
 #line 2538 "parser.tab.c"
     break;
 
-  case 92: /* select_stmt: SELECT CASE expr stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT  */
+  case 92: /* select_stmt: SELECT CASE expr stmt_ends case_list END SELECT  */
 #line 405 "parser.y"
-                                                                                                   {(yyval.selectStmt) = createSelectStmt((yyvsp[-8].expression), (yyvsp[-6].caseList), (yyvsp[-2].stmtList)); printf("select_stmt 4\n");}
+                                                             {(yyval.selectStmt) = createSelectStmt((yyvsp[-4].expression), (yyvsp[-2].caseList), 0); printf("select_stmt 2\n");}
 #line 2544 "parser.tab.c"
     break;
 
-  case 93: /* case_list: case_stmt  */
-#line 408 "parser.y"
-                     {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt)); printf("case_list 1\n");}
+  case 93: /* select_stmt: SELECT CASE expr stmt_ends case_list CASE ELSE stmt_ends stmt_list END SELECT  */
+#line 406 "parser.y"
+                                                                                                   {(yyval.selectStmt) = createSelectStmt((yyvsp[-8].expression), (yyvsp[-6].caseList), (yyvsp[-2].stmtList)); printf("select_stmt 4\n");}
 #line 2550 "parser.tab.c"
     break;
 
-  case 94: /* case_list: case_list case_stmt  */
+  case 94: /* case_list: case_stmt  */
 #line 409 "parser.y"
-                                      {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt)); printf("case_list 2\n");}
+                     {(yyval.caseList) = createCaseList((yyvsp[0].caseStmt)); printf("case_list 1\n");}
 #line 2556 "parser.tab.c"
     break;
 
-  case 95: /* case_stmt: CASE expr stmt_ends stmt_list  */
-#line 412 "parser.y"
-                                         {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), (yyvsp[0].stmtList)); printf("case_stmt 2\n");}
+  case 95: /* case_list: case_list case_stmt  */
+#line 410 "parser.y"
+                                      {(yyval.caseList) = appendCaseList((yyvsp[-1].caseList), (yyvsp[0].caseStmt)); printf("case_list 2\n");}
 #line 2562 "parser.tab.c"
     break;
 
-  case 96: /* case_stmt: CASE IS expr stmt_ends stmt_list  */
+  case 96: /* case_stmt: CASE expr stmt_ends stmt_list  */
 #line 413 "parser.y"
-                                            {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), (yyvsp[0].stmtList)); printf("case_stmt 4\n");}
+                                         {(yyval.caseStmt) = createCaseStmt(0, (yyvsp[-2].expression), (yyvsp[0].stmtList)); printf("case_stmt 2\n");}
 #line 2568 "parser.tab.c"
     break;
 
-  case 97: /* expr: basic_literal_value  */
-#line 417 "parser.y"
-                          {(yyval.expression) = (yyvsp[0].expression); printf("expr 0\n");}
+  case 97: /* case_stmt: CASE IS expr stmt_ends stmt_list  */
+#line 414 "parser.y"
+                                            {(yyval.caseStmt) = createCaseStmt(1, (yyvsp[-2].expression), (yyvsp[0].stmtList)); printf("case_stmt 4\n");}
 #line 2574 "parser.tab.c"
     break;
 
-  case 98: /* expr: '-' expr  */
+  case 98: /* expr: basic_literal_value  */
 #line 418 "parser.y"
-                                  {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression)); printf("expr 1\n");}
+                          {(yyval.expression) = (yyvsp[0].expression); printf("expr 0\n");}
 #line 2580 "parser.tab.c"
     break;
 
-  case 99: /* expr: '+' expr  */
+  case 99: /* expr: '-' expr  */
 #line 419 "parser.y"
-                                 {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression)); printf("expr 2\n");}
+                                  {(yyval.expression) = createExpression(ET_MINUS, 0, (yyvsp[0].expression)); printf("expr 1\n");}
 #line 2586 "parser.tab.c"
     break;
 
-  case 100: /* expr: expr '+' optEoL expr  */
+  case 100: /* expr: '+' expr  */
 #line 420 "parser.y"
-                           {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression));  printf("expr 3\n");}
+                                 {(yyval.expression) = createExpression(ET_PLUS, 0, (yyvsp[0].expression)); printf("expr 2\n");}
 #line 2592 "parser.tab.c"
     break;
 
-  case 101: /* expr: expr '-' optEoL expr  */
+  case 101: /* expr: expr '+' optEoL expr  */
 #line 421 "parser.y"
-                           {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression));  printf("expr 4\n");}
+                           {(yyval.expression) = createExpression(ET_PLUS, (yyvsp[-3].expression), (yyvsp[0].expression));  printf("expr 3\n");}
 #line 2598 "parser.tab.c"
     break;
 
-  case 102: /* expr: expr '*' optEoL expr  */
+  case 102: /* expr: expr '-' optEoL expr  */
 #line 422 "parser.y"
-                           {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 5\n");}
+                           {(yyval.expression) = createExpression(ET_MINUS, (yyvsp[-3].expression), (yyvsp[0].expression));  printf("expr 4\n");}
 #line 2604 "parser.tab.c"
     break;
 
-  case 103: /* expr: expr '/' optEoL expr  */
+  case 103: /* expr: expr '*' optEoL expr  */
 #line 423 "parser.y"
-                           {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 6\n");}
+                           {(yyval.expression) = createExpression(ET_MULT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 5\n");}
 #line 2610 "parser.tab.c"
     break;
 
-  case 104: /* expr: expr INT_DIV optEoL expr  */
+  case 104: /* expr: expr '/' optEoL expr  */
 #line 424 "parser.y"
-                               {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 7\n");}
+                           {(yyval.expression) = createExpression(ET_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 6\n");}
 #line 2616 "parser.tab.c"
     break;
 
-  case 105: /* expr: expr '=' optEoL expr  */
+  case 105: /* expr: expr INT_DIV optEoL expr  */
 #line 425 "parser.y"
-                           {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 8\n");}
+                               {(yyval.expression) = createExpression(ET_INTDIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 7\n");}
 #line 2622 "parser.tab.c"
     break;
 
-  case 106: /* expr: expr '<' optEoL expr  */
+  case 106: /* expr: expr '=' optEoL expr  */
 #line 426 "parser.y"
-                           {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 9\n");}
+                           {(yyval.expression) = createExpression(ET_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 8\n");}
 #line 2628 "parser.tab.c"
     break;
 
-  case 107: /* expr: expr '>' optEoL expr  */
+  case 107: /* expr: expr '<' optEoL expr  */
 #line 427 "parser.y"
-                           {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 10\n");}
+                           {(yyval.expression) = createExpression(ET_LESSER, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 9\n");}
 #line 2634 "parser.tab.c"
     break;
 
-  case 108: /* expr: expr '^' optEoL expr  */
+  case 108: /* expr: expr '>' optEoL expr  */
 #line 428 "parser.y"
-                           {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 11\n");}
+                           {(yyval.expression) = createExpression(ET_GREATER, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 10\n");}
 #line 2640 "parser.tab.c"
     break;
 
-  case 109: /* expr: expr NOT_EQUAL optEoL expr  */
+  case 109: /* expr: expr '^' optEoL expr  */
 #line 429 "parser.y"
-                                 {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 12\n");}
+                           {(yyval.expression) = createExpression(ET_EXP, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 11\n");}
 #line 2646 "parser.tab.c"
     break;
 
-  case 110: /* expr: expr LESS_OR_EQUAL optEoL expr  */
+  case 110: /* expr: expr NOT_EQUAL optEoL expr  */
 #line 430 "parser.y"
-                                     {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 13\n");}
+                                 {(yyval.expression) = createExpression(ET_NOT_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 12\n");}
 #line 2652 "parser.tab.c"
     break;
 
-  case 111: /* expr: expr MORE_OR_EQUAL optEoL expr  */
+  case 111: /* expr: expr LESS_OR_EQUAL optEoL expr  */
 #line 431 "parser.y"
-                                     {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 14\n");}
+                                     {(yyval.expression) = createExpression(ET_LESSER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 13\n");}
 #line 2658 "parser.tab.c"
     break;
 
-  case 112: /* expr: expr '&' optEoL expr  */
+  case 112: /* expr: expr MORE_OR_EQUAL optEoL expr  */
 #line 432 "parser.y"
-                           {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 15\n");}
+                                     {(yyval.expression) = createExpression(ET_GREATER_EQUAL, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 14\n");}
 #line 2664 "parser.tab.c"
     break;
 
-  case 113: /* expr: '(' optEoL expr optEoL ')'  */
+  case 113: /* expr: expr '&' optEoL expr  */
 #line 433 "parser.y"
-                                 {(yyval.expression) = createExpression(ET_PARENTHESIS, 0, (yyvsp[-2].expression)); printf("expr 16\n");}
+                           {(yyval.expression) = createExpression(ET_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 15\n");}
 #line 2670 "parser.tab.c"
     break;
 
-  case 114: /* expr: IDENTIFIER  */
+  case 114: /* expr: '(' optEoL expr optEoL ')'  */
 #line 434 "parser.y"
-                 {(yyval.expression) = createSimpleExpression(ET_ID, (Value){.string_val=(yyvsp[0].id_var_name)}); printf("expr 17\n");}
+                                 {(yyval.expression) = createExpression(ET_PARENTHESIS, 0, (yyvsp[-2].expression)); printf("expr 16\n");}
 #line 2676 "parser.tab.c"
     break;
 
-  case 115: /* expr: IDENTIFIER arguments  */
+  case 115: /* expr: IDENTIFIER  */
 #line 435 "parser.y"
-                           {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expressionList)); printf("expr 18\n");}
+                 {(yyval.expression) = createSimpleExpression(ET_ID, (Value){.string_val=(yyvsp[0].id_var_name)}); printf("expr 17\n");}
 #line 2682 "parser.tab.c"
     break;
 
-  case 116: /* expr: expr AND optEoL expr  */
+  case 116: /* expr: IDENTIFIER arguments  */
 #line 436 "parser.y"
-                           {(yyval.expression) = createExpression(ET_AND, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 19\n");}
+                           {(yyval.expression) = createExpressionWithList(ET_ARRAY_OR_FUNC, (Value){.string_val=(yyvsp[-1].id_var_name)}, (yyvsp[0].expressionList)); printf("expr 18\n");}
 #line 2688 "parser.tab.c"
     break;
 
-  case 117: /* expr: expr OR optEoL expr  */
+  case 117: /* expr: expr AND optEoL expr  */
 #line 437 "parser.y"
-                          {(yyval.expression) = createExpression(ET_OR, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 20\n");}
+                           {(yyval.expression) = createExpression(ET_AND, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 19\n");}
 #line 2694 "parser.tab.c"
     break;
 
-  case 118: /* expr: expr XOR optEoL expr  */
+  case 118: /* expr: expr OR optEoL expr  */
 #line 438 "parser.y"
-                           {(yyval.expression) = createExpression(ET_XOR, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 21\n");}
+                          {(yyval.expression) = createExpression(ET_OR, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 20\n");}
 #line 2700 "parser.tab.c"
     break;
 
-  case 119: /* expr: NOT expr  */
+  case 119: /* expr: expr XOR optEoL expr  */
 #line 439 "parser.y"
-               {(yyval.expression) = createExpression(ET_NOT, 0, (yyvsp[0].expression)); printf("expr 22\n");}
+                           {(yyval.expression) = createExpression(ET_XOR, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 21\n");}
 #line 2706 "parser.tab.c"
     break;
 
-  case 120: /* expr: expr TO optEoL expr  */
+  case 120: /* expr: NOT expr  */
 #line 440 "parser.y"
-                              {(yyval.expression) = createExpression(ET_TO, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 23\n");}
+               {(yyval.expression) = createExpression(ET_NOT, 0, (yyvsp[0].expression)); printf("expr 22\n");}
 #line 2712 "parser.tab.c"
     break;
 
-  case 121: /* expr: expr MOD optEoL expr  */
+  case 121: /* expr: expr TO optEoL expr  */
 #line 441 "parser.y"
-                               {(yyval.expression) = createExpression(ET_MOD, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 24\n");}
+                              {(yyval.expression) = createExpression(ET_TO, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 23\n");}
 #line 2718 "parser.tab.c"
     break;
 
-  case 122: /* expr: expr SHIFT_LEFT optEoL expr  */
+  case 122: /* expr: expr MOD optEoL expr  */
 #line 442 "parser.y"
-                                      {(yyval.expression) = createExpression(ET_SHIFT_L, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 25\n");}
+                               {(yyval.expression) = createExpression(ET_MOD, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 24\n");}
 #line 2724 "parser.tab.c"
     break;
 
-  case 123: /* expr: expr SHIFT_RIGHT optEoL expr  */
+  case 123: /* expr: expr SHIFT_LEFT optEoL expr  */
 #line 443 "parser.y"
-                                       {(yyval.expression) = createExpression(ET_SHIFT_R, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 26\n");}
+                                      {(yyval.expression) = createExpression(ET_SHIFT_L, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 25\n");}
 #line 2730 "parser.tab.c"
     break;
 
-  case 124: /* expr: expr ASSIGN_SUB optEoL expr  */
+  case 124: /* expr: expr SHIFT_RIGHT optEoL expr  */
 #line 444 "parser.y"
-                                      {(yyval.expression) = createExpression(ET_ASSIGN_SUB, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 27\n");}
+                                       {(yyval.expression) = createExpression(ET_SHIFT_R, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 26\n");}
 #line 2736 "parser.tab.c"
     break;
 
-  case 125: /* expr: expr ASSIGN_ADD optEoL expr  */
+  case 125: /* expr: expr ASSIGN_SUB optEoL expr  */
 #line 445 "parser.y"
-                                      {(yyval.expression) = createExpression(ET_ASSIGN_ADD, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 28\n");}
+                                      {(yyval.expression) = createExpression(ET_ASSIGN_SUB, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 27\n");}
 #line 2742 "parser.tab.c"
     break;
 
-  case 126: /* expr: expr ASSIGN_CONSTRUCT optEoL expr  */
+  case 126: /* expr: expr ASSIGN_ADD optEoL expr  */
 #line 446 "parser.y"
-                                            {(yyval.expression) = createExpression(ET_ASSIGN_CONSTRUCT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 29\n");}
+                                      {(yyval.expression) = createExpression(ET_ASSIGN_ADD, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 28\n");}
 #line 2748 "parser.tab.c"
     break;
 
-  case 127: /* expr: expr ASSIGN_MULT optEoL expr  */
+  case 127: /* expr: expr ASSIGN_CONSTRUCT optEoL expr  */
 #line 447 "parser.y"
-                                       {(yyval.expression) = createExpression(ET_ASSIGN_MULT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 30\n");}
+                                            {(yyval.expression) = createExpression(ET_ASSIGN_CONSTRUCT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 29\n");}
 #line 2754 "parser.tab.c"
     break;
 
-  case 128: /* expr: expr ASSIGN_ORD_DIV optEoL expr  */
+  case 128: /* expr: expr ASSIGN_MULT optEoL expr  */
 #line 448 "parser.y"
-                                          {(yyval.expression) = createExpression(ET_ASSIGN_ORD_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 31\n");}
+                                       {(yyval.expression) = createExpression(ET_ASSIGN_MULT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 30\n");}
 #line 2760 "parser.tab.c"
     break;
 
-  case 129: /* expr: expr ASSIGN_INT_DIV optEoL expr  */
+  case 129: /* expr: expr ASSIGN_ORD_DIV optEoL expr  */
 #line 449 "parser.y"
-                                          {(yyval.expression) = createExpression(ET_ASSIGN_INT_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 32\n");}
+                                          {(yyval.expression) = createExpression(ET_ASSIGN_ORD_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 31\n");}
 #line 2766 "parser.tab.c"
     break;
 
-  case 130: /* expr: expr ASSIGN_LSHIFT optEoL expr  */
+  case 130: /* expr: expr ASSIGN_INT_DIV optEoL expr  */
 #line 450 "parser.y"
-                                         {(yyval.expression) = createExpression(ET_ASSIGN_LSHIFT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 33\n");}
+                                          {(yyval.expression) = createExpression(ET_ASSIGN_INT_DIV, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 32\n");}
 #line 2772 "parser.tab.c"
     break;
 
-  case 131: /* expr: expr ASSIGN_RSHIFT optEoL expr  */
+  case 131: /* expr: expr ASSIGN_LSHIFT optEoL expr  */
 #line 451 "parser.y"
-                                         {(yyval.expression) = createExpression(ET_ASSIGN_RSHIFT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 34\n");}
+                                         {(yyval.expression) = createExpression(ET_ASSIGN_LSHIFT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 33\n");}
 #line 2778 "parser.tab.c"
     break;
 
-  case 132: /* expr: expr ASSIGN_CONCAT optEoL expr  */
+  case 132: /* expr: expr ASSIGN_RSHIFT optEoL expr  */
 #line 452 "parser.y"
-                                         {(yyval.expression) = createExpression(ET_ASSIGN_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 35\n");}
+                                         {(yyval.expression) = createExpression(ET_ASSIGN_RSHIFT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 34\n");}
 #line 2784 "parser.tab.c"
     break;
 
-  case 133: /* basic_literal: INT  */
-#line 456 "parser.y"
-                   {(yyval.vt) = VT_INTEGER; printf("basic_literal int\n");}
+  case 133: /* expr: expr ASSIGN_CONCAT optEoL expr  */
+#line 453 "parser.y"
+                                         {(yyval.expression) = createExpression(ET_ASSIGN_CONCAT, (yyvsp[-3].expression), (yyvsp[0].expression)); printf("expr 35\n");}
 #line 2790 "parser.tab.c"
     break;
 
-  case 134: /* basic_literal: STRING  */
+  case 134: /* basic_literal: INT  */
 #line 457 "parser.y"
-                     {(yyval.vt) = VT_STRING; printf("basic_literal str\n");}
+                   {(yyval.vt) = VT_INTEGER; printf("basic_literal int\n");}
 #line 2796 "parser.tab.c"
     break;
 
-  case 135: /* basic_literal: BOOLEAN  */
+  case 135: /* basic_literal: STRING  */
 #line 458 "parser.y"
-                      {(yyval.vt) = VT_BOOLEAN; printf("basic_literal bool\n");}
+                     {(yyval.vt) = VT_STRING; printf("basic_literal str\n");}
 #line 2802 "parser.tab.c"
     break;
 
-  case 136: /* basic_literal: DOUBLE  */
+  case 136: /* basic_literal: BOOLEAN  */
 #line 459 "parser.y"
-                     {(yyval.vt) = VT_DOUBLE; printf("basic_literal double\n");}
+                      {(yyval.vt) = VT_BOOLEAN; printf("basic_literal bool\n");}
 #line 2808 "parser.tab.c"
     break;
 
-  case 137: /* basic_literal_value: INT_VALUE  */
-#line 462 "parser.y"
-                               {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)}); printf("basic_literal_value int\n");}
+  case 137: /* basic_literal: DOUBLE  */
+#line 460 "parser.y"
+                     {(yyval.vt) = VT_DOUBLE; printf("basic_literal double\n");}
 #line 2814 "parser.tab.c"
     break;
 
-  case 138: /* basic_literal_value: STRING_VALUE  */
+  case 138: /* basic_literal_value: INT_VALUE  */
 #line 463 "parser.y"
-                                  {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)}); printf("basic_literal_value str\n");}
+                               {(yyval.expression) = createSimpleExpression(VT_INTEGER, (Value){.int_val = (yyvsp[0].int_val)}); printf("basic_literal_value int\n");}
 #line 2820 "parser.tab.c"
     break;
 
-  case 139: /* basic_literal_value: BOOLEAN_VALUE  */
+  case 139: /* basic_literal_value: STRING_VALUE  */
 #line 464 "parser.y"
-                                   {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)}); printf("basic_literal_value bool\n");}
+                                  {(yyval.expression) = createSimpleExpression(VT_STRING, (Value){.string_val=(yyvsp[0].str_val)}); printf("basic_literal_value str\n");}
 #line 2826 "parser.tab.c"
     break;
 
-  case 140: /* basic_literal_value: DOUBLE_VALUE  */
+  case 140: /* basic_literal_value: BOOLEAN_VALUE  */
 #line 465 "parser.y"
-                                  {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)}); printf("basic_literal_value double\n");}
+                                   {(yyval.expression) = createSimpleExpression(VT_BOOLEAN, (Value){.int_val=(yyvsp[0].bool_val)}); printf("basic_literal_value bool\n");}
 #line 2832 "parser.tab.c"
     break;
 
-  case 141: /* arguments: '(' optEoL expr_list optEoL ')'  */
-#line 468 "parser.y"
-                                           {(yyval.expressionList) = (yyvsp[-2].expressionList);}
+  case 141: /* basic_literal_value: DOUBLE_VALUE  */
+#line 466 "parser.y"
+                                  {(yyval.expression) = createSimpleExpression(VT_DOUBLE, (Value){.double_val=(yyvsp[0].double_val)}); printf("basic_literal_value double\n");}
 #line 2838 "parser.tab.c"
     break;
 
-  case 142: /* arguments: '(' ')'  */
+  case 142: /* arguments: '(' optEoL expr_list optEoL ')'  */
 #line 469 "parser.y"
-                              {(yyval.expressionList) = 0;}
+                                           {(yyval.expressionList) = (yyvsp[-2].expressionList);}
 #line 2844 "parser.tab.c"
     break;
 
-  case 143: /* expr_list: expr  */
-#line 472 "parser.y"
-                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression)); printf("expr_list 1\n");}
+  case 143: /* arguments: '(' ')'  */
+#line 470 "parser.y"
+                              {(yyval.expressionList) = 0;}
 #line 2850 "parser.tab.c"
     break;
 
-  case 144: /* expr_list: expr_list ',' expr  */
+  case 144: /* expr_list: expr  */
 #line 473 "parser.y"
-                              {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList),(yyvsp[0].expression)); printf("expr_list 2\n");}
+                {(yyval.expressionList) = createExpressionList((yyvsp[0].expression)); printf("expr_list 1\n");}
 #line 2856 "parser.tab.c"
     break;
 
+  case 145: /* expr_list: expr_list ',' expr  */
+#line 474 "parser.y"
+                              {(yyval.expressionList) = appendExpressionToList((yyvsp[-2].expressionList),(yyvsp[0].expression)); printf("expr_list 2\n");}
+#line 2862 "parser.tab.c"
+    break;
 
-#line 2860 "parser.tab.c"
+
+#line 2866 "parser.tab.c"
 
       default: break;
     }
@@ -3080,7 +3086,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 476 "parser.y"
+#line 477 "parser.y"
 
 
 int main(int argc, char** argv) {
@@ -3237,12 +3243,13 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 	return result;
 }
 
-Function *createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList)
+Function *createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList, VarType varType)
 {
 	Function *result = (Function *)malloc(sizeof(Function));
 
 	result->id_var_name = id_var_name;
 	result->arguments = arguments;
+	result->varType = varType;
 	result->stmtList = stmtList;
 
 	return result;

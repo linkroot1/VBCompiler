@@ -267,14 +267,14 @@ function_or_sub: function {$$ = createFunctionOrSub(0,$1); printf("function_or_s
                | sub_bloc {$$ = createFunctionOrSub($1,0); printf("function_or_sub 2\n");}
                ;
 
-function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0); printf("function 1\n");}
-		| FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0); printf("function 1,5\n");}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7); printf("function 4\n");}
-        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$9); printf("function 4,5\n");}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0); printf("function 7\n");}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0); printf("function 7,5\n");}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8); printf("function 10\n");}
-        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$10); printf("function 10,5\n");}
+function: FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,0); printf("function 1\n");}
+		| FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($2,$4,0,$7); printf("function 1,5\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$7,0); printf("function 4\n");}
+        | FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($2,$4,$9,$7); printf("function 4,5\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,0); printf("function 7\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends END FUNCTION stmt_ends {$$ = createFunction($3,$5,0,$8); printf("function 7,5\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$8,0); printf("function 10\n");}
+        | access FUNCTION IDENTIFIER '(' parameterlist_or_empty ')' AS basic_literal stmt_ends stmt_list END FUNCTION stmt_ends {$$ = createFunction($3,$5,$10,$8); printf("function 10,5\n");}
         ;
 
 sub_bloc: SUB IDENTIFIER '(' parameterlist_or_empty ')' stmt_ends END SUB stmt_ends {$$ = createSubBloc($2,$4,0);}
@@ -330,6 +330,7 @@ multi_line_stmt: if_stmt_multi_line stmt_ends {$$ = createStatementMulti(ST_IF_M
                ;
 
 return_stmt: RETURN expr {$$ = createReturnStmt($2); printf("return_stmt 1\n");}
+		   | RETURN {$$ = createReturnStmt(0); printf("return_stmt 2\n");}
 		   ;
 
 stmt_ends: END_OF_LINE {printf("stmt_ends 1\n");}
@@ -629,12 +630,13 @@ FunctionOrSub *createFunctionOrSub(SubBloc *subBloc, Function *function)
 	return result;
 }
 
-Function *createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList)
+Function *createFunction(char* id_var_name, ParameterListOrEmpty *arguments, StmtList *stmtList, VarType varType)
 {
 	Function *result = (Function *)malloc(sizeof(Function));
 
 	result->id_var_name = id_var_name;
 	result->arguments = arguments;
+	result->varType = varType;
 	result->stmtList = stmtList;
 
 	return result;

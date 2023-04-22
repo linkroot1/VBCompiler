@@ -200,6 +200,7 @@ struct Function
 {
 	char* id_var_name;
 	ParameterListOrEmpty* arguments;
+	enum VarType varType;
 	StmtList* stmtList;
 };
 
