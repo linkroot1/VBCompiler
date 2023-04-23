@@ -7,14 +7,14 @@ Module Program
 
         Select Case number
 
-            Case 1 To 5
+            Case 1 To 5, 15
 
                 number = number + 1
 
-            Case 5 To 7
+            Case 5 To 7, Is < 0
                 number = number + 2
 
-            Case 7 To 9
+            Case 1 To 4, 7 To 9, 11, 13, Is > test1
                 number = number + 3
 
             Case Else

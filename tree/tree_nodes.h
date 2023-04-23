@@ -147,7 +147,10 @@ enum ExprType
 	ET_ASSIGN_INT_DIV,
 	ET_ASSIGN_LSHIFT,
 	ET_ASSIGN_RSHIFT,
-	ET_ASSIGN_CONCAT
+	ET_ASSIGN_CONCAT,
+	ET_IS_EQUAL,
+	ET_IS_LESSER,
+	ET_IS_GREATER
 };
 
 
@@ -365,8 +368,7 @@ struct CaseList
 
 struct CaseStmt
 {
-	int* isIs;
-	Expression* expression;
+	ExpressionList* exprList;
 	StmtList* stmtList;
 
 	CaseStmt* nextInList;

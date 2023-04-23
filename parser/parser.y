@@ -58,7 +58,7 @@ IfStmtSingle *createIfStmtSingle(Expression *expression, StatementSingle *thenSt
 SelectStmt *createSelectStmt(Expression *expression, CaseList *caseList, StmtList * elseStmt);
 CaseList *createCaseList(CaseStmt *caseStmt);
 CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt);
-CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList);
+CaseStmt *createCaseStmt(ExpressionList *exprList, StmtList *stmtList);
 DeclStmt *createDeclStmt(int isConst, VarName* id_var_name, VarType varType, Expression *expression);
 VarName *createVarName(char* id_var_name, Expression *expression);
 VarName *createVarName(char* id_var_name, Expression *expression);
@@ -420,8 +420,7 @@ case_list: case_stmt {$$ = createCaseList($1); printf("case_list 1\n");}
 		| case_list case_stmt {$$ = appendCaseList($1, $2); printf("case_list 2\n");}
 		;
 
-case_stmt: CASE expr stmt_ends stmt_list {$$ = createCaseStmt(0, $2, $4); printf("case_stmt 2\n");}
-         | CASE IS expr stmt_ends stmt_list {$$ = createCaseStmt(1, $3, $5); printf("case_stmt 4\n");}
+case_stmt: CASE expr_list stmt_ends stmt_list {$$ = createCaseStmt($2, $4); printf("case_stmt 1\n");}
          ;
 
 //---------------------------EXPRession
@@ -461,8 +460,10 @@ expr: basic_literal_value {$$ = $1; printf("expr 0\n");}
 	| expr ASSIGN_LSHIFT optEoL expr {$$ = createExpression(ET_ASSIGN_LSHIFT, $1, $4); printf("expr 33\n");}
 	| expr ASSIGN_RSHIFT optEoL expr {$$ = createExpression(ET_ASSIGN_RSHIFT, $1, $4); printf("expr 34\n");}
 	| expr ASSIGN_CONCAT optEoL expr {$$ = createExpression(ET_ASSIGN_CONCAT, $1, $4); printf("expr 35\n");}
+    | IS '=' optEoL expr {$$ = createExpression(ET_IS_EQUAL, 0, $4); printf("expr 36\n");}
+    | IS '<' optEoL expr {$$ = createExpression(ET_IS_LESSER, 0, $4); printf("expr 37\n");}
+    | IS '>' optEoL expr {$$ = createExpression(ET_IS_GREATER, 0, $4); printf("expr 38\n");}
     ;
-
 
 basic_literal: INT {$$ = VT_INTEGER; printf("basic_literal int\n");}
             | STRING {$$ = VT_STRING; printf("basic_literal str\n");}
@@ -921,15 +922,11 @@ CaseList *appendCaseList(CaseList *list, CaseStmt *caseStmt)
 	return list;
 }
 
-CaseStmt *createCaseStmt(int isIs, Expression *expression, StmtList *stmtList)
+CaseStmt *createCaseStmt(ExpressionList *exprList, StmtList *stmtList)
 {
 	CaseStmt *result = (CaseStmt *)malloc(sizeof(CaseStmt));
 
-	if (isIs)
-		result->isIs = 1;
-	else
-		result->isIs = 0;
-	result->expression = expression;
+	result->exprList = exprList;
 	result->stmtList = stmtList;
 
 	result->nextInList = 0;

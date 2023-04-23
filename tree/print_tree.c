@@ -139,7 +139,6 @@ char* expr_type_str(ExprType et)
 	if (et == ET_OR) return "OR";
 	if (et == ET_XOR) return "XOR";
 	if (et == ET_NOT) return "NOT";
-	if (et == ET_TO) return "TO";
 	if (et == ET_MOD) return "MOD";
 	if (et == ET_SHIFT_L) return "<<";
 	if (et == ET_SHIFT_R) return ">>";
@@ -154,6 +153,11 @@ char* expr_type_str(ExprType et)
 	if (et == ET_ASSIGN_CONCAT) return "&=";
 
 	if (et == ET_PARENTHESIS) return "()";
+
+	if (et == ET_TO) return "TO";
+	if (et == ET_IS_EQUAL) return "IS =";
+	if (et == ET_IS_LESSER) return "IS <";
+	if (et == ET_IS_GREATER) return "IS >";
 	return "";
 }
 
@@ -638,7 +642,7 @@ void parseCaseStatement(CaseStmt* caseStmt, Tree* tree, int parentNum)
 		addTreeUnit(tree, newTreeUnit(parentNum, "CaseStatement", ""));
 		int currentIter = tree->end->num;
 
-		parseExpression(caseStmt->expression, tree, currentIter);
+		parseExpressionList(caseStmt->exprList, tree, currentIter);
 		parseStatementList(caseStmt->stmtList, tree, currentIter);
 	}
 }

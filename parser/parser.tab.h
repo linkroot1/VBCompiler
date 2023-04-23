@@ -35,6 +35,7 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 #include "../tree/tree_nodes.h"
+
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -72,21 +73,21 @@ extern int yydebug;
     WHILE = 273,                   /* WHILE  */
     IF = 274,                      /* IF  */
     NEW = 275,                     /* NEW  */
-    ELSEIF = 276,                  /* ELSEIF  */
-    SELECT = 277,                  /* SELECT  */
-    CASE = 278,                    /* CASE  */
-    IS = 279,                      /* IS  */
-    TO = 280,                      /* TO  */
-    IMPORTS = 281,                 /* IMPORTS  */
-    MODULE = 282,                  /* MODULE  */
-    FUNCTION = 283,                /* FUNCTION  */
-    RETURN = 284,                  /* RETURN  */
-    DO = 285,                      /* DO  */
-    LOOP = 286,                    /* LOOP  */
-    UNTIL = 287,                   /* UNTIL  */
-    FOR = 288,                     /* FOR  */
-    NEXT = 289,                    /* NEXT  */
-    STEP = 290,                    /* STEP  */
+    STEP = 276,                    /* STEP  */
+    ELSEIF = 277,                  /* ELSEIF  */
+    SELECT = 278,                  /* SELECT  */
+    CASE = 279,                    /* CASE  */
+    IS = 280,                      /* IS  */
+    TO = 281,                      /* TO  */
+    IMPORTS = 282,                 /* IMPORTS  */
+    MODULE = 283,                  /* MODULE  */
+    FUNCTION = 284,                /* FUNCTION  */
+    RETURN = 285,                  /* RETURN  */
+    DO = 286,                      /* DO  */
+    LOOP = 287,                    /* LOOP  */
+    UNTIL = 288,                   /* UNTIL  */
+    FOR = 289,                     /* FOR  */
+    NEXT = 290,                    /* NEXT  */
     OF = 291,                      /* OF  */
     IN = 292,                      /* IN  */
     EACH = 293,                    /* EACH  */
