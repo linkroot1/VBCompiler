@@ -67,7 +67,11 @@ Next {return NEXT;}
 In {return IN;}
 To {return TO;}
 Mod {return MOD;}
-
+Until {return UNTIL;}
+Step {return STEP;}
+New {return NEW;}
+Is {return IS;}
+Of {return OF;}
 
 \>\= {return LESS_OR_EQUAL;}
 \<\= {return MORE_OR_EQUAL;}

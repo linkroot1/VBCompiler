@@ -169,6 +169,7 @@ ProgramItemList *root;
 %token WHILE
 %token IF
 %token NEW
+%token STEP
 
 %token ELSEIF
 %token SELECT
@@ -184,7 +185,6 @@ ProgramItemList *root;
 %token UNTIL
 %token FOR
 %token NEXT
-%token STEP
 %token OF
 %token IN
 %token EACH
